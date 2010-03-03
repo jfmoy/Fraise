@@ -1,0 +1,27 @@
+.TH SMULTRON 1 LOCAL
+
+.SH NAME
+smultron - A command-line utility for Smultron
+
+.SH SYNOPSIS
+.B smultron [file] ...
+
+.SH DESCRIPTION
+
+With smultron you can start the application Smultron by just writing smultron with no options. If you write something after smultron it considers that to be the path to the file or, if you write more than one path, the paths to the files. You can use the standard wildcards e.g. * and ~ for your home folder. If you don't specify a full path it adds the current working directory to what you write. If it can't find any of the specified files, it first creates them and then opens them. (Note that if you use a wildcard and it can't match a file to that it creates a file including the wildcard character as a character in the path, e.g. if you write smultron ~/Desktop/*.jsp and there aren't any .jsp-files on the desktop it creates a file called *.jsp on the desktop.)
+
+.SH EXAMPLES
+
+smultron - opens the application
+
+smultron foo - opens foo from the current directory in Smultron
+
+smultron ~/foo - opens foo from your home folder in Smultron
+
+smultron ~/Desktop/fooDoesNotExist - creates the file fooDoesNotExist on your desktop and opens it in Smultron
+
+smultron ~/Desktop/*.php /etc/*.conf - opens all the files that end with .php on the desktop and all files that ends with .conf in the /etc folder
+
+.SH AUTHOR
+
+Peter Borg (pgw3@mac.com), 2004-2008

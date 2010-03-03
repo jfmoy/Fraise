@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>HTML</key>
+	<array>
+		<dict>
+			<key>name</key>
+			<string>Anchor</string>
+			<key>text</key>
+			<string>&lt;a href="#"&gt;%%s&lt;/a&gt;</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Image</string>
+			<key>text</key>
+			<string>&lt;img src="#" alt="%%s"/&gt;</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>List</string>
+			<key>text</key>
+			<string>&lt;ul&gt;
+	&lt;li&gt;%%s&lt;/li&gt;
+&lt;/ul&gt;</string>
+		</dict>
+	</array>
+	<key>Templates</key>
+	<array>
+		<dict>
+			<key>name</key>
+			<string>HTML-Transitional</string>
+			<key>text</key>
+			<string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/&gt;
+&lt;title&gt;%%s&lt;/title&gt;
+&lt;link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/&gt;
+&lt;link rel="stylesheet" type="text/css" href=".css"/&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;/body&gt;
+&lt;/html&gt;</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>HTML-Strict</string>
+			<key>text</key>
+			<string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/&gt;
+&lt;title&gt;%%s&lt;/title&gt;
+&lt;link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/&gt;
+&lt;link rel="stylesheet" type="text/css" href=".css"/&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;/body&gt;
+&lt;/html&gt;</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>XHTML-Transitional</string>
+			<key>text</key>
+			<string>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html;charset=utf-8"/&gt;
+&lt;title&gt;%%s&lt;/title&gt;
+&lt;link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/&gt;
+&lt;link rel="stylesheet" type="text/css" href=".css"/&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;/body&gt;
+&lt;/html&gt;</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>XHTML-Strict</string>
+			<key>text</key>
+			<string>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html;charset=utf-8"/&gt;
+&lt;title&gt;%%s&lt;/title&gt;
+&lt;link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/&gt;
+&lt;link rel="stylesheet" type="text/css" href=".css"/&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;/body&gt;
+&lt;/html&gt;</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>CSS</string>
+			<key>text</key>
+			<string>@import url();
+
+body {
+	font-family: Helvetica, Verdana, sans-serif;
+	font-size: 90%;
+	line-height: 1.6em;
+	text-align: center;
+	margin: 0;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 0;
+	background: rgb(255, 255, 255) url(background.jpg);
+	color: rgb(0, 0, 0);
+}
+
+a, a:link, a:visited {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+img {
+	border: 0;
+}
+
+h1 {
+	font-size: 1.5em;
+	font-weight: bold;
+}</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Plist</string>
+			<key>text</key>
+			<string>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
+&lt;plist version="1.0"&gt;
+&lt;dict&gt;
+	&lt;key&gt;&lt;/key&gt;
+	&lt;string&gt;&lt;/string&gt;
+	&lt;key&gt;&lt;/key&gt;
+	&lt;integer&gt;&lt;/integer&gt;
+	&lt;key&gt;&lt;/key&gt;
+	&lt;real&gt;&lt;/real&gt;
+	&lt;key&gt;&lt;/key&gt;
+	&lt;array&gt;
+		&lt;string&gt;&lt;/string&gt;
+		&lt;string&gt;&lt;/string&gt;
+	&lt;/array&gt;
+	&lt;key&gt;&lt;/key&gt;
+	&lt;dict&gt;
+		&lt;key&gt;&lt;/key&gt;
+		&lt;string&gt;&lt;/string&gt;
+	&lt;/dict&gt;
+	&lt;key&gt;&lt;/key&gt;
+	&lt;false/&gt;
+&lt;/dict&gt;
+&lt;/plist&gt;</string>
+		</dict>
+	</array>
+</dict>
+</plist>

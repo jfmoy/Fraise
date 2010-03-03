@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>List</key>
+	<array>
+		<dict>
+			<key>name</key>
+			<string>Current path</string>
+			<key>text</key>
+			<string>/bin/ls -AlFkhe %%p</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Current directory</string>
+			<key>text</key>
+			<string>/bin/ls -AlFkhe %%d</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Home directory</string>
+			<key>text</key>
+			<string>/bin/ls -AlFkhe ~</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Desktop</string>
+			<key>text</key>
+			<string>/bin/ls -AlFkhe ~/Desktop</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Spotlight path</string>
+			<key>text</key>
+			<string>/usr/bin/mdls %%p</string>
+		</dict>
+	</array>
+	<key>Convert</key>
+	<array>
+		<dict>
+			<key>name</key>
+			<string>Document to HTML</string>
+			<key>text</key>
+			<string>/usr/bin/textutil -convert html -stdout -inputencoding 5 -encoding 5 %%p</string>
+			<key>inline</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Document to plain text</string>
+			<key>text</key>
+			<string>/usr/bin/textutil -convert txt -stdout -inputencoding 5 -encoding 5 %%p</string>
+			<key>inline</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Selection to HTML entities</string>
+			<key>text</key>
+			<string>#!/usr/bin/php
+&lt;?php
+$data = file_get_contents("%%s");
+$data = mb_convert_encoding($data, "HTML-ENTITIES", "UTF-8");
+echo $data;
+?&gt;</string>
+			<key>inline</key>
+			<true/>
+			<key>interpreter</key>
+			<string>/usr/bin/php</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Selection from HTML entities to normal characters</string>
+			<key>text</key>
+			<string>#!/usr/bin/php
+&lt;?php
+$data = file_get_contents("%%s");
+$data = mb_convert_encoding($data, "UTF-8", "HTML-ENTITIES");
+echo $data;
+?&gt;</string>
+			<key>inline</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>From binary plist to XML</string>
+			<key>text</key>
+			<string>#!/bin/sh
+
+tempFile=/tmp/SmultronTempFile.`/bin/date +%H%M%S`.$$
+
+/usr/bin/plutil -convert xml1 -o $tempFile %%p
+/bin/cat $tempFile
+/bin/rm -f $tempFile</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>From XML plist to binary</string>
+			<key>text</key>
+			<string>#!/bin/sh
+
+tempFile=/tmp/SmultronTempFile.`/bin/date +%H%M%S`.$$
+
+/usr/bin/plutil -convert binary1 -o $tempFile %%p
+/bin/cat $tempFile
+/bin/rm -f $tempFile</string>
+		</dict>
+	</array>
+	<key>Validate</key>
+	<array>
+		<dict>
+			<key>name</key>
+			<string>HTML</string>
+			<key>text</key>
+			<string>/usr/bin/tidy -errors %%p</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>HTML accessibility</string>
+			<key>text</key>
+			<string>/usr/bin/tidy -access 3 %%p</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>plist</string>
+			<key>text</key>
+			<string>/usr/bin/plutil %%p</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>XML</string>
+			<key>text</key>
+			<string>/usr/bin/xmllint -noout %%p</string>
+		</dict>
+	</array>
+	<key>Other</key>
+	<array>
+		<dict>
+			<key>name</key>
+			<string>Run path</string>
+			<key>text</key>
+			<string>/bin/sh %%p</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Show last log items</string>
+			<key>text</key>
+			<string>/usr/bin/tail /var/log/system.log</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Insert current date</string>
+			<key>text</key>
+			<string>/bin/date '+%Y-%m-%d %H:%M'</string>
+			<key>inline</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Sort selected lines ascending</string>
+			<key>text</key>
+			<string>#!/bin/sh
+
+/usr/bin/sort -f %%s</string>
+			<key>inline</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Sort selected lines descending</string>
+			<key>text</key>
+			<string>#!/bin/sh
+
+/usr/bin/sort -fr %%s</string>
+			<key>inline</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Remove duplicate lines</string>
+			<key>text</key>
+			<string>#!/bin/sh
+
+/usr/bin/uniq -u %%s</string>
+			<key>inline</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Compile Java</string>
+			<key>text</key>
+			<string>/usr/bin/javac %%p</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Make executable</string>
+			<key>text</key>
+			<string>/bin/chmod u+x %%p</string>
+		</dict>
+	</array>
+</dict>
+</plist>
