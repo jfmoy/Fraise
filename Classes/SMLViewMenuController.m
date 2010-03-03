@@ -62,16 +62,20 @@ static id sharedInstance = nil;
 		NSRect firstViewFrame = [[[splitView subviews] objectAtIndex:0] frame];
 		NSRect secondViewFrame = [[[splitView subviews] objectAtIndex:1] frame];
 		
+		
 		BOOL optionKeyDown = ((GetCurrentKeyModifiers() & (optionKey | rightOptionKey)) != 0) ? YES : NO;
 		if (optionKeyDown == NO) {
 			[splitView setVertical:NO];
+			
+			firstViewFrame.size.height = newFraction * splitView.frame.size.height;
+			secondViewFrame.size.height = splitView.frame.size.height - firstViewFrame.size.height - [splitView dividerThickness];
+			
 		} else {
 			[splitView setVertical:YES];
+			
+			firstViewFrame.size.width = newFraction * splitView.frame.size.width;
+			secondViewFrame.size.width = splitView.frame.size.width - firstViewFrame.size.width - [splitView dividerThickness];
 		}
-		
-		CGFloat total = firstViewFrame.size.height + secondViewFrame.size.height + [splitView dividerThickness];
-		firstViewFrame.size.height = newFraction * total;
-		secondViewFrame.size.height = total - firstViewFrame.size.height - [splitView dividerThickness];
 		
 		[[[[splitView subviews] objectAtIndex:0] animator] setFrame:firstViewFrame];		
 		[[[[splitView subviews] objectAtIndex:1] animator] setFrame:secondViewFrame];
