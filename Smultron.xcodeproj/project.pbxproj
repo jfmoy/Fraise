@@ -8,10 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1F0915BB113F88FA00F3BB28 /* SMLPreferencesGeneral.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0915BA113F88FA00F3BB28 /* SMLPreferencesGeneral.xib */; };
-		1F0915C0113F8CB300F3BB28 /* SMLProject.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0915BF113F8CB300F3BB28 /* SMLProject.xib */; };
-		1F0915C3113F8CC600F3BB28 /* SMLCommandResult.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0915C2113F8CC600F3BB28 /* SMLCommandResult.xib */; };
-		1F0915C5113F8CC600F3BB28 /* SMLPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0915C4113F8CC600F3BB28 /* SMLPreferences.xib */; };
-		1F0915C7113F8CC600F3BB28 /* SMLSingleDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0915C6113F8CC600F3BB28 /* SMLSingleDocument.xib */; };
 		1F0915C9113F8CC600F3BB28 /* SMLAdvancedFind.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0915C8113F8CC600F3BB28 /* SMLAdvancedFind.xib */; };
 		1F0915CB113F8CC600F3BB28 /* SMLCommands.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0915CA113F8CC600F3BB28 /* SMLCommands.xib */; };
 		1F0915CD113F8CC600F3BB28 /* SMLDetab.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0915CC113F8CC600F3BB28 /* SMLDetab.xib */; };
@@ -27,6 +23,10 @@
 		1F0915EF113F8D3E00F3BB28 /* SMLPrintAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0915EE113F8D3E00F3BB28 /* SMLPrintAccessoryView.xib */; };
 		1F0915F1113F8D3E00F3BB28 /* SMLRegularExpressionHelp.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0915F0113F8D3E00F3BB28 /* SMLRegularExpressionHelp.xib */; };
 		1F0915F3113F8D3E00F3BB28 /* SMLSnippets.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0915F2113F8D3E00F3BB28 /* SMLSnippets.xib */; };
+		1F091712113F959300F3BB28 /* SMLProject.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F7357180D91D2F800F1398B /* SMLProject.xib */; };
+		1F091713113F95B000F3BB28 /* SMLCommandResult.xib in Resources */ = {isa = PBXBuildFile; fileRef = 510C3F900D92755B005F475A /* SMLCommandResult.xib */; };
+		1F091714113F95BF00F3BB28 /* SMLPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5168D7DA0D92772B005225AB /* SMLPreferences.xib */; };
+		1F091715113F960000F3BB28 /* SMLSingleDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 510C3F930D927566005F475A /* SMLSingleDocument.xib */; };
 		1FB593BA113EE34600ECB6C0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1FB593B9113EE34600ECB6C0 /* Localizable.strings */; };
 		1FB593BD113EE35E00ECB6C0 /* Localizable3.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1FB593BC113EE35E00ECB6C0 /* Localizable3.strings */; };
 		1FB59409113EE58500ECB6C0 /* SMLMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FB59408113EE58500ECB6C0 /* SMLMainMenu.xib */; };
@@ -164,10 +164,6 @@
 		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FBA07B3F13500E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		1F0915BC113F88FE00F3BB28 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/SMLPreferencesGeneral.xib; sourceTree = "<group>"; };
-		1F0915C1113F8CB900F3BB28 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/SMLProject.xib; sourceTree = "<group>"; };
-		1F0915D4113F8CD800F3BB28 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/SMLCommandResult.xib; sourceTree = "<group>"; };
-		1F0915D5113F8CE100F3BB28 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/SMLPreferences.xib; sourceTree = "<group>"; };
-		1F0915D6113F8CE800F3BB28 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/SMLSingleDocument.xib; sourceTree = "<group>"; };
 		1F0915D7113F8CEE00F3BB28 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/SMLAdvancedFind.xib; sourceTree = "<group>"; };
 		1F0915D8113F8CF400F3BB28 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/SMLCommands.xib; sourceTree = "<group>"; };
 		1F0915D9113F8CFD00F3BB28 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/SMLDetab.xib; sourceTree = "<group>"; };
@@ -183,6 +179,272 @@
 		1F0915F6113F8D5600F3BB28 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/SMLPrintAccessoryView.xib; sourceTree = "<group>"; };
 		1F0915F7113F8D5B00F3BB28 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/SMLRegularExpressionHelp.xib; sourceTree = "<group>"; };
 		1F0915F8113F8D6100F3BB28 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/SMLSnippets.xib; sourceTree = "<group>"; };
+		1F0916BB113F92CB00F3BB28 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1F0916BC113F92D100F3BB28 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable3.strings; sourceTree = "<group>"; };
+		1F0916C1113F92F200F3BB28 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/SMLAdvancedFind.xib; sourceTree = "<group>"; };
+		1F0916C2113F92F800F3BB28 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/SMLCommands.xib; sourceTree = "<group>"; };
+		1F0916C3113F92FD00F3BB28 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/SMLDetab.xib; sourceTree = "<group>"; };
+		1F0916C4113F930400F3BB28 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/SMLEntab.xib; sourceTree = "<group>"; };
+		1F0916C5113F930900F3BB28 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/SMLGoToLine.xib; sourceTree = "<group>"; };
+		1F0916C6113F930E00F3BB28 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/SMLInfo.xib; sourceTree = "<group>"; };
+		1F0916C7113F931400F3BB28 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/SMLMainMenu.xib; sourceTree = "<group>"; };
+		1F0916C8113F931900F3BB28 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/SMLNewProject.xib; sourceTree = "<group>"; };
+		1F0916C9113F931F00F3BB28 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/SMLOpenPanelAccessoryView.xib; sourceTree = "<group>"; };
+		1F0916CA113F932400F3BB28 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/SMLPreferencesAdvanced.xib; sourceTree = "<group>"; };
+		1F0916CB113F932800F3BB28 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/SMLPreferencesAppearance.xib; sourceTree = "<group>"; };
+		1F0916CC113F932D00F3BB28 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/SMLPreferencesGeneral.xib; sourceTree = "<group>"; };
+		1F0916CD113F933300F3BB28 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/SMLPreferencesOpenSave.xib; sourceTree = "<group>"; };
+		1F0916CE113F933700F3BB28 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/SMLPreview.xib; sourceTree = "<group>"; };
+		1F0916CF113F933D00F3BB28 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/SMLPrintAccessoryView.xib; sourceTree = "<group>"; };
+		1F0916D0113F934500F3BB28 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/SMLRegularExpressionHelp.xib; sourceTree = "<group>"; };
+		1F0916D1113F934A00F3BB28 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/SMLSnippets.xib; sourceTree = "<group>"; };
+		1F0916D6113F938500F3BB28 /* Japanese */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Japanese; path = Japanese.lproj/SMLAdvancedFind.xib; sourceTree = "<group>"; };
+		1F0916D7113F938A00F3BB28 /* Japanese */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Japanese; path = Japanese.lproj/SMLCommands.xib; sourceTree = "<group>"; };
+		1F0916D8113F938F00F3BB28 /* Japanese */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Japanese; path = Japanese.lproj/SMLDetab.xib; sourceTree = "<group>"; };
+		1F0916D9113F939500F3BB28 /* Japanese */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Japanese; path = Japanese.lproj/SMLEntab.xib; sourceTree = "<group>"; };
+		1F0916DA113F939B00F3BB28 /* Japanese */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Japanese; path = Japanese.lproj/SMLGoToLine.xib; sourceTree = "<group>"; };
+		1F0916DB113F93A100F3BB28 /* Japanese */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Japanese; path = Japanese.lproj/SMLInfo.xib; sourceTree = "<group>"; };
+		1F0916DC113F93A500F3BB28 /* Japanese */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Japanese; path = Japanese.lproj/SMLMainMenu.xib; sourceTree = "<group>"; };
+		1F0916DD113F93A900F3BB28 /* Japanese */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Japanese; path = Japanese.lproj/SMLNewProject.xib; sourceTree = "<group>"; };
+		1F0916DE113F93AD00F3BB28 /* Japanese */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Japanese; path = Japanese.lproj/SMLOpenPanelAccessoryView.xib; sourceTree = "<group>"; };
+		1F0916DF113F93B100F3BB28 /* Japanese */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Japanese; path = Japanese.lproj/SMLPreferencesAdvanced.xib; sourceTree = "<group>"; };
+		1F0916E0113F93B600F3BB28 /* Japanese */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Japanese; path = Japanese.lproj/SMLPreferencesAppearance.xib; sourceTree = "<group>"; };
+		1F0916E1113F93B900F3BB28 /* Japanese */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Japanese; path = Japanese.lproj/SMLPreferencesGeneral.xib; sourceTree = "<group>"; };
+		1F0916E3113F93FB00F3BB28 /* Japanese */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Japanese; path = Japanese.lproj/SMLPreferencesOpenSave.xib; sourceTree = "<group>"; };
+		1F0916E4113F940200F3BB28 /* Japanese */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Japanese; path = Japanese.lproj/SMLPreview.xib; sourceTree = "<group>"; };
+		1F0916E5113F940700F3BB28 /* Japanese */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Japanese; path = Japanese.lproj/SMLPrintAccessoryView.xib; sourceTree = "<group>"; };
+		1F0916E6113F940A00F3BB28 /* Japanese */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Japanese; path = Japanese.lproj/SMLRegularExpressionHelp.xib; sourceTree = "<group>"; };
+		1F0916E7113F940E00F3BB28 /* Japanese */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Japanese; path = Japanese.lproj/SMLSnippets.xib; sourceTree = "<group>"; };
+		1F0916E8113F941500F3BB28 /* Japanese */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Japanese; path = Japanese.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1F0916E9113F941B00F3BB28 /* Japanese */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Japanese; path = Japanese.lproj/Localizable3.strings; sourceTree = "<group>"; };
+		1F0916EE113F947200F3BB28 /* Catalan */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Catalan; path = Catalan.lproj/SMLAdvancedFind.xib; sourceTree = "<group>"; };
+		1F0916EF113F947700F3BB28 /* Catalan */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Catalan; path = Catalan.lproj/SMLCommands.xib; sourceTree = "<group>"; };
+		1F0916F0113F947C00F3BB28 /* Catalan */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Catalan; path = Catalan.lproj/SMLDetab.xib; sourceTree = "<group>"; };
+		1F0916F1113F948200F3BB28 /* Catalan */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Catalan; path = Catalan.lproj/SMLEntab.xib; sourceTree = "<group>"; };
+		1F0916F2113F948800F3BB28 /* Catalan */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Catalan; path = Catalan.lproj/SMLGoToLine.xib; sourceTree = "<group>"; };
+		1F0916F3113F948C00F3BB28 /* Catalan */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Catalan; path = Catalan.lproj/SMLInfo.xib; sourceTree = "<group>"; };
+		1F0916F4113F949100F3BB28 /* Catalan */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Catalan; path = Catalan.lproj/SMLMainMenu.xib; sourceTree = "<group>"; };
+		1F0916F5113F949600F3BB28 /* Catalan */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Catalan; path = Catalan.lproj/SMLNewProject.xib; sourceTree = "<group>"; };
+		1F0916F6113F949C00F3BB28 /* Catalan */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Catalan; path = Catalan.lproj/SMLOpenPanelAccessoryView.xib; sourceTree = "<group>"; };
+		1F0916F7113F94A100F3BB28 /* Catalan */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Catalan; path = Catalan.lproj/SMLPreferencesAdvanced.xib; sourceTree = "<group>"; };
+		1F0916F8113F94A700F3BB28 /* Catalan */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Catalan; path = Catalan.lproj/SMLPreferencesAppearance.xib; sourceTree = "<group>"; };
+		1F0916F9113F94AC00F3BB28 /* Catalan */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Catalan; path = Catalan.lproj/SMLPreferencesGeneral.xib; sourceTree = "<group>"; };
+		1F0916FA113F94B000F3BB28 /* Catalan */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Catalan; path = Catalan.lproj/SMLPreferencesOpenSave.xib; sourceTree = "<group>"; };
+		1F0916FB113F94B800F3BB28 /* Catalan */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Catalan; path = Catalan.lproj/SMLPreview.xib; sourceTree = "<group>"; };
+		1F0916FC113F94BF00F3BB28 /* Catalan */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Catalan; path = Catalan.lproj/SMLPrintAccessoryView.xib; sourceTree = "<group>"; };
+		1F0916FD113F94C400F3BB28 /* Catalan */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Catalan; path = Catalan.lproj/SMLRegularExpressionHelp.xib; sourceTree = "<group>"; };
+		1F0916FE113F94CA00F3BB28 /* Catalan */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Catalan; path = Catalan.lproj/SMLSnippets.xib; sourceTree = "<group>"; };
+		1F0916FF113F94D100F3BB28 /* Catalan */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Catalan; path = Catalan.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1F091700113F94D700F3BB28 /* Catalan */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Catalan; path = Catalan.lproj/Localizable3.strings; sourceTree = "<group>"; };
+		1F091701113F955600F3BB28 /* Czech */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Czech; path = Czech.lproj/SMLAdvancedFind.xib; sourceTree = "<group>"; };
+		1F091702113F955600F3BB28 /* Czech */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Czech; path = Czech.lproj/SMLCommands.xib; sourceTree = "<group>"; };
+		1F091703113F955600F3BB28 /* Czech */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Czech; path = Czech.lproj/SMLDetab.xib; sourceTree = "<group>"; };
+		1F091704113F955600F3BB28 /* Czech */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Czech; path = Czech.lproj/SMLEntab.xib; sourceTree = "<group>"; };
+		1F091705113F955600F3BB28 /* Czech */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Czech; path = Czech.lproj/SMLGoToLine.xib; sourceTree = "<group>"; };
+		1F091706113F955600F3BB28 /* Czech */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Czech; path = Czech.lproj/SMLInfo.xib; sourceTree = "<group>"; };
+		1F091707113F955600F3BB28 /* Czech */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Czech; path = Czech.lproj/SMLMainMenu.xib; sourceTree = "<group>"; };
+		1F091708113F955600F3BB28 /* Czech */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Czech; path = Czech.lproj/SMLNewProject.xib; sourceTree = "<group>"; };
+		1F091709113F955600F3BB28 /* Czech */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Czech; path = Czech.lproj/SMLOpenPanelAccessoryView.xib; sourceTree = "<group>"; };
+		1F09170A113F955600F3BB28 /* Czech */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Czech; path = Czech.lproj/SMLPreferencesAdvanced.xib; sourceTree = "<group>"; };
+		1F09170B113F955600F3BB28 /* Czech */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Czech; path = Czech.lproj/SMLPreferencesAppearance.xib; sourceTree = "<group>"; };
+		1F09170C113F955600F3BB28 /* Czech */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Czech; path = Czech.lproj/SMLPreferencesGeneral.xib; sourceTree = "<group>"; };
+		1F09170D113F955600F3BB28 /* Czech */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Czech; path = Czech.lproj/SMLPreferencesOpenSave.xib; sourceTree = "<group>"; };
+		1F09170E113F955600F3BB28 /* Czech */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Czech; path = Czech.lproj/SMLPreview.xib; sourceTree = "<group>"; };
+		1F09170F113F955600F3BB28 /* Czech */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Czech; path = Czech.lproj/SMLPrintAccessoryView.xib; sourceTree = "<group>"; };
+		1F091710113F955600F3BB28 /* Czech */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Czech; path = Czech.lproj/SMLRegularExpressionHelp.xib; sourceTree = "<group>"; };
+		1F091711113F955600F3BB28 /* Czech */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Czech; path = Czech.lproj/SMLSnippets.xib; sourceTree = "<group>"; };
+		1F091716113F962B00F3BB28 /* Czech */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Czech; path = Czech.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1F091717113F962B00F3BB28 /* Czech */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Czech; path = Czech.lproj/Localizable3.strings; sourceTree = "<group>"; };
+		1F091718113F964300F3BB28 /* Dutch */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Dutch; path = Dutch.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1F091719113F964300F3BB28 /* Dutch */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Dutch; path = Dutch.lproj/Localizable3.strings; sourceTree = "<group>"; };
+		1F09171A113F964E00F3BB28 /* Dutch */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Dutch; path = Dutch.lproj/SMLAdvancedFind.xib; sourceTree = "<group>"; };
+		1F09171B113F964E00F3BB28 /* Dutch */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Dutch; path = Dutch.lproj/SMLCommands.xib; sourceTree = "<group>"; };
+		1F09171C113F964E00F3BB28 /* Dutch */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Dutch; path = Dutch.lproj/SMLDetab.xib; sourceTree = "<group>"; };
+		1F09171D113F964E00F3BB28 /* Dutch */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Dutch; path = Dutch.lproj/SMLEntab.xib; sourceTree = "<group>"; };
+		1F09171E113F964E00F3BB28 /* Dutch */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Dutch; path = Dutch.lproj/SMLGoToLine.xib; sourceTree = "<group>"; };
+		1F09171F113F964E00F3BB28 /* Dutch */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Dutch; path = Dutch.lproj/SMLInfo.xib; sourceTree = "<group>"; };
+		1F091720113F964E00F3BB28 /* Dutch */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Dutch; path = Dutch.lproj/SMLMainMenu.xib; sourceTree = "<group>"; };
+		1F091721113F964E00F3BB28 /* Dutch */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Dutch; path = Dutch.lproj/SMLNewProject.xib; sourceTree = "<group>"; };
+		1F091722113F964E00F3BB28 /* Dutch */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Dutch; path = Dutch.lproj/SMLOpenPanelAccessoryView.xib; sourceTree = "<group>"; };
+		1F091723113F964E00F3BB28 /* Dutch */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Dutch; path = Dutch.lproj/SMLPreferencesAdvanced.xib; sourceTree = "<group>"; };
+		1F091724113F964E00F3BB28 /* Dutch */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Dutch; path = Dutch.lproj/SMLPreferencesAppearance.xib; sourceTree = "<group>"; };
+		1F091725113F964E00F3BB28 /* Dutch */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Dutch; path = Dutch.lproj/SMLPreferencesGeneral.xib; sourceTree = "<group>"; };
+		1F091726113F964E00F3BB28 /* Dutch */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Dutch; path = Dutch.lproj/SMLPreferencesOpenSave.xib; sourceTree = "<group>"; };
+		1F091727113F964E00F3BB28 /* Dutch */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Dutch; path = Dutch.lproj/SMLPreview.xib; sourceTree = "<group>"; };
+		1F091728113F964E00F3BB28 /* Dutch */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Dutch; path = Dutch.lproj/SMLPrintAccessoryView.xib; sourceTree = "<group>"; };
+		1F091729113F964E00F3BB28 /* Dutch */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Dutch; path = Dutch.lproj/SMLRegularExpressionHelp.xib; sourceTree = "<group>"; };
+		1F09172A113F964E00F3BB28 /* Dutch */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Dutch; path = Dutch.lproj/SMLSnippets.xib; sourceTree = "<group>"; };
+		1F09172B113F965F00F3BB28 /* Finnish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Finnish; path = Finnish.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1F09172C113F965F00F3BB28 /* Finnish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Finnish; path = Finnish.lproj/Localizable3.strings; sourceTree = "<group>"; };
+		1F09172D113F966500F3BB28 /* Finnish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Finnish; path = Finnish.lproj/SMLAdvancedFind.xib; sourceTree = "<group>"; };
+		1F09172E113F966500F3BB28 /* Finnish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Finnish; path = Finnish.lproj/SMLCommands.xib; sourceTree = "<group>"; };
+		1F09172F113F966500F3BB28 /* Finnish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Finnish; path = Finnish.lproj/SMLDetab.xib; sourceTree = "<group>"; };
+		1F091730113F966500F3BB28 /* Finnish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Finnish; path = Finnish.lproj/SMLEntab.xib; sourceTree = "<group>"; };
+		1F091731113F966500F3BB28 /* Finnish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Finnish; path = Finnish.lproj/SMLGoToLine.xib; sourceTree = "<group>"; };
+		1F091732113F966500F3BB28 /* Finnish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Finnish; path = Finnish.lproj/SMLInfo.xib; sourceTree = "<group>"; };
+		1F091733113F966500F3BB28 /* Finnish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Finnish; path = Finnish.lproj/SMLMainMenu.xib; sourceTree = "<group>"; };
+		1F091734113F966500F3BB28 /* Finnish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Finnish; path = Finnish.lproj/SMLNewProject.xib; sourceTree = "<group>"; };
+		1F091735113F966500F3BB28 /* Finnish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Finnish; path = Finnish.lproj/SMLOpenPanelAccessoryView.xib; sourceTree = "<group>"; };
+		1F091736113F966500F3BB28 /* Finnish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Finnish; path = Finnish.lproj/SMLPreferencesAdvanced.xib; sourceTree = "<group>"; };
+		1F091737113F966500F3BB28 /* Finnish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Finnish; path = Finnish.lproj/SMLPreferencesAppearance.xib; sourceTree = "<group>"; };
+		1F091738113F966500F3BB28 /* Finnish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Finnish; path = Finnish.lproj/SMLPreferencesGeneral.xib; sourceTree = "<group>"; };
+		1F091739113F966500F3BB28 /* Finnish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Finnish; path = Finnish.lproj/SMLPreferencesOpenSave.xib; sourceTree = "<group>"; };
+		1F09173A113F966600F3BB28 /* Finnish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Finnish; path = Finnish.lproj/SMLPreview.xib; sourceTree = "<group>"; };
+		1F09173B113F966600F3BB28 /* Finnish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Finnish; path = Finnish.lproj/SMLPrintAccessoryView.xib; sourceTree = "<group>"; };
+		1F09173C113F966600F3BB28 /* Finnish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Finnish; path = Finnish.lproj/SMLRegularExpressionHelp.xib; sourceTree = "<group>"; };
+		1F09173D113F966600F3BB28 /* Finnish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Finnish; path = Finnish.lproj/SMLSnippets.xib; sourceTree = "<group>"; };
+		1F09173E113F967F00F3BB28 /* Greek */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Greek; path = Greek.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1F09173F113F967F00F3BB28 /* Greek */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Greek; path = Greek.lproj/Localizable3.strings; sourceTree = "<group>"; };
+		1F091740113F968800F3BB28 /* Greek */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Greek; path = Greek.lproj/SMLAdvancedFind.xib; sourceTree = "<group>"; };
+		1F091741113F968800F3BB28 /* Greek */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Greek; path = Greek.lproj/SMLCommands.xib; sourceTree = "<group>"; };
+		1F091742113F968800F3BB28 /* Greek */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Greek; path = Greek.lproj/SMLDetab.xib; sourceTree = "<group>"; };
+		1F091743113F968800F3BB28 /* Greek */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Greek; path = Greek.lproj/SMLEntab.xib; sourceTree = "<group>"; };
+		1F091744113F968800F3BB28 /* Greek */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Greek; path = Greek.lproj/SMLGoToLine.xib; sourceTree = "<group>"; };
+		1F091745113F968800F3BB28 /* Greek */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Greek; path = Greek.lproj/SMLInfo.xib; sourceTree = "<group>"; };
+		1F091746113F968800F3BB28 /* Greek */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Greek; path = Greek.lproj/SMLMainMenu.xib; sourceTree = "<group>"; };
+		1F091747113F968800F3BB28 /* Greek */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Greek; path = Greek.lproj/SMLNewProject.xib; sourceTree = "<group>"; };
+		1F091748113F968800F3BB28 /* Greek */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Greek; path = Greek.lproj/SMLOpenPanelAccessoryView.xib; sourceTree = "<group>"; };
+		1F091749113F968800F3BB28 /* Greek */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Greek; path = Greek.lproj/SMLPreferencesAdvanced.xib; sourceTree = "<group>"; };
+		1F09174A113F968800F3BB28 /* Greek */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Greek; path = Greek.lproj/SMLPreferencesAppearance.xib; sourceTree = "<group>"; };
+		1F09174B113F968800F3BB28 /* Greek */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Greek; path = Greek.lproj/SMLPreferencesGeneral.xib; sourceTree = "<group>"; };
+		1F09174C113F968800F3BB28 /* Greek */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Greek; path = Greek.lproj/SMLPreferencesOpenSave.xib; sourceTree = "<group>"; };
+		1F09174D113F968800F3BB28 /* Greek */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Greek; path = Greek.lproj/SMLPreview.xib; sourceTree = "<group>"; };
+		1F09174E113F968800F3BB28 /* Greek */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Greek; path = Greek.lproj/SMLPrintAccessoryView.xib; sourceTree = "<group>"; };
+		1F09174F113F968800F3BB28 /* Greek */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Greek; path = Greek.lproj/SMLRegularExpressionHelp.xib; sourceTree = "<group>"; };
+		1F091750113F968800F3BB28 /* Greek */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Greek; path = Greek.lproj/SMLSnippets.xib; sourceTree = "<group>"; };
+		1F091751113F969B00F3BB28 /* Hungarian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Hungarian; path = Hungarian.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1F091752113F969B00F3BB28 /* Hungarian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Hungarian; path = Hungarian.lproj/Localizable3.strings; sourceTree = "<group>"; };
+		1F091753113F96A600F3BB28 /* Hungarian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Hungarian; path = Hungarian.lproj/SMLAdvancedFind.xib; sourceTree = "<group>"; };
+		1F091754113F96A600F3BB28 /* Hungarian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Hungarian; path = Hungarian.lproj/SMLCommands.xib; sourceTree = "<group>"; };
+		1F091755113F96A600F3BB28 /* Hungarian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Hungarian; path = Hungarian.lproj/SMLDetab.xib; sourceTree = "<group>"; };
+		1F091756113F96A600F3BB28 /* Hungarian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Hungarian; path = Hungarian.lproj/SMLEntab.xib; sourceTree = "<group>"; };
+		1F091757113F96A600F3BB28 /* Hungarian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Hungarian; path = Hungarian.lproj/SMLGoToLine.xib; sourceTree = "<group>"; };
+		1F091758113F96A600F3BB28 /* Hungarian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Hungarian; path = Hungarian.lproj/SMLInfo.xib; sourceTree = "<group>"; };
+		1F091759113F96A600F3BB28 /* Hungarian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Hungarian; path = Hungarian.lproj/SMLMainMenu.xib; sourceTree = "<group>"; };
+		1F09175A113F96A600F3BB28 /* Hungarian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Hungarian; path = Hungarian.lproj/SMLNewProject.xib; sourceTree = "<group>"; };
+		1F09175B113F96A600F3BB28 /* Hungarian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Hungarian; path = Hungarian.lproj/SMLOpenPanelAccessoryView.xib; sourceTree = "<group>"; };
+		1F09175C113F96A600F3BB28 /* Hungarian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Hungarian; path = Hungarian.lproj/SMLPreferencesAdvanced.xib; sourceTree = "<group>"; };
+		1F09175D113F96A600F3BB28 /* Hungarian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Hungarian; path = Hungarian.lproj/SMLPreferencesAppearance.xib; sourceTree = "<group>"; };
+		1F09175E113F96A600F3BB28 /* Hungarian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Hungarian; path = Hungarian.lproj/SMLPreferencesGeneral.xib; sourceTree = "<group>"; };
+		1F09175F113F96A600F3BB28 /* Hungarian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Hungarian; path = Hungarian.lproj/SMLPreferencesOpenSave.xib; sourceTree = "<group>"; };
+		1F091760113F96A600F3BB28 /* Hungarian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Hungarian; path = Hungarian.lproj/SMLPreview.xib; sourceTree = "<group>"; };
+		1F091761113F96A600F3BB28 /* Hungarian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Hungarian; path = Hungarian.lproj/SMLPrintAccessoryView.xib; sourceTree = "<group>"; };
+		1F091762113F96A600F3BB28 /* Hungarian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Hungarian; path = Hungarian.lproj/SMLRegularExpressionHelp.xib; sourceTree = "<group>"; };
+		1F091763113F96A600F3BB28 /* Hungarian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Hungarian; path = Hungarian.lproj/SMLSnippets.xib; sourceTree = "<group>"; };
+		1F091764113F96BA00F3BB28 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Italian; path = Italian.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1F091765113F96BA00F3BB28 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Italian; path = Italian.lproj/Localizable3.strings; sourceTree = "<group>"; };
+		1F091766113F96C000F3BB28 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Italian; path = Italian.lproj/SMLAdvancedFind.xib; sourceTree = "<group>"; };
+		1F091767113F96C000F3BB28 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Italian; path = Italian.lproj/SMLCommands.xib; sourceTree = "<group>"; };
+		1F091768113F96C000F3BB28 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Italian; path = Italian.lproj/SMLDetab.xib; sourceTree = "<group>"; };
+		1F091769113F96C000F3BB28 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Italian; path = Italian.lproj/SMLEntab.xib; sourceTree = "<group>"; };
+		1F09176A113F96C000F3BB28 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Italian; path = Italian.lproj/SMLGoToLine.xib; sourceTree = "<group>"; };
+		1F09176B113F96C000F3BB28 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Italian; path = Italian.lproj/SMLInfo.xib; sourceTree = "<group>"; };
+		1F09176C113F96C000F3BB28 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Italian; path = Italian.lproj/SMLMainMenu.xib; sourceTree = "<group>"; };
+		1F09176D113F96C000F3BB28 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Italian; path = Italian.lproj/SMLNewProject.xib; sourceTree = "<group>"; };
+		1F09176E113F96C000F3BB28 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Italian; path = Italian.lproj/SMLOpenPanelAccessoryView.xib; sourceTree = "<group>"; };
+		1F09176F113F96C000F3BB28 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Italian; path = Italian.lproj/SMLPreferencesAdvanced.xib; sourceTree = "<group>"; };
+		1F091770113F96C000F3BB28 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Italian; path = Italian.lproj/SMLPreferencesAppearance.xib; sourceTree = "<group>"; };
+		1F091771113F96C000F3BB28 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Italian; path = Italian.lproj/SMLPreferencesGeneral.xib; sourceTree = "<group>"; };
+		1F091772113F96C100F3BB28 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Italian; path = Italian.lproj/SMLPreferencesOpenSave.xib; sourceTree = "<group>"; };
+		1F091773113F96C100F3BB28 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Italian; path = Italian.lproj/SMLPreview.xib; sourceTree = "<group>"; };
+		1F091774113F96C100F3BB28 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Italian; path = Italian.lproj/SMLPrintAccessoryView.xib; sourceTree = "<group>"; };
+		1F091775113F96C100F3BB28 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Italian; path = Italian.lproj/SMLRegularExpressionHelp.xib; sourceTree = "<group>"; };
+		1F091776113F96C100F3BB28 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Italian; path = Italian.lproj/SMLSnippets.xib; sourceTree = "<group>"; };
+		1F091777113F96DA00F3BB28 /* Korean */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Korean; path = Korean.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1F091778113F96DA00F3BB28 /* Korean */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Korean; path = Korean.lproj/Localizable3.strings; sourceTree = "<group>"; };
+		1F091779113F96E100F3BB28 /* Korean */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Korean; path = Korean.lproj/SMLAdvancedFind.xib; sourceTree = "<group>"; };
+		1F09177A113F96E100F3BB28 /* Korean */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Korean; path = Korean.lproj/SMLCommands.xib; sourceTree = "<group>"; };
+		1F09177B113F96E100F3BB28 /* Korean */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Korean; path = Korean.lproj/SMLDetab.xib; sourceTree = "<group>"; };
+		1F09177C113F96E100F3BB28 /* Korean */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Korean; path = Korean.lproj/SMLEntab.xib; sourceTree = "<group>"; };
+		1F09177D113F96E100F3BB28 /* Korean */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Korean; path = Korean.lproj/SMLGoToLine.xib; sourceTree = "<group>"; };
+		1F09177E113F96E100F3BB28 /* Korean */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Korean; path = Korean.lproj/SMLInfo.xib; sourceTree = "<group>"; };
+		1F09177F113F96E100F3BB28 /* Korean */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Korean; path = Korean.lproj/SMLMainMenu.xib; sourceTree = "<group>"; };
+		1F091780113F96E100F3BB28 /* Korean */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Korean; path = Korean.lproj/SMLNewProject.xib; sourceTree = "<group>"; };
+		1F091781113F96E100F3BB28 /* Korean */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Korean; path = Korean.lproj/SMLOpenPanelAccessoryView.xib; sourceTree = "<group>"; };
+		1F091782113F96E100F3BB28 /* Korean */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Korean; path = Korean.lproj/SMLPreferencesAdvanced.xib; sourceTree = "<group>"; };
+		1F091783113F96E100F3BB28 /* Korean */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Korean; path = Korean.lproj/SMLPreferencesAppearance.xib; sourceTree = "<group>"; };
+		1F091784113F96E100F3BB28 /* Korean */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Korean; path = Korean.lproj/SMLPreferencesGeneral.xib; sourceTree = "<group>"; };
+		1F091785113F96E100F3BB28 /* Korean */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Korean; path = Korean.lproj/SMLPreferencesOpenSave.xib; sourceTree = "<group>"; };
+		1F091786113F96E100F3BB28 /* Korean */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Korean; path = Korean.lproj/SMLPreview.xib; sourceTree = "<group>"; };
+		1F091787113F96E100F3BB28 /* Korean */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Korean; path = Korean.lproj/SMLPrintAccessoryView.xib; sourceTree = "<group>"; };
+		1F091788113F96E100F3BB28 /* Korean */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Korean; path = Korean.lproj/SMLRegularExpressionHelp.xib; sourceTree = "<group>"; };
+		1F091789113F96E100F3BB28 /* Korean */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Korean; path = Korean.lproj/SMLSnippets.xib; sourceTree = "<group>"; };
+		1F09178A113F96F000F3BB28 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Spanish; path = Spanish.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1F09178B113F96F000F3BB28 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Spanish; path = Spanish.lproj/Localizable3.strings; sourceTree = "<group>"; };
+		1F09178C113F96F800F3BB28 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Spanish; path = Spanish.lproj/SMLAdvancedFind.xib; sourceTree = "<group>"; };
+		1F09178D113F96F800F3BB28 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Spanish; path = Spanish.lproj/SMLCommands.xib; sourceTree = "<group>"; };
+		1F09178E113F96F800F3BB28 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Spanish; path = Spanish.lproj/SMLDetab.xib; sourceTree = "<group>"; };
+		1F09178F113F96F800F3BB28 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Spanish; path = Spanish.lproj/SMLEntab.xib; sourceTree = "<group>"; };
+		1F091790113F96F800F3BB28 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Spanish; path = Spanish.lproj/SMLGoToLine.xib; sourceTree = "<group>"; };
+		1F091791113F96F800F3BB28 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Spanish; path = Spanish.lproj/SMLInfo.xib; sourceTree = "<group>"; };
+		1F091792113F96F800F3BB28 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Spanish; path = Spanish.lproj/SMLMainMenu.xib; sourceTree = "<group>"; };
+		1F091793113F96F800F3BB28 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Spanish; path = Spanish.lproj/SMLNewProject.xib; sourceTree = "<group>"; };
+		1F091794113F96F800F3BB28 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Spanish; path = Spanish.lproj/SMLOpenPanelAccessoryView.xib; sourceTree = "<group>"; };
+		1F091795113F96F800F3BB28 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Spanish; path = Spanish.lproj/SMLPreferencesAdvanced.xib; sourceTree = "<group>"; };
+		1F091796113F96F800F3BB28 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Spanish; path = Spanish.lproj/SMLPreferencesAppearance.xib; sourceTree = "<group>"; };
+		1F091797113F96F800F3BB28 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Spanish; path = Spanish.lproj/SMLPreferencesGeneral.xib; sourceTree = "<group>"; };
+		1F091798113F96F800F3BB28 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Spanish; path = Spanish.lproj/SMLPreferencesOpenSave.xib; sourceTree = "<group>"; };
+		1F091799113F96F800F3BB28 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Spanish; path = Spanish.lproj/SMLPreview.xib; sourceTree = "<group>"; };
+		1F09179A113F96F800F3BB28 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Spanish; path = Spanish.lproj/SMLPrintAccessoryView.xib; sourceTree = "<group>"; };
+		1F09179B113F96F800F3BB28 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Spanish; path = Spanish.lproj/SMLRegularExpressionHelp.xib; sourceTree = "<group>"; };
+		1F09179C113F96F800F3BB28 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Spanish; path = Spanish.lproj/SMLSnippets.xib; sourceTree = "<group>"; };
+		1F09179D113F970A00F3BB28 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh_CN; path = zh_CN.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1F09179E113F970A00F3BB28 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh_CN; path = zh_CN.lproj/Localizable3.strings; sourceTree = "<group>"; };
+		1F09179F113F971100F3BB28 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_CN; path = zh_CN.lproj/SMLAdvancedFind.xib; sourceTree = "<group>"; };
+		1F0917A0113F971100F3BB28 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_CN; path = zh_CN.lproj/SMLCommands.xib; sourceTree = "<group>"; };
+		1F0917A1113F971200F3BB28 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_CN; path = zh_CN.lproj/SMLDetab.xib; sourceTree = "<group>"; };
+		1F0917A2113F971200F3BB28 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_CN; path = zh_CN.lproj/SMLEntab.xib; sourceTree = "<group>"; };
+		1F0917A3113F971200F3BB28 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_CN; path = zh_CN.lproj/SMLGoToLine.xib; sourceTree = "<group>"; };
+		1F0917A4113F971200F3BB28 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_CN; path = zh_CN.lproj/SMLInfo.xib; sourceTree = "<group>"; };
+		1F0917A5113F971200F3BB28 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_CN; path = zh_CN.lproj/SMLMainMenu.xib; sourceTree = "<group>"; };
+		1F0917A6113F971200F3BB28 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_CN; path = zh_CN.lproj/SMLNewProject.xib; sourceTree = "<group>"; };
+		1F0917A7113F971200F3BB28 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_CN; path = zh_CN.lproj/SMLOpenPanelAccessoryView.xib; sourceTree = "<group>"; };
+		1F0917A8113F971200F3BB28 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_CN; path = zh_CN.lproj/SMLPreferencesAdvanced.xib; sourceTree = "<group>"; };
+		1F0917A9113F971200F3BB28 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_CN; path = zh_CN.lproj/SMLPreferencesAppearance.xib; sourceTree = "<group>"; };
+		1F0917AA113F971200F3BB28 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_CN; path = zh_CN.lproj/SMLPreferencesGeneral.xib; sourceTree = "<group>"; };
+		1F0917AB113F971200F3BB28 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_CN; path = zh_CN.lproj/SMLPreferencesOpenSave.xib; sourceTree = "<group>"; };
+		1F0917AC113F971200F3BB28 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_CN; path = zh_CN.lproj/SMLPreview.xib; sourceTree = "<group>"; };
+		1F0917AD113F971200F3BB28 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_CN; path = zh_CN.lproj/SMLPrintAccessoryView.xib; sourceTree = "<group>"; };
+		1F0917AE113F971200F3BB28 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_CN; path = zh_CN.lproj/SMLRegularExpressionHelp.xib; sourceTree = "<group>"; };
+		1F0917AF113F971200F3BB28 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_CN; path = zh_CN.lproj/SMLSnippets.xib; sourceTree = "<group>"; };
+		1F0917B0113F971E00F3BB28 /* zh_TW */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh_TW; path = zh_TW.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1F0917B1113F971E00F3BB28 /* zh_TW */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh_TW; path = zh_TW.lproj/Localizable3.strings; sourceTree = "<group>"; };
+		1F0917B2113F972500F3BB28 /* zh_TW */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_TW; path = zh_TW.lproj/SMLAdvancedFind.xib; sourceTree = "<group>"; };
+		1F0917B3113F972500F3BB28 /* zh_TW */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_TW; path = zh_TW.lproj/SMLCommands.xib; sourceTree = "<group>"; };
+		1F0917B4113F972500F3BB28 /* zh_TW */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_TW; path = zh_TW.lproj/SMLDetab.xib; sourceTree = "<group>"; };
+		1F0917B5113F972500F3BB28 /* zh_TW */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_TW; path = zh_TW.lproj/SMLEntab.xib; sourceTree = "<group>"; };
+		1F0917B6113F972500F3BB28 /* zh_TW */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_TW; path = zh_TW.lproj/SMLGoToLine.xib; sourceTree = "<group>"; };
+		1F0917B7113F972500F3BB28 /* zh_TW */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_TW; path = zh_TW.lproj/SMLInfo.xib; sourceTree = "<group>"; };
+		1F0917B8113F972500F3BB28 /* zh_TW */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_TW; path = zh_TW.lproj/SMLMainMenu.xib; sourceTree = "<group>"; };
+		1F0917B9113F972600F3BB28 /* zh_TW */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_TW; path = zh_TW.lproj/SMLNewProject.xib; sourceTree = "<group>"; };
+		1F0917BA113F972600F3BB28 /* zh_TW */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_TW; path = zh_TW.lproj/SMLOpenPanelAccessoryView.xib; sourceTree = "<group>"; };
+		1F0917BB113F972600F3BB28 /* zh_TW */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_TW; path = zh_TW.lproj/SMLPreferencesAdvanced.xib; sourceTree = "<group>"; };
+		1F0917BC113F972600F3BB28 /* zh_TW */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_TW; path = zh_TW.lproj/SMLPreferencesAppearance.xib; sourceTree = "<group>"; };
+		1F0917BD113F972600F3BB28 /* zh_TW */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_TW; path = zh_TW.lproj/SMLPreferencesGeneral.xib; sourceTree = "<group>"; };
+		1F0917BE113F972600F3BB28 /* zh_TW */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_TW; path = zh_TW.lproj/SMLPreferencesOpenSave.xib; sourceTree = "<group>"; };
+		1F0917BF113F972600F3BB28 /* zh_TW */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_TW; path = zh_TW.lproj/SMLPreview.xib; sourceTree = "<group>"; };
+		1F0917C0113F972600F3BB28 /* zh_TW */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_TW; path = zh_TW.lproj/SMLPrintAccessoryView.xib; sourceTree = "<group>"; };
+		1F0917C1113F972600F3BB28 /* zh_TW */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_TW; path = zh_TW.lproj/SMLRegularExpressionHelp.xib; sourceTree = "<group>"; };
+		1F0917C2113F972600F3BB28 /* zh_TW */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_TW; path = zh_TW.lproj/SMLSnippets.xib; sourceTree = "<group>"; };
+		1F0917C3113F973000F3BB28 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1F0917C4113F973000F3BB28 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable3.strings; sourceTree = "<group>"; };
+		1F0917C5113F973700F3BB28 /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/SMLAdvancedFind.xib; sourceTree = "<group>"; };
+		1F0917C6113F973700F3BB28 /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/SMLCommands.xib; sourceTree = "<group>"; };
+		1F0917C7113F973700F3BB28 /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/SMLDetab.xib; sourceTree = "<group>"; };
+		1F0917C8113F973700F3BB28 /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/SMLEntab.xib; sourceTree = "<group>"; };
+		1F0917C9113F973700F3BB28 /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/SMLGoToLine.xib; sourceTree = "<group>"; };
+		1F0917CA113F973700F3BB28 /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/SMLInfo.xib; sourceTree = "<group>"; };
+		1F0917CB113F973700F3BB28 /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/SMLMainMenu.xib; sourceTree = "<group>"; };
+		1F0917CC113F973700F3BB28 /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/SMLNewProject.xib; sourceTree = "<group>"; };
+		1F0917CD113F973700F3BB28 /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/SMLOpenPanelAccessoryView.xib; sourceTree = "<group>"; };
+		1F0917CE113F973700F3BB28 /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/SMLPreferencesAdvanced.xib; sourceTree = "<group>"; };
+		1F0917CF113F973700F3BB28 /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/SMLPreferencesAppearance.xib; sourceTree = "<group>"; };
+		1F0917D0113F973700F3BB28 /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/SMLPreferencesGeneral.xib; sourceTree = "<group>"; };
+		1F0917D1113F973700F3BB28 /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/SMLPreferencesOpenSave.xib; sourceTree = "<group>"; };
+		1F0917D2113F973700F3BB28 /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/SMLPreview.xib; sourceTree = "<group>"; };
+		1F0917D3113F973700F3BB28 /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/SMLPrintAccessoryView.xib; sourceTree = "<group>"; };
+		1F0917D4113F973700F3BB28 /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/SMLRegularExpressionHelp.xib; sourceTree = "<group>"; };
+		1F0917D5113F973700F3BB28 /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/SMLSnippets.xib; sourceTree = "<group>"; };
 		1FB593BB113EE35000ECB6C0 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1FB593BE113EE36300ECB6C0 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/Localizable3.strings; sourceTree = "<group>"; };
 		1FB5940A113EE58A00ECB6C0 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/SMLMainMenu.xib; sourceTree = "<group>"; };
@@ -209,8 +471,8 @@
 		2FEC50CA0B96DB86000CF1AD /* MultiMarkdown.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; name = MultiMarkdown.pl; path = Other/MultiMarkdown.pl; sourceTree = "<group>"; };
 		2FF0FC2B0BA6C8FF00B21D83 /* SMLGradientBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SMLGradientBackgroundView.h; path = Classes/SMLGradientBackgroundView.h; sourceTree = "<group>"; };
 		2FF0FC2C0BA6C8FF00B21D83 /* SMLGradientBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SMLGradientBackgroundView.m; path = Classes/SMLGradientBackgroundView.m; sourceTree = "<group>"; };
-		510C3F900D92755B005F475A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SMLCommandResult.xib; sourceTree = "<group>"; };
-		510C3F930D927566005F475A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SMLSingleDocument.xib; sourceTree = "<group>"; };
+		510C3F900D92755B005F475A /* SMLCommandResult.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SMLCommandResult.xib; sourceTree = "<group>"; };
+		510C3F930D927566005F475A /* SMLSingleDocument.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SMLSingleDocument.xib; sourceTree = "<group>"; };
 		5168D7AE0D9276AE005225AB /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SMLMainMenu.xib; sourceTree = "<group>"; };
 		5168D7C20D9276DF005225AB /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SMLAdvancedFind.xib; sourceTree = "<group>"; };
 		5168D7C50D9276FA005225AB /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SMLCommands.xib; sourceTree = "<group>"; };
@@ -220,7 +482,7 @@
 		5168D7D10D92770E005225AB /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SMLInfo.xib; sourceTree = "<group>"; };
 		5168D7D40D927717005225AB /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SMLNewProject.xib; sourceTree = "<group>"; };
 		5168D7D70D927721005225AB /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SMLOpenPanelAccessoryView.xib; sourceTree = "<group>"; };
-		5168D7DA0D92772B005225AB /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SMLPreferences.xib; sourceTree = "<group>"; };
+		5168D7DA0D92772B005225AB /* SMLPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SMLPreferences.xib; sourceTree = "<group>"; };
 		5168D7DD0D927735005225AB /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SMLPreferencesAdvanced.xib; sourceTree = "<group>"; };
 		5168D7E00D927748005225AB /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SMLPreferencesAppearance.xib; sourceTree = "<group>"; };
 		5168D7E30D92774E005225AB /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SMLPreferencesGeneral.xib; sourceTree = "<group>"; };
@@ -252,7 +514,7 @@
 		7F5C287B0B73C4AA00D2EDDC /* SMLInterfacePerformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SMLInterfacePerformer.h; path = Classes/SMLInterfacePerformer.h; sourceTree = "<group>"; };
 		7F5C287C0B73C4AA00D2EDDC /* SMLInterfacePerformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SMLInterfacePerformer.m; path = Classes/SMLInterfacePerformer.m; sourceTree = "<group>"; };
 		7F6C9C670B75F23000531EF9 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = /usr/lib/libicucore.dylib; sourceTree = "<absolute>"; };
-		7F7357180D91D2F800F1398B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SMLProject.xib; sourceTree = "<group>"; };
+		7F7357180D91D2F800F1398B /* SMLProject.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SMLProject.xib; sourceTree = "<group>"; };
 		7F7444C70CF8DDEC00C947C1 /* SMLAdvancedFindPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SMLAdvancedFindPanel.h; path = Classes/SMLAdvancedFindPanel.h; sourceTree = "<group>"; };
 		7F7444C80CF8DDEC00C947C1 /* SMLAdvancedFindPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SMLAdvancedFindPanel.m; path = Classes/SMLAdvancedFindPanel.m; sourceTree = "<group>"; };
 		7F79EE350D93D5500034017B /* NSString+Smultron.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Smultron.h"; path = "Classes/NSString+Smultron.h"; sourceTree = "<group>"; };
@@ -754,10 +1016,10 @@
 		7F5C24D90B73BCF200D2EDDC /* Xibs */ = {
 			isa = PBXGroup;
 			children = (
-				1F0915BF113F8CB300F3BB28 /* SMLProject.xib */,
-				1F0915C2113F8CC600F3BB28 /* SMLCommandResult.xib */,
-				1F0915C4113F8CC600F3BB28 /* SMLPreferences.xib */,
-				1F0915C6113F8CC600F3BB28 /* SMLSingleDocument.xib */,
+				7F7357180D91D2F800F1398B /* SMLProject.xib */,
+				510C3F900D92755B005F475A /* SMLCommandResult.xib */,
+				5168D7DA0D92772B005225AB /* SMLPreferences.xib */,
+				510C3F930D927566005F475A /* SMLSingleDocument.xib */,
 				1F0915C8113F8CC600F3BB28 /* SMLAdvancedFind.xib */,
 				1F0915CA113F8CC600F3BB28 /* SMLCommands.xib */,
 				1F0915CC113F8CC600F3BB28 /* SMLDetab.xib */,
@@ -969,6 +1231,7 @@
 				Greek,
 				Catalan,
 				Korean,
+				Jaa,
 			);
 			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* Smultron */;
 			projectDirPath = "";
@@ -1007,9 +1270,9 @@
 				2FC46AFF0BD608C500F209AA /* SMLSnippetsIcon.icns in Resources */,
 				1FB593BD113EE35E00ECB6C0 /* Localizable3.strings in Resources */,
 				7FB9116A101E623F008DB1DA /* Smultron-Manual.pdf in Resources */,
-				1F0915C0113F8CB300F3BB28 /* SMLProject.xib in Resources */,
-				1F0915C3113F8CC600F3BB28 /* SMLCommandResult.xib in Resources */,
-				1F0915C7113F8CC600F3BB28 /* SMLSingleDocument.xib in Resources */,
+				1F091712113F959300F3BB28 /* SMLProject.xib in Resources */,
+				1F091713113F95B000F3BB28 /* SMLCommandResult.xib in Resources */,
+				1F091715113F960000F3BB28 /* SMLSingleDocument.xib in Resources */,
 				1FB59409113EE58500ECB6C0 /* SMLMainMenu.xib in Resources */,
 				1F0915C9113F8CC600F3BB28 /* SMLAdvancedFind.xib in Resources */,
 				1F0915CB113F8CC600F3BB28 /* SMLCommands.xib in Resources */,
@@ -1019,7 +1282,7 @@
 				1F0915D3113F8CC600F3BB28 /* SMLInfo.xib in Resources */,
 				1F0915DF113F8D1E00F3BB28 /* SMLNewProject.xib in Resources */,
 				1F0915E1113F8D1E00F3BB28 /* SMLOpenPanelAccessoryView.xib in Resources */,
-				1F0915C5113F8CC600F3BB28 /* SMLPreferences.xib in Resources */,
+				1F091714113F95BF00F3BB28 /* SMLPreferences.xib in Resources */,
 				1F0915E3113F8D1E00F3BB28 /* SMLPreferencesAdvanced.xib in Resources */,
 				1F0915E5113F8D1E00F3BB28 /* SMLPreferencesAppearance.xib in Resources */,
 				1F0915BB113F88FA00F3BB28 /* SMLPreferencesGeneral.xib in Resources */,
@@ -1140,44 +1403,22 @@
 			children = (
 				5168D7E30D92774E005225AB /* English */,
 				1F0915BC113F88FE00F3BB28 /* French */,
+				1F0916CC113F932D00F3BB28 /* German */,
+				1F0916E1113F93B900F3BB28 /* Japanese */,
+				1F0916F9113F94AC00F3BB28 /* Catalan */,
+				1F09170C113F955600F3BB28 /* Czech */,
+				1F091725113F964E00F3BB28 /* Dutch */,
+				1F091738113F966500F3BB28 /* Finnish */,
+				1F09174B113F968800F3BB28 /* Greek */,
+				1F09175E113F96A600F3BB28 /* Hungarian */,
+				1F091771113F96C000F3BB28 /* Italian */,
+				1F091784113F96E100F3BB28 /* Korean */,
+				1F091797113F96F800F3BB28 /* Spanish */,
+				1F0917AA113F971200F3BB28 /* zh_CN */,
+				1F0917BD113F972600F3BB28 /* zh_TW */,
+				1F0917D0113F973700F3BB28 /* sv */,
 			);
 			name = SMLPreferencesGeneral.xib;
-			sourceTree = "<group>";
-		};
-		1F0915BF113F8CB300F3BB28 /* SMLProject.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7F7357180D91D2F800F1398B /* English */,
-				1F0915C1113F8CB900F3BB28 /* French */,
-			);
-			name = SMLProject.xib;
-			sourceTree = "<group>";
-		};
-		1F0915C2113F8CC600F3BB28 /* SMLCommandResult.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				510C3F900D92755B005F475A /* English */,
-				1F0915D4113F8CD800F3BB28 /* French */,
-			);
-			name = SMLCommandResult.xib;
-			sourceTree = "<group>";
-		};
-		1F0915C4113F8CC600F3BB28 /* SMLPreferences.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5168D7DA0D92772B005225AB /* English */,
-				1F0915D5113F8CE100F3BB28 /* French */,
-			);
-			name = SMLPreferences.xib;
-			sourceTree = "<group>";
-		};
-		1F0915C6113F8CC600F3BB28 /* SMLSingleDocument.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				510C3F930D927566005F475A /* English */,
-				1F0915D6113F8CE800F3BB28 /* French */,
-			);
-			name = SMLSingleDocument.xib;
 			sourceTree = "<group>";
 		};
 		1F0915C8113F8CC600F3BB28 /* SMLAdvancedFind.xib */ = {
@@ -1185,6 +1426,20 @@
 			children = (
 				5168D7C20D9276DF005225AB /* English */,
 				1F0915D7113F8CEE00F3BB28 /* French */,
+				1F0916C1113F92F200F3BB28 /* German */,
+				1F0916D6113F938500F3BB28 /* Japanese */,
+				1F0916EE113F947200F3BB28 /* Catalan */,
+				1F091701113F955600F3BB28 /* Czech */,
+				1F09171A113F964E00F3BB28 /* Dutch */,
+				1F09172D113F966500F3BB28 /* Finnish */,
+				1F091740113F968800F3BB28 /* Greek */,
+				1F091753113F96A600F3BB28 /* Hungarian */,
+				1F091766113F96C000F3BB28 /* Italian */,
+				1F091779113F96E100F3BB28 /* Korean */,
+				1F09178C113F96F800F3BB28 /* Spanish */,
+				1F09179F113F971100F3BB28 /* zh_CN */,
+				1F0917B2113F972500F3BB28 /* zh_TW */,
+				1F0917C5113F973700F3BB28 /* sv */,
 			);
 			name = SMLAdvancedFind.xib;
 			sourceTree = "<group>";
@@ -1194,6 +1449,20 @@
 			children = (
 				5168D7C50D9276FA005225AB /* English */,
 				1F0915D8113F8CF400F3BB28 /* French */,
+				1F0916C2113F92F800F3BB28 /* German */,
+				1F0916D7113F938A00F3BB28 /* Japanese */,
+				1F0916EF113F947700F3BB28 /* Catalan */,
+				1F091702113F955600F3BB28 /* Czech */,
+				1F09171B113F964E00F3BB28 /* Dutch */,
+				1F09172E113F966500F3BB28 /* Finnish */,
+				1F091741113F968800F3BB28 /* Greek */,
+				1F091754113F96A600F3BB28 /* Hungarian */,
+				1F091767113F96C000F3BB28 /* Italian */,
+				1F09177A113F96E100F3BB28 /* Korean */,
+				1F09178D113F96F800F3BB28 /* Spanish */,
+				1F0917A0113F971100F3BB28 /* zh_CN */,
+				1F0917B3113F972500F3BB28 /* zh_TW */,
+				1F0917C6113F973700F3BB28 /* sv */,
 			);
 			name = SMLCommands.xib;
 			sourceTree = "<group>";
@@ -1203,6 +1472,20 @@
 			children = (
 				5168D7C80D927700005225AB /* English */,
 				1F0915D9113F8CFD00F3BB28 /* French */,
+				1F0916C3113F92FD00F3BB28 /* German */,
+				1F0916D8113F938F00F3BB28 /* Japanese */,
+				1F0916F0113F947C00F3BB28 /* Catalan */,
+				1F091703113F955600F3BB28 /* Czech */,
+				1F09171C113F964E00F3BB28 /* Dutch */,
+				1F09172F113F966500F3BB28 /* Finnish */,
+				1F091742113F968800F3BB28 /* Greek */,
+				1F091755113F96A600F3BB28 /* Hungarian */,
+				1F091768113F96C000F3BB28 /* Italian */,
+				1F09177B113F96E100F3BB28 /* Korean */,
+				1F09178E113F96F800F3BB28 /* Spanish */,
+				1F0917A1113F971200F3BB28 /* zh_CN */,
+				1F0917B4113F972500F3BB28 /* zh_TW */,
+				1F0917C7113F973700F3BB28 /* sv */,
 			);
 			name = SMLDetab.xib;
 			sourceTree = "<group>";
@@ -1212,6 +1495,20 @@
 			children = (
 				5168D7CB0D927705005225AB /* English */,
 				1F0915DA113F8D0200F3BB28 /* French */,
+				1F0916C4113F930400F3BB28 /* German */,
+				1F0916D9113F939500F3BB28 /* Japanese */,
+				1F0916F1113F948200F3BB28 /* Catalan */,
+				1F091704113F955600F3BB28 /* Czech */,
+				1F09171D113F964E00F3BB28 /* Dutch */,
+				1F091730113F966500F3BB28 /* Finnish */,
+				1F091743113F968800F3BB28 /* Greek */,
+				1F091756113F96A600F3BB28 /* Hungarian */,
+				1F091769113F96C000F3BB28 /* Italian */,
+				1F09177C113F96E100F3BB28 /* Korean */,
+				1F09178F113F96F800F3BB28 /* Spanish */,
+				1F0917A2113F971200F3BB28 /* zh_CN */,
+				1F0917B5113F972500F3BB28 /* zh_TW */,
+				1F0917C8113F973700F3BB28 /* sv */,
 			);
 			name = SMLEntab.xib;
 			sourceTree = "<group>";
@@ -1221,6 +1518,20 @@
 			children = (
 				5168D7CE0D927708005225AB /* English */,
 				1F0915DB113F8D0700F3BB28 /* French */,
+				1F0916C5113F930900F3BB28 /* German */,
+				1F0916DA113F939B00F3BB28 /* Japanese */,
+				1F0916F2113F948800F3BB28 /* Catalan */,
+				1F091705113F955600F3BB28 /* Czech */,
+				1F09171E113F964E00F3BB28 /* Dutch */,
+				1F091731113F966500F3BB28 /* Finnish */,
+				1F091744113F968800F3BB28 /* Greek */,
+				1F091757113F96A600F3BB28 /* Hungarian */,
+				1F09176A113F96C000F3BB28 /* Italian */,
+				1F09177D113F96E100F3BB28 /* Korean */,
+				1F091790113F96F800F3BB28 /* Spanish */,
+				1F0917A3113F971200F3BB28 /* zh_CN */,
+				1F0917B6113F972500F3BB28 /* zh_TW */,
+				1F0917C9113F973700F3BB28 /* sv */,
 			);
 			name = SMLGoToLine.xib;
 			sourceTree = "<group>";
@@ -1230,6 +1541,20 @@
 			children = (
 				5168D7D10D92770E005225AB /* English */,
 				1F0915DC113F8D0C00F3BB28 /* French */,
+				1F0916C6113F930E00F3BB28 /* German */,
+				1F0916DB113F93A100F3BB28 /* Japanese */,
+				1F0916F3113F948C00F3BB28 /* Catalan */,
+				1F091706113F955600F3BB28 /* Czech */,
+				1F09171F113F964E00F3BB28 /* Dutch */,
+				1F091732113F966500F3BB28 /* Finnish */,
+				1F091745113F968800F3BB28 /* Greek */,
+				1F091758113F96A600F3BB28 /* Hungarian */,
+				1F09176B113F96C000F3BB28 /* Italian */,
+				1F09177E113F96E100F3BB28 /* Korean */,
+				1F091791113F96F800F3BB28 /* Spanish */,
+				1F0917A4113F971200F3BB28 /* zh_CN */,
+				1F0917B7113F972500F3BB28 /* zh_TW */,
+				1F0917CA113F973700F3BB28 /* sv */,
 			);
 			name = SMLInfo.xib;
 			sourceTree = "<group>";
@@ -1239,6 +1564,20 @@
 			children = (
 				5168D7D40D927717005225AB /* English */,
 				1F0915E6113F8D2500F3BB28 /* French */,
+				1F0916C8113F931900F3BB28 /* German */,
+				1F0916DD113F93A900F3BB28 /* Japanese */,
+				1F0916F5113F949600F3BB28 /* Catalan */,
+				1F091708113F955600F3BB28 /* Czech */,
+				1F091721113F964E00F3BB28 /* Dutch */,
+				1F091734113F966500F3BB28 /* Finnish */,
+				1F091747113F968800F3BB28 /* Greek */,
+				1F09175A113F96A600F3BB28 /* Hungarian */,
+				1F09176D113F96C000F3BB28 /* Italian */,
+				1F091780113F96E100F3BB28 /* Korean */,
+				1F091793113F96F800F3BB28 /* Spanish */,
+				1F0917A6113F971200F3BB28 /* zh_CN */,
+				1F0917B9113F972600F3BB28 /* zh_TW */,
+				1F0917CC113F973700F3BB28 /* sv */,
 			);
 			name = SMLNewProject.xib;
 			sourceTree = "<group>";
@@ -1248,6 +1587,20 @@
 			children = (
 				5168D7D70D927721005225AB /* English */,
 				1F0915E7113F8D2B00F3BB28 /* French */,
+				1F0916C9113F931F00F3BB28 /* German */,
+				1F0916DE113F93AD00F3BB28 /* Japanese */,
+				1F0916F6113F949C00F3BB28 /* Catalan */,
+				1F091709113F955600F3BB28 /* Czech */,
+				1F091722113F964E00F3BB28 /* Dutch */,
+				1F091735113F966500F3BB28 /* Finnish */,
+				1F091748113F968800F3BB28 /* Greek */,
+				1F09175B113F96A600F3BB28 /* Hungarian */,
+				1F09176E113F96C000F3BB28 /* Italian */,
+				1F091781113F96E100F3BB28 /* Korean */,
+				1F091794113F96F800F3BB28 /* Spanish */,
+				1F0917A7113F971200F3BB28 /* zh_CN */,
+				1F0917BA113F972600F3BB28 /* zh_TW */,
+				1F0917CD113F973700F3BB28 /* sv */,
 			);
 			name = SMLOpenPanelAccessoryView.xib;
 			sourceTree = "<group>";
@@ -1257,6 +1610,20 @@
 			children = (
 				5168D7DD0D927735005225AB /* English */,
 				1F0915E8113F8D3000F3BB28 /* French */,
+				1F0916CA113F932400F3BB28 /* German */,
+				1F0916DF113F93B100F3BB28 /* Japanese */,
+				1F0916F7113F94A100F3BB28 /* Catalan */,
+				1F09170A113F955600F3BB28 /* Czech */,
+				1F091723113F964E00F3BB28 /* Dutch */,
+				1F091736113F966500F3BB28 /* Finnish */,
+				1F091749113F968800F3BB28 /* Greek */,
+				1F09175C113F96A600F3BB28 /* Hungarian */,
+				1F09176F113F96C000F3BB28 /* Italian */,
+				1F091782113F96E100F3BB28 /* Korean */,
+				1F091795113F96F800F3BB28 /* Spanish */,
+				1F0917A8113F971200F3BB28 /* zh_CN */,
+				1F0917BB113F972600F3BB28 /* zh_TW */,
+				1F0917CE113F973700F3BB28 /* sv */,
 			);
 			name = SMLPreferencesAdvanced.xib;
 			sourceTree = "<group>";
@@ -1266,6 +1633,20 @@
 			children = (
 				5168D7E00D927748005225AB /* English */,
 				1F0915E9113F8D3600F3BB28 /* French */,
+				1F0916CB113F932800F3BB28 /* German */,
+				1F0916E0113F93B600F3BB28 /* Japanese */,
+				1F0916F8113F94A700F3BB28 /* Catalan */,
+				1F09170B113F955600F3BB28 /* Czech */,
+				1F091724113F964E00F3BB28 /* Dutch */,
+				1F091737113F966500F3BB28 /* Finnish */,
+				1F09174A113F968800F3BB28 /* Greek */,
+				1F09175D113F96A600F3BB28 /* Hungarian */,
+				1F091770113F96C000F3BB28 /* Italian */,
+				1F091783113F96E100F3BB28 /* Korean */,
+				1F091796113F96F800F3BB28 /* Spanish */,
+				1F0917A9113F971200F3BB28 /* zh_CN */,
+				1F0917BC113F972600F3BB28 /* zh_TW */,
+				1F0917CF113F973700F3BB28 /* sv */,
 			);
 			name = SMLPreferencesAppearance.xib;
 			sourceTree = "<group>";
@@ -1275,6 +1656,20 @@
 			children = (
 				5168D7E60D927761005225AB /* English */,
 				1F0915F4113F8D4A00F3BB28 /* French */,
+				1F0916CD113F933300F3BB28 /* German */,
+				1F0916E3113F93FB00F3BB28 /* Japanese */,
+				1F0916FA113F94B000F3BB28 /* Catalan */,
+				1F09170D113F955600F3BB28 /* Czech */,
+				1F091726113F964E00F3BB28 /* Dutch */,
+				1F091739113F966500F3BB28 /* Finnish */,
+				1F09174C113F968800F3BB28 /* Greek */,
+				1F09175F113F96A600F3BB28 /* Hungarian */,
+				1F091772113F96C100F3BB28 /* Italian */,
+				1F091785113F96E100F3BB28 /* Korean */,
+				1F091798113F96F800F3BB28 /* Spanish */,
+				1F0917AB113F971200F3BB28 /* zh_CN */,
+				1F0917BE113F972600F3BB28 /* zh_TW */,
+				1F0917D1113F973700F3BB28 /* sv */,
 			);
 			name = SMLPreferencesOpenSave.xib;
 			sourceTree = "<group>";
@@ -1284,6 +1679,20 @@
 			children = (
 				5168D7E90D927768005225AB /* English */,
 				1F0915F5113F8D5000F3BB28 /* French */,
+				1F0916CE113F933700F3BB28 /* German */,
+				1F0916E4113F940200F3BB28 /* Japanese */,
+				1F0916FB113F94B800F3BB28 /* Catalan */,
+				1F09170E113F955600F3BB28 /* Czech */,
+				1F091727113F964E00F3BB28 /* Dutch */,
+				1F09173A113F966600F3BB28 /* Finnish */,
+				1F09174D113F968800F3BB28 /* Greek */,
+				1F091760113F96A600F3BB28 /* Hungarian */,
+				1F091773113F96C100F3BB28 /* Italian */,
+				1F091786113F96E100F3BB28 /* Korean */,
+				1F091799113F96F800F3BB28 /* Spanish */,
+				1F0917AC113F971200F3BB28 /* zh_CN */,
+				1F0917BF113F972600F3BB28 /* zh_TW */,
+				1F0917D2113F973700F3BB28 /* sv */,
 			);
 			name = SMLPreview.xib;
 			sourceTree = "<group>";
@@ -1293,6 +1702,20 @@
 			children = (
 				5168D7EC0D92776F005225AB /* English */,
 				1F0915F6113F8D5600F3BB28 /* French */,
+				1F0916CF113F933D00F3BB28 /* German */,
+				1F0916E5113F940700F3BB28 /* Japanese */,
+				1F0916FC113F94BF00F3BB28 /* Catalan */,
+				1F09170F113F955600F3BB28 /* Czech */,
+				1F091728113F964E00F3BB28 /* Dutch */,
+				1F09173B113F966600F3BB28 /* Finnish */,
+				1F09174E113F968800F3BB28 /* Greek */,
+				1F091761113F96A600F3BB28 /* Hungarian */,
+				1F091774113F96C100F3BB28 /* Italian */,
+				1F091787113F96E100F3BB28 /* Korean */,
+				1F09179A113F96F800F3BB28 /* Spanish */,
+				1F0917AD113F971200F3BB28 /* zh_CN */,
+				1F0917C0113F972600F3BB28 /* zh_TW */,
+				1F0917D3113F973700F3BB28 /* sv */,
 			);
 			name = SMLPrintAccessoryView.xib;
 			sourceTree = "<group>";
@@ -1302,6 +1725,20 @@
 			children = (
 				5168D7EF0D927775005225AB /* English */,
 				1F0915F7113F8D5B00F3BB28 /* French */,
+				1F0916D0113F934500F3BB28 /* German */,
+				1F0916E6113F940A00F3BB28 /* Japanese */,
+				1F0916FD113F94C400F3BB28 /* Catalan */,
+				1F091710113F955600F3BB28 /* Czech */,
+				1F091729113F964E00F3BB28 /* Dutch */,
+				1F09173C113F966600F3BB28 /* Finnish */,
+				1F09174F113F968800F3BB28 /* Greek */,
+				1F091762113F96A600F3BB28 /* Hungarian */,
+				1F091775113F96C100F3BB28 /* Italian */,
+				1F091788113F96E100F3BB28 /* Korean */,
+				1F09179B113F96F800F3BB28 /* Spanish */,
+				1F0917AE113F971200F3BB28 /* zh_CN */,
+				1F0917C1113F972600F3BB28 /* zh_TW */,
+				1F0917D4113F973700F3BB28 /* sv */,
 			);
 			name = SMLRegularExpressionHelp.xib;
 			sourceTree = "<group>";
@@ -1311,6 +1748,20 @@
 			children = (
 				5168D7F20D92777B005225AB /* English */,
 				1F0915F8113F8D6100F3BB28 /* French */,
+				1F0916D1113F934A00F3BB28 /* German */,
+				1F0916E7113F940E00F3BB28 /* Japanese */,
+				1F0916FE113F94CA00F3BB28 /* Catalan */,
+				1F091711113F955600F3BB28 /* Czech */,
+				1F09172A113F964E00F3BB28 /* Dutch */,
+				1F09173D113F966600F3BB28 /* Finnish */,
+				1F091750113F968800F3BB28 /* Greek */,
+				1F091763113F96A600F3BB28 /* Hungarian */,
+				1F091776113F96C100F3BB28 /* Italian */,
+				1F091789113F96E100F3BB28 /* Korean */,
+				1F09179C113F96F800F3BB28 /* Spanish */,
+				1F0917AF113F971200F3BB28 /* zh_CN */,
+				1F0917C2113F972600F3BB28 /* zh_TW */,
+				1F0917D5113F973700F3BB28 /* sv */,
 			);
 			name = SMLSnippets.xib;
 			sourceTree = "<group>";
@@ -1320,6 +1771,20 @@
 			children = (
 				7F9809970B73B42F000A9140 /* English */,
 				1FB593BB113EE35000ECB6C0 /* French */,
+				1F0916BB113F92CB00F3BB28 /* German */,
+				1F0916E8113F941500F3BB28 /* Japanese */,
+				1F0916FF113F94D100F3BB28 /* Catalan */,
+				1F091716113F962B00F3BB28 /* Czech */,
+				1F091718113F964300F3BB28 /* Dutch */,
+				1F09172B113F965F00F3BB28 /* Finnish */,
+				1F09173E113F967F00F3BB28 /* Greek */,
+				1F091751113F969B00F3BB28 /* Hungarian */,
+				1F091764113F96BA00F3BB28 /* Italian */,
+				1F091777113F96DA00F3BB28 /* Korean */,
+				1F09178A113F96F000F3BB28 /* Spanish */,
+				1F09179D113F970A00F3BB28 /* zh_CN */,
+				1F0917B0113F971E00F3BB28 /* zh_TW */,
+				1F0917C3113F973000F3BB28 /* sv */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1329,6 +1794,20 @@
 			children = (
 				7F897CFC0BD82D7E009B7216 /* English */,
 				1FB593BE113EE36300ECB6C0 /* French */,
+				1F0916BC113F92D100F3BB28 /* German */,
+				1F0916E9113F941B00F3BB28 /* Japanese */,
+				1F091700113F94D700F3BB28 /* Catalan */,
+				1F091717113F962B00F3BB28 /* Czech */,
+				1F091719113F964300F3BB28 /* Dutch */,
+				1F09172C113F965F00F3BB28 /* Finnish */,
+				1F09173F113F967F00F3BB28 /* Greek */,
+				1F091752113F969B00F3BB28 /* Hungarian */,
+				1F091765113F96BA00F3BB28 /* Italian */,
+				1F091778113F96DA00F3BB28 /* Korean */,
+				1F09178B113F96F000F3BB28 /* Spanish */,
+				1F09179E113F970A00F3BB28 /* zh_CN */,
+				1F0917B1113F971E00F3BB28 /* zh_TW */,
+				1F0917C4113F973000F3BB28 /* sv */,
 			);
 			name = Localizable3.strings;
 			sourceTree = "<group>";
@@ -1338,6 +1817,20 @@
 			children = (
 				5168D7AE0D9276AE005225AB /* English */,
 				1FB5940A113EE58A00ECB6C0 /* French */,
+				1F0916C7113F931400F3BB28 /* German */,
+				1F0916DC113F93A500F3BB28 /* Japanese */,
+				1F0916F4113F949100F3BB28 /* Catalan */,
+				1F091707113F955600F3BB28 /* Czech */,
+				1F091720113F964E00F3BB28 /* Dutch */,
+				1F091733113F966500F3BB28 /* Finnish */,
+				1F091746113F968800F3BB28 /* Greek */,
+				1F091759113F96A600F3BB28 /* Hungarian */,
+				1F09176C113F96C000F3BB28 /* Italian */,
+				1F09177F113F96E100F3BB28 /* Korean */,
+				1F091792113F96F800F3BB28 /* Spanish */,
+				1F0917A5113F971200F3BB28 /* zh_CN */,
+				1F0917B8113F972500F3BB28 /* zh_TW */,
+				1F0917CB113F973700F3BB28 /* sv */,
 			);
 			name = SMLMainMenu.xib;
 			sourceTree = "<group>";
