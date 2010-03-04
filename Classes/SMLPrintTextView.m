@@ -51,7 +51,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 {	
 	NSPrintInfo *printInfo = [SMLCurrentProject printInfo];
 	if ([printInfo topMargin] != [printInfo bottomMargin]) { // We should print a header
-		NSString *headerString = [NSString stringWithFormat:@"%i   %C   %@   %C   %@   %C   %@", [[NSPrintOperation currentOperation] currentPage], 0x00B7, [SMLCurrentDocument valueForKey:@"name"], 0x00B7, [[NSDate date] descriptionWithCalendarFormat:@"%Y-%m-%d %H:%M" timeZone:nil locale:nil], 0x00B7, NSFullUserName()];
+		NSString *headerString = [NSString stringWithFormat:@"%ld   %C   %@   %C   %@   %C   %@", [[NSPrintOperation currentOperation] currentPage], 0x00B7, [SMLCurrentDocument valueForKey:@"name"], 0x00B7, [[NSDate date] descriptionWithCalendarFormat:@"%Y-%m-%d %H:%M" timeZone:nil locale:nil], 0x00B7, NSFullUserName()];
 		
 		NSRect savedTextRect = [self frame];	
 		[self setFrame:NSMakeRect(0, 0, borderSize.width, borderSize.height)];

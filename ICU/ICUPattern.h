@@ -13,11 +13,11 @@
 /**
  * flags. see http://icu.sourceforge.net/apiref/icu4c/uregex_8h.html#874989dfec4cbeb6baf4d1a51cb529ae
  */
-extern const unsigned ICUCaseInsensitiveMatching;
-extern const unsigned ICUComments;
-extern const unsigned ICUDotMatchesAll;
-extern const unsigned ICUMultiline;
-extern const unsigned ICUUnicodeWordBoundaries;
+extern const NSUInteger ICUCaseInsensitiveMatching;
+extern const NSUInteger ICUComments;
+extern const NSUInteger ICUDotMatchesAll;
+extern const NSUInteger ICUMultiline;
+extern const NSUInteger ICUUnicodeWordBoundaries;
 
 /*!
     @class		 ICUPattern
@@ -29,7 +29,7 @@ extern const unsigned ICUUnicodeWordBoundaries;
 @interface ICUPattern: NSObject <NSCopying> {
 	void *re;
 	void *textToSearch;
-	unsigned flags;
+	NSUInteger flags;
 	NSString *stringToSearch;
 }
 
@@ -38,7 +38,7 @@ extern const unsigned ICUUnicodeWordBoundaries;
     @abstract   Returns an autoreleased pattern with the specified flags set.
     @discussion Flags are defined as the OR of the constants defined in the class.
 */
-+(ICUPattern *)patternWithString:(NSString *)aPattern flags:(unsigned)flags;
++(ICUPattern *)patternWithString:(NSString *)aPattern flags:(NSUInteger)flags;
 
 /*!
 	@method     patternWithString:
@@ -52,7 +52,7 @@ extern const unsigned ICUUnicodeWordBoundaries;
 	@abstract   Returns a pattern with the specified flags set.
 	@discussion Flags are defined as the OR of the constants defined in the class.
 */
--(id)initWithString:(NSString *)aPattern flags:(unsigned)flags;
+-(id)initWithString:(NSString *)aPattern flags:(NSUInteger)flags;
 
 /*!
     @method     initWithString:

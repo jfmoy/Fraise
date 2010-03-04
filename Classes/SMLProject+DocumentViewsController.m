@@ -52,7 +52,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (IBAction)viewSizeSliderAction:(id)sender
 {
-	NSInteger size = round([viewSelectionSizeSlider floatValue]);
+	NSInteger size = round([viewSelectionSizeSlider doubleValue]);
 	
 	[SMLDefaults setValue:[NSNumber numberWithInteger:size] forKey:@"ViewSize"];
 	[project setValue:[NSNumber numberWithInteger:size] forKey:@"viewSize"];
@@ -93,7 +93,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		[leftDocumentsView addSubview:viewSelectionView];
 	//}
 	
-	[viewSelectionSizeSlider setFloatValue:[[project valueForKey:@"viewSize"] floatValue]];
+	[viewSelectionSizeSlider setDoubleValue:[[project valueForKey:@"viewSize"] doubleValue]];
 }
 
 

@@ -47,7 +47,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	[self setTabWidth];
 	
 	[self setVerticallyResizable:YES];
-	[self setMaxSize:NSMakeSize(FLT_MAX, FLT_MAX)];
+	[self setMaxSize:NSMakeSize(CGFLOAT_MAX, CGFLOAT_MAX)];
 	[self setAutoresizingMask:NSViewWidthSizable];
 	[self setAllowsUndo:YES];
 	[self setUsesFindPanel:YES];

@@ -216,7 +216,7 @@ static id sharedInstance = nil;
 	NSString *temporaryPath;
 	do {
 		sequenceNumber++;
-		temporaryPath = [NSString stringWithFormat:@"%d-%d-%d.%@", [[NSProcessInfo processInfo] processIdentifier], (NSInteger)[NSDate timeIntervalSinceReferenceDate], sequenceNumber, @"Smultron"];
+		temporaryPath = [NSString stringWithFormat:@"%ld-%ld-%ld.%@", [[NSProcessInfo processInfo] processIdentifier], (NSInteger)[NSDate timeIntervalSinceReferenceDate], sequenceNumber, @"Smultron"];
 		temporaryPath = [NSTemporaryDirectory() stringByAppendingPathComponent:temporaryPath];
 	} while ([[NSFileManager defaultManager] fileExistsAtPath:temporaryPath]);
 	

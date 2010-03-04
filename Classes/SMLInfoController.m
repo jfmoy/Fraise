@@ -144,7 +144,7 @@ static id sharedInstance = nil;
 	}
 
 
-	[linesTextField setStringValue:[NSString stringWithFormat:@"%d/%d", [SMLInterface currentLineNumber], lineNumber]];
+	[linesTextField setStringValue:[NSString stringWithFormat:@"%ld/%ld", [SMLInterface currentLineNumber], lineNumber]];
 
 	NSArray *functions = [SMLInterface allFunctions];
 	
@@ -176,11 +176,15 @@ static id sharedInstance = nil;
 	}
 }
 
-
-- (NSString *)stringFromPermissions:(unsigned long)permissions 
+- (NSString *)stringFromPermissions:(NSUInteger)permissions 
 {
     char permissionsString[10];
-    strmode(permissions, permissionsString);
+	
+#if __LP64__
+    strmode((short)permissions, permissionsString);
+#else
+	strmode(permissions, permissionsString);
+#endif
 	
 	NSMutableString *returnString = [NSMutableString stringWithUTF8String:permissionsString];
 	[returnString deleteCharactersInRange:NSMakeRange(0, 1)];

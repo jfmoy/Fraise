@@ -19,8 +19,8 @@ Protocol to be observed by all style delegate objects.  These objects handle the
 - (NSString *)name;
 
 // control specific parameters
-- (float)leftMarginForTabBarControl;
-- (float)rightMarginForTabBarControl;
+- (CGFloat)leftMarginForTabBarControl;
+- (CGFloat)rightMarginForTabBarControl;
 
 // add tab button
 - (NSImage *)addTabButtonImage;
@@ -32,8 +32,8 @@ Protocol to be observed by all style delegate objects.  These objects handle the
 - (NSRect)iconRectForTabCell:(PSMTabBarCell *)cell;
 - (NSRect)indicatorRectForTabCell:(PSMTabBarCell *)cell;
 - (NSRect)objectCounterRectForTabCell:(PSMTabBarCell *)cell;
-- (float)minimumWidthOfTabCell:(PSMTabBarCell *)cell;
-- (float)desiredWidthOfTabCell:(PSMTabBarCell *)cell;
+- (CGFloat)minimumWidthOfTabCell:(PSMTabBarCell *)cell;
+- (CGFloat)desiredWidthOfTabCell:(PSMTabBarCell *)cell;
 
 // cell values
 - (NSAttributedString *)attributedObjectCountValueForTabCell:(PSMTabBarCell *)cell;

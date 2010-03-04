@@ -198,7 +198,7 @@ static id sharedInstance = nil;
 	} else if (numberOfResults == 1) {
 		searchResultString = [NSString stringWithFormat:NSLocalizedString(@"Found one match for search-string %@", @"Found one match for search-string %@ in Advanced Find"), searchString];
 	} else {
-		searchResultString = [NSString stringWithFormat:NSLocalizedString(@"Found %i matches for search-string %@", @"Found %i matches for search-string %@ in Advanced Find"), numberOfResults, searchString];
+		searchResultString = [NSString stringWithFormat:NSLocalizedString(@"Found %ld matches for search-string %@", @"Found %ld matches for search-string %@ in Advanced Find"), (long)numberOfResults, searchString];
 	}
 	
 	[findResultTextField setStringValue:searchResultString];
@@ -331,14 +331,14 @@ static id sharedInstance = nil;
 		NSString *defaultButton;
 		if ([replaceString length] > 0) {
 			if (numberOfResults != 1) {
-				title = [NSString stringWithFormat:NSLocalizedString(@"Are you sure that you want to replace %i occurrences of %@ with %@?", @"Ask if you are sure that you want to replace %i occurrences of %@ with %@ in ask-if-sure-you-want-to-replace-in-advanced-find-sheet"), numberOfResults, searchString, replaceString];
+				title = [NSString stringWithFormat:NSLocalizedString(@"Are you sure that you want to replace %ld occurrences of %@ with %@?", @"Ask if you are sure that you want to replace %ld occurrences of %@ with %@ in ask-if-sure-you-want-to-replace-in-advanced-find-sheet"), (long) numberOfResults, searchString, replaceString];
 			} else {
 				title = [NSString stringWithFormat:NSLocalizedString(@"Are you sure that you want to replace one occurrence of %@ with %@?", @"Ask if you are sure that you want to replace one occurrence of %@ with %@ in ask-if-sure-you-want-to-replace-in-advanced-find-sheet"), searchString, replaceString];
 			}
 			defaultButton = NSLocalizedString(@"Replace", @"Replace-button in ask-if-sure-you-want-to-replace-in-advanced-find-sheet");
 		} else {
 			if (numberOfResults != 1) {
-				title = [NSString stringWithFormat:NSLocalizedString(@"Are you sure that you want to delete %i occurrences of %@?", @"Ask if you are sure that you want to delete %i occurrences of %@ in ask-if-sure-you-want-to-replace-in-advanced-find-sheet"), numberOfResults, searchString, replaceString];
+				title = [NSString stringWithFormat:NSLocalizedString(@"Are you sure that you want to delete %ld occurrences of %@?", @"Ask if you are sure that you want to delete %ld occurrences of %@ in ask-if-sure-you-want-to-replace-in-advanced-find-sheet"), (long) numberOfResults, searchString, replaceString];
 			} else {
 				title = [NSString stringWithFormat:NSLocalizedString(@"Are you sure that you want to delete the one occurrence of %@?", @"Ask if you are sure that you want to delete the one occurrence of %@ in ask-if-sure-you-want-to-replace-in-advanced-find-sheet"), searchString, replaceString];
 			}
@@ -442,7 +442,7 @@ static id sharedInstance = nil;
 	}
 	
 	if (numberOfReplaces != 1) {
-		[findResultTextField setObjectValue:[NSString stringWithFormat:NSLocalizedString(@"Replaced %i occurrences of %@ with %@", @"Indicate that we replaced %i occurrences of %@ with %@ in update-search-textField-after-replace"), numberOfReplaces, searchString, replaceString]];
+		[findResultTextField setObjectValue:[NSString stringWithFormat:NSLocalizedString(@"Replaced %ld occurrences of %@ with %@", @"Indicate that we replaced %ld occurrences of %@ with %@ in update-search-textField-after-replace"), (long)numberOfReplaces, searchString, replaceString]];
 	} else {
 		[findResultTextField setObjectValue:[NSString stringWithFormat:NSLocalizedString(@"Replaced one occurrence of %@ with %@", @"Indicate that we replaced one occurrence of %@ with %@ in update-search-textField-after-replace"), searchString, replaceString]];
 	}
@@ -598,7 +598,7 @@ static id sharedInstance = nil;
 - (NSMutableDictionary *)preparedResultDictionaryFromString:(NSString *)completeString searchStringLength:(NSInteger)searchStringLength range:(NSRange)foundRange lineNumber:(NSInteger)lineNumber document:(id)document
 {
 	NSMutableString *displayString = [[NSMutableString alloc] init];
-	NSString *lineNumberString = [NSString stringWithFormat:@"%d\t", lineNumber];
+	NSString *lineNumberString = [NSString stringWithFormat:@"%d\t", (long)lineNumber];
 	[displayString appendString:lineNumberString];
 	NSRange linesRange = [completeString lineRangeForRange:foundRange];
 	[displayString appendString:[SMLText replaceAllNewLineCharactersWithSymbolInString:[completeString substringWithRange:linesRange]]];

@@ -48,5 +48,5 @@ Unless required by applicable law or agreed to in writing, software distributed 
 - (void)openInfoWindow;
 - (void)refreshInfo;
 
-- (NSString *)stringFromPermissions:(unsigned long)permissions;
+- (NSString *)stringFromPermissions:(NSUInteger)permissions;
 @end

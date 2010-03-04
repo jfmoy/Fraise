@@ -28,22 +28,22 @@ typedef struct URegularExpression URegularExpression;
 #import <unicode/uregex.h>
 #import <unicode/ustring.h>
 
-unsigned const ICUCaseInsensitiveMatching = UREGEX_CASE_INSENSITIVE;
-unsigned const ICUComments = UREGEX_COMMENTS;
-unsigned const ICUDotMatchesAll = UREGEX_DOTALL;
-unsigned const ICUMultiline = UREGEX_MULTILINE;
-unsigned const ICUUnicodeWordBoundaries = UREGEX_UWORD;
+NSUInteger const ICUCaseInsensitiveMatching = UREGEX_CASE_INSENSITIVE;
+NSUInteger const ICUComments = UREGEX_COMMENTS;
+NSUInteger const ICUDotMatchesAll = UREGEX_DOTALL;
+NSUInteger const ICUMultiline = UREGEX_MULTILINE;
+NSUInteger const ICUUnicodeWordBoundaries = UREGEX_UWORD;
 
 @interface ICUPattern (Private)
 -(void)setRe:(URegularExpression *)p;
--(unsigned)flags;
+-(NSUInteger)flags;
 -(UChar *)textToSearch;
 
 @end
 
 @implementation ICUPattern
 
-+(ICUPattern *)patternWithString:(NSString *)aPattern flags:(unsigned)flags {
++(ICUPattern *)patternWithString:(NSString *)aPattern flags:(NSUInteger)flags {
 	return [[self alloc] initWithString:aPattern flags:flags];	
 }
 
@@ -51,7 +51,7 @@ unsigned const ICUUnicodeWordBoundaries = UREGEX_UWORD;
 	return [[self alloc] initWithString:aPattern flags:0];
 }
 
--(id)initWithString:(NSString *)aPattern flags:(unsigned)f {
+-(id)initWithString:(NSString *)aPattern flags:(NSUInteger)f {
 
 	if(![super init])
 		return nil;
@@ -142,7 +142,7 @@ unsigned const ICUUnicodeWordBoundaries = UREGEX_UWORD;
 	}	
 }
 
--(unsigned)flags {
+-(NSUInteger)flags {
 	return flags;
 }
 
@@ -166,9 +166,9 @@ unsigned const ICUUnicodeWordBoundaries = UREGEX_UWORD;
 	if([self re] != NULL) {
 		UChar *p = NULL;
 		UErrorCode status = 0;
-		int len = 0;
+		int32_t len = 0;
+		
 		p = (UChar *)uregex_pattern([self re], &len, &status);
-
 		if(U_FAILURE(status)) {
 			[NSException raise:@"Pattern Exception"
 						format:@"Could not get pattern text from pattern."];
@@ -187,36 +187,36 @@ unsigned const ICUUnicodeWordBoundaries = UREGEX_UWORD;
 	UErrorCode status = 0;
 
 	NSMutableArray *results = [NSMutableArray array];
-	int destFieldsCapacity = 16;
+	NSInteger destFieldsCapacity = 16;
 	size_t destCapacity = u_strlen([self textToSearch]);
 
 	while(!isDone) {
 		UChar *destBuf = (UChar *)NSZoneCalloc([self zone], destCapacity, sizeof(UChar));
-		int requiredCapacity = 0;
+		int32_t requiredCapacity = 0;
 		UChar *destFields[destFieldsCapacity];
-		int numberOfComponents = uregex_split([self re],
-											  destBuf,
-											  destCapacity,
-											  &requiredCapacity,
-											  destFields,
-											  destFieldsCapacity,
-											  &status);
+		NSInteger numberOfComponents = uregex_split([self re],
+													destBuf,
+													destCapacity,
+													&requiredCapacity,
+													destFields,
+													destFieldsCapacity,
+													&status);
 		
 		if(status == U_BUFFER_OVERFLOW_ERROR) { // buffer was too small, grow it
 			NSZoneFree([self zone], destBuf);
-			NSAssert(destCapacity * 2 < INT_MAX, @"Overflow occurred splitting string.");
+			NSAssert(destCapacity * 2 < NSIntegerMax, @"Overflow occurred splitting string.");
 			destCapacity = (destCapacity < requiredCapacity) ? requiredCapacity : destCapacity * 2;
 			status = 0;
 		} else if(destFieldsCapacity == numberOfComponents) {
 			destFieldsCapacity *= 2;
-			NSAssert(destFieldsCapacity *2 < INT_MAX, @"Overflow occurred splitting string.");
+			NSAssert(destFieldsCapacity *2 < NSIntegerMax, @"Overflow occurred splitting string.");
 			NSZoneFree([self zone], destBuf);
 			status = 0;
 		} else if(U_FAILURE(status)) {
 			NSZoneFree([self zone], destBuf);
 			isDone = YES;
 		} else {
-			int i;
+			NSInteger i;
 			
 			for(i=0; i<numberOfComponents; i++) {
 				NSAssert(i < destFieldsCapacity, @"Unexpected number of components found in split.");

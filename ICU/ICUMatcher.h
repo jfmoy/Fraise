@@ -44,7 +44,7 @@
     @abstract   Resets the pattern and performs a match from the specified index.
     @discussion Use <code>group</code> and <code>rangeOfMatch</code> to extract the match.
 */
--(BOOL)findFromIndex:(unsigned)index;
+-(BOOL)findFromIndex:(NSUInteger)index;
 
 /*!
     @method     group
@@ -58,21 +58,21 @@
     @abstract   Returns the given subexpression for the current match.
     @discussion <code>group</code> is equivalent to <code>groupAtIndex:0</code>.  The subexpressions for a match are indexed from 1.
 */
--(NSString *)groupAtIndex:(unsigned)groupIndex;
+-(NSString *)groupAtIndex:(NSUInteger)groupIndex;
 
 /*!
     @method     numberOfGroups
     @abstract   Returns the number of groups for the current match.
     @discussion Group 0 is the entire match and groups 1..n represent the groups for the subexpressions.
 */
--(unsigned)numberOfGroups;
+-(NSUInteger)numberOfGroups;
 
 /*!
     @method     lookingAt:
     @abstract   Returns true if the pattern matches some prefix of the input string starting at the specified index.
     @discussion This method returns YES when some prefix of the substring matches the input string.
 */
--(BOOL)lookingAt:(unsigned)index;
+-(BOOL)lookingAt:(NSUInteger)index;
 
 /*!
     @method     pattern
@@ -122,6 +122,6 @@
     @abstract   Returns the range of the input string that corresponds to the specified capture group of the current match.
     @discussion
 */
--(NSRange)rangeOfMatchGroup:(unsigned)groupNumber;
+-(NSRange)rangeOfMatchGroup:(NSUInteger)groupNumber;
 
 @end

@@ -74,7 +74,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 				image = [document valueForKey:@"icon"];
 			}
 
-			[(SMLDocumentsListCell *)aCell setHeightAndWidth:[[[self valueForKey:@"project"] valueForKey:@"viewSize"] floatValue]];
+			[(SMLDocumentsListCell *)aCell setHeightAndWidth:[[[self valueForKey:@"project"] valueForKey:@"viewSize"] doubleValue]];
 			[(SMLDocumentsListCell *)aCell setImage:image];
 			
 			if ([[SMLDefaults valueForKey:@"ShowFullPathInDocumentsList"] boolValue] == YES) {

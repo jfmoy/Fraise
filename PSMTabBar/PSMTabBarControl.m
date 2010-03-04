@@ -18,7 +18,7 @@
 
 @interface PSMTabBarControl (Private)
 // characteristics
-- (float)availableCellWidth;
+- (CGFloat)availableCellWidth;
 - (NSRect)genericCellRect;
 
     // constructor/destructor
@@ -57,7 +57,7 @@
     // convenience
 - (id)cellForPoint:(NSPoint)point cellFrame:(NSRectPointer)outFrame;
 - (PSMTabBarCell *)lastVisibleTab;
-- (int)numberOfVisibleTabs;
+- (NSInteger)numberOfVisibleTabs;
 
 @end
 
@@ -71,9 +71,9 @@
     return bundle;
 }
 
-- (float)availableCellWidth
+- (CGFloat)availableCellWidth
 {
-    float width = [self frame].size.width;
+    CGFloat width = [self frame].size.width;
     width = width - [style leftMarginForTabBarControl] - [style rightMarginForTabBarControl];
     return width;
 }
@@ -316,34 +316,34 @@
     [self update];
 }
 
-- (int)cellMinWidth
+- (NSInteger)cellMinWidth
 {
     return _cellMinWidth;
 }
 
-- (void)setCellMinWidth:(int)value
+- (void)setCellMinWidth:(NSInteger)value
 {
     _cellMinWidth = value;
     [self update];
 }
 
-- (int)cellMaxWidth
+- (NSInteger)cellMaxWidth
 {
     return _cellMaxWidth;
 }
 
-- (void)setCellMaxWidth:(int)value
+- (void)setCellMaxWidth:(NSInteger)value
 {
     _cellMaxWidth = value;
     [self update];
 }
 
-- (int)cellOptimumWidth
+- (NSInteger)cellOptimumWidth
 {
     return _cellOptimumWidth;
 }
 
-- (void)setCellOptimumWidth:(int)value
+- (void)setCellOptimumWidth:(NSInteger)value
 {
     _cellOptimumWidth = value;
     [self update];
@@ -479,9 +479,9 @@
     _isHidden = hide;
     _currentStep = 0;
     if(!animate)
-        _currentStep = (int)kPSMHideAnimationSteps;
+        _currentStep = (NSInteger)kPSMHideAnimationSteps;
     
-    float partnerOriginalHeight, partnerOriginalY, myOriginalHeight, myOriginalY, partnerTargetHeight, partnerTargetY, myTargetHeight, myTargetY;
+    CGFloat partnerOriginalHeight, partnerOriginalY, myOriginalHeight, myOriginalY, partnerTargetHeight, partnerTargetY, myTargetHeight, myTargetY;
     
     // current (original) values
     myOriginalHeight = [self frame].size.height;
@@ -545,7 +545,7 @@
         }
     }
 
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:myOriginalY], @"myOriginalY", [NSNumber numberWithFloat:partnerOriginalY], @"partnerOriginalY", [NSNumber numberWithFloat:myOriginalHeight], @"myOriginalHeight", [NSNumber numberWithFloat:partnerOriginalHeight], @"partnerOriginalHeight", [NSNumber numberWithFloat:myTargetY], @"myTargetY", [NSNumber numberWithFloat:partnerTargetY], @"partnerTargetY", [NSNumber numberWithFloat:myTargetHeight], @"myTargetHeight", [NSNumber numberWithFloat:partnerTargetHeight], @"partnerTargetHeight", nil];
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:myOriginalY], @"myOriginalY", [NSNumber numberWithDouble:partnerOriginalY], @"partnerOriginalY", [NSNumber numberWithDouble:myOriginalHeight], @"myOriginalHeight", [NSNumber numberWithDouble:partnerOriginalHeight], @"partnerOriginalHeight", [NSNumber numberWithDouble:myTargetY], @"myTargetY", [NSNumber numberWithDouble:partnerTargetY], @"partnerTargetY", [NSNumber numberWithDouble:myTargetHeight], @"myTargetHeight", [NSNumber numberWithDouble:partnerTargetHeight], @"partnerTargetHeight", nil];
     animationTimer = [NSTimer scheduledTimerWithTimeInterval:(1.0/20.0) target:self selector:@selector(animateShowHide:) userInfo:userInfo repeats:YES];
 }
 
@@ -553,10 +553,10 @@
 {
     // moves the frame of the tab bar and window (or partner view) linearly to hide or show the tab bar
     NSRect myFrame = [self frame];
-    float myCurrentY = ([[[timer userInfo] objectForKey:@"myOriginalY"] floatValue] + (([[[timer userInfo] objectForKey:@"myTargetY"] floatValue] - [[[timer userInfo] objectForKey:@"myOriginalY"] floatValue]) * (_currentStep/kPSMHideAnimationSteps)));
-    float myCurrentHeight = ([[[timer userInfo] objectForKey:@"myOriginalHeight"] floatValue] + (([[[timer userInfo] objectForKey:@"myTargetHeight"] floatValue] - [[[timer userInfo] objectForKey:@"myOriginalHeight"] floatValue]) * (_currentStep/kPSMHideAnimationSteps)));
-    float partnerCurrentY = ([[[timer userInfo] objectForKey:@"partnerOriginalY"] floatValue] + (([[[timer userInfo] objectForKey:@"partnerTargetY"] floatValue] - [[[timer userInfo] objectForKey:@"partnerOriginalY"] floatValue]) * (_currentStep/kPSMHideAnimationSteps)));
-    float partnerCurrentHeight = ([[[timer userInfo] objectForKey:@"partnerOriginalHeight"] floatValue] + (([[[timer userInfo] objectForKey:@"partnerTargetHeight"] floatValue] - [[[timer userInfo] objectForKey:@"partnerOriginalHeight"] floatValue]) * (_currentStep/kPSMHideAnimationSteps)));
+    CGFloat myCurrentY = ([[[timer userInfo] objectForKey:@"myOriginalY"] doubleValue] + (([[[timer userInfo] objectForKey:@"myTargetY"] doubleValue] - [[[timer userInfo] objectForKey:@"myOriginalY"] doubleValue]) * (_currentStep/kPSMHideAnimationSteps)));
+    CGFloat myCurrentHeight = ([[[timer userInfo] objectForKey:@"myOriginalHeight"] doubleValue] + (([[[timer userInfo] objectForKey:@"myTargetHeight"] doubleValue] - [[[timer userInfo] objectForKey:@"myOriginalHeight"] doubleValue]) * (_currentStep/kPSMHideAnimationSteps)));
+    CGFloat partnerCurrentY = ([[[timer userInfo] objectForKey:@"partnerOriginalY"] doubleValue] + (([[[timer userInfo] objectForKey:@"partnerTargetY"] doubleValue] - [[[timer userInfo] objectForKey:@"partnerOriginalY"] doubleValue]) * (_currentStep/kPSMHideAnimationSteps)));
+    CGFloat partnerCurrentHeight = ([[[timer userInfo] objectForKey:@"partnerOriginalHeight"] doubleValue] + (([[[timer userInfo] objectForKey:@"partnerTargetHeight"] doubleValue] - [[[timer userInfo] objectForKey:@"partnerOriginalHeight"] doubleValue]) * (_currentStep/kPSMHideAnimationSteps)));
     
     NSRect myNewFrame = NSMakeRect(myFrame.origin.x, myCurrentY, myFrame.size.width, myCurrentHeight);
     
@@ -624,7 +624,7 @@
 
     // size all cells appropriately and create tracking rects
     // nuke old tracking rects
-    int i, cellCount = [_cells count];
+    NSInteger i, cellCount = [_cells count];
     for(i = 0; i < cellCount; i++){
         id cell = [_cells objectAtIndex:i];
         [[NSNotificationCenter defaultCenter] removeObserver:cell];
@@ -637,14 +637,14 @@
     }
     
     // calculate number of cells to fit in control and cell widths
-    float availableWidth = [self availableCellWidth];
+    CGFloat availableWidth = [self availableCellWidth];
     NSMutableArray *newWidths = [NSMutableArray arrayWithCapacity:cellCount];
-    int numberOfVisibleCells = 1;
-    float totalOccupiedWidth = 0.0;
+    NSInteger numberOfVisibleCells = 1;
+    CGFloat totalOccupiedWidth = 0.0;
     NSMenu *overflowMenu = nil;
     for(i = 0; i < cellCount; i++){
         PSMTabBarCell *cell = [_cells objectAtIndex:i];
-        float width;
+        CGFloat width;
         
         // supress close button? 
         if (cellCount == 1 && [self canCloseOnlyTab] == NO) {
@@ -668,52 +668,52 @@
         if (totalOccupiedWidth >= availableWidth) {
             numberOfVisibleCells = i;
             if(_sizeCellsToFit){
-                int neededWidth = width - (totalOccupiedWidth - availableWidth);
+                NSInteger neededWidth = width - (totalOccupiedWidth - availableWidth);
                 // can I squeeze it in without violating min cell width?
-                int widthIfAllMin = (numberOfVisibleCells + 1) * _cellMinWidth;
+                NSInteger widthIfAllMin = (numberOfVisibleCells + 1) * _cellMinWidth;
             
                 if ((width + widthIfAllMin) <= availableWidth) {
                     // squeeze - distribute needed sacrifice among all cells
-                    int q;
+                    NSInteger q;
                     for(q = (i - 1); q >= 0; q--){
-                        int desiredReduction = (int)neededWidth/(q+1);
-                        if(([[newWidths objectAtIndex:q] floatValue] - desiredReduction) < _cellMinWidth){
-                            int actualReduction = (int)[[newWidths objectAtIndex:q] floatValue] - _cellMinWidth;
-                            [newWidths replaceObjectAtIndex:q withObject:[NSNumber numberWithFloat:_cellMinWidth]];
+                        NSInteger desiredReduction = (NSInteger)neededWidth/(q+1);
+                        if(([[newWidths objectAtIndex:q] doubleValue] - desiredReduction) < _cellMinWidth){
+                            NSInteger actualReduction = (NSInteger)[[newWidths objectAtIndex:q] doubleValue] - _cellMinWidth;
+                            [newWidths replaceObjectAtIndex:q withObject:[NSNumber numberWithDouble:_cellMinWidth]];
                             neededWidth -= actualReduction;
                         } else {
-                            int newCellWidth = (int)[[newWidths objectAtIndex:q] floatValue] - desiredReduction;
-                            [newWidths replaceObjectAtIndex:q withObject:[NSNumber numberWithFloat:newCellWidth]];
+                            NSInteger newCellWidth = (NSInteger)[[newWidths objectAtIndex:q] doubleValue] - desiredReduction;
+                            [newWidths replaceObjectAtIndex:q withObject:[NSNumber numberWithDouble:newCellWidth]];
                             neededWidth -= desiredReduction;
                         }
                     }
                     // one cell left!
-                    int thisWidth = width - neededWidth;
-                    [newWidths addObject:[NSNumber numberWithFloat:thisWidth]];
+                    NSInteger thisWidth = width - neededWidth;
+                    [newWidths addObject:[NSNumber numberWithDouble:thisWidth]];
                     numberOfVisibleCells++;
                 } else {
                     // stretch - distribute leftover room among cells
-                    int leftoverWidth = availableWidth - totalOccupiedWidth + width;
-                    int q;
+                    NSInteger leftoverWidth = availableWidth - totalOccupiedWidth + width;
+                    NSInteger q;
                     for(q = (i - 1); q >= 0; q--){
-                        int desiredAddition = (int)leftoverWidth/(q+1);
-                        int newCellWidth = (int)[[newWidths objectAtIndex:q] floatValue] + desiredAddition;
-                        [newWidths replaceObjectAtIndex:q withObject:[NSNumber numberWithFloat:newCellWidth]];
+                        NSInteger desiredAddition = (NSInteger)leftoverWidth/(q+1);
+                        NSInteger newCellWidth = (NSInteger)[[newWidths objectAtIndex:q] doubleValue] + desiredAddition;
+                        [newWidths replaceObjectAtIndex:q withObject:[NSNumber numberWithDouble:newCellWidth]];
                         leftoverWidth -= desiredAddition;
                     }
                 }
                 break; // done assigning widths; remaining cells go in overflow menu
             } else {
-                int revisedWidth = availableWidth/(i + 1);
+                NSInteger revisedWidth = availableWidth/(i + 1);
                 if(revisedWidth >= _cellMinWidth){
-                    int q;
+                    NSInteger q;
                     totalOccupiedWidth = 0;
                     for(q = 0; q < [newWidths count]; q++){
-                        [newWidths replaceObjectAtIndex:q withObject:[NSNumber numberWithFloat:revisedWidth]];
+                        [newWidths replaceObjectAtIndex:q withObject:[NSNumber numberWithDouble:revisedWidth]];
                         totalOccupiedWidth += revisedWidth;
                     }
                     // just squeezed this one in...
-                    [newWidths addObject:[NSNumber numberWithFloat:revisedWidth]];
+                    [newWidths addObject:[NSNumber numberWithDouble:revisedWidth]];
                     totalOccupiedWidth += revisedWidth;
                     numberOfVisibleCells++;
                 } else {
@@ -723,7 +723,7 @@
             }
         } else {
             numberOfVisibleCells = cellCount;
-            [newWidths addObject:[NSNumber numberWithFloat:width]];
+            [newWidths addObject:[NSNumber numberWithDouble:width]];
         }
     }
 
@@ -731,10 +731,10 @@
     NSRect cellRect = [self genericCellRect];
     for(i = 0; i < cellCount; i++){
         PSMTabBarCell *cell = [_cells objectAtIndex:i];
-        int tabState = 0;
+        NSInteger tabState = 0;
         if (i < numberOfVisibleCells) {
             // set cell frame
-            cellRect.size.width = [[newWidths objectAtIndex:i] floatValue];
+            cellRect.size.width = [[newWidths objectAtIndex:i] doubleValue];
             [cell setFrame:cellRect];
             NSTrackingRectTag tag;
             
@@ -788,7 +788,7 @@
             }
             
             // next...
-            cellRect.origin.x += [[newWidths objectAtIndex:i] floatValue];
+            cellRect.origin.x += [[newWidths objectAtIndex:i] doubleValue];
             
         } else {
             // set up menu items
@@ -807,7 +807,7 @@
             if([cell hasIcon])
                 [menuItem setImage:[[[[cell representedObject] identifier] content] icon]];
             if([cell count] > 0)
-                [menuItem setTitle:[[menuItem title] stringByAppendingFormat:@" (%d)",[cell count]]];
+                [menuItem setTitle:[[menuItem title] stringByAppendingFormat:@" (%ld)",[cell count]]];
             [overflowMenu addItem:menuItem];
         }
     }
@@ -898,9 +898,9 @@
         return;
     
     NSPoint currentPoint = [self convertPoint:[theEvent locationInWindow] fromView:nil];
-    float dx = fabs(currentPoint.x - trackingStartPoint.x);
-    float dy = fabs(currentPoint.y - trackingStartPoint.y);
-    float distance = sqrt(dx * dx + dy * dy);
+    CGFloat dx = fabs(currentPoint.x - trackingStartPoint.x);
+    CGFloat dy = fabs(currentPoint.y - trackingStartPoint.y);
+    CGFloat distance = sqrt(dx * dx + dy * dy);
     if (distance < 10)
         return;
     
@@ -1201,12 +1201,12 @@
 #pragma mark -
 #pragma mark IB Palette
 
-- (NSSize)minimumFrameSizeFromKnobPosition:(int)position
+- (NSSize)minimumFrameSizeFromKnobPosition:(NSInteger)position
 {
     return NSMakeSize(100.0, 22.0);
 }
 
-- (NSSize)maximumFrameSizeFromKnobPosition:(int)knobPosition
+- (NSSize)maximumFrameSizeFromKnobPosition:(NSInteger)knobPosition
 {
     return NSMakeSize(10000.0, 22.0);
 }
@@ -1241,7 +1241,7 @@
     }
     NSArray *array = [NSArray arrayWithArray:_cells];
     for(PSMTabBarCell *cell in array){
-        float width = [cell width];
+        CGFloat width = [cell width];
         aRect.size.width = width;
         
         if(NSPointInRect(point, aRect)){
@@ -1257,7 +1257,7 @@
 
 - (PSMTabBarCell *)lastVisibleTab
 {
-    int i, cellCount = [_cells count];
+    NSInteger i, cellCount = [_cells count];
     for(i = 0; i < cellCount; i++){
         if([[_cells objectAtIndex:i] isInOverflowMenu])
             return [_cells objectAtIndex:(i-1)];
@@ -1265,9 +1265,9 @@
     return [_cells objectAtIndex:(cellCount - 1)];
 }
 
-- (int)numberOfVisibleTabs
+- (NSInteger)numberOfVisibleTabs
 {
-    int i, cellCount = [_cells count];
+    NSInteger i, cellCount = [_cells count];
     for(i = 0; i < cellCount; i++){
         if([[_cells objectAtIndex:i] isInOverflowMenu])
             return i+1;

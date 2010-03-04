@@ -18,8 +18,8 @@
     NSImage *_addTabButtonPressedImage;
     NSImage *_addTabButtonRolloverImage;
 	
-    float leftMargin;
+    CGFloat leftMargin;
 }
-- (void)setLeftMarginForTabBarControl:(float)margin;
+- (void)setLeftMarginForTabBarControl:(CGFloat)margin;
 
 @end

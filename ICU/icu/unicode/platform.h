@@ -95,7 +95,7 @@
 /* The features header is needed to get (u)int64_t sometimes. */
 #include <features.h>
 #if ! U_HAVE_INT8_T
-typedef signed char int8_t;
+typedef NSInteger char int8_t;
 #endif
 #if !defined(__uint8_t)
 #define __uint8_t 1
@@ -108,7 +108,7 @@ typedef unsigned char uint8_t;
 #else /* U_HAVE_INTTYPES_H */
 
 #if ! U_HAVE_INT8_T
-typedef signed char int8_t;
+typedef NSInteger char int8_t;
 #endif
 
 #if ! U_HAVE_UINT8_T
@@ -116,7 +116,7 @@ typedef unsigned char uint8_t;
 #endif
 
 #if ! U_HAVE_INT16_T
-typedef signed short int16_t;
+typedef NSInteger short int16_t;
 #endif
 
 #if ! U_HAVE_UINT16_T
@@ -124,15 +124,15 @@ typedef unsigned short uint16_t;
 #endif
 
 #if ! U_HAVE_INT32_T
-typedef signed int int32_t;
+typedef NSInteger int32_t;
 #endif
 
 #if ! U_HAVE_UINT32_T
-typedef unsigned int uint32_t;
+typedef NSUInteger uint32_t;
 #endif
 
 #if ! U_HAVE_INT64_T
-    typedef signed long long int64_t;
+    typedef NSInteger long long int64_t;
 /* else we may not have a 64-bit type */
 #endif
 

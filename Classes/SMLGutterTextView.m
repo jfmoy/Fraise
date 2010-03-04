@@ -31,7 +31,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		[self setAlignment:NSRightTextAlignment];
 		[self setEditable:NO];
 		[self setSelectable:NO];
-		[[self textContainer] setContainerSize:NSMakeSize([[SMLDefaults valueForKey:@"GutterWidth"] integerValue], FLT_MAX)];
+		[[self textContainer] setContainerSize:NSMakeSize([[SMLDefaults valueForKey:@"GutterWidth"] integerValue], NSIntegerMax)];
 		[self setVerticallyResizable:YES];
 		[self setHorizontallyResizable:YES];
 		[self setAutoresizingMask:NSViewHeightSizable];

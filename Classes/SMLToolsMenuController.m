@@ -240,13 +240,13 @@ static id sharedInstance = nil;
 	
 	NSColor *colour = [[sender color] colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
 	
-	NSInteger red = (NSInteger)([colour redComponent] * 255);
-	NSInteger green = (NSInteger)([colour greenComponent] * 255);
-	NSInteger blue = (NSInteger)([colour blueComponent] * 255);
+	NSUInteger red = (NSUInteger)([colour redComponent] * 255);
+	NSUInteger green = (NSUInteger)([colour greenComponent] * 255);
+	NSUInteger blue = (NSUInteger)([colour blueComponent] * 255);
 	
 	NSString *insertString;
 	if ([[SMLDefaults valueForKey:@"UseRGBRatherThanHexWhenInsertingColourValues"] boolValue] == YES) {
-		insertString = [NSString stringWithFormat:@"rgb(%i,%i,%i)", red, green, blue];
+		insertString = [NSString stringWithFormat:@"rgb(%lu,%lu,%lu)", red, green, blue];
 	} else {
 		insertString = [[NSString stringWithFormat:@"#%02x%02x%02x", red, green, blue] uppercaseString];
 	}

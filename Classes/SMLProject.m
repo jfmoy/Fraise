@@ -175,7 +175,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 {
     NSPrintInfo *printInfo = [super printInfo];
 	
-	CGFloat marginsMin = [[SMLDefaults valueForKey:@"MarginsMin"] floatValue];
+	CGFloat marginsMin = [[SMLDefaults valueForKey:@"MarginsMin"] doubleValue];
 	if ([[SMLDefaults valueForKey:@"PrintHeader"] boolValue] == YES) {
 		[printInfo setTopMargin:(marginsMin + 22)];
 	} else {
@@ -470,7 +470,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	if ([[document valueForKey:@"isEdited"] boolValue] == YES) {
 		[self selectDocument:document];
 		NSString *title = [NSString stringWithFormat:NSLocalizedString(@"The document %@ has not been saved", @"Indicate in Close-sheet that the document %@ has not been saved."), [document valueForKey:@"name"]];
-		
 		NSBeginAlertSheet(title,
 						  SAVE_STRING,
 						  NSLocalizedString(@"Don't Save", @"Don't Save-button in Close-sheet"),
@@ -739,7 +738,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (CGFloat)mainSplitViewFraction
 {
-	float fraction;
+	CGFloat fraction;
 	if ([contentSplitView bounds].size.width + [leftDocumentsView bounds].size.width + [mainSplitView dividerThickness] != 0) {
 		fraction = [leftDocumentsView bounds].size.width / ([contentSplitView bounds].size.width + [leftDocumentsView bounds].size.width + [mainSplitView dividerThickness]);
 	} else {
@@ -755,7 +754,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	NSRect leftDocumentsViewFrame = [[[mainSplitView subviews] objectAtIndex:0] frame];
     NSRect contentViewFrame = [[[mainSplitView subviews] objectAtIndex:1] frame];
 	CGFloat totalWidth = leftDocumentsViewFrame.size.width + contentViewFrame.size.width + [mainSplitView dividerThickness];
-    leftDocumentsViewFrame.size.width = [[project valueForKey:@"dividerPosition"] floatValue] * totalWidth;
+    leftDocumentsViewFrame.size.width = [[project valueForKey:@"dividerPosition"] doubleValue] * totalWidth;
     contentViewFrame.size.width = totalWidth - leftDocumentsViewFrame.size.width - [mainSplitView dividerThickness];
 	
     [[[mainSplitView subviews] objectAtIndex:0] setFrame:leftDocumentsViewFrame];
@@ -767,7 +766,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (void)saveMainSplitViewFraction
 {
-	NSNumber *fraction = [NSNumber numberWithFloat:[self mainSplitViewFraction]];
+	NSNumber *fraction = [NSNumber numberWithDouble:[self mainSplitViewFraction]];
 	[project setValue:fraction forKey:@"dividerPosition"];
 	[SMLDefaults setValue:fraction forKey:@"DividerPosition"];
 }

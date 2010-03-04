@@ -101,7 +101,7 @@
     _cellTrackingTag = tag;
 }
 
-- (float)width
+- (CGFloat)width
 {
     return _frame.size.width;
 }
@@ -134,12 +134,12 @@
     return [(id <PSMTabStyle>)[_controlView style] attributedStringValueForTabCell:self];
 }
 
-- (int)tabState
+- (NSInteger)tabState
 {
     return _tabState;
 }
 
-- (void)setTabState:(int)state
+- (void)setTabState:(NSInteger)state
 {
     _tabState = state;
 }
@@ -210,12 +210,12 @@
     [_controlView update]; // binding notice is too fast
 }
 
-- (int)count
+- (NSInteger)count
 {
     return _count;
 }
 
-- (void)setCount:(int)value
+- (void)setCount:(NSInteger)value
 {
     _count = value;
     [_controlView update]; // binding notice is too fast
@@ -231,12 +231,12 @@
     _isPlaceholder = value;
 }
 
-- (int)currentStep
+- (NSInteger)currentStep
 {
     return _currentStep;
 }
 
-- (void)setCurrentStep:(int)value
+- (void)setCurrentStep:(NSInteger)value
 {
     if(value < 0)
         value = 0;
@@ -260,12 +260,12 @@
     return [(id <PSMTabStyle>)[_controlView style] closeButtonRectForTabCell:self];
 }
 
-- (float)minimumWidthOfCell
+- (CGFloat)minimumWidthOfCell
 {
     return [(id <PSMTabStyle>)[_controlView style] minimumWidthOfTabCell:self];
 }
 
-- (float)desiredWidthOfCell
+- (CGFloat)desiredWidthOfCell
 {
     return [(id <PSMTabStyle>)[_controlView style] desiredWidthOfTabCell:self];
 }  
@@ -347,11 +347,11 @@
     if ([aCoder allowsKeyedCoding]) {
         [aCoder encodeRect:_frame forKey:@"frame"];
         [aCoder encodeSize:_stringSize forKey:@"stringSize"];
-        [aCoder encodeInt:_currentStep forKey:@"currentStep"];
+        [aCoder encodeInteger:_currentStep forKey:@"currentStep"];
         [aCoder encodeBool:_isPlaceholder forKey:@"isPlaceholder"];
-        [aCoder encodeInt:_tabState forKey:@"tabState"];
-        [aCoder encodeInt:_closeButtonTrackingTag forKey:@"closeButtonTrackingTag"];
-        [aCoder encodeInt:_cellTrackingTag forKey:@"cellTrackingTag"];
+        [aCoder encodeInteger:_tabState forKey:@"tabState"];
+        [aCoder encodeInteger:_closeButtonTrackingTag forKey:@"closeButtonTrackingTag"];
+        [aCoder encodeInteger:_cellTrackingTag forKey:@"cellTrackingTag"];
         [aCoder encodeBool:_closeButtonOver forKey:@"closeButtonOver"];
         [aCoder encodeBool:_closeButtonPressed forKey:@"closeButtonPressed"];
         [aCoder encodeObject:_indicator forKey:@"indicator"];
@@ -359,7 +359,7 @@
         [aCoder encodeBool:_hasCloseButton forKey:@"hasCloseButton"];
         [aCoder encodeBool:_isCloseButtonSuppressed forKey:@"isCloseButtonSuppressed"];
         [aCoder encodeBool:_hasIcon forKey:@"hasIcon"];
-        [aCoder encodeInt:_count forKey:@"count"];
+        [aCoder encodeInteger:_count forKey:@"count"];
     }
 }
 
@@ -370,11 +370,11 @@
             _frame = [aDecoder decodeRectForKey:@"frame"];
             NSLog(@"decoding cell");
             _stringSize = [aDecoder decodeSizeForKey:@"stringSize"];
-            _currentStep = [aDecoder decodeIntForKey:@"currentStep"];
+            _currentStep = [aDecoder decodeIntegerForKey:@"currentStep"];
             _isPlaceholder = [aDecoder decodeBoolForKey:@"isPlaceholder"];
-            _tabState = [aDecoder decodeIntForKey:@"tabState"];
-            _closeButtonTrackingTag = [aDecoder decodeIntForKey:@"closeButtonTrackingTag"];
-            _cellTrackingTag = [aDecoder decodeIntForKey:@"cellTrackingTag"];
+            _tabState = [aDecoder decodeIntegerForKey:@"tabState"];
+            _closeButtonTrackingTag = [aDecoder decodeIntegerForKey:@"closeButtonTrackingTag"];
+            _cellTrackingTag = [aDecoder decodeIntegerForKey:@"cellTrackingTag"];
             _closeButtonOver = [aDecoder decodeBoolForKey:@"closeButtonOver"];
             _closeButtonPressed = [aDecoder decodeBoolForKey:@"closeButtonPressed"];
             _indicator = [aDecoder decodeObjectForKey:@"indicator"];
@@ -382,7 +382,7 @@
             _hasCloseButton = [aDecoder decodeBoolForKey:@"hasCloseButton"];
             _isCloseButtonSuppressed = [aDecoder decodeBoolForKey:@"isCloseButtonSuppressed"];
             _hasIcon = [aDecoder decodeBoolForKey:@"hasIcon"];
-            _count = [aDecoder decodeIntForKey:@"count"];
+            _count = [aDecoder decodeIntegerForKey:@"count"];
         }
     }
     return self;

@@ -55,12 +55,12 @@ enum {
     BOOL                        _sizeCellsToFit;
     
     // cell width
-    int                         _cellMinWidth;
-    int                         _cellMaxWidth;
-    int                         _cellOptimumWidth;
+    NSInteger                         _cellMinWidth;
+    NSInteger                         _cellMaxWidth;
+    NSInteger                         _cellOptimumWidth;
     
     // animation for hide/show
-    int                         _currentStep;
+    NSInteger                         _currentStep;
     BOOL                        _isHidden;
     BOOL                        _hideIndicators;
     IBOutlet id                 partnerView;                // gets resized when hide/show
@@ -86,12 +86,12 @@ enum {
 - (void)setHideForSingleTab:(BOOL)value;
 - (BOOL)showAddTabButton;
 - (void)setShowAddTabButton:(BOOL)value;
-- (int)cellMinWidth;
-- (void)setCellMinWidth:(int)value;
-- (int)cellMaxWidth;
-- (void)setCellMaxWidth:(int)value;
-- (int)cellOptimumWidth;
-- (void)setCellOptimumWidth:(int)value;
+- (NSInteger)cellMinWidth;
+- (void)setCellMinWidth:(NSInteger)value;
+- (NSInteger)cellMaxWidth;
+- (void)setCellMaxWidth:(NSInteger)value;
+- (NSInteger)cellOptimumWidth;
+- (void)setCellOptimumWidth:(NSInteger)value;
 - (BOOL)sizeCellsToFit;
 - (void)setSizeCellsToFit:(BOOL)value;
 - (BOOL)allowsDragBetweenWindows;

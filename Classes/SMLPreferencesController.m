@@ -102,7 +102,7 @@ static id sharedInstance = nil;
 	[dictionary setValue:[NSNumber numberWithInteger:SMLPreviewHTML] forKey:@"PreviewParser"];
 	[dictionary setValue:[NSNumber numberWithInteger:SMLCurrentDocumentScope] forKey:@"AdvancedFindScope"];
 	
-	[dictionary setValue:[NSNumber numberWithFloat:0.5] forKey:@"AutocompleteAfterDelay"];	
+	[dictionary setValue:[NSNumber numberWithDouble:0.5] forKey:@"AutocompleteAfterDelay"];	
 	
 	[dictionary setValue:[NSArchiver archivedDataWithRootObject:[NSFont fontWithName:@"Menlo" size:11]] forKey:@"TextFont"];
 	[dictionary setValue:[[NSString localizedStringWithFormat:@"%@/%@", NSHomeDirectory(), @"Desktop"] stringByAbbreviatingWithTildeInPath] forKey:@"OpenAlwaysUseTextField"];
@@ -188,8 +188,8 @@ static id sharedInstance = nil;
 	[dictionary setValue:[NSNumber numberWithBool:NO] forKey:@"SuppressReplaceWarning"];
 	[dictionary setValue:[NSNumber numberWithInteger:SMLVirtualProject] forKey:@"WhatKindOfProject"];
 	[dictionary setValue:[NSNumber numberWithBool:NO] forKey:@"LiveUpdatePreview"];
-	[dictionary setValue:[NSNumber numberWithFloat:1.0] forKey:@"LiveUpdatePreviewDelay"];
-	[dictionary setValue:[NSNumber numberWithFloat:0.2] forKey:@"DividerPosition"];
+	[dictionary setValue:[NSNumber numberWithDouble:1.0] forKey:@"LiveUpdatePreviewDelay"];
+	[dictionary setValue:[NSNumber numberWithDouble:0.2] forKey:@"DividerPosition"];
 	[dictionary setValue:[NSNumber numberWithBool:YES] forKey:@"ShowSizeSlider"];
 	[dictionary setValue:[NSNumber numberWithBool:YES] forKey:@"PutQuotesAroundDirectory"];
 	[dictionary setValue:[NSNumber numberWithBool:NO] forKey:@"FocusOnTextInAdvancedFind"];

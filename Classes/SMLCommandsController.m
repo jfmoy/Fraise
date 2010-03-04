@@ -176,7 +176,7 @@ static id sharedInstance = nil;
 }
 
 
-- (void)openPanelDidEnd:(NSOpenPanel *)panel returnCode:(int)returnCode  contextInfo:(void  *)contextInfo
+- (void)openPanelDidEnd:(NSOpenPanel *)panel returnCode:(NSInteger)returnCode  contextInfo:(void  *)contextInfo
 {
 	if (returnCode == NSOKButton) {
 		[self performCommandsImportWithPath:[panel filename]];

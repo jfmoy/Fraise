@@ -99,13 +99,13 @@ static id sharedInstance = nil;
 		[textScrollView setHasHorizontalScroller:NO];
 		[textView setHorizontallyResizable:YES];
 		[[textView textContainer] setWidthTracksTextView:YES];
-		[[textView textContainer] setContainerSize:NSMakeSize(contentSize.width, FLT_MAX)];		 
+		[[textView textContainer] setContainerSize:NSMakeSize(contentSize.width, CGFLOAT_MAX)];		 
 	} else {
 		textView = [[SMLTextView alloc] initWithFrame:NSMakeRect([[SMLDefaults valueForKey:@"GutterWidth"] integerValue], 0, contentSize.width, contentSize.height)];
 		[textView setMinSize:contentSize];
 		[textScrollView setHasHorizontalScroller:YES];
 		[textView setHorizontallyResizable:YES];
-		[[textView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
+		[[textView textContainer] setContainerSize:NSMakeSize(CGFLOAT_MAX, CGFLOAT_MAX)];
 		[[textView textContainer] setWidthTracksTextView:NO];
 	}
 	
@@ -164,13 +164,13 @@ static id sharedInstance = nil;
 		[textScrollView setHasHorizontalScroller:NO];
 		[textView setHorizontallyResizable:NO];
 		[[textView textContainer] setWidthTracksTextView:YES];
-		[[textView textContainer] setContainerSize:NSMakeSize(contentSize.width, FLT_MAX)];		 
+		[[textView textContainer] setContainerSize:NSMakeSize(contentSize.width, CGFLOAT_MAX)];		 
 	} else {
 		textView = [[SMLTextView alloc] initWithFrame:NSMakeRect(gutterWidth, 0, contentSize.width, contentSize.height) textContainer:container];
 		[textView setMinSize:contentSize];
 		[textScrollView setHasHorizontalScroller:YES];
 		[textView setHorizontallyResizable:YES];
-		[[textView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
+		[[textView textContainer] setContainerSize:NSMakeSize(CGFLOAT_MAX, CGFLOAT_MAX)];
 		[[textView textContainer] setWidthTracksTextView:NO];
 	}
 	[textView setDefaults];
@@ -259,13 +259,13 @@ static id sharedInstance = nil;
 		[textScrollView setHasHorizontalScroller:NO];
 		[textView setHorizontallyResizable:NO];
 		[[textView textContainer] setWidthTracksTextView:YES];
-		[[textView textContainer] setContainerSize:NSMakeSize(contentSize.width, FLT_MAX)];		 
+		[[textView textContainer] setContainerSize:NSMakeSize(contentSize.width, CGFLOAT_MAX)];		 
 	} else {
 		textView = [[SMLTextView alloc] initWithFrame:NSMakeRect(gutterWidth, 0, contentSize.width, contentSize.height) textContainer:container];
 		[textView setMinSize:contentSize];
 		[textScrollView setHasHorizontalScroller:YES];
 		[textView setHorizontallyResizable:YES];
-		[[textView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
+		[[textView textContainer] setContainerSize:NSMakeSize(CGFLOAT_MAX, CGFLOAT_MAX)];
 		[[textView textContainer] setWidthTracksTextView:NO];
 	}
 	[textView setDefaults];
@@ -330,13 +330,13 @@ static id sharedInstance = nil;
 		[textScrollView setHasHorizontalScroller:NO];
 		[textView setHorizontallyResizable:NO];
 		[[textView textContainer] setWidthTracksTextView:YES];
-		[[textView textContainer] setContainerSize:NSMakeSize(contentSize.width, FLT_MAX)];		 
+		[[textView textContainer] setContainerSize:NSMakeSize(contentSize.width, CGFLOAT_MAX)];		 
 	} else {
 		textView = [[SMLTextView alloc] initWithFrame:NSMakeRect(gutterWidth, 0, contentSize.width, contentSize.height) textContainer:container];
 		[textView setMinSize:contentSize];
 		[textScrollView setHasHorizontalScroller:YES];
 		[textView setHorizontallyResizable:YES];
-		[[textView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
+		[[textView textContainer] setContainerSize:NSMakeSize(CGFLOAT_MAX, CGFLOAT_MAX)];
 		[[textView textContainer] setWidthTracksTextView:NO];
 	}
 	[textView setDefaults];
@@ -494,7 +494,7 @@ static id sharedInstance = nil;
 	} else {
 		width = [[document valueForKey:@"firstTextView"] bounds].size.width * [[NSScreen mainScreen] userSpaceScaleFactor];
 	}
-	fullScreenRect = NSMakeRect(fullScreenRect.origin.x - ((width - fullScreenRect.size.width + [[document valueForKey:@"gutterWidth"] floatValue]) / 2), fullScreenRect.origin.y, width + [[document valueForKey:@"gutterWidth"] floatValue], fullScreenRect.size.height);
+	fullScreenRect = NSMakeRect(fullScreenRect.origin.x - ((width - fullScreenRect.size.width + [[document valueForKey:@"gutterWidth"] doubleValue]) / 2), fullScreenRect.origin.y, width + [[document valueForKey:@"gutterWidth"] doubleValue], fullScreenRect.size.height);
 
 	fullScreenWindow = [[SMLFullScreenWindow alloc] initWithContentRect:[[NSScreen mainScreen] frame] styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO screen:[NSScreen mainScreen]];
 	
@@ -575,7 +575,7 @@ static id sharedInstance = nil;
 	for (id item in enumerator) {
 		NSMenuItem *menuItem = [[NSMenuItem alloc] init];
 		NSInteger lineNumber = [[item valueForKey:@"lineNumber"] integerValue];
-		NSString *title = [NSString stringWithFormat:@"%d%@%@", lineNumber, spaceBetween, [item valueForKey:@"name"]];
+		NSString *title = [NSString stringWithFormat:@"%ld%@%@", lineNumber, spaceBetween, [item valueForKey:@"name"]];
 		[menuItem setTitle:title];
 		[menuItem setTarget:SMLInterface];
 		[menuItem setAction:@selector(goToFunctionOnLine:)];

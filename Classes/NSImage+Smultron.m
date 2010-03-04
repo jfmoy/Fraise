@@ -96,12 +96,12 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	CIFilter *filter1 = [CIFilter filterWithName:@"CIColorControls"]; 
 	[filter1 setDefaults]; 
 	[filter1 setValue:ciImage forKey:@"inputImage"];  
-	[filter1 setValue:[NSNumber numberWithFloat:-0.1] forKey:@"inputBrightness"];
+	[filter1 setValue:[NSNumber numberWithDouble:-0.1] forKey:@"inputBrightness"];
 	
 	CIFilter *filter2 = [CIFilter filterWithName:@"CISepiaTone"]; 
 	[filter2 setDefaults]; 
 	[filter2 setValue:[filter1 valueForKey:@"outputImage"] forKey:@"inputImage"];  
-	[filter2 setValue:[NSNumber numberWithFloat:0.9] forKey:@"inputIntensity"];
+	[filter2 setValue:[NSNumber numberWithDouble:0.9] forKey:@"inputIntensity"];
 	
 	return [filter2 valueForKey:@"outputImage"];
 }

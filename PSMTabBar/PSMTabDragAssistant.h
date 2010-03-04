@@ -23,7 +23,7 @@
     PSMTabBarControl            *_destinationTabBar;
     NSMutableSet                *_participatingTabBars;
     PSMTabBarCell               *_draggedCell;
-    int                         _draggedCellIndex;   // for snap back
+    NSInteger                         _draggedCellIndex;   // for snap back
     BOOL                        _isDragging;
     
     // Animation
@@ -43,8 +43,8 @@
 - (void)setDestinationTabBar:(PSMTabBarControl *)tabBar;
 - (PSMTabBarCell *)draggedCell;
 - (void)setDraggedCell:(PSMTabBarCell *)cell;
-- (int)draggedCellIndex;
-- (void)setDraggedCellIndex:(int)value;
+- (NSInteger)draggedCellIndex;
+- (void)setDraggedCellIndex:(NSInteger)value;
 - (BOOL)isDragging;
 - (void)setIsDragging:(BOOL)value;
 - (NSPoint)currentMouseLoc;
@@ -79,6 +79,6 @@
 - (void)setControlView:(id)view;
 - (id)cellForPoint:(NSPoint)point cellFrame:(NSRectPointer)outFrame;
 - (PSMTabBarCell *)lastVisibleTab;
-- (int)numberOfVisibleTabs;
+- (NSInteger)numberOfVisibleTabs;
 
 @end

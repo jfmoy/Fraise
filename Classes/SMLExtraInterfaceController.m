@@ -210,7 +210,7 @@ static id sharedInstance = nil;
 }
 
 
-- (void)savePanelDidEnd:(NSSavePanel *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
+- (void)savePanelDidEnd:(NSSavePanel *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
 {
 	[sheet close];
 	

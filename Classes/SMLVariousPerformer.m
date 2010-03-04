@@ -551,7 +551,7 @@ static id sharedInstance = nil;
 		if (untitledNumber == 1) {
 			name = [NSString stringWithString:untitledName];
 		} else {
-			name = [NSString stringWithFormat:@"%@ %d", untitledName, untitledNumber];
+			name = [NSString stringWithFormat:@"%@ %ld", untitledName, untitledNumber];
 		}
 		untitledNumber++;
 		[document setValue:name forKey:@"nameWithPath"];

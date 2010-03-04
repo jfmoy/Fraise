@@ -80,7 +80,7 @@ typedef struct URegularExpression URegularExpression;
 	return r;
 }
 
--(BOOL)findFromIndex:(unsigned)index {
+-(BOOL)findFromIndex:(NSUInteger)index {
 	URegularExpression *re = [[self pattern] re];
 	[self reset];
 
@@ -96,7 +96,7 @@ typedef struct URegularExpression URegularExpression;
 	return [stringToMatch substringWithRange:[self rangeOfMatch]];
 }
 
--(NSString *)groupAtIndex:(unsigned)groupIndex {
+-(NSString *)groupAtIndex:(NSUInteger)groupIndex {
 	size_t groupSize = InitialGroupSize;
 	URegularExpression *re = [[self pattern] re];
 
@@ -120,16 +120,16 @@ typedef struct URegularExpression URegularExpression;
 	}
 }
 
--(unsigned)numberOfGroups {
+-(NSUInteger)numberOfGroups {
 	URegularExpression *re = [[self pattern] re];
 	UErrorCode status = 0;
-	int numberOfGroups = uregex_groupCount(re, &status);
+	NSInteger numberOfGroups = uregex_groupCount(re, &status);
 	CheckStatus(status);
 	
 	return numberOfGroups;
 }
 
--(BOOL)lookingAt:(unsigned)index {
+-(BOOL)lookingAt:(NSUInteger)index {
 	UErrorCode status = 0;
 	URegularExpression *re = [[self pattern] re];
 	BOOL matches = uregex_lookingAt(re, 0, &status);
@@ -146,10 +146,10 @@ typedef struct URegularExpression URegularExpression;
 	UErrorCode status = 0;
 	UChar *replacementText = [aReplacementString UTF16String];
 	URegularExpression *re = [[self pattern] re];
-	unsigned int searchTextLength = [[[self pattern] stringToSearch] length];
+	NSUInteger searchTextLength = [[[self pattern] stringToSearch] length];
 	
 	BOOL replacementCompleted = NO;
-	int resultLength = 0;
+	NSInteger resultLength = 0;
 	size_t destStringBufferSize = searchTextLength * 2;
 	UChar *destString = NULL;
 	while(!replacementCompleted) {
@@ -213,13 +213,13 @@ typedef struct URegularExpression URegularExpression;
 	return [self rangeOfMatchGroup:0];
 }
 
--(NSRange)rangeOfMatchGroup:(unsigned)groupNumber {
+-(NSRange)rangeOfMatchGroup:(NSUInteger)groupNumber {
 	UErrorCode status = 0;
 	URegularExpression *re = [[self pattern] re];
-	int start = uregex_start(re, groupNumber, &status);
+	NSInteger start = uregex_start(re, groupNumber, &status);
 	CheckStatus(status);
 	
-	int end = uregex_end(re, groupNumber, &status);
+	NSInteger end = uregex_end(re, groupNumber, &status);
 	CheckStatus(status);
 	
 	return NSMakeRange(start == -1 ? NSNotFound : start, end-start);

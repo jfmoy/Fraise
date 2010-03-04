@@ -24,62 +24,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 #endif
 
 
-typedef enum {
-	SMLDefaultsLineEndings = 0,
-	SMLUnixLineEndings = 1,
-	SMLMacLineEndings = 2,
-	SMLDarkSideLineEndings = 3,
-	SMLLeaveLineEndingsUnchanged = 6
-} SMLLineEndings;
-
-
-typedef enum {
-	SMLCurrentDocumentScope = 0,
-	SMLCurrentProjectScope = 1,
-	SMLAllDocumentsScope = 2
-} SMLAdvancedFindScope;
-
-typedef enum {
-	SMLListView = 0
-} SMLView;
-
-typedef enum {
-	SMLVirtualProject = 0,
-	SMLPermantProject = 1
-} SMLWhatKindOfProject;
-
-typedef enum {
-	SMLCheckForUpdatesNever = 0,
-	SMLCheckForUpdatesDaily = 1,
-	SMLCheckForUpdatesWeekly = 2,
-	SMLCheckForUpdatesMonthly = 3
-} SMLCheckForUpdatesInterval;
-
-typedef enum {
-	SMLPreviewHTML = 0,
-	SMLPreviewMarkdown = 1,
-	SMLPreviewMultiMarkdown = 2,
-} SMLPreviewParser;
-
-typedef enum {
-	SMLOpenSaveRemember = 0,
-	SMLOpenSaveCurrent = 1,
-	SMLOpenSaveAlways = 2
-} SMLOpenSaveMatrix;
-
-typedef struct _AppleEventSelectionRange {
-	short unused1; // 0 (not used)
-	short lineNum; // line to select (<0 to specify range)
-	long startRange; // start of selection range (if line < 0)
-	long endRange; // end of selection range (if line < 0)
-	long unused2; // 0 (not used)
-	long theDate; // modification date/time
-} AppleEventSelectionRange;
-
-typedef enum {
-    SmultronSaveErrorEncodingInapplicable = 1,
-} SMLErrors;
-
 #define SMULTRON_ERROR_DOMAIN @"org.smultron.Smultron.ErrorDomain"
 
 #import <Cocoa/Cocoa.h>
@@ -103,6 +47,71 @@ typedef enum {
 #import <sys/param.h>
 #import <sys/mount.h>
 #import <sys/xattr.h>
+
+
+enum {
+	SMLDefaultsLineEndings = 0,
+	SMLUnixLineEndings = 1,
+	SMLMacLineEndings = 2,
+	SMLDarkSideLineEndings = 3,
+	SMLLeaveLineEndingsUnchanged = 6
+};
+typedef NSUInteger SMLLineEndings;
+
+
+enum {
+	SMLCurrentDocumentScope = 0,
+	SMLCurrentProjectScope = 1,
+	SMLAllDocumentsScope = 2
+};
+typedef NSUInteger SMLAdvancedFindScope;
+
+enum {
+	SMLListView = 0
+};
+typedef NSUInteger SMLView;
+
+enum {
+	SMLVirtualProject = 0,
+	SMLPermantProject = 1
+};
+typedef NSUInteger SMLWhatKindOfProject;
+
+enum {
+	SMLCheckForUpdatesNever = 0,
+	SMLCheckForUpdatesDaily = 1,
+	SMLCheckForUpdatesWeekly = 2,
+	SMLCheckForUpdatesMonthly = 3
+};
+typedef NSUInteger SMLCheckForUpdatesInterval;
+
+enum {
+	SMLPreviewHTML = 0,
+	SMLPreviewMarkdown = 1,
+	SMLPreviewMultiMarkdown = 2,
+};
+typedef NSUInteger SMLPreviewParser;
+
+enum {
+	SMLOpenSaveRemember = 0,
+	SMLOpenSaveCurrent = 1,
+	SMLOpenSaveAlways = 2
+};
+typedef NSUInteger SMLOpenSaveMatrix;
+
+typedef struct _AppleEventSelectionRange {
+	short unused1; // 0 (not used)
+	short lineNum; // line to select (<0 to specify range)
+	long startRange; // start of selection range (if line < 0)
+	long endRange; // end of selection range (if line < 0)
+	long unused2; // 0 (not used)
+	long theDate; // modification date/time
+} AppleEventSelectionRange;
+
+enum {
+    SmultronSaveErrorEncodingInapplicable = 1,
+};
+typedef NSUInteger SMLErrors;
 
 
 

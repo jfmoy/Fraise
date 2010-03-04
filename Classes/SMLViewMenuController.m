@@ -150,7 +150,7 @@ static id sharedInstance = nil;
 		}
 		NSRange selectedRange = [textView selectedRange];
 		if ([[document valueForKey:@"isLineWrapped"] boolValue] == YES) {
-			[[textView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
+			[[textView textContainer] setContainerSize:NSMakeSize(CGFLOAT_MAX, CGFLOAT_MAX)];
 			[[textView textContainer] setWidthTracksTextView:NO];
 			[textView setHorizontallyResizable:YES];
 			[textScrollView setHasHorizontalScroller:YES];
@@ -159,7 +159,7 @@ static id sharedInstance = nil;
 			[textScrollView setHasHorizontalScroller:NO];
 			[textView setString:@""];
 			[[textView textContainer] setWidthTracksTextView:YES];
-			[[textView textContainer] setContainerSize:NSMakeSize([textScrollView contentSize].width, FLT_MAX)];
+			[[textView textContainer] setContainerSize:NSMakeSize([textScrollView contentSize].width, CGFLOAT_MAX)];
 			[textView setString:string]; // To reflow/rewrap the text
 			[textView setHorizontallyResizable:NO];
 		}
@@ -442,7 +442,7 @@ static id sharedInstance = nil;
 	if ([[[splitView subviews] objectAtIndex:0] frame].size.width != 0.0) {
 		[self performCollapseDocumentsView];
 	} else {
-		CGFloat newFraction = [[[SMLCurrentProject valueForKey:@"project"] valueForKey:@"dividerPosition"] floatValue];
+		CGFloat newFraction = [[[SMLCurrentProject valueForKey:@"project"] valueForKey:@"dividerPosition"] doubleValue];
 		if (newFraction == 0.0) { // If it was hidden from the beginning there's no last value to return to...
 			newFraction = 0.2;
 		}
