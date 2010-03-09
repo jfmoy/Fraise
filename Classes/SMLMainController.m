@@ -1,9 +1,9 @@
 /*
-Smultron version 3.6b1, 2009-09-12
-Written by Peter Borg, pgw3@mac.com
-Find the latest version at http://smultron.sourceforge.net
+Smultron version 3.7a1, 2009-09-12
+Written by Jean-François Moy - jeanfrancois.moy@gmail.com
+Find the latest version at http://github.com/jfmoy/Smultron
 
-Copyright 2004-2009 Peter Borg
+Copyright 2004-2009 Peter Borg - 2010 Jean-François Moy
  
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  
@@ -21,7 +21,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 #import "SMLVariousPerformer.h"
 #import "SMLFontTransformer.h"
 
-#define THISVERSION 3.60
+#define THISVERSION 3.70
 
 @implementation SMLMainController
 

@@ -1,9 +1,9 @@
 /*
-Smultron version 3.6b1, 2009-09-12
-Written by Peter Borg, pgw3@mac.com
-Find the latest version at http://smultron.sourceforge.net
+Smultron version 3.7a1, 2009-09-12
+Written by Jean-François Moy - jeanfrancois.moy@gmail.com
+Find the latest version at http://github.com/jfileManageroy/Smultron
 
-Copyright 2004-2009 Peter Borg
+Copyright 2004-2009 Peter Borg - 2010 Jean-François Moy
  
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  
@@ -27,6 +27,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 #import "SMLLineNumbers.h"
 #import "SMLProject.h"
 #import "SMLTextPerformer.h"
+#import "SMLOpenSavePerformer.h"
 
 @implementation SMLAdvancedFindController
 
@@ -56,6 +57,7 @@ static id sharedInstance = nil;
 - (IBAction)findAction:(id)sender
 {
 	NSString *searchString = [findSearchField stringValue];
+	NSArray *originalDocuments = [[SMLCurrentProject documentsArrayController] arrangedObjects];
 	
 	[findResultsOutlineView setDelegate:nil];
 	
@@ -183,9 +185,27 @@ static id sharedInstance = nil;
 				startLocation = NSMaxRange(foundRange);
 			}
 		}
+		
 		if (resultsInThisDocument == 0) {
 			[findResultsTreeController removeObjectAtArrangedObjectIndexPath:folderIndexPath];
 			documentIndex--;
+			
+			// Remove document if no results have been found into it and the document was not loaded before.
+			SMLAdvancedFindScope searchScope = [[SMLDefaults valueForKey:@"AdvancedFindScope"] integerValue];
+			if (searchScope == SMLParentDirectoryScope) {
+				BOOL closing = YES;
+				
+				NSEnumerator *originalDocumentsEnumerator = [originalDocuments reverseObjectEnumerator];
+				for (id originalDocument in originalDocumentsEnumerator) {
+					if (originalDocument == document) {
+						closing = NO;
+						break;
+					}
+				}
+				
+				if (closing)
+					[SMLCurrentProject performCloseDocument:document];
+			}
 		} else {
 			numberOfResults += resultsInThisDocument;
 		}
@@ -473,6 +493,8 @@ static id sharedInstance = nil;
 			[currentProjectScope setState:NSOnState];
 		} else if (searchScope == SMLAllDocumentsScope) {
 			[allDocumentsScope setState:NSOnState];
+		} else if (searchScope == SMLParentDirectoryScope) {
+			[parentDirectoryScope setState:NSOnState];
 		}
 		
 		[findResultsTreeController setContent:nil];
@@ -543,7 +565,9 @@ static id sharedInstance = nil;
 }
 
 
-
+/*
+ * This method returns an enumerator on all documents we are going to search into.
+ */
 - (NSEnumerator *)scopeEnumerator
 {
 	SMLAdvancedFindScope searchScope = [[SMLDefaults valueForKey:@"AdvancedFindScope"] integerValue];
@@ -553,6 +577,8 @@ static id sharedInstance = nil;
 		enumerator = [[[SMLCurrentProject documentsArrayController] arrangedObjects] reverseObjectEnumerator];
 	} else if (searchScope == SMLAllDocumentsScope) {
 		enumerator = [[SMLBasic fetchAll:@"DocumentSortKeyName"] reverseObjectEnumerator];
+	} else if (searchScope == SMLParentDirectoryScope){
+		enumerator = [self documentsInFolderEnumerator];
 	} else {
 		enumerator = [[NSArray arrayWithObject:SMLCurrentDocument] objectEnumerator];
 	}
@@ -560,6 +586,53 @@ static id sharedInstance = nil;
 	return enumerator;
 }
 
+/**
+ * Return an enumerator of documents based on files located in the same directory
+ * as the current document.
+ */
+-(NSEnumerator *)documentsInFolderEnumerator
+{
+	NSEnumerator *enumerator;
+	
+	NSString *parentDirectory = [[SMLCurrentDocument path] stringByDeletingLastPathComponent];
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL isDir;
+	
+    if (parentDirectory && ([fileManager fileExistsAtPath:parentDirectory isDirectory:&isDir] && isDir))
+    {
+        if (![parentDirectory hasSuffix:@"/"]) 
+        {
+            parentDirectory = [parentDirectory stringByAppendingString:@"/"];
+        }
+		
+        // this walks the |dir| recurisively and adds the paths to the |contents| set
+        NSDirectoryEnumerator *directoryEnumerator = [fileManager enumeratorAtPath:parentDirectory];
+        NSString *file;
+        NSString *fullyQualifiedName;
+        while ((file = [directoryEnumerator nextObject]))
+        {
+            // make the filename |f| a fully qualifed filename
+            fullyQualifiedName = [parentDirectory stringByAppendingString:file];
+            if ([fileManager fileExistsAtPath:fullyQualifiedName isDirectory:&isDir] && !isDir && ([fileManager isReadableFileAtPath:fullyQualifiedName]))
+            {
+                // it's a file, create document and add it
+				[SMLOpenSave shouldOpen:fullyQualifiedName withEncoding:0];
+            }
+			else {
+				[directoryEnumerator skipDescendants];
+			}
+        }
+		enumerator = [[[SMLCurrentProject documentsArrayController] arrangedObjects] reverseObjectEnumerator];
+    }
+    else
+    {
+		// Log the failure and return an enumerator for the current document.
+        NSLog(@"%@ must be directory and must exist.\n", parentDirectory);
+		enumerator = [[NSArray arrayWithObject:SMLCurrentDocument] objectEnumerator];;
+    }
+	
+	return enumerator;
+}
 
 - (id)currentlyDisplayedDocumentInAdvancedFind
 {
@@ -657,14 +730,22 @@ static id sharedInstance = nil;
 		[currentProjectScope setState:NSOffState];
 		[allDocumentsScope setState:NSOffState];
 		[currentDocumentScope setState:NSOnState]; // If the user has clicked an already clicked button make sure it is on and not turned off
+		[parentDirectoryScope setState:NSOffState];
 	} else if (searchScope == SMLCurrentProjectScope) {
 		[currentDocumentScope setState:NSOffState];
 		[allDocumentsScope setState:NSOffState];
 		[currentProjectScope setState:NSOnState];
+		[parentDirectoryScope setState:NSOffState];
 	} else if (searchScope == SMLAllDocumentsScope) {
 		[currentDocumentScope setState:NSOffState];
 		[currentProjectScope setState:NSOffState];
 		[allDocumentsScope setState:NSOnState];
+		[parentDirectoryScope setState:NSOffState];
+	} else if (searchScope == SMLParentDirectoryScope) {
+		[currentDocumentScope setState:NSOffState];
+		[currentProjectScope setState:NSOffState];
+		[allDocumentsScope setState:NSOffState];
+		[parentDirectoryScope setState:NSOnState];
 	}
 	
 	[SMLDefaults setValue:[NSNumber numberWithInteger:searchScope] forKey:@"AdvancedFindScope"];
