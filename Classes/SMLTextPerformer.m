@@ -18,6 +18,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 
 @implementation SMLTextPerformer
+@synthesize macLineEnding, unixLineEnding, darkSideLineEnding;
 
 static id sharedInstance = nil;
 

@@ -49,6 +49,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 - (IBAction)changeLineEndingsAction:(id)sender;
 - (IBAction)interchangeAdjacentCharactersAction:(id)sender;
 - (IBAction)prepareForXMLAction:(id)sender;
+- (IBAction)duplicateLineAction:(id)sender;
 
 - (IBAction)changeSyntaxDefinitionAction:(id)sender;
 @end

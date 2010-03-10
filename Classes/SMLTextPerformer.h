@@ -24,6 +24,10 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	NSString *newLineSymbolString;
 }
 
+@property (readonly) NSString *darkSideLineEnding;
+@property (readonly) NSString *macLineEnding;
+@property (readonly) NSString *unixLineEnding;
+
 + (SMLTextPerformer *)sharedInstance;
 
 - (NSString *)convertLineEndings:(NSString *)stringToConvert inDocument:(id)document;

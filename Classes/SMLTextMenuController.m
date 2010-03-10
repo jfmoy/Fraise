@@ -1011,6 +1011,72 @@ static id sharedInstance = nil;
 	}	
 }
 
+/**
+ * This method duplicates the current line.
+ */
+- (IBAction)duplicateLineAction:(id)sender
+{
+	NSTextView *textView = SMLCurrentTextView;
+	NSString *completeString = [textView string];
+	
+	if ([completeString length] < 1) {
+		return;
+	}
+	
+	[[SMLCurrentDocument valueForKey:@"syntaxColouring"] setReactToChanges:NO];
+	
+	NSArray *selectedArray = [SMLCurrentTextView selectedRanges];
+	
+	id selection = [selectedArray objectAtIndex:0];
+
+	NSRange lineRange = [completeString lineRangeForRange:[selection rangeValue]];
+	NSString *lineString = [completeString substringWithRange:lineRange];
+	
+	NSString *lastSymbol = [lineString substringFromIndex:([lineString length] - 1)];
+	NSString *replacementString;
+	
+	// If the last symbol is a line ending one, we don't have to append one.
+	if ([lastSymbol isEqualToString:[SMLText darkSideLineEnding]] 
+		|| [lastSymbol isEqualToString:[SMLText unixLineEnding]] 
+		|| [lastSymbol isEqualToString:[SMLText macLineEnding]]) {
+		replacementString = [NSString stringWithFormat:@"%@%@", lineString, lineString];
+	}
+	else {
+		NSInteger lineEndings;
+		if ([[SMLCurrentDocument valueForKey:@"lineEndings"] integerValue] == 0) { // It hasn't been changed by the user so use the one from the defaults
+			lineEndings = [[SMLDefaults valueForKey:@"LineEndingsPopUp"] integerValue] + 1;
+		} else {
+			lineEndings = [[SMLCurrentDocument valueForKey:@"lineEndings"] integerValue];
+		}
+		
+		if (lineEndings == SMLDarkSideLineEndings) {
+			replacementString = [NSString stringWithFormat:@"%@%@%@", lineString, [SMLText darkSideLineEnding], lineString];
+		}
+		else if (lineEndings == SMLMacLineEndings) {
+			replacementString = [NSString stringWithFormat:@"%@%@%@", lineString, [SMLText macLineEnding], lineString];
+		}
+		else {
+			replacementString = [NSString stringWithFormat:@"%@%@%@", lineString, [SMLText unixLineEnding], lineString];
+		}
+	}
+	
+	if ([textView shouldChangeTextInRange:lineRange replacementString:replacementString]) { // Do it this way to mark it as an Undo
+		[textView replaceCharactersInRange:lineRange withString:replacementString];
+		[textView didChangeText];
+	}
+	
+	[[SMLCurrentDocument valueForKey:@"syntaxColouring"] setReactToChanges:YES];
+	
+	[[SMLCurrentDocument valueForKey:@"syntaxColouring"] pageRecolour];
+	
+	if ([[SMLCurrentDocument valueForKey:@"isEdited"] boolValue] == NO) {
+		[SMLVarious hasChangedDocument:SMLCurrentDocument];
+	}
+	
+	[[SMLCurrentDocument valueForKey:@"lineNumbers"] updateLineNumbersCheckWidth:NO recolour:NO];
+		
+}
+
 
 - (IBAction)changeSyntaxDefinitionAction:(id)sender
 {
