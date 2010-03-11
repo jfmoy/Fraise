@@ -98,7 +98,7 @@ static id sharedInstance = nil;
 	[dictionary setValue:[NSNumber numberWithInteger:5] forKey:@"StatusBarLastSavedFormatPopUp"];
 	[dictionary setValue:[NSNumber numberWithInteger:32] forKey:@"ViewSize"];
 	[dictionary setValue:[NSNumber numberWithInteger:SMLListView] forKey:@"View"];
-	[dictionary setValue:[NSNumber numberWithInteger:SMLCheckForUpdatesNever] forKey:@"CheckForUpdatesInterval"];
+	[dictionary setValue:[NSNumber numberWithInteger:SMLCheckForUpdatesDaily] forKey:@"CheckForUpdatesInterval"];
 	[dictionary setValue:[NSNumber numberWithInteger:SMLPreviewHTML] forKey:@"PreviewParser"];
 	[dictionary setValue:[NSNumber numberWithInteger:SMLCurrentDocumentScope] forKey:@"AdvancedFindScope"];
 	
