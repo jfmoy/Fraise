@@ -27,8 +27,12 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		smultronImage = [NSImage imageNamed:@"SMLMainIcon.icns"];
 		[[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
 		[smultronImage setSize:NSMakeSize(128.0, 128.0)];
+#if (MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_5)
+		[[smultronImage bestRepresentationForDevice:nil] setSize:NSMakeSize(128.0, 128.0)];
+#else
 		[[smultronImage bestRepresentationForRect:NSMakeRect(0.0, 0.0, 128.0, 128.0) context:nil hints:nil] setSize:NSMakeSize(128.0, 128.0)];
-
+#endif
+		
 		attributes = [[NSMutableDictionary alloc] init];
 		[attributes setValue:[NSFont boldSystemFontOfSize:20] forKey:NSFontAttributeName];
 		[attributes setValue:[NSColor colorWithCalibratedWhite:0.0 alpha:0.80] forKey:@"NSColor"];

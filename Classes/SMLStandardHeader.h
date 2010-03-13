@@ -23,7 +23,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	#define Pos NSLog(@"File=%s line=%d proc=%s", strrchr("/" __FILE__,'/')+1, __LINE__, __PRETTY_FUNCTION__)
 #endif
 
-
 #define SMULTRON_ERROR_DOMAIN @"org.smultron.Smultron.ErrorDomain"
 
 #import <Cocoa/Cocoa.h>
@@ -48,6 +47,18 @@ Unless required by applicable law or agreed to in writing, software distributed 
 #import <sys/mount.h>
 #import <sys/xattr.h>
 
+
+#if (MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_5)
+@protocol NSTableViewDelegate <NSObject> @end
+@protocol NSSplitViewDelegate <NSObject> @end
+@protocol NSWindowDelegate <NSObject> @end
+@protocol NSMenuDelegate <NSObject> @end
+@protocol NSToolbarDelegate <NSObject> @end
+@protocol NSApplicationDelegate <NSObject> @end
+@protocol NSTableViewDataSource <NSObject> @end
+@protocol NSTextStorageDelegate <NSObject> @end
+@protocol NSOutlineViewDelegate <NSObject> @end
+#endif
 
 enum {
 	SMLDefaultsLineEndings = 0,

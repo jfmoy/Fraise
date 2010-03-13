@@ -619,7 +619,7 @@ static id sharedInstance = nil;
 				[SMLOpenSave shouldOpen:fullyQualifiedName withEncoding:0];
             }
 			else {
-				[directoryEnumerator skipDescendants];
+				[directoryEnumerator skipDescendents];
 			}
         }
 		enumerator = [[[SMLCurrentProject documentsArrayController] arrangedObjects] reverseObjectEnumerator];
