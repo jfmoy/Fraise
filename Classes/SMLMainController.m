@@ -163,7 +163,7 @@ static id sharedInstance = nil;
 
 	// Checking the website availability.
 	SCNetworkConnectionFlags status = 0;
-	SCNetworkReachabilityRef target = SCNetworkReachabilityCreateWithName(NULL, "bloggezmoy.com");
+	SCNetworkReachabilityRef target = SCNetworkReachabilityCreateWithName(NULL, "github.com");
 	
 	BOOL success = SCNetworkReachabilityGetFlags(target, &status);
 	CFRelease(target);
@@ -171,20 +171,24 @@ static id sharedInstance = nil;
 	BOOL connected = success && (status & kSCNetworkFlagsReachable) && !(status & kSCNetworkFlagsConnectionRequired); 
 	if (connected) {
 		NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfURL:[NSURL URLWithString:@"http://github.com/downloads/jfmoy/Smultron/checkForUpdate.plist"]];
-#if (MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_5)
-		dictionary = [dictionary objectForKey:@"leopard"];
-#endif
 		if (dictionary) {
-			float thisVersion = THISVERSION;
-			float latestVersion = [[dictionary valueForKey:@"latestVersion"] floatValue];
-			if (latestVersion > thisVersion) {
-				[self performSelectorOnMainThread:@selector(updateInterfaceOnMainThreadAfterCheckForUpdateFoundNewUpdate:) withObject:dictionary waitUntilDone:YES];
-			} else {
-				[self performSelectorOnMainThread:@selector(updateInterfaceOnMainThreadAfterCheckForUpdateFoundNewUpdate:) withObject:nil waitUntilDone:YES];
+#if (MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_5)
+			dictionary = [dictionary objectForKey:@"leopard"];
+			if (dictionary) {
+#endif
+				float thisVersion = THISVERSION;
+				float latestVersion = [[dictionary valueForKey:@"latestVersion"] floatValue];
+				if (latestVersion > thisVersion) {
+					[self performSelectorOnMainThread:@selector(updateInterfaceOnMainThreadAfterCheckForUpdateFoundNewUpdate:) withObject:dictionary waitUntilDone:YES];
+				} else {
+					[self performSelectorOnMainThread:@selector(updateInterfaceOnMainThreadAfterCheckForUpdateFoundNewUpdate:) withObject:nil waitUntilDone:YES];
+				}
+				
+				// Store the last update date.
+				[SMLDefaults setValue:[NSArchiver archivedDataWithRootObject:[NSDate date]] forKey:@"LastCheckForUpdateDate"];
+#if (MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_5)
 			}
-			
-			// Store the last update date.
-			[SMLDefaults setValue:[NSArchiver archivedDataWithRootObject:[NSDate date]] forKey:@"LastCheckForUpdateDate"];
+#endif
 		}
 	}
 	[checkUpdatePool drain];
