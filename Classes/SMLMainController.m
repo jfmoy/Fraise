@@ -103,21 +103,7 @@ static id sharedInstance = nil;
 			checkForUpdates = YES;
 		} else { 
 			NSDate *lastCheckDate = [NSUnarchiver unarchiveObjectWithData:[SMLDefaults valueForKey:@"LastCheckForUpdateDate"]];
-#if (MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_5)
-			if ([[SMLDefaults valueForKey:@"CheckForUpdatesInterval"] integerValue] == SMLCheckForUpdatesDaily) {
-				if ([[lastCheckDate addTimeInterval:(60 * 60 * 24)] compare:[NSDate date]] == NSOrderedAscending) {
-					checkForUpdates = YES;
-				}
-			} else if ([[SMLDefaults valueForKey:@"CheckForUpdatesInterval"] integerValue] == SMLCheckForUpdatesWeekly) {
-				if ([[lastCheckDate addTimeInterval:(60 * 60 * 24 * 7)] compare:[NSDate date]] == NSOrderedAscending) {
-					checkForUpdates = YES;
-				}
-			} else if ([[SMLDefaults valueForKey:@"CheckForUpdatesInterval"] integerValue] == SMLCheckForUpdatesMonthly) {
-				if ([[lastCheckDate addTimeInterval:(60 * 60 * 24 * 30)] compare:[NSDate date]] == NSOrderedAscending) {
-					checkForUpdates = YES;
-				}
-			}
-#else
+
 			if ([[SMLDefaults valueForKey:@"CheckForUpdatesInterval"] integerValue] == SMLCheckForUpdatesDaily) {
 				if ([[NSDate dateWithTimeInterval:(60 * 60 * 24) sinceDate:lastCheckDate] compare:[NSDate date]] == NSOrderedAscending) {
 					checkForUpdates = YES;
@@ -131,7 +117,6 @@ static id sharedInstance = nil;
 					checkForUpdates = YES;
 				}
 			}
-#endif
 		}
 
 		
@@ -172,10 +157,6 @@ static id sharedInstance = nil;
 	if (connected) {
 		NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfURL:[NSURL URLWithString:@"http://github.com/downloads/jfmoy/Smultron/checkForUpdate.plist"]];
 		if (dictionary) {
-#if (MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_5)
-			dictionary = [dictionary objectForKey:@"leopard"];
-			if (dictionary) {
-#endif
 				float thisVersion = THISVERSION;
 				float latestVersion = [[dictionary valueForKey:@"latestVersion"] floatValue];
 				if (latestVersion > thisVersion) {
@@ -186,9 +167,6 @@ static id sharedInstance = nil;
 				
 				// Store the last update date.
 				[SMLDefaults setValue:[NSArchiver archivedDataWithRootObject:[NSDate date]] forKey:@"LastCheckForUpdateDate"];
-#if (MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_5)
-			}
-#endif
 		}
 	}
 	[checkUpdatePool drain];
