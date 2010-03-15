@@ -328,6 +328,11 @@ static id sharedInstance = nil;
 	[SMLCurrentProject selectionDidChange];
 	
 	[self performSelector:@selector(updateLineNumbers) withObject:nil afterDelay:0.0];
+	
+	// Bring the window in front if Smultron is not on the current displayed space.
+	if (![SMLCurrentWindow isOnActiveSpace]) {
+		[SMLCurrentWindow orderFront:self];
+	}
 }
 
 
