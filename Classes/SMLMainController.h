@@ -1,5 +1,5 @@
 /*
-Smultron version 3.7a1, 2009-09-12
+Smultron version 3.7
 Written by Jean-François Moy - jeanfrancois.moy@gmail.com
 Find the latest version at http://github.com/jfmoy/Smultron
 
@@ -17,9 +17,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 @interface SMLMainController : NSObject
 {
-	NSTimer *checkForUpdateTimer;
-	NSTimer *hideNoUpdateAvailableTextFieldTimer;
-
 	BOOL isInFullScreenMode;
 	BOOL singleDocumentWindowWasOpenBeforeEnteringFullScreen;
 	
@@ -33,8 +30,4 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 + (SMLMainController *)sharedInstance;
 
-- (void)checkForUpdate;
-- (void)checkForUpdateInSeparateThread;
-- (void)updateInterfaceOnMainThreadAfterCheckForUpdateFoundNewUpdate:(id)sender;
-- (void)hideNoUpdateAvailableTextField;
 @end

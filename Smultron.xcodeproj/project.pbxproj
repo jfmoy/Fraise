@@ -6,6 +6,21 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		1F748632114F1F6000767B18 /* Distribution */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 1F7486C4114F1F6D00767B18 /* Build configuration list for PBXAggregateTarget "Distribution" */;
+			buildPhases = (
+				1F7486CA114F1F9900767B18 /* ShellScript */,
+			);
+			dependencies = (
+				1F7486C8114F1F8000767B18 /* PBXTargetDependency */,
+			);
+			name = Distribution;
+			productName = Distribution;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		1F0915BB113F88FA00F3BB28 /* SMLPreferencesGeneral.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0915BA113F88FA00F3BB28 /* SMLPreferencesGeneral.xib */; };
 		1F0915C9113F8CC600F3BB28 /* SMLAdvancedFind.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0915C8113F8CC600F3BB28 /* SMLAdvancedFind.xib */; };
@@ -27,10 +42,13 @@
 		1F091713113F95B000F3BB28 /* SMLCommandResult.xib in Resources */ = {isa = PBXBuildFile; fileRef = 510C3F900D92755B005F475A /* SMLCommandResult.xib */; };
 		1F091714113F95BF00F3BB28 /* SMLPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5168D7DA0D92772B005225AB /* SMLPreferences.xib */; };
 		1F091715113F960000F3BB28 /* SMLSingleDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 510C3F930D927566005F475A /* SMLSingleDocument.xib */; };
+		1F7486DD114F201200767B18 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1FB4A7F8114ED9C30056E2EC /* Sparkle.framework */; };
 		1FACC99F113FAE1200515523 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FACC99E113FAE1200515523 /* QuartzCore.framework */; };
+		1FB4A7F9114ED9C30056E2EC /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FB4A7F8114ED9C30056E2EC /* Sparkle.framework */; };
 		1FB593BA113EE34600ECB6C0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1FB593B9113EE34600ECB6C0 /* Localizable.strings */; };
 		1FB593BD113EE35E00ECB6C0 /* Localizable3.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1FB593BC113EE35E00ECB6C0 /* Localizable3.strings */; };
 		1FB59409113EE58500ECB6C0 /* SMLMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FB59408113EE58500ECB6C0 /* SMLMainMenu.xib */; };
+		1FD4A30F114F120E00131FFB /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 1FD4A30E114F120E00131FFB /* dsa_pub.pem */; };
 		2F69A1BE0BB0406800D23876 /* SMLDocumentsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F69A1BD0BB0406800D23876 /* SMLDocumentsListCell.m */; };
 		2F6CF2E20B848515008B0386 /* DefaultCommands.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F6CF2E10B848515008B0386 /* DefaultCommands.plist */; };
 		2F7040F90BBBE07F00D43CAF /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2F7040F80BBBE07F00D43CAF /* Credits.rtf */; };
@@ -139,6 +157,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		1F7486C7114F1F8000767B18 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D15AC270486D014006FF6A4;
+			remoteInfo = Smultron;
+		};
 		7F5C26720B73BF7A00D2EDDC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
@@ -149,6 +174,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		1F7486E8114F202A00767B18 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				1F7486DD114F201200767B18 /* Sparkle.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7F1DE28F0BD198FA00AD5707 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -446,10 +481,13 @@
 		1F0917D3113F973700F3BB28 /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/SMLPrintAccessoryView.xib; sourceTree = "<group>"; };
 		1F0917D4113F973700F3BB28 /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/SMLRegularExpressionHelp.xib; sourceTree = "<group>"; };
 		1F0917D5113F973700F3BB28 /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/SMLSnippets.xib; sourceTree = "<group>"; };
+		1F7485FB114F13BF00767B18 /* Distribution-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Distribution-Info.plist"; sourceTree = "<group>"; };
 		1FACC99E113FAE1200515523 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		1FB4A7F8114ED9C30056E2EC /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		1FB593BB113EE35000ECB6C0 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1FB593BE113EE36300ECB6C0 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/Localizable3.strings; sourceTree = "<group>"; };
 		1FB5940A113EE58A00ECB6C0 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/SMLMainMenu.xib; sourceTree = "<group>"; };
+		1FD4A30E114F120E00131FFB /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		2A37F4ACFDCFA73011CA2CEA /* SMLProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SMLProject.m; path = Classes/SMLProject.m; sourceTree = "<group>"; };
 		2A37F4AEFDCFA73011CA2CEA /* SMLProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SMLProject.h; path = Classes/SMLProject.h; sourceTree = "<group>"; };
 		2A37F4B0FDCFA73011CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Classes/main.m; sourceTree = "<group>"; };
@@ -678,6 +716,7 @@
 				7F51225C0BA72E7E00183863 /* QuartzCore.framework in Frameworks */,
 				7FBDDF360CF79C7D003BAFB5 /* QuickLook.framework in Frameworks */,
 				1FACC99F113FAE1200515523 /* QuartzCore.framework in Frameworks */,
+				1FB4A7F9114ED9C30056E2EC /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -692,6 +731,7 @@
 				7F1DE27A0BD1984700AD5707 /* CoreFoundation.framework */,
 				7F51225B0BA72E7E00183863 /* QuartzCore.framework */,
 				7F6C9C670B75F23000531EF9 /* libicucore.dylib */,
+				1FB4A7F8114ED9C30056E2EC /* Sparkle.framework */,
 				7F5C26B80B73C06D00D2EDDC /* SystemConfiguration.framework */,
 				7F5C26B40B73C05100D2EDDC /* WebKit.framework */,
 				7F5C26B20B73C04800D2EDDC /* ApplicationServices.framework */,
@@ -765,6 +805,7 @@
 		2A37F4B8FDCFA73011CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1F7485FB114F13BF00767B18 /* Distribution-Info.plist */,
 				7F5C24D90B73BCF200D2EDDC /* Xibs */,
 				7F9809B40B73B4C8000A9140 /* Graphics */,
 				2FEC50CD0B96DB8D000CF1AD /* Other */,
@@ -772,6 +813,7 @@
 				7F9809E70B73B4F4000A9140 /* Syntax Definitions */,
 				7F980A940B73B660000A9140 /* DefaultSnippets.plist */,
 				2F6CF2E10B848515008B0386 /* DefaultCommands.plist */,
+				1FD4A30E114F120E00131FFB /* dsa_pub.pem */,
 				7F980A950B73B660000A9140 /* Smultron.sdef */,
 				7FD53F120D91A8F30071054F /* Smultron-Manual.pdf */,
 				8D15AC360486D014006FF6A4 /* Info.plist */,
@@ -1198,6 +1240,7 @@
 				8D15AC300486D014006FF6A4 /* Sources */,
 				8D15AC330486D014006FF6A4 /* Frameworks */,
 				7F1DE28F0BD198FA00AD5707 /* CopyFiles */,
+				1F7486E8114F202A00767B18 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -1243,6 +1286,7 @@
 			targets = (
 				8D15AC270486D014006FF6A4 /* Smultron */,
 				7F5C26640B73BF2200D2EDDC /* smultron */,
+				1F748632114F1F6000767B18 /* Distribution */,
 			);
 		};
 /* End PBXProject section */
@@ -1297,10 +1341,27 @@
 				1F0915F3113F8D3E00F3BB28 /* SMLSnippets.xib in Resources */,
 				7F5097710D95A65500D62D67 /* SMLDefaultUnsavedIcon.png in Resources */,
 				7F5097720D95A65500D62D67 /* SMLDefaultIcon.png in Resources */,
+				1FD4A30F114F120E00131FFB /* dsa_pub.pem in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1F7486CA114F1F9900767B18 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "set -o errexit\n\n[ $BUILD_STYLE = Release ] || { echo Distribution target requires \"'Release'\" build style; false; }\n\nVERSION=$(defaults read \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app/Contents/Info\" CFBundleVersion)\nDOWNLOAD_BASE_URL=\"http://www.github.com/jfmoy/Smultron\"\nRELEASENOTES_URL=\"http://www.bloggezmoy.com/smultron/release-notes.html#version-$VERSION\"\n\nARCHIVE_FILENAME=\"$PROJECT_NAME $VERSION.zip\"\nDOWNLOAD_URL=\"$DOWNLOAD_BASE_URL/$ARCHIVE_FILENAME\"\nKEYCHAIN_PRIVKEY_NAME=\"Sparkle Private Key\"\n\nWD=$PWD\ncd \"$BUILT_PRODUCTS_DIR\"\nrm -f \"$PROJECT_NAME\"*.zip\nditto -ck --keepParent \"$PROJECT_NAME.app\" \"$ARCHIVE_FILENAME\"\n\nSIZE=$(stat -f %z \"$ARCHIVE_FILENAME\")\nPUBDATE=$(date +\"%a, %d %b %G %T %z\")\nSIGNATURE=$(\n\topenssl dgst -sha1 -binary < \"$ARCHIVE_FILENAME\" \\\n\t| openssl dgst -dss1 -sign <(security find-generic-password -g -s \"$KEYCHAIN_PRIVKEY_NAME\" 2>&1 1>/dev/null | perl -pe '($_) = /\"(.+)\"/; s/\\\\012/\\n/g' | perl -MXML::LibXML -e 'print XML::LibXML->new()->parse_file(\"-\")->findvalue(q(//string[preceding-sibling::key[1] = \"NOTE\"]))') \\\n\t| openssl enc -base64\n)\n\n[ $SIGNATURE ] || { echo Unable to load signing private key with name \"'$KEYCHAIN_PRIVKEY_NAME'\" from keychain; false; }\n\ncat <<EOF\n\t\t<item>\n\t\t\t<title>Version $VERSION</title>\n\t\t\t<sparkle:releaseNotesLink>$RELEASENOTES_URL</sparkle:releaseNotesLink>\n\t\t\t<pubDate>$PUBDATE</pubDate>\n\t\t\t<enclosure\n\t\t\t\turl=\"$DOWNLOAD_URL\"\n\t\t\t\tsparkle:version=\"$VERSION\"\n\t\t\t\ttype=\"application/octet-stream\"\n\t\t\t\tlength=\"$SIZE\"\n\t\t\t\tsparkle:dsaSignature=\"$SIGNATURE\"\n\t\t\t/>\n\t\t</item>\nEOF\n\necho scp \"'$HOME/Documents/Project/Smultron/build/Release/$ARCHIVE_FILENAME'\"http://www.github.com/jfmoy/Smultron/\necho scp \"'$WD/appcast.xml'\" www.bloggezmoy.com:smultron/appcast.xml";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7F5C26620B73BF2200D2EDDC /* Sources */ = {
@@ -1394,6 +1455,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		1F7486C8114F1F8000767B18 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8D15AC270486D014006FF6A4 /* Smultron */;
+			targetProxy = 1F7486C7114F1F8000767B18 /* PBXContainerItemProxy */;
+		};
 		7F5C26730B73BF7A00D2EDDC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7F5C26640B73BF2200D2EDDC /* smultron */;
@@ -1842,6 +1908,27 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		1F748633114F1F6000767B18 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = Distribution;
+			};
+			name = Debug;
+		};
+		1F748634114F1F6000767B18 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = Distribution;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		7F5C266A0B73BF4000D2EDDC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1875,7 +1962,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -1895,6 +1985,7 @@
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
+					"\"$(SRCROOT)\"",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../SmultronSource\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)\"";
@@ -1954,6 +2045,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1F7486C4114F1F6D00767B18 /* Build configuration list for PBXAggregateTarget "Distribution" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1F748633114F1F6000767B18 /* Debug */,
+				1F748634114F1F6000767B18 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		7F5C26690B73BF4000D2EDDC /* Build configuration list for PBXNativeTarget "smultron" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

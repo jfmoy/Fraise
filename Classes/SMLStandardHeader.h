@@ -1,5 +1,5 @@
 /*
-Smultron version 3.7a1, 2009-09-12
+Smultron version 3.7
 Written by Jean-François Moy - jeanfrancois.moy@gmail.com
 Find the latest version at http://github.com/jfmoy/Smultron
 
@@ -75,14 +75,6 @@ enum {
 	SMLPermantProject = 1
 };
 typedef NSUInteger SMLWhatKindOfProject;
-
-enum {
-	SMLCheckForUpdatesNever = 0,
-	SMLCheckForUpdatesDaily = 1,
-	SMLCheckForUpdatesWeekly = 2,
-	SMLCheckForUpdatesMonthly = 3
-};
-typedef NSUInteger SMLCheckForUpdatesInterval;
 
 enum {
 	SMLPreviewHTML = 0,

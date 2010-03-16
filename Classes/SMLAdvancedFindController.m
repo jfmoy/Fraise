@@ -1,5 +1,5 @@
 /*
-Smultron version 3.7a1, 2009-09-12
+Smultron version 3.7
 Written by Jean-François Moy - jeanfrancois.moy@gmail.com
 Find the latest version at http://github.com/jfileManageroy/Smultron
 

@@ -1,5 +1,5 @@
 /*
-Smultron version 3.7a1, 2009-09-12
+Smultron version 3.7
 Written by Jean-François Moy - jeanfrancois.moy@gmail.com
 Find the latest version at http://github.com/jfmoy/Smultron
 
@@ -25,7 +25,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	IBOutlet NSView *advancedView;
 	IBOutlet NSArrayController *syntaxDefinitionsArrayController;
 	
-	IBOutlet NSTextField *noUpdateAvailableTextField;
 	IBOutlet NSPopUpButton *encodingsPopUp;
 	IBOutlet NSPopUpButton *syntaxColouringPopUp;
 	IBOutlet NSPopUpButton *lastSavedFormatPopUp;
@@ -56,9 +55,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 - (CGFloat)toolbarHeight;
 
 - (IBAction)setFontAction:(id)sender;
-- (IBAction)checkNowAction:(id)sender;
-
-- (NSTextField *)noUpdateAvailableTextField;
 
 - (IBAction)revertToStandardSettingsAction:(id)sender;
 - (void)buildEncodingsMenu;

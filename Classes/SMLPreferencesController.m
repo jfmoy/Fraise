@@ -1,5 +1,5 @@
 /*
-Smultron version 3.7a1, 2009-09-12
+Smultron version 3.7
 Written by Jean-François Moy - jeanfrancois.moy@gmail.com
 Find the latest version at http://github.com/jfmoy/Smultron
 
@@ -98,7 +98,6 @@ static id sharedInstance = nil;
 	[dictionary setValue:[NSNumber numberWithInteger:5] forKey:@"StatusBarLastSavedFormatPopUp"];
 	[dictionary setValue:[NSNumber numberWithInteger:32] forKey:@"ViewSize"];
 	[dictionary setValue:[NSNumber numberWithInteger:SMLListView] forKey:@"View"];
-	[dictionary setValue:[NSNumber numberWithInteger:SMLCheckForUpdatesDaily] forKey:@"CheckForUpdatesInterval"];
 	[dictionary setValue:[NSNumber numberWithInteger:SMLPreviewHTML] forKey:@"PreviewParser"];
 	[dictionary setValue:[NSNumber numberWithInteger:SMLCurrentDocumentScope] forKey:@"AdvancedFindScope"];
 	
@@ -516,18 +515,6 @@ static id sharedInstance = nil;
 	NSFontManager *fontManager = [NSFontManager sharedFontManager];
 	[fontManager setSelectedFont:[NSUnarchiver unarchiveObjectWithData:[SMLDefaults valueForKey:@"TextFont"]] isMultiple:NO];
 	[fontManager orderFrontFontPanel:nil];
-}
-
-
-- (IBAction)checkNowAction:(id)sender
-{
-	[[SMLMainController	sharedInstance] checkForUpdate];
-}
-
-
-- (NSTextField *)noUpdateAvailableTextField
-{
-    return noUpdateAvailableTextField; 
 }
 
 
