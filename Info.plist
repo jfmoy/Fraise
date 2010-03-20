@@ -9,36 +9,36 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>smultronProject</string>
-				<string>smlp</string>
+				<string>fraiseProject</string>
+				<string>frap</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>SMLProjectIcon</string>
+			<string>FRAProjectIcon</string>
 			<key>CFBundleTypeName</key>
-			<string>Smultron Project</string>
+			<string>Fraise Project</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
-			<string>SMLProject</string>
+			<string>FRAProject</string>
 			<key>NSPersistentStoreTypeKey</key>
 			<string>Binary</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeIconFile</key>
-			<string>SMLDocumentIcon</string>
+			<string>FRADocumentIcon</string>
 			<key>CFBundleTypeName</key>
-			<string>Smultron Document</string>
+			<string>Fraise Document</string>
 			<key>CFBundleTypeOSTypes</key>
 			<array>
-				<string>SMLd</string>
+				<string>FRAd</string>
 			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>org.smultron.smultron.document</string>
+				<string>org.fraise.fraise.document</string>
 				<string>public.plain-text</string>
 				<string>public.html</string>
 				<string>public.xml</string>
@@ -86,13 +86,13 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>smultronSnippets</string>
-				<string>smlc</string>
+				<string>fraiseSnippets</string>
+				<string>fralc</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>SMLSnippetsIcon</string>
+			<string>FRASnippetsIcon</string>
 			<key>CFBundleTypeName</key>
-			<string>Smultron Snippets</string>
+			<string>Fraise Snippets</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>LSTypeIsPackage</key>
@@ -101,12 +101,12 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>smultronCommands</string>
+				<string>fraiseCommands</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>SMLCommandsIcon</string>
+			<string>FRACommandsIcon</string>
 			<key>CFBundleTypeName</key>
-			<string>Smultron Commands</string>
+			<string>Fraise Commands</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>LSTypeIsPackage</key>
@@ -116,19 +116,19 @@
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
-	<string>Smultron</string>
+	<string>Fraise</string>
 	<key>CFBundleHelpBookFolder</key>
-	<string>Smultron Help</string>
+	<string>Fraise Help</string>
 	<key>CFBundleHelpBookName</key>
-	<string>Smultron Help</string>
+	<string>Fraise Help</string>
 	<key>CFBundleIconFile</key>
-	<string>SMLMainIcon</string>
+	<string>FRAMainIcon</string>
 	<key>CFBundleIdentifier</key>
-	<string>org.smultron.Smultron</string>
+	<string>org.fraise.Fraise</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>Smultron</string>
+	<string>Fraise</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleSignature</key>
@@ -147,21 +147,21 @@
 	<key>NSAppleScriptEnabled</key>
 	<string>YES</string>
 	<key>NSMainNibFile</key>
-	<string>SMLMainMenu</string>
+	<string>FRAMainMenu</string>
 	<key>NSPrincipalClass</key>
-	<string>SMLApplication</string>
+	<string>FRAApplication</string>
 	<key>NSServices</key>
 	<array>
 		<dict>
 			<key>NSMenuItem</key>
 			<dict>
 				<key>default</key>
-				<string>Smultron/Open Selected File</string>
+				<string>Fraise/Open Selected File</string>
 			</dict>
 			<key>NSMessage</key>
 			<string>openFile</string>
 			<key>NSPortName</key>
-			<string>Smultron</string>
+			<string>Fraise</string>
 			<key>NSSendTypes</key>
 			<array>
 				<string>NSStringPboardType</string>
@@ -172,12 +172,12 @@
 			<key>NSMenuItem</key>
 			<dict>
 				<key>default</key>
-				<string>Smultron/Insert Selection Into Current Document</string>
+				<string>Fraise/Insert Selection Into Current Document</string>
 			</dict>
 			<key>NSMessage</key>
 			<string>insertSelection</string>
 			<key>NSPortName</key>
-			<string>Smultron</string>
+			<string>Fraise</string>
 			<key>NSSendTypes</key>
 			<array>
 				<string>NSStringPboardType</string>
@@ -187,12 +187,12 @@
 			<key>NSMenuItem</key>
 			<dict>
 				<key>default</key>
-				<string>Smultron/New Document Containing Selection</string>
+				<string>Fraise/New Document Containing Selection</string>
 			</dict>
 			<key>NSMessage</key>
 			<string>openSelection</string>
 			<key>NSPortName</key>
-			<string>Smultron</string>
+			<string>Fraise</string>
 			<key>NSSendTypes</key>
 			<array>
 				<string>NSStringPboardType</string>
@@ -200,9 +200,9 @@
 		</dict>
 	</array>
 	<key>OSAScriptingDefinition</key>
-	<string>Smultron.sdef</string>
+	<string>Fraise.sdef</string>
 	<key>SUFeedURL</key>
-	<string>http://www.bloggezmoy.com/smultron/appcast.xml</string>
+	<string>http://www.bloggezmoy.com/fraise/appcast.xml</string>
 	<key>SUPublicDSAKeyFile</key>
 	<string>dsa_pub.pem</string>
 	<key>UTExportedTypeDeclarations</key>
@@ -215,15 +215,15 @@
 				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>Smultron Document</string>
+			<string>Fraise Document</string>
 			<key>UTTypeIconFile</key>
 			<string>DocumentIcon</string>
 			<key>UTTypeIdentifier</key>
-			<string>org.smultron.smultron.document</string>
+			<string>org.fraise.fraise.document</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>com.apple.ostype</key>
-				<string>SMLd</string>
+				<string>FRAd</string>
 			</dict>
 		</dict>
 	</array>

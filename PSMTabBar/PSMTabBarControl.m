@@ -14,7 +14,7 @@
 #import "PSMUnifiedTabStyle.h"
 #import "PSMTabDragAssistant.h"
 
-#import "SMLOpenSavePerformer.h"
+#import "FRAOpenSavePerformer.h"
 
 @interface PSMTabBarControl (Private)
 // characteristics
@@ -1010,7 +1010,7 @@
 {
 	NSArray *filesToImport = [[sender draggingPasteboard] propertyListForType:NSFilenamesPboardType];
 	if (filesToImport != nil) {
-		[[SMLOpenSavePerformer sharedInstance] openAllTheseFiles:filesToImport];
+		[[FRAOpenSavePerformer sharedInstance] openAllTheseFiles:filesToImport];
 	}
 }
 

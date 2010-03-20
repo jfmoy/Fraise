@@ -31,9 +31,9 @@
 {
     if((self = [super init]))
     {
-        unifiedCloseButton = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"SMLTabBarClose" ofType:@"pdf" inDirectory:@"Tab Bar"]];
-        unifiedCloseButtonDown = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"SMLTabBarClosePressed" ofType:@"pdf" inDirectory:@"Tab Bar"]];
-		unifiedCloseButtonOver = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"SMLTabBarCloseRollover" ofType:@"pdf" inDirectory:@"Tab Bar"]];
+        unifiedCloseButton = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRATabBarClose" ofType:@"pdf" inDirectory:@"Tab Bar"]];
+        unifiedCloseButtonDown = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRATabBarClosePressed" ofType:@"pdf" inDirectory:@"Tab Bar"]];
+		unifiedCloseButtonOver = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRATabBarCloseRollover" ofType:@"pdf" inDirectory:@"Tab Bar"]];
         
         _addTabButtonImage = nil;
         _addTabButtonPressedImage = nil;

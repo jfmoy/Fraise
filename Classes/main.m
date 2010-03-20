@@ -1,6 +1,6 @@
 //
 //  main.m
-//  Smultron
+//  Fraise
 //
 //  Created by Peter Borg on 2007-02-02.
 //

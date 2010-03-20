@@ -20,8 +20,8 @@
         [self setTitle:@""];
         [self setPreferredEdge:NSMaxXEdge];
 
-        _PSMTabBarOverflowPopUpImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"SMLTabBarOverflow" ofType:@"pdf" inDirectory:@"Tab Bar"]];
-		_PSMTabBarOverflowDownPopUpImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"SMLTabBarOverflowPressed" ofType:@"pdf" inDirectory:@"Tab Bar"]];
+        _PSMTabBarOverflowPopUpImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRATabBarOverflow" ofType:@"pdf" inDirectory:@"Tab Bar"]];
+		_PSMTabBarOverflowDownPopUpImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRATabBarOverflowPressed" ofType:@"pdf" inDirectory:@"Tab Bar"]];
     }
     return self;
 }

@@ -10,10 +10,10 @@
 #import "PSMTabBarCell.h"
 #import "PSMTabStyle.h"
 
-#import "SMLStandardHeader.h"
-#import "SMLProjectsController.h"
-#import "SMLProject.h"
-#import "SMLProject+DocumentViewsController.h"
+#import "FRAStandardHeader.h"
+#import "FRAProjectsController.h"
+#import "FRAProject.h"
+#import "FRAProject+DocumentViewsController.h"
 
 @implementation PSMTabDragAssistant
 
@@ -201,7 +201,7 @@ static PSMTabDragAssistant *sharedDragAssistant = nil;
         [[[self sourceTabBar] tabView] removeTabViewItem:[[self draggedCell] representedObject]];
         [[[self destinationTabBar] tabView] addTabViewItem:[[self draggedCell] representedObject]];
 		
-		NSArray *array = [[SMLProjectsController sharedDocumentController] documents];
+		NSArray *array = [[FRAProjectsController sharedDocumentController] documents];
 		id destinationProject = nil;
 		for (destinationProject in array) {
 			if ([self destinationTabBar] == [destinationProject tabBarControl]) {
@@ -220,7 +220,7 @@ static PSMTabDragAssistant *sharedDragAssistant = nil;
 			[destinationProject selectDocument:document];
 		}
 		
-		array = [[SMLProjectsController sharedDocumentController] documents];
+		array = [[FRAProjectsController sharedDocumentController] documents];
 		id sourceProject = nil;
 		for (sourceProject in array) {
 			if ([self sourceTabBar] == [sourceProject tabBarControl]) {
@@ -236,7 +236,7 @@ static PSMTabDragAssistant *sharedDragAssistant = nil;
 		}
 		
     } else {
-		[SMLCurrentProject updateDocumentOrderFromCells:[[self destinationTabBar] cells]]; 
+		[FRACurrentProject updateDocumentOrderFromCells:[[self destinationTabBar] cells]]; 
 	}
 	
     [self finishDrag];

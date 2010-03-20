@@ -87,7 +87,7 @@ echo $data;
 			<key>text</key>
 			<string>#!/bin/sh
 
-tempFile=/tmp/SmultronTempFile.`/bin/date +%H%M%S`.$$
+tempFile=/tmp/FraiseTempFile.`/bin/date +%H%M%S`.$$
 
 /usr/bin/plutil -convert xml1 -o $tempFile %%p
 /bin/cat $tempFile
@@ -99,7 +99,7 @@ tempFile=/tmp/SmultronTempFile.`/bin/date +%H%M%S`.$$
 			<key>text</key>
 			<string>#!/bin/sh
 
-tempFile=/tmp/SmultronTempFile.`/bin/date +%H%M%S`.$$
+tempFile=/tmp/FraiseTempFile.`/bin/date +%H%M%S`.$$
 
 /usr/bin/plutil -convert binary1 -o $tempFile %%p
 /bin/cat $tempFile
