@@ -154,14 +154,19 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	return NO;
 }
 
-
+/**
+ * This method creates a NSPrintOperation object to allow the user to print its document or to export it. It also
+ * shows the Printing panel so the user can modify settings concerning the document printing. The printing operation
+ * is executed in a new thread so the user can still interact with the application.
+ */
 - (NSPrintOperation *)printOperationWithSettings:(NSDictionary *)printSettings error:(NSError **)outError
 {
 	NSPrintInfo *printInfo = [self printInfo]; 
 	FRAPrintTextView *printTextView = [[FRAPrintTextView alloc] initWithFrame:NSMakeRect([printInfo leftMargin], [printInfo bottomMargin], [printInfo paperSize].width - [printInfo leftMargin] - [printInfo rightMargin], [printInfo paperSize].height - [printInfo topMargin] - [printInfo bottomMargin])];
 	
-	NSPrintOperation *printOperation = [NSPrintOperation printOperationWithView:printTextView printInfo:[self printInfo]];
+	NSPrintOperation *printOperation = [NSPrintOperation printOperationWithView:printTextView printInfo:printInfo];
     [printOperation setShowsPrintPanel:YES];
+	[printOperation setCanSpawnSeparateThread:YES]; // Allow the printing process to be executed in a new thread.
     
     NSPrintPanel *printPanel = [printOperation printPanel];
 	FRAPrintViewController *printViewController = [[FRAPrintViewController alloc] init];    

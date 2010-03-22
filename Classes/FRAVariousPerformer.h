@@ -67,5 +67,4 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (void)insertIconsInBackground:(id)array;
 
-//- (FRAPrintTextView *)printView;
 @end
