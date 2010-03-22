@@ -59,9 +59,9 @@ static id sharedInstance = nil;
 	NSString *filename;
 	NSMutableArray *projectsArray = [NSMutableArray array];
 	for (filename in arrayOfFiles) {
-		if ([[filename pathExtension] isEqualToString:@"smlc"] || [[filename pathExtension] isEqualToString:@"fraiseSnippets"]) { // If the file are code snippets do an import
+		if ([[filename pathExtension] isEqualToString:@"smlc"] || [[filename pathExtension] isEqualToString:@"frac"] || [[filename pathExtension] isEqualToString:@"fraiseSnippets"]) { // If the file are code snippets do an import
 			[[FRASnippetsController sharedInstance] performSnippetsImportWithPath:filename];
-		} else if ([[filename pathExtension] isEqualToString:@"smlp"] || [[filename pathExtension] isEqualToString:@"fraiseProject"]) { // If the file is a project open all its files
+		} else if ([[filename pathExtension] isEqualToString:@"smlp"] || [[filename pathExtension] isEqualToString:@"frap"] || [[filename pathExtension] isEqualToString:@"fraiseProject"]) { // If the file is a project open all its files
 			[projectsArray addObject:filename];
 		} else {
 			[self shouldOpen:[FRABasic resolveAliasInPath:filename] withEncoding:0];

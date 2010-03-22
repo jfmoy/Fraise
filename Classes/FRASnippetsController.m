@@ -191,7 +191,7 @@ static id sharedInstance = nil;
 	[openPanel setResolvesAliases:YES];		
 	[openPanel beginSheetForDirectory:[FRAInterface whichDirectoryForOpen] 
 							file:nil 
-						   types:[NSArray arrayWithObjects:@"smlc", @"fraiseSnippets", nil] 
+						   types:[NSArray arrayWithObjects:@"frac", @"smlc", @"fraiseSnippets", nil] 
 					   modalForWindow:snippetsWindow
 					modalDelegate:self
 				  didEndSelector:@selector(openPanelDidEnd:returnCode:contextInfo:)
