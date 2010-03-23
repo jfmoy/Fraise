@@ -56,8 +56,14 @@ static id sharedInstance = nil;
 
 - (IBAction)findAction:(id)sender
 {
+	FRAAdvancedFindScope searchScope = [[FRADefaults valueForKey:@"AdvancedFindScope"] integerValue];
+	NSArray *originalDocuments = nil;
+	
+	if (searchScope == FRAParentDirectoryScope) {
+		 originalDocuments = [NSArray arrayWithArray:[[FRACurrentProject documentsArrayController] arrangedObjects]];
+	}
+	
 	NSString *searchString = [findSearchField stringValue];
-	NSArray *originalDocuments = [[FRACurrentProject documentsArrayController] arrangedObjects];
 	
 	[findResultsOutlineView setDelegate:nil];
 	
@@ -191,11 +197,10 @@ static id sharedInstance = nil;
 			documentIndex--;
 			
 			// Remove document if no results have been found into it and the document was not loaded before.
-			FRAAdvancedFindScope searchScope = [[FRADefaults valueForKey:@"AdvancedFindScope"] integerValue];
-			if (searchScope == FRAParentDirectoryScope) {
+			if ((searchScope == FRAParentDirectoryScope) && (originalDocuments != nil)) {
 				BOOL closing = YES;
 				
-				NSEnumerator *originalDocumentsEnumerator = [originalDocuments reverseObjectEnumerator];
+				NSEnumerator *originalDocumentsEnumerator = [originalDocuments objectEnumerator];
 				for (id originalDocument in originalDocumentsEnumerator) {
 					if (originalDocument == document) {
 						closing = NO;
@@ -236,6 +241,13 @@ static id sharedInstance = nil;
 
 - (IBAction)replaceAction:(id)sender
 {	
+	FRAAdvancedFindScope searchScope = [[FRADefaults valueForKey:@"AdvancedFindScope"] integerValue];
+	NSArray *originalDocuments = nil;
+	
+	if (searchScope == FRAParentDirectoryScope) {
+		originalDocuments = [NSArray arrayWithArray:[[FRACurrentProject documentsArrayController] arrangedObjects]];
+	}
+	
 	NSString *searchString = [findSearchField stringValue];
 	NSString *replaceString = [replaceSearchField stringValue];
 	
@@ -335,7 +347,27 @@ static id sharedInstance = nil;
 				startLocation = NSMaxRange(foundRange);
 			}
 		}
-		numberOfResults += resultsInThisDocument;
+		
+		if (resultsInThisDocument == 0) {
+			// Remove document if no results have been found into it and the document was not loaded before.
+			if ((searchScope == FRAParentDirectoryScope) && (originalDocuments != nil)) {
+				BOOL closing = YES;
+				
+				NSEnumerator *originalDocumentsEnumerator = [originalDocuments objectEnumerator];
+				for (id originalDocument in originalDocumentsEnumerator) {
+					if ([[originalDocument valueForKey:@"nameWithPath"] isEqualToString:[document valueForKey:@"nameWithPath"]]) {
+						closing = NO;
+						break;
+					}
+				}
+				
+				if (closing)
+					[FRACurrentProject performCloseDocument:document];
+			}
+		}
+		else {
+			numberOfResults += resultsInThisDocument;
+		}
 	}
 	
 	if (numberOfResults == 0) {
@@ -619,6 +651,7 @@ static id sharedInstance = nil;
 				[FRAOpenSave shouldOpen:fullyQualifiedName withEncoding:0];
             }
 			else {
+				// no search in subdirectories
 				[directoryEnumerator skipDescendents];
 			}
         }
