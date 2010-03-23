@@ -22,15 +22,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 {
 	NSToolbarItem *toolbarItem = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
 	
-//	[toolbarItem setLabel:name];
-//	[toolbarItem setPaletteLabel:name];
-//	[toolbarItem setToolTip:name];
-//	[toolbarItem setTag:tag];
-//	
-//	[toolbarItem setImage:image];
-//	[toolbarItem setTarget:target];
-//	[toolbarItem setAction:selector];
-	
 	NSRect toolbarItemRect = NSMakeRect(0.0, 0.0, 28.0, 27.0);
 	
 	NSView *view = [[NSView alloc] initWithFrame:toolbarItemRect];
@@ -52,6 +43,9 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	[toolbarItem setTag:tag];
 	[toolbarItem setView:view];
 	
+	// Menu representation.
+	[toolbarItem setMenuFormRepresentation:[[NSMenuItem alloc] initWithTitle:name action:selector keyEquivalent:@""]];
+	
 	return toolbarItem;
 }
 
@@ -67,6 +61,8 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	[toolbarItem setImage:image];
 	[toolbarItem setTarget:target];
 	[toolbarItem setAction:selector];
+	
+	[toolbarItem setMenuFormRepresentation:[[NSMenuItem alloc] initWithTitle:name action:selector keyEquivalent:@""]];
 	
 	return toolbarItem;
 }
