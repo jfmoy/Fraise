@@ -37,6 +37,8 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	[toolbarItem setLabel:name];
 	[toolbarItem setPaletteLabel:name];
 	[toolbarItem setToolTip:name];
+	[toolbarItem setTarget:target];
+	[toolbarItem setAction:selector];
 	
 	[view addSubview:button];
 	
