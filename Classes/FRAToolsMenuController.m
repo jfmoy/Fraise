@@ -27,6 +27,8 @@ Unless required by applicable law or agreed to in writing, software distributed 
 #import "FRAExtraInterfaceController.h"
 #import "FRATextView.h"
 
+#define SNIPPET_TAG		100
+
 @implementation FRAToolsMenuController
 
 static id sharedInstance = nil;
@@ -172,6 +174,7 @@ static id sharedInstance = nil;
 			[subMenuItem setKeyEquivalentModifierMask:[[snippet valueForKey:@"shortcutModifier"] integerValue]];
 			[subMenuItem setTarget:self];			
 			[subMenuItem setRepresentedObject:snippet];
+			[subMenuItem setTag:SNIPPET_TAG]; // Used for validation
 			[subMenu insertItem:subMenuItem atIndex:0];
 		}
 		
@@ -360,7 +363,11 @@ static id sharedInstance = nil;
 		if ([[[FRACommandsController sharedInstance] commandsWindow] isVisible] == NO) {
 			enableMenuItem = NO;
 		}
-	}		
+	} else if (tag == SNIPPET_TAG) {
+		if (FRACurrentTextView == nil) {
+			enableMenuItem = NO;
+		}
+	}
 	return enableMenuItem;
 }
 
