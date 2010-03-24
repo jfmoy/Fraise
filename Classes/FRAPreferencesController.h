@@ -62,7 +62,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 - (IBAction)openSetFolderAction:(id)sender;
 - (IBAction)saveAsSetFolderAction:(id)sender;
 
-
+- (IBAction)changeGutterWidth:(id)sender;
 
 - (NSManagedObjectContext *)managedObjectContext;
 

@@ -138,7 +138,7 @@ static id sharedInstance = nil;
 	[textStorage addLayoutManager:layoutManager];
 	[[document valueForKey:@"syntaxColouring"] setSecondLayoutManager:layoutManager];
 	
-	NSInteger gutterWidth = [[document valueForKey:@"firstGutterScrollView"] bounds].size.width;
+	u_int16_t gutterWidth = [[document valueForKey:@"firstGutterScrollView"] bounds].size.width;
 	
 	NSView *secondContentViewNavigationBar = [FRACurrentProject secondContentViewNavigationBar];
 	CGFloat secondContentViewNavigationBarHeight = [secondContentViewNavigationBar bounds].size.height;
@@ -237,7 +237,7 @@ static id sharedInstance = nil;
 	[textStorage addLayoutManager:layoutManager];
 	[[document valueForKey:@"syntaxColouring"] setThirdLayoutManager:layoutManager];
 	
-	NSInteger gutterWidth = [[document valueForKey:@"firstGutterScrollView"] bounds].size.width;	
+	u_int16_t gutterWidth = [[document valueForKey:@"firstGutterScrollView"] bounds].size.width;	
 	
 	NSScrollView *textScrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(gutterWidth, -1, [thirdContentView bounds].size.width - gutterWidth, [thirdContentView bounds].size.height + 2)]; // +2 and -1 to remove extra line at the top and bottom
 	NSSize contentSize = [textScrollView contentSize];
@@ -305,7 +305,7 @@ static id sharedInstance = nil;
 	[textStorage addLayoutManager:layoutManager];
 	[[document valueForKey:@"syntaxColouring"] setFourthLayoutManager:layoutManager];
 	
-	NSInteger gutterWidth = [[document valueForKey:@"firstGutterScrollView"] bounds].size.width;
+	u_int16_t gutterWidth = [[document valueForKey:@"firstGutterScrollView"] bounds].size.width;
 	
 	NSView *fourthContentView = [[FRAAdvancedFindController sharedInstance] resultDocumentContentView];
 	
@@ -361,8 +361,62 @@ static id sharedInstance = nil;
 	[document setValue:gutterScrollView forKey:@"fourthGutterScrollView"];
 }
 
+/**
+ * Update gutter views to adjust its size to newly defined width for the specified
+ * document. It refreshes every views used to display the document afterwards.
+ **/
+- (void) updateGutterViewForDocument:(id)document {
+	NSArray *viewNumbers = [NSArray arrayWithObjects:@"first",@"second", @"third", nil];
+	NSView *contentView = nil;
+	u_int16_t gutterWidth = [[FRADefaults valueForKey:@"GutterWidth"] integerValue];
+	NSRect frame;
+	
+	// Update document value first.
+	[document setValue:[NSNumber numberWithUnsignedInt:gutterWidth] forKey:@"gutterWidth"];
+	
+	for (NSString* viewNumber in viewNumbers) {
+		NSScrollView *gutterScrollView = (NSScrollView *) [document valueForKey:[NSString stringWithFormat:@"%@GutterScrollView", viewNumber]];
+		NSTextView *textView = (NSTextView *)[document valueForKey:[NSString stringWithFormat:@"%@TextView", viewNumber]];
+		NSScrollView *textScrollView = (NSScrollView *)[document valueForKey:[NSString stringWithFormat:@"%@TextScrollView", viewNumber]];
+		
+		if ([viewNumber isEqualToString:@"first"]) {
+			contentView = [FRACurrentProject firstContentView];
+		}
+		else if ([viewNumber isEqualToString:@"second"]) {
+			contentView = [FRACurrentProject secondContentView];
+		}
+		else if ([viewNumber isEqualToString:@"third"]) {
+			if ([document valueForKey:@"singleDocumentWindow"] == nil) {
+				continue;
+			}
+			contentView = [[document valueForKey:@"singleDocumentWindow"] contentView];
+		}
+				   
+		// Text Scroll View
+		if (textScrollView != nil) {
+			frame = [textScrollView frame];
+			[textScrollView setFrame:NSMakeRect(gutterWidth, frame.origin.y, [contentView bounds].size.width - gutterWidth, frame.size.height)];
+			[textScrollView setNeedsDisplay:YES];
+		}
+		
+		// Text View
+		if (textView != nil) {
+			frame = [textView frame];
+			[textView setFrame:NSMakeRect(gutterWidth, frame.origin.y, [contentView bounds].size.width - gutterWidth, frame.size.height)];
+			[textView setNeedsDisplay:YES];
+		}
+		
+		// Gutter Scroll View
+		if (gutterScrollView != nil) {
+			frame = [gutterScrollView frame];
+			[gutterScrollView setFrame:NSMakeRect(frame.origin.x, frame.origin.y, gutterWidth, frame.size.height)];
+			[gutterScrollView setNeedsDisplay:YES];
+		}
+	}
+}
 
-- (void)updateStatusBar
+
+- (void) updateStatusBar
 {
 	if ([[FRADefaults valueForKey:@"ShowStatusBar"] boolValue] == NO) {
 		return;

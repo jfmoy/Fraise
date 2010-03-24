@@ -27,6 +27,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 #import "FRAMainController.h"
 #import "FRAApplicationDelegate.h"
 #import "FRAProject.h"
+#import "FRALineNumbers.h"
 #import "NSToolbarItem+Fraise.h"
 
 @implementation FRAPreferencesController
@@ -599,6 +600,13 @@ static id sharedInstance = nil;
 	}
 }
 
+- (IBAction)changeGutterWidth:(id)sender {
+	NSEnumerator *documentEnumerator =  [[[FRACurrentProject documentsArrayController] arrangedObjects] objectEnumerator];
+	for (id document in documentEnumerator) {
+		[FRAInterface updateGutterViewForDocument:document];
+		[[document valueForKey:@"lineNumbers"] updateLineNumbersCheckWidth:YES recolour:YES];
+	}
+}
 
 - (NSManagedObjectContext *)managedObjectContext
 {

@@ -70,4 +70,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (void)changeViewWithAnimationForWindow:(NSWindow *)window oldView:(NSView *)oldView newView:(NSView *)newView newRect:(NSRect)newRect;
 
+- (void) updateGutterViewForDocument:(id)document;
+
 @end
