@@ -23,8 +23,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 #import "FRAVariousPerformer.h"
 #import "FRAFontTransformer.h"
 
-#define THISVERSION 3.72
-
 @implementation FRAMainController
 
 @synthesize isInFullScreenMode, singleDocumentWindowWasOpenBeforeEnteringFullScreen, operationQueue;
