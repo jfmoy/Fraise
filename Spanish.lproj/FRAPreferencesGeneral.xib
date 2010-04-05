@@ -163,7 +163,7 @@
 					<object class="NSButton" id="152065250">
 						<reference key="NSNextResponder" ref="704015996"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{123, 360}, {160, 18}}</string>
+						<string key="NSFrame">{{123, 360}, {179, 18}}</string>
 						<reference key="NSSuperview" ref="704015996"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="598770229">
@@ -270,9 +270,9 @@
 												</object>
 											</object>
 										</object>
-										<string>.</string>
-										<integer value="1000"/>
 										<string>,</string>
+										<integer value="1000"/>
+										<string>.</string>
 										<object class="NSDecimalNumberPlaceholder" id="394678197">
 											<int key="NS.exponent">0</int>
 											<int key="NS.length">1</int>
@@ -309,8 +309,8 @@
 								<reference key="NS.min" ref="835249038"/>
 								<reference key="NS.max" ref="394678197"/>
 								<nil key="NS.rounding"/>
-								<string key="NS.decimal">.</string>
-								<string key="NS.thousand">,</string>
+								<string key="NS.decimal">,</string>
+								<string key="NS.thousand">.</string>
 								<bool key="NS.hasthousands">NO</bool>
 								<bool key="NS.localized">YES</bool>
 								<bool key="NS.allowsfloats">YES</bool>
@@ -490,7 +490,7 @@
 						<object class="NSButtonCell" key="NSCell" id="911300474">
 							<int key="NSCellFlags">67239424</int>
 							<int key="NSCellFlags2">0</int>
-							<string key="NSContents">Indentado de línea igual al de la línea anterior</string>
+							<string key="NSContents">Indexado de línea igual al de la línea anterior</string>
 							<reference key="NSSupport" ref="899889745"/>
 							<reference key="NSControlView" ref="38796940"/>
 							<int key="NSButtonFlags">1211912703</int>
@@ -632,9 +632,9 @@
 											<string key="NSString">0,0</string>
 											<reference key="NSAttributes" ref="577439943"/>
 										</object>
-										<string>.</string>
-										<integer value="1000"/>
 										<string>,</string>
+										<integer value="1000"/>
+										<string>.</string>
 										<object class="NSLocale">
 											<string key="NS.identifier">sv_SE</string>
 										</object>
@@ -669,8 +669,8 @@
 								<reference key="NS.min" ref="185677512"/>
 								<reference key="NS.max" ref="913114537"/>
 								<nil key="NS.rounding"/>
-								<string key="NS.decimal">.</string>
-								<string key="NS.thousand">,</string>
+								<string key="NS.decimal">,</string>
+								<string key="NS.thousand">.</string>
 								<bool key="NS.hasthousands">NO</bool>
 								<bool key="NS.localized">YES</bool>
 								<bool key="NS.allowsfloats">YES</bool>
@@ -754,13 +754,13 @@
 					<object class="NSTextField" id="722578901">
 						<reference key="NSNextResponder" ref="704015996"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{5, 300}, {115, 17}}</string>
+						<string key="NSFrame">{{56, 300}, {64, 17}}</string>
 						<reference key="NSSuperview" ref="704015996"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="342413937">
 							<int key="NSCellFlags">67239424</int>
-							<int key="NSCellFlags2">71303168</int>
-							<string key="NSContents">Nuevos Documentos:</string>
+							<int key="NSCellFlags2">138412032</int>
+							<string key="NSContents">Nuevos:</string>
 							<reference key="NSSupport" ref="899889745"/>
 							<reference key="NSControlView" ref="722578901"/>
 							<reference key="NSBackgroundColor" ref="159512790"/>
@@ -1218,7 +1218,6 @@
 							<reference ref="152065250"/>
 							<reference ref="514321539"/>
 							<reference ref="778855542"/>
-							<reference ref="722578901"/>
 							<reference ref="1048114000"/>
 							<reference ref="201346074"/>
 							<reference ref="1133107"/>
@@ -1238,6 +1237,7 @@
 							<reference ref="775106868"/>
 							<reference ref="1044439304"/>
 							<reference ref="459294142"/>
+							<reference ref="722578901"/>
 						</object>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">General &lt;do not localise&gt;</string>
@@ -1784,7 +1784,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{450, 146}, {620, 398}}</string>
+					<string>{{439, 237}, {620, 398}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
