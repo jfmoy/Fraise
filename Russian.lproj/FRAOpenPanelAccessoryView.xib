@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">11C74</string>
+		<string key="IBDocument.SystemVersion">11D50</string>
 		<string key="IBDocument.InterfaceBuilderVersion">1934</string>
-		<string key="IBDocument.AppKitVersion">1138.23</string>
-		<string key="IBDocument.HIToolboxVersion">567.00</string>
+		<string key="IBDocument.AppKitVersion">1138.32</string>
+		<string key="IBDocument.HIToolboxVersion">568.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			<string key="NS.object.0">1934</string>
@@ -42,15 +42,17 @@
 				<string key="NSClassName">NSApplication</string>
 			</object>
 			<object class="NSCustomView" id="43900095">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">256</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<object class="NSPopUpButton" id="669383054">
 						<reference key="NSNextResponder" ref="43900095"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{85, 6}, {278, 26}}</string>
+						<string key="NSFrame">{{97, 4}, {278, 26}}</string>
 						<reference key="NSSuperview" ref="43900095"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSPopUpButtonCell" key="NSCell" id="148379207">
 							<int key="NSCellFlags">-2076049856</int>
@@ -107,8 +109,10 @@
 					<object class="NSTextField" id="2289631">
 						<reference key="NSNextResponder" ref="43900095"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{17, 12}, {66, 17}}</string>
+						<string key="NSFrame">{{17, 10}, {87, 17}}</string>
 						<reference key="NSSuperview" ref="43900095"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="669383054"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="143129520">
 							<int key="NSCellFlags">67239424</int>
@@ -137,7 +141,10 @@
 						</object>
 					</object>
 				</object>
-				<string key="NSFrameSize">{380, 38}</string>
+				<string key="NSFrameSize">{392, 36}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
+				<reference key="NSNextKeyView" ref="2289631"/>
 				<object class="NSMutableString" key="NSClassName">
 					<characters key="NS.bytes">NSView</characters>
 				</object>
@@ -195,8 +202,8 @@
 						<reference key="object" ref="43900095"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="669383054"/>
 							<reference ref="2289631"/>
+							<reference ref="669383054"/>
 						</object>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">OpenPanelAccessoryView &lt;do not localise&gt;</string>
@@ -481,8 +488,8 @@
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>{9, 8}</string>
-				<string>{7, 2}</string>
+				<string>{11, 11}</string>
+				<string>{10, 3}</string>
 			</object>
 		</object>
 	</data>
