@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">11C74</string>
+		<string key="IBDocument.SystemVersion">11D50</string>
 		<string key="IBDocument.InterfaceBuilderVersion">1934</string>
-		<string key="IBDocument.AppKitVersion">1138.23</string>
-		<string key="IBDocument.HIToolboxVersion">567.00</string>
+		<string key="IBDocument.AppKitVersion">1138.32</string>
+		<string key="IBDocument.HIToolboxVersion">568.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			<string key="NS.object.0">1934</string>
@@ -54,7 +54,7 @@
 				<nil key="NSUserInterfaceItemIdentifier"/>
 				<string key="NSWindowContentMinSize">{213, 107}</string>
 				<object class="NSView" key="NSWindowView" id="511840655">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -73,6 +73,8 @@
 											<int key="NSvFlags">256</int>
 											<string key="NSFrame">{{26, 61}, {70, 17}}</string>
 											<reference key="NSSuperview" ref="965958006"/>
+											<reference key="NSWindow"/>
+											<reference key="NSNextKeyView" ref="769875312"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTextFieldCell" key="NSCell" id="590021534">
 												<int key="NSCellFlags">67239424</int>
@@ -109,6 +111,8 @@
 											<int key="NSvFlags">256</int>
 											<string key="NSFrame">{{101, 59}, {61, 22}}</string>
 											<reference key="NSSuperview" ref="965958006"/>
+											<reference key="NSWindow"/>
+											<reference key="NSNextKeyView" ref="810771403"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTextFieldCell" key="NSCell" id="311773949">
 												<int key="NSCellFlags">-1804468671</int>
@@ -218,8 +222,9 @@
 										<object class="NSButton" id="618606836">
 											<reference key="NSNextResponder" ref="965958006"/>
 											<int key="NSvFlags">256</int>
-											<string key="NSFrame">{{95, 13}, {73, 32}}</string>
+											<string key="NSFrame">{{95, 13}, {76, 32}}</string>
 											<reference key="NSSuperview" ref="965958006"/>
+											<reference key="NSWindow"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSButtonCell" key="NSCell" id="217802424">
 												<int key="NSCellFlags">67239424</int>
@@ -241,6 +246,8 @@
 											<int key="NSvFlags">256</int>
 											<string key="NSFrame">{{8, 13}, {82, 32}}</string>
 											<reference key="NSSuperview" ref="965958006"/>
+											<reference key="NSWindow"/>
+											<reference key="NSNextKeyView" ref="618606836"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSButtonCell" key="NSCell" id="699549358">
 												<int key="NSCellFlags">67239424</int>
@@ -260,10 +267,14 @@
 									</object>
 									<string key="NSFrame">{{2, 2}, {182, 101}}</string>
 									<reference key="NSSuperview" ref="615595235"/>
+									<reference key="NSWindow"/>
+									<reference key="NSNextKeyView" ref="725465439"/>
 								</object>
 							</object>
 							<string key="NSFrame">{{17, 16}, {186, 105}}</string>
 							<reference key="NSSuperview" ref="511840655"/>
+							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView" ref="965958006"/>
 							<string key="NSOffsets">{0, 0}</string>
 							<object class="NSTextFieldCell" key="NSTitleCell">
 								<int key="NSCellFlags">67239424</int>
@@ -288,6 +299,9 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{220, 139}</string>
+					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
+					<reference key="NSNextKeyView" ref="615595235"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMinSize">{213, 129}</string>
