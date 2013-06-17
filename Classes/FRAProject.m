@@ -591,7 +591,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		[self setFirstDocument:nil];
 	}
 	
-	[FRAManagedObjectContext deleteObject:document];
+    [documentsArrayController removeObject:document];
 	[[FRAApplicationDelegate sharedInstance] saveAction:nil]; // To remove it from memory
 	[[FRAManagedObjectContext undoManager] removeAllActions];
 }
