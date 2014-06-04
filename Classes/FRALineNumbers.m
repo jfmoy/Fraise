@@ -18,12 +18,13 @@ Unless required by applicable law or agreed to in writing, software distributed 
 #import "FRASyntaxColouring.h"
 #import "FRAProjectsController.h"
 #import "FRAProject.h"
+#import "FRATextView.h"
 
 @implementation FRALineNumbers
 
 - (id)init
 {
-	[self initWithDocument:nil];
+	if (!(self = [self initWithDocument:nil])) return nil;
 	
 	return self;
 }
@@ -47,7 +48,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	if ([(NSString *)context isEqualToString:@"TextFontChanged"]) {
+	if ([(__bridge NSString *)context isEqualToString:@"TextFontChanged"]) {
 		attributes = [[NSDictionary alloc] initWithObjectsAndKeys:[NSUnarchiver unarchiveObjectWithData:[FRADefaults valueForKey:@"TextFont"]], NSFontAttributeName, nil];
 	} else {
 		[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -156,7 +157,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		widthOfStringInGutter = [lineNumbersString sizeWithAttributes:attributes].width;
 		
 		if (widthOfStringInGutter > ([[document valueForKey:@"gutterWidth"] integerValue] - 14)) { // Check if the gutterTextView has to be resized
-			[document setValue:[NSNumber numberWithInteger:widthOfStringInGutter + 20] forKey:@"gutterWidth"]; // Make it bigger than need be so it doesn't have to resized soon again
+			[document setValue:@(widthOfStringInGutter + 20) forKey:@"gutterWidth"]; // Make it bigger than need be so it doesn't have to resized soon again
 			if ([[document valueForKey:@"showLineNumberGutter"] boolValue] == YES) {
 				gutterWidth = [[document valueForKey:@"gutterWidth"] integerValue];
 			} else {

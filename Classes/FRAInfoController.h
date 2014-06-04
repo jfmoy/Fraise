@@ -24,7 +24,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	IBOutlet NSTextField *functionTextField;
     IBOutlet NSTextField *groupTextField;
     IBOutlet NSImageView *iconImageView;
-    IBOutlet NSWindow *infoWindow;
+    IBOutlet NSWindow *__unsafe_unretained infoWindow;
 	IBOutlet NSTextField *lengthTextField;
     IBOutlet NSTextField *linesTextField;
 	IBOutlet NSTextField *modifiedTextField;
@@ -41,7 +41,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
     IBOutlet NSTextField *wordsTextField;
 }
 
-@property (readonly) IBOutlet NSWindow *infoWindow;
+@property (unsafe_unretained, readonly) IBOutlet NSWindow *infoWindow;
 
 + (FRAInfoController *)sharedInstance;
 

@@ -18,18 +18,18 @@ Unless required by applicable law or agreed to in writing, software distributed 
 {
 	NSToolbar *preferencesToolbar;
 	
-	IBOutlet NSWindow *preferencesWindow;
+	IBOutlet NSWindow *__unsafe_unretained preferencesWindow;
 	IBOutlet NSView *generalView;
 	IBOutlet NSView *appearanceView;
 	IBOutlet NSView *openSaveView;
 	IBOutlet NSView *advancedView;
-	IBOutlet NSArrayController *syntaxDefinitionsArrayController;
+	IBOutlet NSArrayController *__unsafe_unretained syntaxDefinitionsArrayController;
 	
-	IBOutlet NSPopUpButton *encodingsPopUp;
+	IBOutlet NSPopUpButton *__unsafe_unretained encodingsPopUp;
 	IBOutlet NSPopUpButton *syntaxColouringPopUp;
 	IBOutlet NSPopUpButton *lastSavedFormatPopUp;
 	
-	IBOutlet NSArrayController *encodingsArrayController;
+	IBOutlet NSArrayController *__unsafe_unretained encodingsArrayController;
 	
 	IBOutlet NSTableView *syntaxDefinitionsTableView; 
 	IBOutlet NSTableView *encodingsTableView;
@@ -39,10 +39,10 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	NSView *currentView;
 }
 
-@property (readonly) IBOutlet NSArrayController *encodingsArrayController;
-@property (readonly) IBOutlet NSArrayController *syntaxDefinitionsArrayController;
-@property (readonly) IBOutlet NSPopUpButton *encodingsPopUp;
-@property (readonly) IBOutlet NSWindow *preferencesWindow;
+@property (unsafe_unretained, readonly) IBOutlet NSArrayController *encodingsArrayController;
+@property (unsafe_unretained, readonly) IBOutlet NSArrayController *syntaxDefinitionsArrayController;
+@property (unsafe_unretained, readonly) IBOutlet NSPopUpButton *encodingsPopUp;
+@property (unsafe_unretained, readonly) IBOutlet NSWindow *preferencesWindow;
 
 
 + (FRAPreferencesController *)sharedInstance;

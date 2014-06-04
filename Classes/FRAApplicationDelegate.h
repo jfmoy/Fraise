@@ -36,7 +36,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 @property (readonly) BOOL shouldCreateEmptyDocument, hasFinishedLaunching, isTerminatingApplication;
 
 @property (readonly) NSMutableArray *filesToOpenArray;
-@property (assign) NSAppleEventDescriptor *appleEventDescriptor;
+@property  NSAppleEventDescriptor *appleEventDescriptor;
 
 
 + (FRAApplicationDelegate *)sharedInstance;

@@ -32,7 +32,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		return;
 	}
 
-	NSDictionary *changedObject = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[self valueForKey:@"name"], [self valueForKey:@"extensions"], nil] forKeys:[NSArray arrayWithObjects:@"name", @"extensions", nil]];
+	NSDictionary *changedObject = @{@"name": [self valueForKey:@"name"], @"extensions": [self valueForKey:@"extensions"]};
 	if ([FRADefaults valueForKey:@"ChangedSyntaxDefinitions"]) {
 		NSMutableArray *changedSyntaxDefinitionsArray = [NSMutableArray arrayWithArray:[FRADefaults valueForKey:@"ChangedSyntaxDefinitions"]];
 		NSArray *array = [NSArray arrayWithArray:changedSyntaxDefinitionsArray];
@@ -44,7 +44,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		[changedSyntaxDefinitionsArray addObject:changedObject];
 		[FRADefaults setValue:changedSyntaxDefinitionsArray forKey:@"ChangedSyntaxDefinitions"];
 	} else {
-		[FRADefaults setValue:[NSArray arrayWithObject:changedObject] forKey:@"ChangedSyntaxDefinitions"];		
+		[FRADefaults setValue:@[changedObject] forKey:@"ChangedSyntaxDefinitions"];		
 	}
 }
 @end

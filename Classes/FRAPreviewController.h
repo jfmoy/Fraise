@@ -16,13 +16,13 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 @interface FRAPreviewController : NSObject {
 	
-	IBOutlet NSWindow *previewWindow;
+	IBOutlet NSWindow *__unsafe_unretained previewWindow;
     IBOutlet WebView *webView;
 	
 	NSPoint scrollPoint;
 }
 
-@property (readonly) IBOutlet NSWindow *previewWindow;
+@property (unsafe_unretained, readonly) IBOutlet NSWindow *previewWindow;
 
 
 + (FRAPreviewController *)sharedInstance;

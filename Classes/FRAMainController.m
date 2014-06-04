@@ -67,8 +67,9 @@ static id sharedInstance = nil;
 	
 	[[FRAPreferencesController sharedInstance] setDefaults];	
 	
-	NSValueTransformer *fontTransformer = [[FRAFontTransformer alloc] init];
-    [NSValueTransformer setValueTransformer:fontTransformer forName:@"FontTransformer"];
+	FRAFontTransformer *fontTransformer = [[FRAFontTransformer alloc] init];
+    [NSValueTransformer setValueTransformer: fontTransformer
+                                    forName: @"FontTransformer"];
 	
 	
 }

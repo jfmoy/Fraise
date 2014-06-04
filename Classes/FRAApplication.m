@@ -128,7 +128,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		} else if (eventWindow == [[FRASnippetsController sharedInstance] snippetsWindow]) {
 			NSInteger editedColumn = [[[FRASnippetsController sharedInstance] snippetsTableView] editedColumn];
 			if (editedColumn != -1) {
-				NSTableColumn *tableColumn = [[[[FRASnippetsController sharedInstance] snippetsTableView] tableColumns] objectAtIndex:editedColumn];
+				NSTableColumn *tableColumn = [[[FRASnippetsController sharedInstance] snippetsTableView] tableColumns][editedColumn];
 				
 				if ([[tableColumn identifier] isEqualToString:@"shortcut"]) {
 					key = [[event charactersIgnoringModifiers] characterAtIndex:0];
@@ -156,7 +156,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		} else if (eventWindow == [[FRACommandsController sharedInstance] commandsWindow]) {
 			NSInteger editedColumn = [[[FRACommandsController sharedInstance] commandsTableView] editedColumn];
 			if (editedColumn != -1) {
-				NSTableColumn *tableColumn = [[[[FRACommandsController sharedInstance] commandsTableView] tableColumns] objectAtIndex:editedColumn];
+				NSTableColumn *tableColumn = [[[FRACommandsController sharedInstance] commandsTableView] tableColumns][editedColumn];
 				
 				if ([[tableColumn identifier] isEqualToString:@"shortcut"]) {
 					key = [[event charactersIgnoringModifiers] characterAtIndex:0];
@@ -243,7 +243,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (void)setSmartInsertDelete:(BOOL)flag
 {
-	[FRADefaults setValue:[NSNumber numberWithBool:flag] forKey:@"SmartInsertDelete"];
+	[FRADefaults setValue:@(flag) forKey:@"SmartInsertDelete"];
 }
 
 @end

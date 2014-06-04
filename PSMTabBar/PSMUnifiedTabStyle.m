@@ -235,7 +235,7 @@
     [nf setLocalizesFormat:YES];
     [nf setFormat:@"0"];
     [nf setHasThousandSeparators:YES];
-    NSString *contents = [nf stringFromNumber:[NSNumber numberWithInteger:[cell count]]];
+    NSString *contents = [nf stringFromNumber:@([cell count])];
     attrStr = [[NSMutableAttributedString alloc] initWithString:contents];
     NSRange range = NSMakeRange(0, [contents length]);
     
@@ -389,7 +389,7 @@
     // icon
     if([cell hasIcon]){
         NSRect iconRect = [self iconRectForTabCell:cell];
-        NSImage *icon = [[[[cell representedObject] identifier] content] icon];
+        NSImage *icon = [[(id)[[cell representedObject] identifier] content] icon];
         if ([controlView isFlipped]) {
             iconRect.origin.y = cellFrame.size.height - iconRect.origin.y;
         }

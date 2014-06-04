@@ -61,7 +61,7 @@ static id sharedInstance = nil;
 - (NSString *)applicationSupportFolder
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
-    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : NSTemporaryDirectory();
+    NSString *basePath = ([paths count] > 0) ? paths[0] : NSTemporaryDirectory();
     return [basePath stringByAppendingPathComponent:@"Fraise"];
 }
 
@@ -256,7 +256,7 @@ static id sharedInstance = nil;
 		NSArray *openDocument = [FRABasic fetchAll:@"Document"];
 		if ([openDocument count] != 0) {
 			if (FRACurrentProject != nil) {
-				[FRACurrentProject performCloseDocument:[openDocument objectAtIndex:0]];
+				[FRACurrentProject performCloseDocument:openDocument[0]];
 			}
 		}
 		[FRAManagedObjectContext processPendingChanges];
@@ -271,7 +271,7 @@ static id sharedInstance = nil;
 			if ([openDocument count] != 0) {
 				if (FRACurrentProject != nil) {
 					filesToOpenArray = [[NSMutableArray alloc] init]; // A hack so that -[FRAProject performCloseDocument:] won't close the window
-					[FRACurrentProject performCloseDocument:[openDocument objectAtIndex:0]];
+					[FRACurrentProject performCloseDocument:openDocument[0]];
 					filesToOpenArray = nil;
 				}
 			}
@@ -310,9 +310,13 @@ static id sharedInstance = nil;
 
 - (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender
 {
-	if ([[FRADefaults valueForKey:@"OpenAllProjectsIHadOpen"] boolValue] == YES && [[FRADefaults valueForKey:@"OpenProjects"] count] > 0 || [[[FRAProjectsController sharedDocumentController] documents] count] > 0) {
+	if (([[FRADefaults valueForKey:@"OpenAllProjectsIHadOpen"] boolValue] == YES
+        && [[FRADefaults valueForKey:@"OpenProjects"] count] > 0)
+        || [[[FRAProjectsController sharedDocumentController] documents] count] > 0)
+    {
 		return NO;
-	} else {
+	} else
+    {
 		return [[FRADefaults valueForKey:@"NewDocumentAtStartup"] boolValue];
 	}
 }
@@ -374,7 +378,7 @@ static id sharedInstance = nil;
 
 - (void)importFromVersion2
 {
-	[FRADefaults setValue:[NSNumber numberWithBool:YES] forKey:@"HasImportedFromVersion2"];
+	[FRADefaults setValue:@YES forKey:@"HasImportedFromVersion2"];
 	
 	@try {
 		NSManagedObjectModel *managedObjectModelVersion2 = [[NSManagedObjectModel alloc] initWithContentsOfURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"FRADataModel2" ofType:@"mom"]]];
@@ -413,7 +417,7 @@ static id sharedInstance = nil;
 				[newCommand setValue:[command valueForKey:@"shortcutMenuItemKeyString"] forKey:@"shortcutMenuItemKeyString"];
 				[newCommand setValue:[command valueForKey:@"shortcutModifier"] forKey:@"shortcutModifier"];
 				[newCommand setValue:[command valueForKey:@"sortOrder"] forKey:@"sortOrder"];
-				[newCommand setValue:[NSNumber numberWithInteger:3] forKey:@"version"];
+				[newCommand setValue:@3 forKey:@"version"];
 				[[newCollection mutableSetValueForKey:@"commands"] addObject:newCommand];
 			}
 		}

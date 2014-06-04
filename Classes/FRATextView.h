@@ -25,12 +25,12 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	
 	BOOL showPageGuide;
 	
-	NSCursor *colouredIBeamCursor;
+	NSCursor *__unsafe_unretained colouredIBeamCursor;
 	
 	BOOL inCompleteMethod;
 }
 
-@property (assign) NSCursor *colouredIBeamCursor;
+@property (unsafe_unretained) NSCursor *colouredIBeamCursor;
 @property (assign) BOOL inCompleteMethod;
 
 - (void)setDefaults;

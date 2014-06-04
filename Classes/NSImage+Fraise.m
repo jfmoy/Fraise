@@ -20,12 +20,11 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 + (NSArray *)iconsForPath:(NSString *)path
 {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSArray *iconsArray;
 	if ([[FRADefaults valueForKey:@"UseQuickLookIcon"] boolValue] == YES) {
 		iconsArray = [NSImage quickLookIconForPath:path];
-		if (iconsArray != nil && [iconsArray count] > 0) {
-			[pool drain];
+		if (iconsArray != nil && [iconsArray count] > 0)
+        {
 			return iconsArray;
 		}
 	}
@@ -52,8 +51,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	[unsavedIcon addRepresentation:[NSCIImageRep imageRepWithCIImage:[NSImage unsavedFilterForCIImage:ciImage]]];
 	[unsavedIcon setSize:NSMakeSize(ICON_MAX_SIZE, ICON_MAX_SIZE)];
 	[unsavedIcon setScalesWhenResized:YES];
-	iconsArray = [NSArray arrayWithObjects:icon, unsavedIcon, nil];
-	[pool drain];
+	iconsArray = @[icon, unsavedIcon];
 	
 	return iconsArray;
 }
@@ -63,9 +61,9 @@ Unless required by applicable law or agreed to in writing, software distributed 
 {
 	// Thanks to Matt Gemmel (http://mattgemmell.com/) for the basics of this code
 	
-    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES],(NSString *)kQLThumbnailOptionIconModeKey, nil];
-    CGImageRef imageRef = QLThumbnailImageCreate(kCFAllocatorDefault, (CFURLRef)[NSURL fileURLWithPath:path], CGSizeMake(ICON_MAX_SIZE, ICON_MAX_SIZE), (CFDictionaryRef)options);
-	NSMakeCollectable(imageRef);
+    NSDictionary *options = @{(NSString *)kQLThumbnailOptionIconModeKey: @YES};
+    CGImageRef imageRef = QLThumbnailImageCreate(kCFAllocatorDefault, (__bridge CFURLRef)[NSURL fileURLWithPath:path], CGSizeMake(ICON_MAX_SIZE, ICON_MAX_SIZE), (__bridge CFDictionaryRef)options);
+//	NSMakeCollectable(imageRef);
     
 	if (imageRef != NULL) {
 		NSBitmapImageRep *bitmapImageRep = [[NSBitmapImageRep alloc] initWithCGImage:imageRef];
@@ -83,7 +81,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 			[icon setScalesWhenResized:YES];
 			[unsavedIcon setScalesWhenResized:YES];
 			
-			return [NSArray arrayWithObjects:icon, unsavedIcon, nil];
+			return @[icon, unsavedIcon];
 		}
 	}
 	
@@ -96,12 +94,12 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	CIFilter *filter1 = [CIFilter filterWithName:@"CIColorControls"]; 
 	[filter1 setDefaults]; 
 	[filter1 setValue:ciImage forKey:@"inputImage"];  
-	[filter1 setValue:[NSNumber numberWithDouble:-0.1] forKey:@"inputBrightness"];
+	[filter1 setValue:@-0.1 forKey:@"inputBrightness"];
 	
 	CIFilter *filter2 = [CIFilter filterWithName:@"CISepiaTone"]; 
 	[filter2 setDefaults]; 
 	[filter2 setValue:[filter1 valueForKey:@"outputImage"] forKey:@"inputImage"];  
-	[filter2 setValue:[NSNumber numberWithDouble:0.9] forKey:@"inputIntensity"];
+	[filter2 setValue:@0.9 forKey:@"inputIntensity"];
 	
 	return [filter2 valueForKey:@"outputImage"];
 }

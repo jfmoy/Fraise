@@ -106,7 +106,7 @@ static id sharedInstance = nil;
 	
 	id document = FRACurrentDocument;
 	
-	[[[document valueForKey:@"syntaxColouring"] undoManager] registerUndoWithTarget:self selector:@selector(performUndoChangeEncoding:) object:[NSArray arrayWithObject:[document valueForKey:@"encoding"]]];
+	[[[document valueForKey:@"syntaxColouring"] undoManager] registerUndoWithTarget:self selector:@selector(performUndoChangeEncoding:) object:@[[document valueForKey:@"encoding"]]];
 	[[[document valueForKey:@"syntaxColouring"] undoManager] setActionName:NAME_FOR_UNDO_CHANGE_ENCODING];
 	
 	[document setValue:[NSNumber numberWithInteger:encoding] forKey:@"encoding"];
@@ -185,11 +185,11 @@ static id sharedInstance = nil;
 {
 	id document = FRACurrentDocument;
 	
-	[[[document valueForKey:@"syntaxColouring"] undoManager] registerUndoWithTarget:self selector:@selector(performUndoChangeEncoding:) object:[NSArray arrayWithObject:[document valueForKey:@"encoding"]]];
+	[[[document valueForKey:@"syntaxColouring"] undoManager] registerUndoWithTarget:self selector:@selector(performUndoChangeEncoding:) object:@[[document valueForKey:@"encoding"]]];
 	[[[document valueForKey:@"syntaxColouring"] undoManager] setActionName:NAME_FOR_UNDO_CHANGE_ENCODING];
 	
-	[document setValue:[sender objectAtIndex:0] forKey:@"encoding"];
-	[document setValue:[NSString localizedNameOfStringEncoding:[[sender objectAtIndex:0] unsignedIntegerValue]] forKey:@"encodingName"];
+	[document setValue:sender[0] forKey:@"encoding"];
+	[document setValue:[NSString localizedNameOfStringEncoding:[sender[0] unsignedIntegerValue]] forKey:@"encodingName"];
 	
 	[FRAInterface updateStatusBar];
 }
@@ -949,10 +949,10 @@ static id sharedInstance = nil;
 {
 	id document = FRACurrentDocument;
 	
-	[[[document valueForKey:@"syntaxColouring"] undoManager] registerUndoWithTarget:self selector:@selector(performUndoChangeLineEndings:) object:[NSArray arrayWithObject:[document valueForKey:@"lineEndings"]]];
+	[[[document valueForKey:@"syntaxColouring"] undoManager] registerUndoWithTarget:self selector:@selector(performUndoChangeLineEndings:) object:@[[document valueForKey:@"lineEndings"]]];
 	[[[document valueForKey:@"syntaxColouring"] undoManager] setActionName:NAME_FOR_UNDO_CHANGE_LINE_ENDINGS];
 	
-	[document setValue:[NSNumber numberWithInteger:[sender tag] - 150] forKey:@"lineEndings"];
+	[document setValue:@([sender tag] - 150) forKey:@"lineEndings"];
 	
 	NSTextView *textView = FRACurrentTextView;
 	NSRange selectedRange = [textView selectedRange];
@@ -971,10 +971,10 @@ static id sharedInstance = nil;
 {
 	id document = FRACurrentDocument;
 	
-	[[[document valueForKey:@"syntaxColouring"] undoManager] registerUndoWithTarget:self selector:@selector(performUndoChangeLineEndings:) object:[NSArray arrayWithObject:[document valueForKey:@"lineEndings"]]];
+	[[[document valueForKey:@"syntaxColouring"] undoManager] registerUndoWithTarget:self selector:@selector(performUndoChangeLineEndings:) object:@[[document valueForKey:@"lineEndings"]]];
 	[[[document valueForKey:@"syntaxColouring"] undoManager] setActionName:NAME_FOR_UNDO_CHANGE_LINE_ENDINGS];
 	
-	[document setValue:[sender objectAtIndex:0] forKey:@"lineEndings"];
+	[document setValue:sender[0] forKey:@"lineEndings"];
 	
 	NSTextView *textView = FRACurrentTextView;
 	NSRange selectedRange = [textView selectedRange];
@@ -1027,7 +1027,7 @@ static id sharedInstance = nil;
 	
 	NSArray *selectedArray = [FRACurrentTextView selectedRanges];
 	
-	id selection = [selectedArray objectAtIndex:0];
+	id selection = selectedArray[0];
 
 	NSRange lineRange = [completeString lineRangeForRange:[selection rangeValue]];
 	NSString *lineString = [completeString substringWithRange:lineRange];
@@ -1082,7 +1082,7 @@ static id sharedInstance = nil;
 {
 	id document = FRACurrentDocument;
 	[document setValue:[sender title] forKey:@"syntaxDefinition"];
-	[document setValue:[NSNumber numberWithBool:YES] forKey:@"hasManuallyChangedSyntaxDefinition"];
+	[document setValue:@YES forKey:@"hasManuallyChangedSyntaxDefinition"];
 	[[document valueForKey:@"syntaxColouring"] setSyntaxDefinition];
 	
 	[[document valueForKey:@"syntaxColouring"] pageRecolour];

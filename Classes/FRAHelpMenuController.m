@@ -50,7 +50,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
         stringByAppendingPathComponent:@"Fraise command-line utility"];
 		[fileManager createDirectoryAtPath:pathToFolder withIntermediateDirectories:YES attributes:nil error:nil];
 		
-		[workspace performFileOperation:NSWorkspaceCopyOperation source:[[NSBundle mainBundle] resourcePath] destination:pathToFolder files:[NSArray arrayWithObjects:@"fraise", @"fraise.1", @"fraise - installation instructions", nil] tag:NULL];
+		[workspace performFileOperation:NSWorkspaceCopyOperation source:[[NSBundle mainBundle] resourcePath] destination:pathToFolder files:@[@"fraise", @"fraise.1", @"fraise - installation instructions"] tag:NULL];
 	}
 }
 

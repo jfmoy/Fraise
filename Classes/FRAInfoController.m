@@ -108,7 +108,7 @@ static id sharedInstance = nil;
 	}
 	NSString *text = [textView string];;
 	
-	[lengthTextField setStringValue:[FRABasic thousandFormatedStringFromNumber:[NSNumber numberWithUnsignedInteger:[text length]]]];
+	[lengthTextField setStringValue:[FRABasic thousandFormatedStringFromNumber:@([text length])]];
 	
 	NSArray *array = [textView selectedRanges];
 	
@@ -119,7 +119,7 @@ static id sharedInstance = nil;
 	if (selection == 0) {
 		[selectionTextField setStringValue:@""];
 	} else {
-		[selectionTextField setStringValue:[FRABasic thousandFormatedStringFromNumber:[NSNumber numberWithInteger:selection]]];
+		[selectionTextField setStringValue:[FRABasic thousandFormatedStringFromNumber:@(selection)]];
 	}
 	
 	NSRange selectionRange;
@@ -155,14 +155,14 @@ static id sharedInstance = nil;
 		if (index == -1) {
 			[functionTextField setStringValue:@""];
 		} else {
-			[functionTextField setStringValue:[[functions objectAtIndex:index] valueForKey:@"name"]];
+			[functionTextField setStringValue:[functions[index] valueForKey:@"name"]];
 		}
 	}
 	
 	if (selection > 1) {
-		[wordsTextField setStringValue:[NSString stringWithFormat:@"%@ (%@)", [FRABasic thousandFormatedStringFromNumber:[NSNumber numberWithInteger:[[NSSpellChecker sharedSpellChecker] countWordsInString:[text substringWithRange:selectionRange] language:nil]]], [FRABasic thousandFormatedStringFromNumber:[NSNumber numberWithInteger:[[NSSpellChecker sharedSpellChecker] countWordsInString:text language:nil]]]]];
+		[wordsTextField setStringValue:[NSString stringWithFormat:@"%@ (%@)", [FRABasic thousandFormatedStringFromNumber:@([[NSSpellChecker sharedSpellChecker] countWordsInString:[text substringWithRange:selectionRange] language:nil])], [FRABasic thousandFormatedStringFromNumber:@([[NSSpellChecker sharedSpellChecker] countWordsInString:text language:nil])]]];
 	} else {
-		[wordsTextField setStringValue:[NSString stringWithFormat:@"%@", [FRABasic thousandFormatedStringFromNumber:[NSNumber numberWithInteger:[[NSSpellChecker sharedSpellChecker] countWordsInString:text language:nil]]]]];
+		[wordsTextField setStringValue:[NSString stringWithFormat:@"%@", [FRABasic thousandFormatedStringFromNumber:@([[NSSpellChecker sharedSpellChecker] countWordsInString:text language:nil])]]];
 	}
 
 	[encodingTextField setStringValue:[document valueForKey:@"encodingName"]];
@@ -178,7 +178,7 @@ static id sharedInstance = nil;
 
 - (NSString *)stringFromPermissions:(NSUInteger)permissions 
 {
-    char permissionsString[10];
+    char permissionsString[12];
 	
 #if __LP64__
     strmode((short)permissions, permissionsString);
@@ -186,6 +186,8 @@ static id sharedInstance = nil;
 	strmode(permissions, permissionsString);
 #endif
 	
+    permissionsString[11] = '\0';
+    
 	NSMutableString *returnString = [NSMutableString stringWithUTF8String:permissionsString];
 	[returnString deleteCharactersInRange:NSMakeRange(0, 1)];
 	[returnString insertString:@" " atIndex:3];

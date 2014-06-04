@@ -22,7 +22,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 @interface FRASyntaxColouring : NSObject <NSTextStorageDelegate> {
 	
 	NSUndoManager *undoManager;
-	FRALayoutManager *firstLayoutManager, *secondLayoutManager, *thirdLayoutManager, *fourthLayoutManager;
+	FRALayoutManager *firstLayoutManager, *__unsafe_unretained secondLayoutManager, *__unsafe_unretained thirdLayoutManager, *__unsafe_unretained fourthLayoutManager;
 	
 	NSTimer *autocompleteWordsTimer;
 	NSInteger currentYOfSelectedCharacter, lastYOfSelectedCharacter, currentYOfLastCharacterInLine, lastYOfLastCharacterInLine, currentYOfLastCharacter, lastYOfLastCharacter, lastCursorLocation;
@@ -119,9 +119,9 @@ Unless required by applicable law or agreed to in writing, software distributed 
 @property (copy) NSString *functionDefinition;
 @property (copy) NSString *removeFromFunction;
 
-@property (assign) FRALayoutManager *secondLayoutManager;
-@property (assign) FRALayoutManager *thirdLayoutManager;
-@property (assign) FRALayoutManager *fourthLayoutManager;
+@property (unsafe_unretained) FRALayoutManager *secondLayoutManager;
+@property (unsafe_unretained) FRALayoutManager *thirdLayoutManager;
+@property (unsafe_unretained) FRALayoutManager *fourthLayoutManager;
 
 @property (readonly) NSUndoManager *undoManager;
 //@property (readonly) NSDictionary *highlightColour;

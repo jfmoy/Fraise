@@ -12,7 +12,7 @@
 
 struct URegularExpression;
 /**
-* Structure represeting a compiled regular rexpression, plus the results
+ * Structure represeting a compiled regular rexpression, plus the results
  *    of a match operation.
  * @draft ICU 3.0
  */
@@ -21,6 +21,7 @@ typedef struct URegularExpression URegularExpression;
 #define U_HIDE_DRAFT_API 1
 #define U_DISABLE_RENAMING 1
 #import <unicode/uregex.h>
+#import <unicode/ustring.h>
 
 @interface NSString (NSStringICUPrivateAdditions)
 
@@ -45,11 +46,11 @@ typedef struct URegularExpression URegularExpression;
 	ICUMatcher *matcher = [ICUMatcher matcherWithPattern:p overString:self];
 	NSMutableArray *foundGroups = [NSMutableArray array];
 	
-	[matcher findFromIndex:0];	
+	[matcher findFromIndex:0];
 	NSInteger i;
 	for(i=0;i<=[matcher numberOfGroups];i++)
 		[foundGroups addObject:[matcher groupAtIndex:i]];
-
+    
 	return [NSArray arrayWithArray:foundGroups];
 }
 
@@ -59,9 +60,9 @@ typedef struct URegularExpression URegularExpression;
 }
 
 +(NSString *)stringWithICUString:(void *)utf16EncodedString {
-	return [[NSString alloc] initWithBytes:utf16EncodedString 
-									 length:u_strlen(utf16EncodedString)*sizeof(UChar) 
-								   encoding:[self nativeUTF16Encoding]];	
+	return [[NSString alloc] initWithBytes: utf16EncodedString
+                                    length: u_strlen(utf16EncodedString) * sizeof(UChar)
+                                  encoding: [self nativeUTF16Encoding]];
 }
 
 +(NSStringEncoding)nativeUTF16Encoding {
@@ -71,7 +72,7 @@ typedef struct URegularExpression URegularExpression;
 #elif __LITTLE_ENDIAN__
 	stringEncoding = kCFStringEncodingUTF16LE;
 #endif
-
+    
 	return CFStringConvertEncodingToNSStringEncoding(stringEncoding);
 }
 
@@ -82,7 +83,7 @@ typedef struct URegularExpression URegularExpression;
 	// causes extra characters to be created in the unicode string.  We remove them here by force.
 	NSUInteger len = [self length];
 	ret[len] = '\0';
-	return ret;	
+	return ret;
 }
 
 -(void *)copyUTF16String {

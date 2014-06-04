@@ -251,7 +251,7 @@ static id sharedInstance = nil;
 	if ([[FRADefaults valueForKey:@"UseRGBRatherThanHexWhenInsertingColourValues"] boolValue] == YES) {
 		insertString = [NSString stringWithFormat:@"rgb(%lu,%lu,%lu)", red, green, blue];
 	} else {
-		insertString = [[NSString stringWithFormat:@"#%02x%02x%02x", red, green, blue] uppercaseString];
+		insertString = [[NSString stringWithFormat:@"#%02lx%02lx%02lx", (unsigned long)red, (unsigned long)green, (unsigned long)blue] uppercaseString];
 	}
 	
 	

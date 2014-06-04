@@ -49,7 +49,7 @@ static id sharedInstance = nil;
 	[sheet close];
 	[FRAVarious stopModalLoop];
 	if (returnCode == NSAlertDefaultReturn) {
-		[self performAuthenticatedOpenOfPath:[(NSArray *)contextInfo objectAtIndex:0] withEncoding:[[(NSArray *)contextInfo objectAtIndex:1] unsignedIntegerValue]];
+		[self performAuthenticatedOpenOfPath:((__bridge NSArray *)contextInfo)[0] withEncoding:[((__bridge NSArray *)contextInfo)[1] unsignedIntegerValue]];
 	}
 }
 
@@ -59,7 +59,7 @@ static id sharedInstance = nil;
 	[sheet close];
 	[FRAVarious stopModalLoop];
 	if (returnCode == NSAlertDefaultReturn) {
-		[self performAuthenticatedSaveOfDocument:[(NSArray *)contextInfo objectAtIndex:0] data:[(NSArray *)contextInfo objectAtIndex:1] path:[(NSArray *)contextInfo objectAtIndex:2] fromSaveAs:[[(NSArray *)contextInfo objectAtIndex:3] boolValue] aCopy:[[(NSArray *)contextInfo objectAtIndex:4] boolValue]];
+		[self performAuthenticatedSaveOfDocument:((__bridge NSArray *)contextInfo)[0] data:((__bridge NSArray *)contextInfo)[1] path:((__bridge NSArray *)contextInfo)[2] fromSaveAs:[((__bridge NSArray *)contextInfo)[3] boolValue] aCopy:[((__bridge NSArray *)contextInfo)[4] boolValue]];
 	}
 }
 
@@ -71,7 +71,7 @@ static id sharedInstance = nil;
     NSFileHandle *fileHandle = [pipe fileHandleForReading];
 	
     [task setLaunchPath:@"/usr/libexec/authopen"];
-    [task setArguments:[NSArray arrayWithObjects:path, nil]];
+    [task setArguments:@[path]];
     [task setStandardOutput:pipe];
 	
     [task launch];
@@ -92,13 +92,13 @@ static id sharedInstance = nil;
 
 - (void)performAuthenticatedSaveOfDocument:(id)document data:(NSData *)data path:(NSString *)path fromSaveAs:(BOOL)fromSaveAs aCopy:(BOOL)aCopy
 {
-	NSString *convertedPath = [NSString stringWithUTF8String:[path UTF8String]];
+	NSString *convertedPath = @([path UTF8String]);
 	NSTask *task = [[NSTask alloc] init];
     NSPipe *pipe = [[NSPipe alloc] init];
     NSFileHandle *writeHandle = [pipe fileHandleForWriting];
 	
     [task setLaunchPath:@"/usr/libexec/authopen"];
-	[task setArguments:[NSArray arrayWithObjects:@"-c", @"-w", convertedPath, nil]];
+	[task setArguments:@[@"-c", @"-w", convertedPath]];
     [task setStandardInput:pipe];
 	
 	[task launch];
@@ -134,7 +134,7 @@ static id sharedInstance = nil;
     NSFileHandle *writeHandle = [pipe fileHandleForWriting];
 	
     [task setLaunchPath:@"/usr/libexec/authopen"];
-    [task setArguments:[NSArray arrayWithObjects:@"-c", @"-m", @"0755", @"-w", @"/usr/bin/fraise", nil]];
+    [task setArguments:@[@"-c", @"-m", @"0755", @"-w", @"/usr/bin/fraise"]];
     [task setStandardInput:pipe];
 	
 	[task launch];
@@ -163,7 +163,7 @@ static id sharedInstance = nil;
 		writeHandle = [pipe fileHandleForWriting];
 		
 		[task setLaunchPath:@"/usr/libexec/authopen"];
-		[task setArguments:[NSArray arrayWithObjects:@"-c", @"-w", @"/usr/share/man/man1/fraise.1", nil]];
+		[task setArguments:@[@"-c", @"-w", @"/usr/share/man/man1/fraise.1"]];
 		[task setStandardInput:pipe];
 		
 		[task launch];

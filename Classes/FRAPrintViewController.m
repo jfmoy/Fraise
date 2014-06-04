@@ -51,7 +51,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	if ([(NSString *)context isEqualToString:@"PrinterSettingsChanged"]) {
+	if ([(__bridge NSString *)context isEqualToString:@"PrinterSettingsChanged"]) {
 		[self setDummyValue:!dummyValue];
 
 	} else {
@@ -69,7 +69,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (NSArray *)localizedSummaryItems
 {    
-	return [NSArray arrayWithObject:[NSDictionary dictionary]];
+	return @[@{}];
 }
 
 

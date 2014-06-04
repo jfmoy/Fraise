@@ -45,7 +45,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	
 	NSWindow *mainWindow = [NSApp mainWindow];
 	NSWindow *keyWindow = [NSApp keyWindow];
-	id selectedDocument = [[[FRACurrentProject documentsArrayController] selectedObjects] objectAtIndex:0];
+	id selectedDocument = [[FRACurrentProject documentsArrayController] selectedObjects][0];
 	
 	if ([keyWindow isKindOfClass:[FRASingleDocumentPanel class]]) {
 		if (keyWindow != nil) { // Loop through all single document windows to see if one of those is the key window
@@ -101,7 +101,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 			return nil;
 		}
 		
-		id selectedDocument = [[[FRACurrentProject documentsArrayController] selectedObjects] objectAtIndex:0];
+		id selectedDocument = [[FRACurrentProject documentsArrayController] selectedObjects][0];
 		
 		returnString = [[selectedDocument valueForKey:@"firstTextView"] string];
 		if (returnString == nil) {
@@ -130,10 +130,14 @@ Unless required by applicable law or agreed to in writing, software distributed 
 - (IBAction)openProjectAction:(id)sender
 {
 	NSOpenPanel *openPanel = [NSOpenPanel openPanel];
-	[openPanel setResolvesAliases:YES];		
-	NSInteger result = [openPanel runModalForDirectory:[FRAInterface whichDirectoryForOpen] file:nil types:[NSArray arrayWithObjects:@"smlp", @"fraiseProject", nil]];
-	if (result == NSOKButton) {
-		[self performOpenProjectWithPath:[[openPanel filenames] objectAtIndex:0]];
+	[openPanel setResolvesAliases:YES];
+    [openPanel setDirectoryURL: [NSURL fileURLWithPath: [FRAInterface whichDirectoryForOpen]]];
+    [openPanel setAllowedFileTypes: @[@"smlp", @"fraiseProject"]];
+    
+	NSInteger result = [openPanel runModal];
+	if (result == NSOKButton)
+    {
+		[self performOpenProjectWithPath: [[openPanel URLs][0] path]];
 	}
 }
 

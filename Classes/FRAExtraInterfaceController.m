@@ -197,34 +197,34 @@ static id sharedInstance = nil;
 		[[FRAProjectsController sharedDocumentController] newDocument:nil];
 		[FRACurrentProject updateWindowTitleBarForDocument:nil];
 		[FRACurrentProject selectionDidChange];	
-	} else {
+	} else
+    {
 		NSSavePanel *savePanel = [NSSavePanel savePanel];
-		[savePanel setAllowedFileTypes:[NSArray arrayWithObject:@"fraiseProject"]];
-		[savePanel beginSheetForDirectory:[FRAInterface whichDirectoryForSave]
-									 file:nil
-						   modalForWindow:newProjectWindow
-							modalDelegate:self
-						   didEndSelector:@selector(savePanelDidEnd:returnCode:contextInfo:)
-							  contextInfo:nil];
-	}	
-}
-
-
-- (void)savePanelDidEnd:(NSSavePanel *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
-{
-	[sheet close];
-	
-	[newProjectWindow orderOut:nil];
-	
-	if (returnCode == NSOKButton) {
-		[[FRAProjectsController sharedDocumentController] newDocument:nil];
-		[FRACurrentProject setFileURL:[NSURL fileURLWithPath:[sheet filename]]];
-		[FRACurrentProject saveToURL:[NSURL fileURLWithPath:[sheet filename]] ofType:@"fraiseProject" forSaveOperation:NSSaveOperation error:nil];
-		[FRACurrentProject updateWindowTitleBarForDocument:nil];
-		[FRACurrentProject saveDocument:nil];
+		[savePanel setAllowedFileTypes:@[@"fraiseProject"]];
+        [savePanel setDirectoryURL: [NSURL fileURLWithPath: [FRAInterface whichDirectoryForSave]]];
+        
+        [savePanel beginSheetModalForWindow: newProjectWindow
+                          completionHandler: (^(NSInteger returnCode)
+                                              {
+                                                  [savePanel close];
+                                                  
+                                                  [newProjectWindow orderOut:nil];
+                                                  
+                                                  if (returnCode == NSOKButton)
+                                                  {
+                                                      NSURL *URL = [savePanel URL];
+                                                      [[FRAProjectsController sharedDocumentController] newDocument:nil];
+                                                      [FRACurrentProject setFileURL: URL];
+                                                      [FRACurrentProject saveToURL: URL
+                                                                            ofType: @"fraiseProject"
+                                                                  forSaveOperation: NSSaveOperation
+                                                                             error: nil];
+                                                      [FRACurrentProject updateWindowTitleBarForDocument:nil];
+                                                      [FRACurrentProject saveDocument:nil];
+                                                  }
+                                              })];
 	}
 }
-
 
 - (void)showRegularExpressionsHelpPanel
 {

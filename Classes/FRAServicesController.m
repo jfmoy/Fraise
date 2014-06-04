@@ -52,7 +52,7 @@ static id sharedInstance = nil;
 	
 	if (FRACurrentProject == nil) {
 		if ([[[FRAProjectsController sharedDocumentController] documents] count] > 0) {
-			[[FRAProjectsController sharedDocumentController] setCurrentProject:[[FRAProjectsController sharedDocumentController] documentForWindow:[[NSApp orderedWindows] objectAtIndex:0]]];
+			[[FRAProjectsController sharedDocumentController] setCurrentProject:[[FRAProjectsController sharedDocumentController] documentForWindow:[NSApp orderedWindows][0]]];
 		} else {
 			[[FRAProjectsController sharedDocumentController] newDocument:nil];
 		}
@@ -72,7 +72,7 @@ static id sharedInstance = nil;
 	
 	if (FRACurrentProject == nil) {
 		if ([[[FRAProjectsController sharedDocumentController] documents] count] > 0) {
-			[[FRAProjectsController sharedDocumentController] setCurrentProject:[[FRAProjectsController sharedDocumentController] documentForWindow:[[NSApp orderedWindows] objectAtIndex:0]]];
+			[[FRAProjectsController sharedDocumentController] setCurrentProject:[[FRAProjectsController sharedDocumentController] documentForWindow:[NSApp orderedWindows][0]]];
 		} else {
 			[[FRAProjectsController sharedDocumentController] newDocument:nil];
 		}
@@ -93,7 +93,7 @@ static id sharedInstance = nil;
 		return;
 	}
 	
-	NSString *path = [[pboard propertyListForType:NSFilenamesPboardType] objectAtIndex:0];
+	NSString *path = [pboard propertyListForType:NSFilenamesPboardType][0];
 	[FRAOpenSave shouldOpen:path withEncoding:0];
 }
 

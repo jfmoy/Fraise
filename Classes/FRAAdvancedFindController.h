@@ -17,11 +17,11 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 @interface FRAAdvancedFindController : NSObject <NSOutlineViewDelegate>
 {
-    IBOutlet NSWindow *advancedFindWindow;
+    IBOutlet NSWindow *__unsafe_unretained advancedFindWindow;
     IBOutlet NSSearchField *findSearchField;
     IBOutlet NSSearchField *replaceSearchField;
     IBOutlet NSTextField *findResultTextField;
-    IBOutlet NSOutlineView *findResultsOutlineView;
+    IBOutlet NSOutlineView *__unsafe_unretained findResultsOutlineView;
 	IBOutlet NSView *resultDocumentContentView;
 	IBOutlet NSTreeController *findResultsTreeController;
 	
@@ -31,13 +31,11 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	IBOutlet NSButton *currentProjectScope;
 	IBOutlet NSButton *allDocumentsScope;
 	IBOutlet NSButton *parentDirectoryScope;
-	
-	id currentlyDisplayedDocumentInAdvancedFind;
 }
 
-@property (assign) id currentlyDisplayedDocumentInAdvancedFind;
-@property (readonly) IBOutlet NSWindow *advancedFindWindow;
-@property (readonly) IBOutlet NSOutlineView *findResultsOutlineView;
+@property (unsafe_unretained) id currentlyDisplayedDocumentInAdvancedFind;
+@property (unsafe_unretained, readonly) IBOutlet NSWindow *advancedFindWindow;
+@property (unsafe_unretained, readonly) IBOutlet NSOutlineView *findResultsOutlineView;
 
 + (FRAAdvancedFindController *)sharedInstance;
 

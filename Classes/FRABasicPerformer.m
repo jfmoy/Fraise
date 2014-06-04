@@ -66,7 +66,7 @@ static id sharedInstance = nil;
 	request = [[NSFetchRequest alloc] init];
 	[request setEntity:entityDescription];
 	sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
-	[request setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+	[request setSortDescriptors:@[sortDescriptor]];
 	[fetchRequests setValue:request forKey:@"CommandCollectionSortKeyName"];
 	
 	entityDescription = [NSEntityDescription entityForName:@"Document" inManagedObjectContext:managedObjectContext];
@@ -78,7 +78,7 @@ static id sharedInstance = nil;
 	request = [[NSFetchRequest alloc] init];
 	[request setEntity:entityDescription];
 	sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
-	[request setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+	[request setSortDescriptors:@[sortDescriptor]];
 	[fetchRequests setValue:request forKey:@"DocumentSortKeyName"];	
 	
 	entityDescription = [NSEntityDescription entityForName:@"Encoding" inManagedObjectContext:managedObjectContext];
@@ -90,7 +90,7 @@ static id sharedInstance = nil;
 	request = [[NSFetchRequest alloc] init];
 	[request setEntity:entityDescription];
 	sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
-	[request setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+	[request setSortDescriptors:@[sortDescriptor]];
 	[fetchRequests setValue:request forKey:@"EncodingSortKeyName"];
 
 	entityDescription = [NSEntityDescription entityForName:@"Project" inManagedObjectContext:managedObjectContext];
@@ -112,7 +112,7 @@ static id sharedInstance = nil;
 	request = [[NSFetchRequest alloc] init];
 	[request setEntity:entityDescription];
 	sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
-	[request setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+	[request setSortDescriptors:@[sortDescriptor]];
 	[fetchRequests setValue:request forKey:@"SnippetCollectionSortKeyName"];
 	
 	entityDescription = [NSEntityDescription entityForName:@"SyntaxDefinition" inManagedObjectContext:managedObjectContext];
@@ -124,7 +124,7 @@ static id sharedInstance = nil;
 	request = [[NSFetchRequest alloc] init];
 	[request setEntity:entityDescription];
 	sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"sortOrder" ascending:YES];
-	[request setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+	[request setSortDescriptors:@[sortDescriptor]];
 	[fetchRequests setValue:request forKey:@"SyntaxDefinitionSortKeySortOrder"];
 }
 
@@ -192,10 +192,10 @@ static id sharedInstance = nil;
 {
     CFUUIDRef uuid = CFUUIDCreate(NULL);
     CFStringRef uuidString = CFUUIDCreateString(NULL, uuid);
-    NSMakeCollectable(uuid);
-	NSMakeCollectable(uuidString);
+//    NSMakeCollectable(uuid);
+//	NSMakeCollectable(uuidString);
 
-    return (NSString *)uuidString;
+    return (__bridge NSString *)uuidString;
 }
 
 
@@ -204,7 +204,7 @@ static id sharedInstance = nil;
 	NSArray *array = [arrayController arrangedObjects];
 	NSInteger index = 0;
 	for (id item in array) {
-		[item setValue:[NSNumber numberWithInteger:index] forKey:@"sortOrder"];
+		[item setValue:@(index) forKey:@"sortOrder"];
 		index++;
 	}
 }
@@ -216,7 +216,7 @@ static id sharedInstance = nil;
 	NSString *temporaryPath;
 	do {
 		sequenceNumber++;
-		temporaryPath = [NSString stringWithFormat:@"%ld-%ld-%ld.%@", [[NSProcessInfo processInfo] processIdentifier], (NSInteger)[NSDate timeIntervalSinceReferenceDate], sequenceNumber, @"Fraise"];
+		temporaryPath = [NSString stringWithFormat:@"%d-%ld-%ld.%@", [[NSProcessInfo processInfo] processIdentifier], (NSInteger)[NSDate timeIntervalSinceReferenceDate], sequenceNumber, @"Fraise"];
 		temporaryPath = [NSTemporaryDirectory() stringByAppendingPathComponent:temporaryPath];
 	} while ([[NSFileManager defaultManager] fileExistsAtPath:temporaryPath]);
 	
@@ -234,7 +234,7 @@ static id sharedInstance = nil;
 {
 	NSString *resolvedPath = nil;
 	CFURLRef url = CFURLCreateWithFileSystemPath(NULL, (CFStringRef)path, kCFURLPOSIXPathStyle, NO);
-	NSMakeCollectable(url);
+//	NSMakeCollectable(url);
 	
 	if (url != NULL) {
 		FSRef fsRef;
@@ -242,10 +242,10 @@ static id sharedInstance = nil;
 			Boolean targetIsFolder, wasAliased;
 			if (FSResolveAliasFile (&fsRef, true, &targetIsFolder, &wasAliased) == noErr && wasAliased) {
 				CFURLRef resolvedURL = CFURLCreateFromFSRef(NULL, &fsRef);
-				NSMakeCollectable(resolvedURL);
+//				NSMakeCollectable(resolvedURL);
 				if (resolvedURL != NULL) {
-					resolvedPath = (NSString*)CFURLCopyFileSystemPath(resolvedURL, kCFURLPOSIXPathStyle);
-					NSMakeCollectable(resolvedPath);
+					resolvedPath = (NSString*)CFBridgingRelease(CFURLCopyFileSystemPath(resolvedURL, kCFURLPOSIXPathStyle));
+//					NSMakeCollectable(resolvedPath);
 				}
 			}
 		}

@@ -78,7 +78,7 @@ NSUInteger const ICUUnicodeWordBoundaries = UREGEX_UWORD;
 	return [self initWithString:aPattern flags:0];
 }
 
--(void)finalize {
+-(void)dealloc {
 
 //	if(re != NULL)
 //		NSZoneFree([self zone], re);
@@ -86,7 +86,6 @@ NSUInteger const ICUUnicodeWordBoundaries = UREGEX_UWORD;
 	if(textToSearch != NULL)
 		free(textToSearch);
 	
-	[super finalize];
 }
 
 -(NSString *)stringToSearch {
@@ -152,7 +151,7 @@ NSUInteger const ICUUnicodeWordBoundaries = UREGEX_UWORD;
 
 -(void)setRe:(URegularExpression *)p {
 	if(re != NULL)
-		NSZoneFree([self zone], re);
+		NSZoneFree(nil, re);
 
 	re = p;
 }
@@ -191,7 +190,7 @@ NSUInteger const ICUUnicodeWordBoundaries = UREGEX_UWORD;
 	size_t destCapacity = u_strlen([self textToSearch]);
 
 	while(!isDone) {
-		UChar *destBuf = (UChar *)NSZoneCalloc([self zone], destCapacity, sizeof(UChar));
+		UChar *destBuf = (UChar *)NSZoneCalloc(nil, destCapacity, sizeof(UChar));
 		int32_t requiredCapacity = 0;
 		UChar *destFields[destFieldsCapacity];
 		NSInteger numberOfComponents = uregex_split([self re],
@@ -203,17 +202,17 @@ NSUInteger const ICUUnicodeWordBoundaries = UREGEX_UWORD;
 													&status);
 		
 		if(status == U_BUFFER_OVERFLOW_ERROR) { // buffer was too small, grow it
-			NSZoneFree([self zone], destBuf);
+			NSZoneFree(nil, destBuf);
 			NSAssert(destCapacity * 2 < NSIntegerMax, @"Overflow occurred splitting string.");
 			destCapacity = (destCapacity < requiredCapacity) ? requiredCapacity : destCapacity * 2;
 			status = 0;
 		} else if(destFieldsCapacity == numberOfComponents) {
 			destFieldsCapacity *= 2;
 			NSAssert(destFieldsCapacity *2 < NSIntegerMax, @"Overflow occurred splitting string.");
-			NSZoneFree([self zone], destBuf);
+			NSZoneFree(nil, destBuf);
 			status = 0;
 		} else if(U_FAILURE(status)) {
-			NSZoneFree([self zone], destBuf);
+			NSZoneFree(nil, destBuf);
 			isDone = YES;
 		} else {
 			NSInteger i;
@@ -229,7 +228,7 @@ NSUInteger const ICUUnicodeWordBoundaries = UREGEX_UWORD;
 
 	if(U_FAILURE(status))
 		[NSException raise:@"Split Exception"
-					format:@"Unable to split string: %@", u_errorName(status)];
+					format:@"Unable to split string: %s", u_errorName(status)];
 
 	return [NSArray arrayWithArray:results];	
 }

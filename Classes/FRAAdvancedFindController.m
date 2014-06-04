@@ -31,7 +31,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 @implementation FRAAdvancedFindController
 
-@synthesize currentlyDisplayedDocumentInAdvancedFind, advancedFindWindow, findResultsOutlineView;
+@synthesize advancedFindWindow, findResultsOutlineView;
 
 static id sharedInstance = nil;
 
@@ -108,7 +108,7 @@ static id sharedInstance = nil;
 		} else {
 			[node setValue:[document valueForKey:@"name"] forKey:@"displayString"];
 		}
-		[node setValue:[NSNumber numberWithBool:NO] forKey:@"isLeaf"];
+		[node setValue:@NO forKey:@"isLeaf"];
 		[node setValue:[FRABasic uriFromObject:document] forKey:@"document"];
 		folderIndexPath = [[NSIndexPath alloc] initWithIndex:documentIndex];
 		[findResultsTreeController insertObject:node atArrangedObjectIndexPath:folderIndexPath];
@@ -159,10 +159,10 @@ static id sharedInstance = nil;
 						}
 					}
 					
-					NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-					NSRange rangeMatch = NSMakeRange([matcher rangeOfMatch].location + searchRange.location, [matcher rangeOfMatch].length);
-					[findResultsTreeController insertObject:[self preparedResultDictionaryFromString:completeString searchStringLength:searchStringLength range:rangeMatch lineNumber:lineNumber document:document] atArrangedObjectIndexPath:[folderIndexPath indexPathByAddingIndex:resultsInThisDocument]];
-					[pool drain];
+					@autoreleasepool {
+						NSRange rangeMatch = NSMakeRange([matcher rangeOfMatch].location + searchRange.location, [matcher rangeOfMatch].length);
+						[findResultsTreeController insertObject:[self preparedResultDictionaryFromString:completeString searchStringLength:searchStringLength range:rangeMatch lineNumber:lineNumber document:document] atArrangedObjectIndexPath:[folderIndexPath indexPathByAddingIndex:resultsInThisDocument]];
+					}
 					
 					resultsInThisDocument++;
 				}
@@ -183,9 +183,9 @@ static id sharedInstance = nil;
 					index = NSMaxRange([completeString lineRangeForRange:NSMakeRange(index, 0)]);	
 				}
 			
-				NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-				[findResultsTreeController insertObject:[self preparedResultDictionaryFromString:completeString searchStringLength:searchStringLength range:foundRange lineNumber:lineNumber document:document] atArrangedObjectIndexPath:[folderIndexPath indexPathByAddingIndex:resultsInThisDocument]];
-				[pool drain];
+				@autoreleasepool {
+					[findResultsTreeController insertObject:[self preparedResultDictionaryFromString:completeString searchStringLength:searchStringLength range:foundRange lineNumber:lineNumber document:document] atArrangedObjectIndexPath:[folderIndexPath indexPathByAddingIndex:resultsInThisDocument]];
+				}
 				
 				resultsInThisDocument++;
 				startLocation = NSMaxRange(foundRange);
@@ -235,7 +235,7 @@ static id sharedInstance = nil;
 	
 	[findResultsOutlineView setDelegate:self];
 	
-	[[NSGarbageCollector defaultCollector] collectIfNeeded];
+//	[[NSGarbageCollector defaultCollector] collectIfNeeded];
 }
 
 
@@ -484,7 +484,7 @@ static id sharedInstance = nil;
 			if ([textView shouldChangeTextInRange:NSMakeRange(0, [[textView string] length]) replacementString:completeString]) { // Do it this way to mark it as an Undo
 				[textView replaceCharactersInRange:NSMakeRange(0, [[textView string] length]) withString:completeString];
 				[textView didChangeText];
-				[document setValue:[NSNumber numberWithBool:YES] forKey:@"isEdited"];
+				[document setValue:@YES forKey:@"isEdited"];
 			}
 		}		
 		
@@ -500,7 +500,7 @@ static id sharedInstance = nil;
 	}
 	
 	[findResultsTreeController setContent:nil];
-	[findResultsTreeController setContent:[NSArray array]];
+	[findResultsTreeController setContent:@[]];
 	[self removeCurrentlyDisplayedDocumentInAdvancedFind];
 	[advancedFindWindow makeKeyAndOrderFront:self];
 }
@@ -513,7 +513,7 @@ static id sharedInstance = nil;
 	
 		[[findResultTextField cell] setBackgroundStyle:NSBackgroundStyleRaised];
 				
-		[findResultsOutlineView setBackgroundColor:[[NSColor controlAlternatingRowBackgroundColors] objectAtIndex:1]];
+		[findResultsOutlineView setBackgroundColor:[NSColor controlAlternatingRowBackgroundColors][1]];
 		
 		[findResultsOutlineView setSelectionHighlightStyle:NSTableViewSelectionHighlightStyleSourceList];
 		
@@ -530,7 +530,7 @@ static id sharedInstance = nil;
 		}
 		
 		[findResultsTreeController setContent:nil];
-		[findResultsTreeController setContent:[NSArray array]];
+		[findResultsTreeController setContent:@[]];
 	}
 	
 	[advancedFindWindow makeKeyAndOrderFront:self];
@@ -543,7 +543,7 @@ static id sharedInstance = nil;
 		return;
 	}
 	
-	id object = [[findResultsTreeController selectedObjects] objectAtIndex:0];
+	id object = [findResultsTreeController selectedObjects][0];
 	if ([[object valueForKey:@"isLeaf"] boolValue] == NO) {
 		return;
 	}
@@ -565,7 +565,7 @@ static id sharedInstance = nil;
 		return;
 	}
 	
-	currentlyDisplayedDocumentInAdvancedFind = document;
+	_currentlyDisplayedDocumentInAdvancedFind = document;
 	
 	if ([document valueForKey:@"fourthTextView"] == nil) {
 		[FRAInterface insertDocumentIntoFourthContentView:document];
@@ -579,7 +579,7 @@ static id sharedInstance = nil;
 
 	[[document valueForKey:@"lineNumbers"] updateLineNumbersForClipView:[[document valueForKey:@"fourthTextScrollView"] contentView] checkWidth:YES recolour:YES]; // If the window has changed since the view was last visible
 		
-	NSRange selectRange = NSRangeFromString([[[findResultsTreeController selectedObjects] objectAtIndex:0] valueForKey:@"range"]);
+	NSRange selectRange = NSRangeFromString([[findResultsTreeController selectedObjects][0] valueForKey:@"range"]);
 	NSString *completeString = [[document valueForKey:@"fourthTextView"] string];
 	if (NSMaxRange(selectRange) > [completeString length]) {
 		NSBeep();
@@ -612,7 +612,7 @@ static id sharedInstance = nil;
 	} else if (searchScope == FRAParentDirectoryScope){
 		enumerator = [self documentsInFolderEnumerator];
 	} else {
-		enumerator = [[NSArray arrayWithObject:FRACurrentDocument] objectEnumerator];
+		enumerator = [@[FRACurrentDocument] objectEnumerator];
 	}
 	
 	return enumerator;
@@ -661,17 +661,11 @@ static id sharedInstance = nil;
     {
 		// Log the failure and return an enumerator for the current document.
         NSLog(@"%@ must be directory and must exist.\n", parentDirectory);
-		enumerator = [[NSArray arrayWithObject:FRACurrentDocument] objectEnumerator];;
+		enumerator = [@[FRACurrentDocument] objectEnumerator];;
     }
 	
 	return enumerator;
 }
-
-- (id)currentlyDisplayedDocumentInAdvancedFind
-{
-    return currentlyDisplayedDocumentInAdvancedFind; 
-}
-
 
 - (void)removeCurrentlyDisplayedDocumentInAdvancedFind
 {
@@ -704,13 +698,13 @@ static id sharedInstance = nil;
 - (NSMutableDictionary *)preparedResultDictionaryFromString:(NSString *)completeString searchStringLength:(NSInteger)searchStringLength range:(NSRange)foundRange lineNumber:(NSInteger)lineNumber document:(id)document
 {
 	NSMutableString *displayString = [[NSMutableString alloc] init];
-	NSString *lineNumberString = [NSString stringWithFormat:@"%d\t", (long)lineNumber];
+	NSString *lineNumberString = [NSString stringWithFormat:@"%ld\t", (long)lineNumber];
 	[displayString appendString:lineNumberString];
 	NSRange linesRange = [completeString lineRangeForRange:foundRange];
 	[displayString appendString:[FRAText replaceAllNewLineCharactersWithSymbolInString:[completeString substringWithRange:linesRange]]];
 	
 	NSMutableDictionary *node = [NSMutableDictionary dictionary];
-	[node setValue:[NSNumber numberWithBool:YES] forKey:@"isLeaf"];
+	[node setValue:@YES forKey:@"isLeaf"];
 	[node setValue:NSStringFromRange(foundRange) forKey:@"range"];
 	[node setValue:[FRABasic uriFromObject:document] forKey:@"document"];
 	NSInteger fontSize;
@@ -719,7 +713,7 @@ static id sharedInstance = nil;
 	} else {
 		fontSize = 13;
 	}
-	NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:displayString attributes:[NSDictionary dictionaryWithObject:[NSFont systemFontOfSize:fontSize] forKey:NSFontAttributeName]];
+	NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:displayString attributes:@{NSFontAttributeName: [NSFont systemFontOfSize:fontSize]}];
 	NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
 	[style setLineBreakMode:NSLineBreakByTruncatingMiddle];
 	[attributedString addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, [displayString length])];
@@ -750,7 +744,7 @@ static id sharedInstance = nil;
 {
 	[sheet close];
 	[findResultsTreeController setContent:nil];
-	[findResultsTreeController setContent:[NSArray array]];
+	[findResultsTreeController setContent:@[]];
 	[advancedFindWindow makeKeyAndOrderFront:nil];
 }
 

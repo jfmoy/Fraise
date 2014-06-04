@@ -17,7 +17,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 #import "FRASearchField.h"
 #import "FRAProjectsController.h"
 #import "FRAProject.h"
-
+#import "FRATextView.h"
 
 @implementation FRASearchField
 

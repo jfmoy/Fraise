@@ -19,6 +19,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 #import "FRAProject.h"
 #import "FRALayoutManager.h"
 #import "FRASyntaxColouring.h"
+#import "FRATextView.h"
 
 @implementation FRAPrintTextView
 
@@ -48,7 +49,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		[self setFrameSize:borderSize];
 		
 		[self lockFocus];
-		[headerString drawAtPoint:NSMakePoint([printInfo leftMargin], [[FRADefaults valueForKey:@"MarginsMin"] integerValue]) withAttributes:[NSDictionary dictionaryWithObject:[NSFont systemFontOfSize:10.0] forKey:NSFontAttributeName]];
+		[headerString drawAtPoint:NSMakePoint([printInfo leftMargin], [[FRADefaults valueForKey:@"MarginsMin"] integerValue]) withAttributes:@{NSFontAttributeName: [NSFont systemFontOfSize:10.0]}];
 		[NSBezierPath setDefaultLineWidth:1.0];
 		[NSBezierPath strokeLineFromPoint:NSMakePoint([printInfo leftMargin], [[FRADefaults valueForKey:@"MarginsMin"] integerValue] + 14) toPoint:NSMakePoint([printInfo paperSize].width - [printInfo leftMargin], [[FRADefaults valueForKey:@"MarginsMin"] integerValue] + 14)];
 		[self unlockFocus];

@@ -27,7 +27,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 #import "NSImage+Fraise.h"
 
 #import "ODBEditorSuite.h"
-
+#import "FRATextView.h"
 
 
 
@@ -84,11 +84,12 @@ static id sharedInstance = nil;
 	const NSStringEncoding *availableEncodings = [NSString availableStringEncodings];
 	NSStringEncoding encoding;
 	NSArray *activeEncodings = [FRADefaults valueForKey:@"ActiveEncodings"];
-	while (encoding = *availableEncodings++) {
+	while ((encoding = *availableEncodings++))
+    {
 		id item = [FRABasic createNewObjectForEntity:@"Encoding"];
 		NSNumber *encodingObject = [NSNumber numberWithInteger:encoding];
 		if ([activeEncodings containsObject:encodingObject]) {
-			[item setValue:[NSNumber numberWithBool:YES] forKey:@"active"];
+			[item setValue:@YES forKey:@"active"];
 		}
 		[item setValue:encodingObject forKey:@"encoding"];
 		[item setValue:[NSString localizedNameOfStringEncoding:encoding] forKey:@"name"];
@@ -106,15 +107,15 @@ static id sharedInstance = nil;
 		[syntaxDefinitionsArray addObjectsFromArray:syntaxDefinitionsUserArray];
 	}
 	
-	NSArray *keys = [NSArray arrayWithObjects:@"name", @"file", @"extensions", nil];
-	NSDictionary *standard = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Standard", @"standard", [NSString string], nil] forKeys:keys];
-	NSDictionary *none = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"None", @"none", [NSString string], nil] forKeys:keys];
+	NSArray *keys = @[@"name", @"file", @"extensions"];
+	NSDictionary *standard = [NSDictionary dictionaryWithObjects:@[@"Standard", @"standard", [NSString string]] forKeys:keys];
+	NSDictionary *none = [NSDictionary dictionaryWithObjects:@[@"None", @"none", [NSString string]] forKeys:keys];
 	[syntaxDefinitionsArray insertObject:none atIndex:0];
 	[syntaxDefinitionsArray insertObject:standard atIndex:0];
 	
 	NSMutableArray *changedSyntaxDefinitionsArray = nil;
 	if ([FRADefaults valueForKey:@"ChangedSyntaxDefinitions"]) {
-		changedSyntaxDefinitionsArray = [NSArray arrayWithArray:[FRADefaults valueForKey:@"ChangedSyntaxDefinitions"]];
+		changedSyntaxDefinitionsArray = [NSMutableArray arrayWithArray:[FRADefaults valueForKey:@"ChangedSyntaxDefinitions"]];
 	}
 	
 	id item;
@@ -127,7 +128,7 @@ static id sharedInstance = nil;
 		NSString *name = [item valueForKey:@"name"];
 		[syntaxDefinition setValue:name forKey:@"name"];
 		[syntaxDefinition setValue:[item valueForKey:@"file"] forKey:@"file"];
-		[syntaxDefinition setValue:[NSNumber numberWithInteger:index] forKey:@"sortOrder"];
+		[syntaxDefinition setValue:@(index) forKey:@"sortOrder"];
 		index++;
 		
 		BOOL hasInsertedAChangedValue = NO;
@@ -168,7 +169,7 @@ static id sharedInstance = nil;
 			}
 		}
 		
-		[FRADefaults setValue:[NSNumber numberWithBool:YES] forKey:@"HasInsertedDefaultSnippets"];
+		[FRADefaults setValue:@YES forKey:@"HasInsertedDefaultSnippets"];
 	}
 }
 
@@ -198,7 +199,7 @@ static id sharedInstance = nil;
 			}
 		}
 		
-		[FRADefaults setValue:[NSNumber numberWithBool:YES] forKey:@"HasInsertedDefaultCommands3"];
+		[FRADefaults setValue:@YES forKey:@"HasInsertedDefaultCommands3"];
 	}
 }
 
@@ -218,7 +219,7 @@ static id sharedInstance = nil;
 					  nil,
 					  @selector(sheetDidDismiss:returnCode:contextInfo:),
 					  nil,
-					  message);
+					  @"%@", message);
 	
 	[NSApp runModalForWindow:[window attachedSheet]]; // Modal to catch if there are sheets for many files to be displayed
 }
@@ -261,7 +262,7 @@ static id sharedInstance = nil;
 	}
 	if (fromSaveAs) {
 		[descriptor setParamDescriptor:[NSAppleEventDescriptor descriptorWithDescriptorType:typeFileURL data:data] forKeyword:keyNewLocation];
-		[document setValue:[NSNumber numberWithBool:NO] forKey:@"fromExternal"]; // If it's a Save As it no longer belongs to the external program
+		[document setValue:@NO forKey:@"fromExternal"]; // If it's a Save As it no longer belongs to the external program
 	}
 	
 	AppleEvent *eventPointer = (AEDesc *)[event aeDesc];
@@ -359,8 +360,8 @@ static id sharedInstance = nil;
 								  self,
 								  @selector(sheetDidFinish:returnCode:contextInfo:),
 								  nil,
-								  (void *)[NSArray arrayWithObject:item],
-								  message);
+								  (__bridge void *)@[item],
+								  @"%@", message);
 				[NSApp runModalForWindow:[FRACurrentWindow attachedSheet]];
 			}
 		}
@@ -373,9 +374,9 @@ static id sharedInstance = nil;
 	[sheet close];
 	[FRAVarious stopModalLoop];
 	
-	id document = [(NSArray *)contextInfo objectAtIndex:0];
+	id document = ((__bridge NSArray *)contextInfo)[0];
 	if (returnCode == NSAlertDefaultReturn) {
-		[document setValue:[NSNumber numberWithBool:YES] forKey:@"ignoreAnotherApplicationHasUpdatedDocument"];
+		[document setValue:@YES forKey:@"ignoreAnotherApplicationHasUpdatedDocument"];
 	} else if (returnCode == NSAlertOtherReturn) {
 		[[FRAFileMenuController sharedInstance] performRevertOfDocument:document];
 		[document setValue:[[NSFileManager defaultManager] attributesOfItemAtPath:[document valueForKey:@"path"] error:nil] forKey:@"fileAttributes"];
@@ -393,7 +394,7 @@ static id sharedInstance = nil;
 		NSPipe *errorPipe = [[NSPipe alloc] init];
 		
 		NSMutableArray *splitArray = [NSMutableArray arrayWithArray:[command divideCommandIntoArray]];
-		[task setLaunchPath:[splitArray objectAtIndex:0]];
+		[task setLaunchPath:splitArray[0]];
 		[splitArray removeObjectAtIndex:0];
 		
 		[task setArguments:splitArray];
@@ -426,16 +427,16 @@ static id sharedInstance = nil;
 	
 	if (FRACurrentDocument != nil && [FRACurrentDocument valueForKey:@"path"] != nil) {
 		NSMutableDictionary *defaultEnvironment = [NSMutableDictionary dictionaryWithDictionary:[[NSProcessInfo processInfo] environment]];
-		NSString *envPath = [NSString stringWithCString:getenv("PATH") encoding:NSUTF8StringEncoding];
+		NSString *envPath = @(getenv("PATH"));
 		NSString *directory = [[FRACurrentDocument valueForKey:@"path"] stringByDeletingLastPathComponent];
-		[defaultEnvironment setObject:[NSString stringWithFormat:@"%@:%@", envPath, directory]  forKey:@"PATH"];
-		[defaultEnvironment setObject:directory forKey:@"PWD"];
+		defaultEnvironment[@"PATH"] = [NSString stringWithFormat:@"%@:%@", envPath, directory];
+		defaultEnvironment[@"PWD"] = directory;
 		[asynchronousTask setEnvironment:defaultEnvironment];
 	}
 	
 	NSMutableArray *splitArray = [NSMutableArray arrayWithArray:[command divideCommandIntoArray]];
 	//NSLog([splitArray description]);
-	[asynchronousTask setLaunchPath:[splitArray objectAtIndex:0]];
+	[asynchronousTask setLaunchPath:splitArray[0]];
 	[splitArray removeObjectAtIndex:0];
 	[asynchronousTask setArguments:splitArray];
 	
@@ -524,7 +525,7 @@ static id sharedInstance = nil;
 
 - (void)hasChangedDocument:(id)document
 {
-	[document setValue:[NSNumber numberWithBool:YES] forKey:@"isEdited"];
+	[document setValue:@YES forKey:@"isEdited"];
 	[FRACurrentProject reloadData];
 	if (document == FRACurrentDocument) {
 		[FRACurrentWindow setDocumentEdited:YES];
@@ -575,7 +576,7 @@ static id sharedInstance = nil;
 	NSArray *array = [arrayController arrangedObjects];
 	for (id item in array) {
 		if ([[item valueForKey:@"sortOrder"] integerValue] >= index) {
-			[item setValue:[NSNumber numberWithInteger:([[item valueForKey:@"sortOrder"] integerValue] + 1)] forKey:@"sortOrder"];
+			[item setValue:@([[item valueForKey:@"sortOrder"] integerValue] + 1) forKey:@"sortOrder"];
 		}
 	}
 }
@@ -586,7 +587,7 @@ static id sharedInstance = nil;
 	NSInteger index = 0;
 	NSArray *array = [arrayController arrangedObjects];
 	for (id item in array) {
-		[item setValue:[NSNumber numberWithInteger:index] forKey:@"sortOrder"];
+		[item setValue:@(index) forKey:@"sortOrder"];
 		index++;
 	}
 }
@@ -602,9 +603,9 @@ static id sharedInstance = nil;
 
 - (void)performInsertIcons:(id)array
 {
-	NSArray *icons = [NSImage iconsForPath:[array objectAtIndex:1]];
+	NSArray *icons = [NSImage iconsForPath:array[1]];
 	
-	NSArray *resultArray = [NSArray arrayWithObjects:[array objectAtIndex:0], icons, nil];
+	NSArray *resultArray = @[array[0], icons];
 	
 	[self performSelectorOnMainThread:@selector(performInsertIconsOnMainThread:) withObject:resultArray waitUntilDone:NO];
 }
@@ -612,13 +613,13 @@ static id sharedInstance = nil;
 
 - (void)performInsertIconsOnMainThread:(id)array
 {
-	id document = [array objectAtIndex:0];
+	id document = array[0];
 	
-	NSArray *icons = [array objectAtIndex:1];
+	NSArray *icons = array[1];
 	
 	if (document != nil) { // Check that the document hasn't been closed etc.
-		[document setValue:[icons objectAtIndex:0] forKey:@"icon"];
-		[document setValue:[icons objectAtIndex:1] forKey:@"unsavedIcon"];
+		[document setValue:icons[0] forKey:@"icon"];
+		[document setValue:icons[1] forKey:@"unsavedIcon"];
 		
 		[FRACurrentProject reloadData];
 	}

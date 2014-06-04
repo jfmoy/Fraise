@@ -24,6 +24,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 #import "FRASnippetsController.h"
 #import "FRAVariousPerformer.h"
 #import "FRAProject.h"
+#import "FRATextView.h"
 
 @implementation FRADragAndDropController
 
@@ -56,23 +57,23 @@ static id sharedInstance = nil;
 {
 	NSArray *typesArray;
 	if (aTableView == [FRACurrentProject documentsTableView]) {		
-		typesArray = [NSArray arrayWithObjects:movedDocumentType, nil];
+		typesArray = @[movedDocumentType];
 		
 		NSMutableArray *uriArray = [NSMutableArray array];
 		NSArray *arrangedObjects = [[FRACurrentProject documentsArrayController] arrangedObjects];
 		NSInteger currentIndex = [rowIndexes firstIndex];
 		while (currentIndex != NSNotFound) {
-			[uriArray addObject:[FRABasic uriFromObject:[arrangedObjects objectAtIndex:currentIndex]]];
+			[uriArray addObject:[FRABasic uriFromObject:arrangedObjects[currentIndex]]];
 			currentIndex = [rowIndexes indexGreaterThanIndex:currentIndex];
 		}
 		
 		[pboard declareTypes:typesArray owner:self];
-		[pboard setData:[NSArchiver archivedDataWithRootObject:[NSArray arrayWithObjects:rowIndexes, uriArray, nil]] forType:movedDocumentType];
+		[pboard setData:[NSArchiver archivedDataWithRootObject:@[rowIndexes, uriArray]] forType:movedDocumentType];
 		
 		return YES;
 		
 	} else if (aTableView == [[FRASnippetsController sharedInstance] snippetsTableView]) {
-		typesArray = [NSArray arrayWithObjects:NSStringPboardType, movedSnippetType, nil];
+		typesArray = @[NSStringPboardType, movedSnippetType];
 		
 		NSMutableString *string = [NSMutableString stringWithString:@""];
 		NSMutableArray *uriArray = [NSMutableArray array];
@@ -84,22 +85,22 @@ static id sharedInstance = nil;
 			if (selectedText == nil) {
 				selectedText = @"";
 			}
-			NSMutableString *insertString = [NSMutableString stringWithString:[[arrangedObjects objectAtIndex:currentIndex] valueForKey:@"text"]];
+			NSMutableString *insertString = [NSMutableString stringWithString:[arrangedObjects[currentIndex] valueForKey:@"text"]];
 			[insertString replaceOccurrencesOfString:@"%%s" withString:selectedText options:NSLiteralSearch range:NSMakeRange(0, [insertString length])];
 			
 			[string appendString:insertString];
-			[uriArray addObject:[FRABasic uriFromObject:[arrangedObjects objectAtIndex:currentIndex]]];
+			[uriArray addObject:[FRABasic uriFromObject:arrangedObjects[currentIndex]]];
 			currentIndex = [rowIndexes indexGreaterThanIndex:currentIndex];
 		}
 		
 		[pboard declareTypes:typesArray owner:self];
 		[pboard setString:string forType:NSStringPboardType];
-		[pboard setData:[NSArchiver archivedDataWithRootObject:[NSArray arrayWithObjects:rowIndexes, uriArray, nil]] forType:movedSnippetType];
+		[pboard setData:[NSArchiver archivedDataWithRootObject:@[rowIndexes, uriArray]] forType:movedSnippetType];
 		
 		return YES;
 		
 	} else if (aTableView == [[FRACommandsController sharedInstance] commandsTableView]) {
-		typesArray = [NSArray arrayWithObjects:NSStringPboardType, movedCommandType, nil];
+		typesArray = @[NSStringPboardType, movedCommandType];
 		
 		NSMutableString *string = [NSMutableString stringWithString:@""];
 		NSMutableArray *uriArray = [NSMutableArray array];
@@ -111,17 +112,17 @@ static id sharedInstance = nil;
 			if (selectedText == nil) {
 				selectedText = @"";
 			}
-			NSMutableString *insertString = [NSMutableString stringWithString:[[arrangedObjects objectAtIndex:currentIndex] valueForKey:@"text"]];
+			NSMutableString *insertString = [NSMutableString stringWithString:[arrangedObjects[currentIndex] valueForKey:@"text"]];
 			[insertString replaceOccurrencesOfString:@"%%s" withString:selectedText options:NSLiteralSearch range:NSMakeRange(0, [insertString length])];
 			
 			[string appendString:insertString];
-			[uriArray addObject:[FRABasic uriFromObject:[arrangedObjects objectAtIndex:currentIndex]]];
+			[uriArray addObject:[FRABasic uriFromObject:arrangedObjects[currentIndex]]];
 			currentIndex = [rowIndexes indexGreaterThanIndex:currentIndex];
 		}
 		
 		[pboard declareTypes:typesArray owner:self];
 		[pboard setString:string forType:NSStringPboardType];
-		[pboard setData:[NSArchiver archivedDataWithRootObject:[NSArray arrayWithObjects:rowIndexes, uriArray, nil]] forType:movedCommandType];
+		[pboard setData:[NSArchiver archivedDataWithRootObject:@[rowIndexes, uriArray]] forType:movedCommandType];
 		
 		return YES;
 		
@@ -194,8 +195,8 @@ static id sharedInstance = nil;
 			NSArrayController *arrayController = [FRACurrentProject documentsArrayController];
 			
 			NSArray *pasteboardData = [NSUnarchiver unarchiveObjectWithData:[[info draggingPasteboard] dataForType:movedDocumentType]];
-			NSIndexSet *rowIndexes = [pasteboardData objectAtIndex:0];
-			NSArray *uriArray = [pasteboardData objectAtIndex:1];
+			NSIndexSet *rowIndexes = pasteboardData[0];
+			NSArray *uriArray = pasteboardData[1];
 			[self moveObjects:uriArray inArrayController:arrayController fromIndexes:rowIndexes toIndex:row];
 			
 			[FRACurrentProject documentsListHasUpdated];
@@ -251,9 +252,9 @@ static id sharedInstance = nil;
 			}
 			
 			NSArray *pasteboardData = [NSUnarchiver unarchiveObjectWithData:[[info draggingPasteboard] dataForType:movedSnippetType]];
-			NSArray *uriArray = [pasteboardData objectAtIndex:1];
+			NSArray *uriArray = pasteboardData[1];
 			
-			id collection = [[[[FRASnippetsController sharedInstance] snippetCollectionsArrayController] arrangedObjects] objectAtIndex:row];
+			id collection = [[[FRASnippetsController sharedInstance] snippetCollectionsArrayController] arrangedObjects][row];
 			
 			id item;
 			for (item in uriArray) {
@@ -302,9 +303,9 @@ static id sharedInstance = nil;
 			}
 			
 			NSArray *pasteboardData = [NSUnarchiver unarchiveObjectWithData:[[info draggingPasteboard] dataForType:movedCommandType]];
-			NSArray *uriArray = [pasteboardData objectAtIndex:1];
+			NSArray *uriArray = pasteboardData[1];
 			
-			id collection = [[[[FRACommandsController sharedInstance] commandCollectionsArrayController] arrangedObjects] objectAtIndex:row];
+			id collection = [[[FRACommandsController sharedInstance] commandCollectionsArrayController] arrangedObjects][row];
 			
 			id item;
 			for (item in uriArray) {
@@ -336,10 +337,10 @@ static id sharedInstance = nil;
 		
 		NSArrayController *destinationArrayController = [destinationProject documentsArrayController];
 		NSArray *pasteboardData = [NSUnarchiver unarchiveObjectWithData:[[info draggingPasteboard] dataForType:movedDocumentType]];
-		NSArray *uriArray = [pasteboardData objectAtIndex:1];
-		id document = [FRABasic objectFromURI:[uriArray objectAtIndex:0]];
+		NSArray *uriArray = pasteboardData[1];
+		id document = [FRABasic objectFromURI:uriArray[0]];
 		[(NSMutableSet *)[destinationProject documents] addObject:document];
-		[document setValue:[NSNumber numberWithInteger:row] forKey:@"sortOrder"];
+		[document setValue:@(row) forKey:@"sortOrder"];
 		[FRAVarious fixSortOrderNumbersForArrayController:destinationArrayController overIndex:row];
 		[destinationArrayController rearrangeObjects];
 		[destinationProject selectDocument:document];
@@ -389,7 +390,7 @@ static id sharedInstance = nil;
 	
 	NSUInteger currentIndex = [rowIndexes firstIndex];
 	while (currentIndex != NSNotFound) {
-		[arrangedObjects replaceObjectAtIndex:currentIndex withObject:[NSNull null]]; 
+		arrangedObjects[currentIndex] = [NSNull null]; 
 		currentIndex = [rowIndexes indexGreaterThanIndex:currentIndex];
 	}
 	
@@ -403,7 +404,7 @@ static id sharedInstance = nil;
 	
 	NSInteger index = 0;
 	for (item in arrangedObjects) {
-		[item setValue:[NSNumber numberWithInteger:index] forKey:@"sortOrder"];
+		[item setValue:@(index) forKey:@"sortOrder"];
 		index++;
 	}
 	

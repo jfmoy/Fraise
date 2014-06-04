@@ -18,12 +18,12 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 @interface FRACommandsController : NSObject <NSToolbarDelegate> {
 
-	IBOutlet NSArrayController *commandCollectionsArrayController;
-	IBOutlet NSTableView *commandCollectionsTableView;
-	IBOutlet NSArrayController *commandsArrayController;
-	IBOutlet NSTableView *commandsTableView;
-	IBOutlet NSWindow *commandsWindow;
-	IBOutlet NSTextView *commandsTextView;
+	IBOutlet NSArrayController *__unsafe_unretained commandCollectionsArrayController;
+	IBOutlet NSTableView *__unsafe_unretained commandCollectionsTableView;
+	IBOutlet NSArrayController *__unsafe_unretained commandsArrayController;
+	IBOutlet NSTableView *__unsafe_unretained commandsTableView;
+	IBOutlet NSWindow *__unsafe_unretained commandsWindow;
+	IBOutlet NSTextView *__unsafe_unretained commandsTextView;
 	IBOutlet NSView *commandsFilterView;
 	
 	BOOL currentCommandShouldBeInsertedInline;
@@ -33,12 +33,12 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 }
 
-@property (readonly) IBOutlet NSTextView *commandsTextView;
-@property (readonly) IBOutlet NSWindow *commandsWindow;
-@property (readonly) IBOutlet NSArrayController *commandCollectionsArrayController;
-@property (readonly) IBOutlet NSTableView *commandCollectionsTableView;
-@property (readonly) IBOutlet NSArrayController *commandsArrayController;
-@property (readonly) IBOutlet NSTableView *commandsTableView;
+@property (unsafe_unretained, readonly) IBOutlet NSTextView *commandsTextView;
+@property (unsafe_unretained, readonly) IBOutlet NSWindow *commandsWindow;
+@property (unsafe_unretained, readonly) IBOutlet NSArrayController *commandCollectionsArrayController;
+@property (unsafe_unretained, readonly) IBOutlet NSTableView *commandCollectionsTableView;
+@property (unsafe_unretained, readonly) IBOutlet NSArrayController *commandsArrayController;
+@property (unsafe_unretained, readonly) IBOutlet NSTableView *commandsTableView;
 
 + (FRACommandsController *)sharedInstance;
 

@@ -36,7 +36,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar
 {
-    return [NSArray arrayWithObjects:@"SaveDocumentToolbarItem",
+    return @[@"SaveDocumentToolbarItem",
 		@"OpenDocumentToolbarItem",
 		@"NewDocumentToolbarItem",
 		@"CloseDocumentToolbarItem",
@@ -47,14 +47,13 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		@"InfoToolbarItem",
 		NSToolbarFlexibleSpaceItemIdentifier,
 		NSToolbarSpaceItemIdentifier,
-		NSToolbarSeparatorItemIdentifier,
-		nil];
+		NSToolbarSeparatorItemIdentifier];
 }
 
 
 - (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar  
 {      
-	return [NSArray arrayWithObjects:@"NewDocumentToolbarItem",
+	return @[@"NewDocumentToolbarItem",
 		@"OpenDocumentToolbarItem",
 		@"SaveDocumentToolbarItem",
 		@"CloseDocumentToolbarItem",
@@ -62,8 +61,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		@"QuicklyFindNextToolbarItem",
 		@"AdvancedFindToolbarItem",
 		NSToolbarFlexibleSpaceItemIdentifier,
-		@"InfoToolbarItem",
-		nil];  
+		@"InfoToolbarItem"];  
 } 
 
 
@@ -264,7 +262,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 - (IBAction)liveFindToolbarItemAction:(id)sender;
 {
 	NSString *searchString = [liveFindSearchField objectValue];
-	id document = [[[self documentsArrayController] selectedObjects] objectAtIndex:0];
+	id document = [[self documentsArrayController] selectedObjects][0];
 	NSTextView *textView = [self lastTextViewInFocus];
 	if (textView == nil || (textView != [document valueForKey:@"firstTextView"] && textView != [document valueForKey:@"secondTextView"] && textView != [document valueForKey:@"thirdTextView"])) {
 		textView = [document valueForKey:@"firstTextView"];
@@ -469,53 +467,53 @@ Unless required by applicable law or agreed to in writing, software distributed 
 - (void)extraToolbarValidation
 {
 	if ([self areThereAnyDocuments] == YES) {
-		[(NSControl *)[[[functionToolbarItem view] subviews] objectAtIndex:0] setEnabled:YES];
-		[[(NSControl *)[[[functionToolbarItem view] subviews] objectAtIndex:0] cell] setEnabled:YES];
+		[(NSControl *)[[functionToolbarItem view] subviews][0] setEnabled:YES];
+		[[(NSControl *)[[functionToolbarItem view] subviews][0] cell] setEnabled:YES];
 		
 		if (liveFindToolbarItem != nil) {
 			[[liveFindSearchField cell] setEnabled:YES];
 		}
 		[self reinsertFunctionMenuFormRepresentation];
 		
-		[(NSControl *)[[[saveToolbarItem view] subviews] objectAtIndex:0] setEnabled:YES];
-		[[(NSControl *)[[[saveToolbarItem view] subviews] objectAtIndex:0] cell] setEnabled:YES];
+		[(NSControl *)[[saveToolbarItem view] subviews][0] setEnabled:YES];
+		[[(NSControl *)[[saveToolbarItem view] subviews][0] cell] setEnabled:YES];
 		
-		[(NSControl *)[[[advancedFindToolbarItem view] subviews] objectAtIndex:0] setEnabled:YES];
-		[[(NSControl *)[[[advancedFindToolbarItem view] subviews] objectAtIndex:0] cell] setEnabled:YES];
+		[(NSControl *)[[advancedFindToolbarItem view] subviews][0] setEnabled:YES];
+		[[(NSControl *)[[advancedFindToolbarItem view] subviews][0] cell] setEnabled:YES];
 		
-		[(NSControl *)[[[closeToolbarItem view] subviews] objectAtIndex:0] setEnabled:YES];
-		[[(NSControl *)[[[closeToolbarItem view] subviews] objectAtIndex:0] cell] setEnabled:YES];
+		[(NSControl *)[[closeToolbarItem view] subviews][0] setEnabled:YES];
+		[[(NSControl *)[[closeToolbarItem view] subviews][0] cell] setEnabled:YES];
 		
-		[(NSControl *)[[[infoToolbarItem view] subviews] objectAtIndex:0] setEnabled:YES];
-		[[(NSControl *)[[[infoToolbarItem view] subviews] objectAtIndex:0] cell] setEnabled:YES];
+		[(NSControl *)[[infoToolbarItem view] subviews][0] setEnabled:YES];
+		[[(NSControl *)[[infoToolbarItem view] subviews][0] cell] setEnabled:YES];
 		
-		[(NSControl *)[[[previewToolbarItem view] subviews] objectAtIndex:0] setEnabled:YES];
-		[[(NSControl *)[[[previewToolbarItem view] subviews] objectAtIndex:0] cell] setEnabled:YES];
+		[(NSControl *)[[previewToolbarItem view] subviews][0] setEnabled:YES];
+		[[(NSControl *)[[previewToolbarItem view] subviews][0] cell] setEnabled:YES];
 
 		
 	} else {
-		[(NSControl *)[[[functionToolbarItem view] subviews] objectAtIndex:0] setEnabled:NO];
-		[[(NSControl *)[[[functionToolbarItem view] subviews] objectAtIndex:0] cell] setEnabled:NO];
+		[(NSControl *)[[functionToolbarItem view] subviews][0] setEnabled:NO];
+		[[(NSControl *)[[functionToolbarItem view] subviews][0] cell] setEnabled:NO];
 		
 		if (liveFindToolbarItem != nil && [[FRAApplicationDelegate sharedInstance] hasFinishedLaunching] == YES) {
 			[[liveFindSearchField cell] setEnabled:NO];
 		}
 		[self removeFunctionMenuFormRepresentation];
 		
-		[(NSControl *)[[[saveToolbarItem view] subviews] objectAtIndex:0] setEnabled:NO];
-		[[(NSControl *)[[[saveToolbarItem view] subviews] objectAtIndex:0] cell] setEnabled:NO];
+		[(NSControl *)[[saveToolbarItem view] subviews][0] setEnabled:NO];
+		[[(NSControl *)[[saveToolbarItem view] subviews][0] cell] setEnabled:NO];
 		
-		[(NSControl *)[[[advancedFindToolbarItem view] subviews] objectAtIndex:0] setEnabled:NO];
-		[[(NSControl *)[[[advancedFindToolbarItem view] subviews] objectAtIndex:0] cell] setEnabled:NO];
+		[(NSControl *)[[advancedFindToolbarItem view] subviews][0] setEnabled:NO];
+		[[(NSControl *)[[advancedFindToolbarItem view] subviews][0] cell] setEnabled:NO];
 		
-		[(NSControl *)[[[closeToolbarItem view] subviews] objectAtIndex:0] setEnabled:NO];
-		[[(NSControl *)[[[closeToolbarItem view] subviews] objectAtIndex:0] cell] setEnabled:NO];
+		[(NSControl *)[[closeToolbarItem view] subviews][0] setEnabled:NO];
+		[[(NSControl *)[[closeToolbarItem view] subviews][0] cell] setEnabled:NO];
 		
-		[(NSControl *)[[[infoToolbarItem view] subviews] objectAtIndex:0] setEnabled:NO];
-		[[(NSControl *)[[[infoToolbarItem view] subviews] objectAtIndex:0] cell] setEnabled:NO];
+		[(NSControl *)[[infoToolbarItem view] subviews][0] setEnabled:NO];
+		[[(NSControl *)[[infoToolbarItem view] subviews][0] cell] setEnabled:NO];
 		
-		[(NSControl *)[[[previewToolbarItem view] subviews] objectAtIndex:0] setEnabled:NO];
-		[[(NSControl *)[[[previewToolbarItem view] subviews] objectAtIndex:0] cell] setEnabled:NO];
+		[(NSControl *)[[previewToolbarItem view] subviews][0] setEnabled:NO];
+		[[(NSControl *)[[previewToolbarItem view] subviews][0] cell] setEnabled:NO];
 	}
 	
 	

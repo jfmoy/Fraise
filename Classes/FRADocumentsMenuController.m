@@ -51,9 +51,9 @@ static id sharedInstance = nil;
 {
 	NSInteger currentDocument = [[FRACurrentProject documentsArrayController] selectionIndex];
 	if (currentDocument + 2 > [[FRACurrentProject documents] count]) {
-		[[FRACurrentProject documentsArrayController] setSelectedObjects:[NSArray arrayWithObject:[[[FRACurrentProject documentsArrayController] arrangedObjects] objectAtIndex:0]]];
+		[[FRACurrentProject documentsArrayController] setSelectedObjects:@[[[FRACurrentProject documentsArrayController] arrangedObjects][0]]];
 	} else {
-		[[FRACurrentProject documentsArrayController] setSelectedObjects:[NSArray arrayWithObject:[[[FRACurrentProject documentsArrayController] arrangedObjects] objectAtIndex:(currentDocument + 1)]]];
+		[[FRACurrentProject documentsArrayController] setSelectedObjects:@[[[FRACurrentProject documentsArrayController] arrangedObjects][(currentDocument + 1)]]];
 	}
 }
 
@@ -62,9 +62,9 @@ static id sharedInstance = nil;
 {
 	NSInteger currentDocument = [[FRACurrentProject documentsArrayController] selectionIndex];
 	if (currentDocument == 0) {
-		[[FRACurrentProject documentsArrayController] setSelectedObjects:[NSArray arrayWithObject:[[[FRACurrentProject documentsArrayController] arrangedObjects] objectAtIndex:[[FRACurrentProject documents] count] - 1]]];
+		[[FRACurrentProject documentsArrayController] setSelectedObjects:@[[[FRACurrentProject documentsArrayController] arrangedObjects][[[FRACurrentProject documents] count] - 1]]];
 	} else {
-		[[FRACurrentProject documentsArrayController] setSelectedObjects:[NSArray arrayWithObject:[[[FRACurrentProject documentsArrayController] arrangedObjects] objectAtIndex:(currentDocument - 1)]]];
+		[[FRACurrentProject documentsArrayController] setSelectedObjects:@[[[FRACurrentProject documentsArrayController] arrangedObjects][(currentDocument - 1)]]];
 	}
 }
 

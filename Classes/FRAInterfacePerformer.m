@@ -366,7 +366,7 @@ static id sharedInstance = nil;
  * document. It refreshes every views used to display the document afterwards.
  **/
 - (void) updateGutterViewForDocument:(id)document {
-	NSArray *viewNumbers = [NSArray arrayWithObjects:@"first",@"second", @"third", nil];
+	NSArray *viewNumbers = @[@"first",@"second", @"third"];
 	NSView *contentView = nil;
 	u_int16_t gutterWidth = [[FRADefaults valueForKey:@"GutterWidth"] integerValue];
 	NSRect frame;
@@ -435,7 +435,7 @@ static id sharedInstance = nil;
 			[statusBarString appendString:statusBarBetweenString];
 		}
 		
-		[statusBarString appendFormat:@"%@: %@", statusBarDocumentLengthString, [FRABasic thousandFormatedStringFromNumber:[NSNumber numberWithUnsignedInteger:[text length]]]];
+		[statusBarString appendFormat:@"%@: %@", statusBarDocumentLengthString, [FRABasic thousandFormatedStringFromNumber:@([text length])]];
 	}
 	
 	NSArray *array = [textView selectedRanges];
@@ -447,7 +447,7 @@ static id sharedInstance = nil;
 		if ([[FRADefaults valueForKey:@"StatusBarShowWhenLastSaved"] boolValue] == YES || [[FRADefaults valueForKey:@"StatusBarShowLength"] boolValue] == YES) {
 			[statusBarString appendString:statusBarBetweenString];
 		}
-		[statusBarString appendFormat:@"%@: %@", statusBarSelectionLengthString, [FRABasic thousandFormatedStringFromNumber:[NSNumber numberWithInteger:selection]]];
+		[statusBarString appendFormat:@"%@: %@", statusBarSelectionLengthString, [FRABasic thousandFormatedStringFromNumber:@(selection)]];
 	}
 	
 	if ([[FRADefaults valueForKey:@"StatusBarShowPosition"] boolValue] == YES) {
@@ -527,7 +527,7 @@ static id sharedInstance = nil;
 
 - (void)removeAllSubviewsFromView:(NSView *)view
 {
-	[view setSubviews:[NSArray array]];
+	[view setSubviews:@[]];
 	//NSArray *array = [NSArray arrayWithArray:[view subviews]];
 //	id item;
 //	for (item in array) {
@@ -647,12 +647,12 @@ static id sharedInstance = nil;
 {
 	NSString *functionDefinition = [[FRACurrentDocument valueForKey:@"syntaxColouring"] functionDefinition];
 	if (functionDefinition == nil || [functionDefinition isEqualToString:@""]) {
-		return [NSArray array];
+		return @[];
 	}
 	NSString *removeFromFunction = [[FRACurrentDocument valueForKey:@"syntaxColouring"] removeFromFunction];
 	NSString *text = FRACurrentText;
 	if (text == nil || [text isEqualToString:@""]) {
-		return [NSArray array];
+		return @[];
 	}
 	
 	ICUPattern *pattern = [[ICUPattern alloc] initWithString:functionDefinition flags:(ICUCaseInsensitiveMatching | ICUMultiline)];
@@ -684,7 +684,7 @@ static id sharedInstance = nil;
 		
 		[name replaceOccurrencesOfString:removeFromFunction withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [name length])];
 		
-		NSDictionary *dictionary = [[NSDictionary alloc] initWithObjects:[NSArray arrayWithObjects:[NSNumber numberWithInteger:lineNumber], name, nil] forKeys:keys];
+		NSDictionary *dictionary = [[NSDictionary alloc] initWithObjects:@[@(lineNumber), name] forKeys:keys];
 		
 		[returnArray addObject:dictionary];
 	}
@@ -746,13 +746,13 @@ static id sharedInstance = nil;
 
 - (void)changeViewWithAnimationForWindow:(NSWindow *)window oldView:(NSView *)oldView newView:(NSView *)newView newRect:(NSRect)newRect
 {	
-    NSDictionary *windowResize = [NSDictionary dictionaryWithObjectsAndKeys:window, NSViewAnimationTargetKey, [NSValue valueWithRect:newRect], NSViewAnimationEndFrameKey, nil];
+    NSDictionary *windowResize = @{NSViewAnimationTargetKey: window, NSViewAnimationEndFrameKey: [NSValue valueWithRect:newRect]};
 	
-    NSDictionary *oldFadeOut = [NSDictionary dictionaryWithObjectsAndKeys:oldView, NSViewAnimationTargetKey, NSViewAnimationFadeOutEffect,	NSViewAnimationEffectKey, nil];
+    NSDictionary *oldFadeOut = @{NSViewAnimationTargetKey: oldView, NSViewAnimationEffectKey: NSViewAnimationFadeOutEffect};
 	
-    NSDictionary *newFadeIn = [NSDictionary dictionaryWithObjectsAndKeys:newView, NSViewAnimationTargetKey, NSViewAnimationFadeInEffect, NSViewAnimationEffectKey, nil];
+    NSDictionary *newFadeIn = @{NSViewAnimationTargetKey: newView, NSViewAnimationEffectKey: NSViewAnimationFadeInEffect};
 	
-    NSArray *animations = [NSArray arrayWithObjects:windowResize, newFadeIn, oldFadeOut, nil];
+    NSArray *animations = @[windowResize, newFadeIn, oldFadeOut];
 	
     NSViewAnimation *animation = [[NSViewAnimation alloc] initWithViewAnimations:animations];
     [animation setAnimationBlockingMode:NSAnimationNonblocking];

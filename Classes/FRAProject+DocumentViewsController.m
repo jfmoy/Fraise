@@ -21,6 +21,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 #import "FRALineNumbers.h"
 
 #import "PSMTabBarControl.h"
+#import "FRADocumentManagedObject.h"
 
 @implementation FRAProject (DocumentViewsController)
 
@@ -35,7 +36,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	[tabBarControl setCellMaxWidth:280];
 	[tabBarControl setCellOptimumWidth:170];
 	[tabBarControl setDelegate:self];
-	[tabBarControl registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
+	[tabBarControl registerForDraggedTypes:@[NSFilenamesPboardType]];
 	
 	if ([project valueForKey:@"viewSize"] == nil) {
 		[project setValue:[FRADefaults valueForKey:@"ViewSize"] forKey:@"viewSize"];
@@ -54,8 +55,8 @@ Unless required by applicable law or agreed to in writing, software distributed 
 {
 	NSInteger size = round([viewSelectionSizeSlider doubleValue]);
 	
-	[FRADefaults setValue:[NSNumber numberWithInteger:size] forKey:@"ViewSize"];
-	[project setValue:[NSNumber numberWithInteger:size] forKey:@"viewSize"];
+	[FRADefaults setValue:@(size) forKey:@"ViewSize"];
+	[project setValue:@(size) forKey:@"viewSize"];
 	
 	FRAView view = [[project valueForKey:@"view"] integerValue];
 	
@@ -163,7 +164,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		return;
 	}
 	
-	id selectedDocument = [selectedObjects objectAtIndex:0];
+	id selectedDocument = selectedObjects[0];
 	NSArray *array = [tabBarTabView tabViewItems];
 	for (id item in array) {
 		if ([item identifier] == selectedDocument) {
@@ -195,7 +196,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	FRAView view = [[project valueForKey:@"view"] integerValue];
 	
 	if (view == FRAListView) {
-		[documentsArrayController setSelectedObjects:[NSArray arrayWithObject:[tabViewItem identifier]]];
+		[documentsArrayController setSelectedObjects:@[[tabViewItem identifier]]];
 	}
 		
 }
@@ -218,7 +219,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	id item;
 	NSInteger index = 0;
 	for (item in cells) {
-		[[[item representedObject] identifier] setValue:[NSNumber numberWithInteger:index] forKey:@"sortOrder"];
+		[[[item representedObject] identifier] setValue:@(index) forKey:@"sortOrder"];
 		index++;
 	}
 	
@@ -268,8 +269,8 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	}
 	
 	CGFloat dividerThickness = [sender dividerThickness];
-    NSRect documentsListRect  = [[[sender subviews] objectAtIndex:0] frame];
-    NSRect contentRect = [[[sender subviews] objectAtIndex:1] frame];
+    NSRect documentsListRect  = [[sender subviews][0] frame];
+    NSRect contentRect = [[sender subviews][1] frame];
     NSRect newFrame  = [sender frame];
 	
     documentsListRect.size.height = newFrame.size.height;
@@ -278,19 +279,19 @@ Unless required by applicable law or agreed to in writing, software distributed 
     contentRect.size.height = newFrame.size.height;
     contentRect.origin.x = documentsListRect.size.width + dividerThickness;
 	
-    [[[sender subviews] objectAtIndex:0] setFrame:documentsListRect];
-    [[[sender subviews] objectAtIndex:1] setFrame:contentRect];
+    [[sender subviews][0] setFrame:documentsListRect];
+    [[sender subviews][1] setFrame:contentRect];
 		
-	NSRect firstViewFrame = [[[contentSplitView subviews] objectAtIndex:0] frame];
+	NSRect firstViewFrame = [[contentSplitView subviews][0] frame];
 	firstViewFrame.size.width = contentRect.size.width;	
-	[[[contentSplitView subviews] objectAtIndex:0] setFrame:firstViewFrame];		
+	[[contentSplitView subviews][0] setFrame:firstViewFrame];		
 
-	NSRect secondViewFrame = [[[contentSplitView subviews] objectAtIndex:1] frame];
+	NSRect secondViewFrame = [[contentSplitView subviews][1] frame];
 	secondViewFrame.size.width = contentRect.size.width;
 	if (secondDocument == nil) {
 		secondViewFrame.size.height = 0.0;
 	}
-	[[[contentSplitView subviews] objectAtIndex:1] setFrame:secondViewFrame];
+	[[contentSplitView subviews][1] setFrame:secondViewFrame];
 
 	[contentSplitView adjustSubviews];
 }

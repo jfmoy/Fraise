@@ -27,7 +27,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	NSString *statusBarEncodingString;
 	
 	FRAFullScreenWindow *fullScreenWindow;
-	id fullScreenDocument;
+	id __unsafe_unretained fullScreenDocument;
 	NSMenu *savedMainMenu;
 	NSRect fullScreenRect;
 	
@@ -36,10 +36,10 @@ Unless required by applicable law or agreed to in writing, software distributed 
 }
 
 @property (readonly) FRAFullScreenWindow *fullScreenWindow;
-@property (readonly) id fullScreenDocument;
+@property (unsafe_unretained, readonly) id fullScreenDocument;
 
-@property (retain) NSImage *defaultIcon;
-@property (retain) NSImage *defaultUnsavedIcon;
+@property (strong) NSImage *defaultIcon;
+@property (strong) NSImage *defaultUnsavedIcon;
 
 
 + (FRAInterfacePerformer *)sharedInstance;

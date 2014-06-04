@@ -19,10 +19,10 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 @interface FRAProjectsController : NSDocumentController
 {
-	FRAProject *currentProject;
+	FRAProject *__unsafe_unretained currentProject;
 }
 
-@property (assign) FRAProject *currentProject;
+@property (unsafe_unretained) FRAProject *currentProject;
 
 - (id)currentFRADocument;
 - (FRATextView *)currentTextView;

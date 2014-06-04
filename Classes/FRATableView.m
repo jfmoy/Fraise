@@ -43,7 +43,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 				// Snippet collection
 				if (self == [[FRASnippetsController sharedInstance] snippetCollectionsTableView]) {
 					
-					id collection = [[[[FRASnippetsController sharedInstance] snippetCollectionsArrayController] selectedObjects] objectAtIndex:0];
+					id collection = [[[FRASnippetsController sharedInstance] snippetCollectionsArrayController] selectedObjects][0];
 					NSMutableSet *snippetsToDelete = [collection mutableSetValueForKey:@"snippets"];
 					if ([snippetsToDelete count] == 0) {
 						[[FRASnippetsController sharedInstance] performDeleteCollection];
@@ -65,14 +65,14 @@ Unless required by applicable law or agreed to in writing, software distributed 
 				// Snippet
 				} else if (self == [[FRASnippetsController sharedInstance] snippetsTableView]) {
 					
-					id snippet = [[[[FRASnippetsController sharedInstance] snippetsArrayController] selectedObjects] objectAtIndex:0];
+					id snippet = [[[FRASnippetsController sharedInstance] snippetsArrayController] selectedObjects][0];
 					[[[FRASnippetsController sharedInstance] snippetsArrayController] removeObject:snippet];
 					[[FRAToolsMenuController sharedInstance] buildInsertSnippetMenu];
 					
 				// Command collection
 				} else if (self == [[FRACommandsController sharedInstance] commandCollectionsTableView]) {
 					
-					id collection = [[[[FRACommandsController sharedInstance] commandCollectionsArrayController] selectedObjects] objectAtIndex:0];
+					id collection = [[[FRACommandsController sharedInstance] commandCollectionsArrayController] selectedObjects][0];
 					NSMutableSet *commandsToDelete = [collection mutableSetValueForKey:@"commands"];
 					if ([commandsToDelete count] == 0) {
 						[[FRACommandsController sharedInstance] performDeleteCollection];
@@ -94,13 +94,13 @@ Unless required by applicable law or agreed to in writing, software distributed 
 				// Command
 				} else if (self == [[FRACommandsController sharedInstance] commandsTableView]) {
 					
-					id command = [[[[FRACommandsController sharedInstance] commandsArrayController] selectedObjects] objectAtIndex:0];
+					id command = [[[FRACommandsController sharedInstance] commandsArrayController] selectedObjects][0];
 					[[[FRACommandsController sharedInstance] commandsArrayController] removeObject:command];
 					[[FRAToolsMenuController sharedInstance] buildRunCommandMenu];
 				
 				// Document
 				} else if (self == [FRACurrentProject documentsTableView]) {
-					id document = [[[FRACurrentProject documentsArrayController] selectedObjects] objectAtIndex:0];
+					id document = [[FRACurrentProject documentsArrayController] selectedObjects][0];
 					[FRACurrentProject checkIfDocumentIsUnsaved:document keepOpen:NO];
 				}
 			}
@@ -135,7 +135,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (void)textDidEndEditing:(NSNotification *)aNotification
 {
-	if ([[[aNotification userInfo] objectForKey:@"NSTextMovement"] integerValue] == NSReturnTextMovement) {
+	if ([[aNotification userInfo][@"NSTextMovement"] integerValue] == NSReturnTextMovement) {
 		[[self window] endEditingFor:self];
 		[self reloadData];
 		[[self window] makeFirstResponder:self];

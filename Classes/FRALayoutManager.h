@@ -30,8 +30,8 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	BOOL showInvisibleCharacters;
 }
 
--(void)setShowInvisibleCharacters:(BOOL)flag;
+//-(void)setShowInvisibleCharacters:(BOOL)flag;
 
-@property BOOL showInvisibleCharacters;
+@property (nonatomic) BOOL showInvisibleCharacters;
 
 @end

@@ -102,12 +102,12 @@ typedef struct URegularExpression URegularExpression;
 
 	while(YES) { 
 		UErrorCode status = 0;
-		UChar *dest = (UChar *)NSZoneCalloc([self zone], groupSize, sizeof(UChar));
+		UChar *dest = (UChar *)NSZoneCalloc(nil, groupSize, sizeof(UChar));
 		int32_t buffSize = uregex_group(re, groupIndex, dest, groupSize, &status);
 
 		if(U_BUFFER_OVERFLOW_ERROR == status) {
 			groupSize *= 2;
-			NSZoneFree([self zone], dest);
+			NSZoneFree(nil, dest);
 			continue;
 		}
 
@@ -115,7 +115,7 @@ typedef struct URegularExpression URegularExpression;
 
 		groupSize = InitialGroupSize; // reset to default
 		NSString *result = [[NSString alloc] initWithBytes:dest length:buffSize*sizeof(UChar) encoding:[NSString nativeUTF16Encoding]];
-		NSZoneFree([self zone], dest);
+		NSZoneFree(nil, dest);
 		return result;
 	}
 }
@@ -155,7 +155,7 @@ typedef struct URegularExpression URegularExpression;
 	while(!replacementCompleted) {
 		
 		if(!destString) // attempts to increase buffer happen on failure below
-			destString = NSZoneCalloc([self zone], destStringBufferSize, sizeof(UChar));
+			destString = NSZoneCalloc(nil, destStringBufferSize, sizeof(UChar));
 		
 		if(!destString)
 			[NSException raise:@"Find Exception"
@@ -173,15 +173,15 @@ typedef struct URegularExpression URegularExpression;
 			destStringBufferSize = resultLength + 1;
 			
 			UChar *prevString = destString;
-			destString = NSZoneRealloc([self zone], destString, destStringBufferSize*sizeof(UChar));
+			destString = NSZoneRealloc(nil, destString, destStringBufferSize*sizeof(UChar));
 			
 			if(destString == NULL) {
-				NSZoneFree([self zone], prevString);
+				NSZoneFree(nil, prevString);
 				[NSException raise:@"Find Exception"
 							format:@"Could not allocate memory for replacement string"];
 			}
 		} else if(U_FAILURE(status)) {
-			NSZoneFree([self zone], destString);
+			NSZoneFree(nil, destString);
 			[NSException raise:@"Find Exception"
 						format:@"Could not perform find and replace: %s", u_errorName(status)];
 		} else {
@@ -192,7 +192,7 @@ typedef struct URegularExpression URegularExpression;
 	NSString *result = [[NSString alloc] initWithBytes:destString
 												 length:resultLength * sizeof(UChar)
 											   encoding:[NSString nativeUTF16Encoding]];
-	NSZoneFree([self zone], destString);
+	NSZoneFree(nil, destString);
 	return result;	
 }
 

@@ -92,7 +92,12 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		imageFrame.origin.y -= y * scaleFactor;
 		
 		[image setSize:NSMakeSize(actualImageSize.width * scaleFactor, actualImageSize.height * scaleFactor)];
-        [image compositeToPoint:imageFrame.origin operation:NSCompositeSourceOver];
+
+//        [image compositeToPoint:imageFrame.origin operation:NSCompositeSourceOver];
+        [image drawAtPoint: imageFrame.origin
+                  fromRect: imageFrame
+                 operation: NSCompositeSourceOver
+                  fraction: 1.0];
     }
 	
     NSSize contentSize = [self cellSize];

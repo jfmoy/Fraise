@@ -44,7 +44,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	if ([(NSString *)context isEqualToString:@"FontOrColourValueChanged"]) {
+	if ([(__bridge NSString *)context isEqualToString:@"FontOrColourValueChanged"]) {
 		attributes = [[NSDictionary alloc] initWithObjectsAndKeys:[NSUnarchiver unarchiveObjectWithData:[FRADefaults valueForKey:@"TextFont"]], NSFontAttributeName, [NSUnarchiver unarchiveObjectWithData:[FRADefaults valueForKey:@"InvisibleCharactersColourWell"]], NSForegroundColorAttributeName, nil];
 		[[self firstTextView] setNeedsDisplay:YES];
 	} else {

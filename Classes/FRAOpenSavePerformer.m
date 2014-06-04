@@ -73,7 +73,7 @@ static id sharedInstance = nil;
 		[[FRAProjectsController sharedDocumentController] performOpenProjectWithPath:projectPath];
 	}
 	
-	[[NSGarbageCollector defaultCollector] collectExhaustively];
+//	[[NSGarbageCollector defaultCollector] collectExhaustively];
 }
 
 
@@ -150,7 +150,7 @@ static id sharedInstance = nil;
 			}
 			
 			NSString *title = [NSString stringWithFormat:NSLocalizedString(@"It seems as if you do not have permission to open the file %@", @"Indicate that it seems as if you do not have permission to open the file %@ in Not-enough-permission-to-open sheet"), path];
-			NSArray *openArray = [NSArray arrayWithObjects:path, [NSNumber numberWithUnsignedInteger:chosenEncoding], nil];
+			NSArray *openArray = @[path, @(chosenEncoding)];
 			NSBeginAlertSheet(title,
 							  AUTHENTICATE_STRING,
 							  nil,
@@ -159,7 +159,7 @@ static id sharedInstance = nil;
 							  [FRAAuthenticationController sharedInstance],
 							  @selector(authenticateOpenSheetDidEnd:returnCode:contextInfo:),
 							  nil,
-							  (void *)openArray,
+							  (__bridge void *)openArray,
 							  TRY_TO_AUTHENTICATE_STRING);
 			[NSApp runModalForWindow:[FRACurrentWindow attachedSheet]]; // Modal to allow for many documents
 			return;
@@ -238,7 +238,7 @@ static id sharedInstance = nil;
 {
 	if (FRACurrentProject == nil) {
 		if ([[[FRAProjectsController sharedDocumentController] documents] count] > 0) { // When working as an external editor some programs cause Fraise to not have an active document and thus no current project
-			[[FRAProjectsController sharedDocumentController] setCurrentProject:[[FRAProjectsController sharedDocumentController] documentForWindow:[[NSApp orderedWindows] objectAtIndex:0]]];
+			[[FRAProjectsController sharedDocumentController] setCurrentProject:[[FRAProjectsController sharedDocumentController] documentForWindow:[NSApp orderedWindows][0]]];
 		} else {
 			[[FRAProjectsController sharedDocumentController] newDocument:nil];
 		}
@@ -280,7 +280,7 @@ static id sharedInstance = nil;
 		}
 		
 		document = [FRACurrentProject createNewDocumentWithPath:externalPath andContents:textString];
-		[document setValue:[NSNumber numberWithBool:YES] forKey:@"fromExternal"];
+		[document setValue:@YES forKey:@"fromExternal"];
 		
 		if (!isKeyAEPropData) {
 			[document setValue:[appleEventDescriptor paramDescriptorForKeyword:keyFileSender] forKey:@"externalSender"];
@@ -315,7 +315,7 @@ static id sharedInstance = nil;
 	
 	[[document valueForKey:@"firstTextView"] setSelectedRange:NSMakeRange(0,0)];
 	
-	[FRAVarious insertIconsInBackground:[NSArray arrayWithObjects:document, path, nil]];
+	[FRAVarious insertIconsInBackground:@[document, path]];
 	//NSArray *icons = [NSImage iconsForPath:path];
 //	[document setValue:[icons objectAtIndex:0] forKey:@"icon"];
 //	[document setValue:[icons objectAtIndex:1] forKey:@"unsavedIcon"];
@@ -362,7 +362,7 @@ static id sharedInstance = nil;
 	}
 	
 	if (![string canBeConvertedToEncoding:[[document valueForKey:@"encoding"] integerValue]]) {
-		NSError *error = [NSError errorWithDomain:FRAISE_ERROR_DOMAIN code:FraiseSaveErrorEncodingInapplicable userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:NSLocalizedStringFromTable(@"This document can no longer be saved using its original %@ encoding.", @"Localizable3", @"Title of alert panel informing user that the file's string encoding needs to be changed."), [NSString localizedNameOfStringEncoding:[[document valueForKey:@"encoding"] integerValue]]], NSLocalizedDescriptionKey, NSLocalizedStringFromTable(@"Please choose another encoding (such as UTF-8).", @"Localizable3", @"Subtitle of alert panel informing user that the file's string encoding needs to be changed"), NSLocalizedRecoverySuggestionErrorKey, nil]];
+		NSError *error = [NSError errorWithDomain:FRAISE_ERROR_DOMAIN code:FraiseSaveErrorEncodingInapplicable userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedStringFromTable(@"This document can no longer be saved using its original %@ encoding.", @"Localizable3", @"Title of alert panel informing user that the file's string encoding needs to be changed."), [NSString localizedNameOfStringEncoding:[[document valueForKey:@"encoding"] integerValue]]], NSLocalizedRecoverySuggestionErrorKey: NSLocalizedStringFromTable(@"Please choose another encoding (such as UTF-8).", @"Localizable3", @"Subtitle of alert panel informing user that the file's string encoding needs to be changed")}];
 		[FRACurrentProject presentError:error modalForWindow:FRACurrentWindow delegate:self didPresentSelector:nil contextInfo:NULL];
 		return;
 	}
@@ -395,7 +395,7 @@ static id sharedInstance = nil;
 		}
 		NSString *title = [NSString stringWithFormat:FILE_IS_UNWRITABLE_SAVE_STRING, path];
 		NSData *data = [[NSData alloc] initWithData:[string dataUsingEncoding:[[document valueForKey:@"encoding"] integerValue] allowLossyConversion:YES]];
-		NSArray *saveArray = [NSArray arrayWithObjects:document, data, path, [NSNumber numberWithBool:fromSaveAs], [NSNumber numberWithBool:aCopy], nil];
+		NSArray *saveArray = @[document, data, path, @(fromSaveAs), @(aCopy)];
 		NSBeginAlertSheet(title,
 						  AUTHENTICATE_STRING,
 						  nil,
@@ -404,7 +404,7 @@ static id sharedInstance = nil;
 						  [FRAAuthenticationController sharedInstance],
 						  @selector(authenticateSaveSheetDidEnd:returnCode:contextInfo:),
 						  nil,
-						  (void *)saveArray,
+						  (__bridge void *)saveArray,
 						  TRY_TO_AUTHENTICATE_STRING);
 		[NSApp runModalForWindow:[FRACurrentWindow attachedSheet]]; // Modal to allow for many documents
 		return;
@@ -453,8 +453,8 @@ static id sharedInstance = nil;
 		NSDictionary *extraMetaData = [self getExtraMetaDataFromPath:path];
 		attributes = [NSMutableDictionary dictionaryWithDictionary:[fileManager attributesOfItemAtPath:path error:nil]];
 		if ([[FRADefaults valueForKey:@"AssignDocumentToFraiseWhenSaving"] boolValue] == YES) {
-			[attributes setObject:[NSNumber numberWithUnsignedLong:'SMUL'] forKey:@"NSFileHFSCreatorCode"];
-			[attributes setObject:[NSNumber numberWithUnsignedLong:'FRAd'] forKey:@"NSFileHFSTypeCode"];
+			attributes[@"NSFileHFSCreatorCode"] = [NSNumber numberWithUnsignedLong:'SMUL'];
+			attributes[@"NSFileHFSTypeCode"] = [NSNumber numberWithUnsignedLong:'FRAd'];
 		}
 		[attributes removeObjectForKey:@"NSFileSize"]; // Remove those values which has to be updated 
 		[attributes removeObjectForKey:@"NSFileModificationDate"];
@@ -511,15 +511,15 @@ static id sharedInstance = nil;
 		[FRAVarious sendModifiedEventToExternalDocument:document path:path];
 	} 
 	
-	[document setValue:[NSNumber numberWithBool:NO] forKey:@"isEdited"];
-	[document setValue:[NSNumber numberWithBool:NO] forKey:@"isNewDocument"];
+	[document setValue:@NO forKey:@"isEdited"];
+	[document setValue:@NO forKey:@"isNewDocument"];
 	[FRACurrentProject updateEditedBlobStatus];
 	
 	[FRACurrentProject updateWindowTitleBarForDocument:FRACurrentDocument];
 	[FRAVarious setLastSavedDateForDocument:document date:[NSDate date]];
 	
 	if ([[FRADefaults valueForKey:@"UpdateIconForEverySave"] boolValue] == YES && [[FRADefaults valueForKey:@"UseQuickLookIcon"] boolValue] == YES) {
-		[FRAVarious insertIconsInBackground:[NSArray arrayWithObjects:document, path, nil]];
+		[FRAVarious insertIconsInBackground:@[document, path]];
 		
 		//NSArray *icons = [NSImage iconsForPath:path];
 //		[document setValue:[icons objectAtIndex:0] forKey:@"icon"];
@@ -532,7 +532,7 @@ static id sharedInstance = nil;
 	
 	[FRACurrentProject documentsListHasUpdated];
 	
-	[[NSGarbageCollector defaultCollector] collectExhaustively];
+//	[[NSGarbageCollector defaultCollector] collectExhaustively];
 }
 
 
@@ -551,7 +551,7 @@ static id sharedInstance = nil;
 			NSMutableData *value = [NSMutableData dataWithLength:valueSize];
 			getxattr([path fileSystemRepresentation], key, [value mutableBytes], valueSize, 0, 0);
 			
-			[dictionary setValue:value forKey:[NSString stringWithUTF8String:key]];
+			[dictionary setValue:value forKey:@(key)];
 		}
 	}
 	@catch (NSException *exception) {
@@ -582,7 +582,7 @@ static id sharedInstance = nil;
 - (BOOL)isPathVisible:(NSString *)path
 {
 	LSItemInfoRecord itemInfo;
-	LSCopyItemInfoForURL((CFURLRef)[NSURL URLWithString:[@"file:///" stringByAppendingString:path]], kLSRequestAllInfo, &itemInfo);
+	LSCopyItemInfoForURL((__bridge CFURLRef)[NSURL URLWithString:[@"file:///" stringByAppendingString:path]], kLSRequestAllInfo, &itemInfo);
 	
 	if ((itemInfo.flags & kLSItemInfoIsInvisible) != 0) {
 		return NO;

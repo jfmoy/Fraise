@@ -93,25 +93,25 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	if ([(NSString *)context isEqualToString:@"TextFontChanged"]) {
+	if ([(__bridge NSString *)context isEqualToString:@"TextFontChanged"]) {
 		[self setFont:[NSUnarchiver unarchiveObjectWithData:[FRADefaults valueForKey:@"TextFont"]]];
 		lineHeight = [[[self textContainer] layoutManager] defaultLineHeightForFont:[NSUnarchiver unarchiveObjectWithData:[FRADefaults valueForKey:@"TextFont"]]];
 		[[FRACurrentDocument valueForKey:@"lineNumbers"] updateLineNumbersForClipView:[[self enclosingScrollView] contentView] checkWidth:NO recolour:YES];
 		[self setPageGuideValues];
-	} else if ([(NSString *)context isEqualToString:@"TextColourChanged"]) {
+	} else if ([(__bridge NSString *)context isEqualToString:@"TextColourChanged"]) {
 		[self setTextColor:[NSUnarchiver unarchiveObjectWithData:[FRADefaults valueForKey:@"TextColourWell"]]];
 		[self setInsertionPointColor:[NSUnarchiver unarchiveObjectWithData:[FRADefaults valueForKey:@"TextColourWell"]]];
 		[self setPageGuideValues];
 		[self updateIBeamCursor];
-	} else if ([(NSString *)context isEqualToString:@"BackgroundColourChanged"]) {
+	} else if ([(__bridge NSString *)context isEqualToString:@"BackgroundColourChanged"]) {
 		[self setBackgroundColor:[NSUnarchiver unarchiveObjectWithData:[FRADefaults valueForKey:@"BackgroundColourWell"]]];
-	} else if ([(NSString *)context isEqualToString:@"SmartInsertDeleteChanged"]) {
+	} else if ([(__bridge NSString *)context isEqualToString:@"SmartInsertDeleteChanged"]) {
 		[self setSmartInsertDeleteEnabled:[[FRADefaults valueForKey:@"SmartInsertDelete"] boolValue]];
-	} else if ([(NSString *)context isEqualToString:@"TabWidthChanged"]) {
+	} else if ([(__bridge NSString *)context isEqualToString:@"TabWidthChanged"]) {
 		[self setTabWidth];
-	} else if ([(NSString *)context isEqualToString:@"PageGuideChanged"]) {
+	} else if ([(__bridge NSString *)context isEqualToString:@"PageGuideChanged"]) {
 		[self setPageGuideValues];
-	} else if ([(NSString *)context isEqualToString:@"SmartInsertDeleteChanged"]) {
+	} else if ([(__bridge NSString *)context isEqualToString:@"SmartInsertDeleteChanged"]) {
 		[self setSmartInsertDeleteEnabled:[[FRADefaults valueForKey:@"SmartInsertDelete"] boolValue]];
 	} else {
 		[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -445,7 +445,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 - (void)setPageGuideValues
 {
 	NSDictionary *sizeAttribute = [[NSDictionary alloc] initWithObjectsAndKeys:[NSUnarchiver unarchiveObjectWithData:[FRADefaults valueForKey:@"TextFont"]], NSFontAttributeName, nil];
-	NSString *sizeString = [NSString stringWithString:@" "];
+	NSString *sizeString = @" ";
 	CGFloat sizeOfCharacter = [sizeString sizeWithAttributes:sizeAttribute].width;
 	pageGuideX = (sizeOfCharacter * ([[FRADefaults valueForKey:@"ShowPageGuideAtColumn"] integerValue] + 1)) - 1.5; // -1.5 to put it between the two characters and draw only on one pixel and not two (as the system draws it in a special way), and that's also why the width above is set to zero 
 	
@@ -614,7 +614,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	} else {
 		NSImage *cursorImage = [[NSCursor IBeamCursor] image];
 		[cursorImage lockFocus];
-		[[NSUnarchiver unarchiveObjectWithData:[FRADefaults valueForKey:@"TextColourWell"]] set];
+		[(NSColor *)[NSUnarchiver unarchiveObjectWithData:[FRADefaults valueForKey:@"TextColourWell"]] set];
 		NSRectFillUsingOperation(NSMakeRect(0, 0, [cursorImage size].width, [cursorImage size].height), NSCompositeSourceAtop);
 		[cursorImage unlockFocus];
 		[self setColouredIBeamCursor:[[NSCursor alloc] initWithImage:cursorImage hotSpot:[[NSCursor IBeamCursor] hotSpot]]];

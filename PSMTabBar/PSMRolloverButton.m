@@ -63,7 +63,7 @@
 - (void)mouseDown:(NSEvent *)theEvent
 {
     // eliminates drawing artifact
-    [[NSRunLoop currentRunLoop] performSelector:@selector(display) target:[self superview] argument:nil order:1 modes:[NSArray arrayWithObjects:@"NSEventTrackingRunLoopMode", @"NSDefaultRunLoopMode", nil]];
+    [[NSRunLoop currentRunLoop] performSelector:@selector(display) target:[self superview] argument:nil order:1 modes:@[@"NSEventTrackingRunLoopMode", @"NSDefaultRunLoopMode"]];
     [super mouseDown:theEvent];
 }
 

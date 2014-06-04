@@ -1,16 +1,16 @@
 /*
-Fraise version 3.7 - Based on Smultron by Peter Borg
-Written by Jean-François Moy - jeanfrancois.moy@gmail.com
-Find the latest version at http://github.com/jfmoy/Fraise
-
-Copyright 2010 Jean-François Moy
+ Fraise version 3.7 - Based on Smultron by Peter Borg
+ Written by Jean-François Moy - jeanfrancois.moy@gmail.com
+ Find the latest version at http://github.com/jfmoy/Fraise
  
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ Copyright 2010 Jean-François Moy
  
-http://www.apache.org/licenses/LICENSE-2.0
+ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
-*/
+ http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ */
 
 #import "FRAStandardHeader.h"
 
@@ -34,16 +34,16 @@ Unless required by applicable law or agreed to in writing, software distributed 
 static id sharedInstance = nil;
 
 + (FRASnippetsController *)sharedInstance
-{ 
-	if (sharedInstance == nil) { 
+{
+	if (sharedInstance == nil) {
 		sharedInstance = [[self alloc] init];
 	}
 	
 	return sharedInstance;
-} 
+}
 
 
-- (id)init 
+- (id)init
 {
     if (sharedInstance == nil) {
         sharedInstance = [super init];
@@ -60,15 +60,15 @@ static id sharedInstance = nil;
 		[snippetCollectionsTableView setDataSource:[FRADragAndDropController sharedInstance]];
 		[snippetsTableView setDataSource:[FRADragAndDropController sharedInstance]];
 		
-		[snippetCollectionsTableView registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType, @"FRAMovedSnippetType", nil]];
+		[snippetCollectionsTableView registerForDraggedTypes:@[NSFilenamesPboardType, @"FRAMovedSnippetType"]];
 		[snippetCollectionsTableView setDraggingSourceOperationMask:(NSDragOperationCopy) forLocal:NO];
 		
-		[snippetsTableView registerForDraggedTypes:[NSArray arrayWithObjects:NSStringPboardType, nil]];
+		[snippetsTableView registerForDraggedTypes:@[NSStringPboardType]];
 		[snippetsTableView setDraggingSourceOperationMask:(NSDragOperationCopy) forLocal:NO];
 		
 		NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
-		[snippetCollectionsArrayController setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
-		[snippetsArrayController setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+		[snippetCollectionsArrayController setSortDescriptors:@[sortDescriptor]];
+		[snippetsArrayController setSortDescriptors:@[sortDescriptor]];
 		
 		FRADocumentsListCell *cell = [[FRADocumentsListCell alloc] init];
 		[cell setWraps:NO];
@@ -100,7 +100,7 @@ static id sharedInstance = nil;
 	id collection = [FRABasic createNewObjectForEntity:@"SnippetCollection"];
 	
 	[FRAManagedObjectContext processPendingChanges];
-	[snippetCollectionsArrayController setSelectedObjects:[NSArray arrayWithObject:collection]];
+	[snippetCollectionsArrayController setSelectedObjects:@[collection]];
 	
 	[snippetsWindow makeFirstResponder:snippetCollectionsTableView];
 	[snippetCollectionsTableView editColumn:0 row:[snippetCollectionsTableView selectedRow] withEvent:nil select:NO];
@@ -131,16 +131,16 @@ static id sharedInstance = nil;
 		[collection setValue:COLLECTION_STRING forKey:@"name"];
 	} else {
 		if (snippetsWindow != nil && [[snippetCollectionsArrayController selectedObjects] count] != 0) {
-			collection = [[snippetCollectionsArrayController selectedObjects] objectAtIndex:0];
+			collection = [snippetCollectionsArrayController selectedObjects][0];
 		} else { // If no collection is selected choose the last one in the array
 			collection = [snippetCollections lastObject];
 		}
-	}	 
+	}
 	
 	id item = [FRABasic createNewObjectForEntity:@"Snippet"];
 	[[collection mutableSetValueForKey:@"snippets"] addObject:item];
 	[FRAManagedObjectContext processPendingChanges];
-	[snippetsArrayController setSelectedObjects:[NSArray arrayWithObject:item]];
+	[snippetsArrayController setSelectedObjects:@[item]];
 	
 	return item;
 }
@@ -165,7 +165,7 @@ static id sharedInstance = nil;
 	
 	NSMutableString *insertString = [NSMutableString stringWithString:[snippet valueForKey:@"text"]];
 	[insertString replaceOccurrencesOfString:@"%%s" withString:selectedText options:NSLiteralSearch range:NSMakeRange(0, [insertString length])];
-	NSInteger locationOfSelectionInString = [insertString rangeOfString:@"%%c"].location;	
+	NSInteger locationOfSelectionInString = [insertString rangeOfString:@"%%c"].location;
 	[insertString replaceOccurrencesOfString:@"%%c" withString:@"" options:NSLiteralSearch range:NSMakeRange(0, [insertString length])];
 	[textView insertText:insertString];
 	if (locationOfSelectionInString != NSNotFound) {
@@ -176,8 +176,8 @@ static id sharedInstance = nil;
 
 - (void)performDeleteCollection
 {
-	id collection = [[snippetCollectionsArrayController selectedObjects] objectAtIndex:0];
-
+	id collection = [snippetCollectionsArrayController selectedObjects][0];
+    
 	[FRAManagedObjectContext deleteObject:collection];
 	
 	[[FRAToolsMenuController sharedInstance] buildInsertSnippetMenu];
@@ -188,23 +188,19 @@ static id sharedInstance = nil;
 {
 	[self openSnippetsWindow];
 	NSOpenPanel *openPanel = [NSOpenPanel openPanel];
-	[openPanel setResolvesAliases:YES];		
-	[openPanel beginSheetForDirectory:[FRAInterface whichDirectoryForOpen] 
-							file:nil 
-						   types:[NSArray arrayWithObjects:@"frac", @"smlc", @"fraiseSnippets", nil] 
-					   modalForWindow:snippetsWindow
-					modalDelegate:self
-				  didEndSelector:@selector(openPanelDidEnd:returnCode:contextInfo:)
-					 contextInfo:nil];
-}
-
-
-- (void)openPanelDidEnd:(NSOpenPanel *)panel returnCode:(NSInteger)returnCode  contextInfo:(void  *)contextInfo
-{
-	if (returnCode == NSOKButton) {
-		[self performSnippetsImportWithPath:[panel filename]];
-	}
-	[snippetsWindow makeKeyAndOrderFront:nil];
+	[openPanel setResolvesAliases:YES];
+	[openPanel setDirectoryURL: [NSURL fileURLWithPath: [FRAInterface whichDirectoryForOpen]]];
+    [openPanel setAllowedFileTypes: @[@"frac", @"smlc", @"fraiseSnippets"]];
+    [openPanel beginSheetModalForWindow: snippetsWindow
+                      completionHandler: (^(NSInteger result)
+                                          {
+                                              
+                                              if (result == NSOKButton)
+                                              {
+                                                  [self performSnippetsImportWithPath: [[openPanel URL] path]];
+                                              }
+                                              [snippetsWindow makeKeyAndOrderFront:nil];
+                                          })];
 }
 
 
@@ -217,16 +213,16 @@ static id sharedInstance = nil;
 		return;
 	}
 	
-	if ([[[snippets objectAtIndex:0] valueForKey:@"version"] integerValue] == 2 || [[[snippets objectAtIndex:0] valueForKey:@"version"] integerValue] == 3) {
+	if ([[snippets[0] valueForKey:@"version"] integerValue] == 2 || [[snippets[0] valueForKey:@"version"] integerValue] == 3) {
 		
 		id collection = [FRABasic createNewObjectForEntity:@"SnippetCollection"];
-		[collection setValue:[[snippets objectAtIndex:0] valueForKey:@"collectionName"] forKey:@"name"];
+		[collection setValue:[snippets[0] valueForKey:@"collectionName"] forKey:@"name"];
 		
 		id item;
 		for (item in snippets) {
 			id snippet = [FRABasic createNewObjectForEntity:@"Snippet"];
 			[snippet setValue:[item valueForKey:@"name"] forKey:@"name"];
-			[snippet setValue:[item valueForKey:@"text"] forKey:@"text"];			
+			[snippet setValue:[item valueForKey:@"text"] forKey:@"text"];
 			[snippet setValue:[item valueForKey:@"collectionName"] forKey:@"collectionName"];
 			[snippet setValue:[item valueForKey:@"shortcutDisplayString"] forKey:@"shortcutDisplayString"];
 			[snippet setValue:[item valueForKey:@"shortcutMenuItemKeyString"] forKey:@"shortcutMenuItemKeyString"];
@@ -237,7 +233,7 @@ static id sharedInstance = nil;
 		
 		[FRAManagedObjectContext processPendingChanges];
 		
-		[snippetCollectionsArrayController setSelectedObjects:[NSArray arrayWithObject:collection]];
+		[snippetCollectionsArrayController setSelectedObjects:@[collection]];
 	} else {
 		NSBeep();
 	}
@@ -247,44 +243,40 @@ static id sharedInstance = nil;
 - (void)exportSnippets
 {
 	NSSavePanel *savePanel = [NSSavePanel savePanel];
-	[savePanel setRequiredFileType:@"fraiseSnippets"];	
-	[savePanel beginSheetForDirectory:[FRAInterface whichDirectoryForSave]				
-								 file:[[[snippetCollectionsArrayController selectedObjects] objectAtIndex:0] valueForKey:@"name"]
-					   modalForWindow:snippetsWindow
-						modalDelegate:self
-					   didEndSelector:@selector(exportSnippetsPanelDidEnd:returnCode:contextInfo:)
-						  contextInfo:nil];
-	
+    [savePanel setAllowedFileTypes: @[@"fraiseSnippets"]];
+    [savePanel setDirectoryURL: [NSURL fileURLWithPath: [FRAInterface whichDirectoryForSave]]];
+    [savePanel setNameFieldStringValue: [[snippetCollectionsArrayController selectedObjects][0] valueForKey:@"name"]];
+    [savePanel beginSheetModalForWindow: snippetsWindow
+                      completionHandler: (^(NSInteger result)
+                                          {
+                                              if (result == NSOKButton)
+                                              {
+                                                  id collection = [snippetCollectionsArrayController selectedObjects][0];
+                                                  
+                                                  NSMutableArray *exportArray = [NSMutableArray array];
+                                                  NSArray *array = [[collection mutableSetValueForKey:@"snippets"] allObjects];
+                                                  for (id item in array)
+                                                  {
+                                                      NSMutableDictionary *snippet = [NSMutableDictionary dictionary];
+                                                      [snippet setValue:[item valueForKey:@"name"] forKey:@"name"];
+                                                      [snippet setValue:[item valueForKey:@"text"] forKey:@"text"];
+                                                      [snippet setValue:[collection valueForKey:@"name"] forKey:@"collectionName"];
+                                                      [snippet setValue:[item valueForKey:@"shortcutDisplayString"] forKey:@"shortcutDisplayString"];
+                                                      [snippet setValue:[item valueForKey:@"shortcutMenuItemKeyString"] forKey:@"shortcutMenuItemKeyString"];
+                                                      [snippet setValue:[item valueForKey:@"shortcutModifier"] forKey:@"shortcutModifier"];
+                                                      [snippet setValue:[item valueForKey:@"sortOrder"] forKey:@"sortOrder"];
+                                                      [snippet setValue:@3 forKey:@"version"];
+                                                      [exportArray addObject:snippet];
+                                                  }
+                                                  
+                                                  NSData *data = [NSKeyedArchiver archivedDataWithRootObject:exportArray];
+                                                  [FRAOpenSave performDataSaveWith: data
+                                                                              path: [[savePanel URL] path]];
+                                              }
+                                              
+                                              [snippetsWindow makeKeyAndOrderFront:nil];
+                                          })];
 }
-
-
-- (void)exportSnippetsPanelDidEnd:(NSSavePanel *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)context
-{
-	if (returnCode == NSOKButton) {
-		id collection = [[snippetCollectionsArrayController selectedObjects] objectAtIndex:0];
-				
-		NSMutableArray *exportArray = [NSMutableArray array];
-		NSArray *array = [[collection mutableSetValueForKey:@"snippets"] allObjects];
-		for (id item in array) {
-			NSMutableDictionary *snippet = [NSMutableDictionary dictionary];
-			[snippet setValue:[item valueForKey:@"name"] forKey:@"name"];
-			[snippet setValue:[item valueForKey:@"text"] forKey:@"text"];
-			[snippet setValue:[collection valueForKey:@"name"] forKey:@"collectionName"];
-			[snippet setValue:[item valueForKey:@"shortcutDisplayString"] forKey:@"shortcutDisplayString"];
-			[snippet setValue:[item valueForKey:@"shortcutMenuItemKeyString"] forKey:@"shortcutMenuItemKeyString"];
-			[snippet setValue:[item valueForKey:@"shortcutModifier"] forKey:@"shortcutModifier"];
-			[snippet setValue:[item valueForKey:@"sortOrder"] forKey:@"sortOrder"];
-			[snippet setValue:[NSNumber numberWithInteger:3] forKey:@"version"];
-			[exportArray addObject:snippet];
-		}
-		
-		NSData *data = [NSKeyedArchiver archivedDataWithRootObject:exportArray];
-		[FRAOpenSave performDataSaveWith:data path:[sheet filename]];
-	}
-	
-	[snippetsWindow makeKeyAndOrderFront:nil];
-}
-
 
 - (void)windowWillClose:(NSNotification *)aNotification
 {
@@ -312,27 +304,25 @@ static id sharedInstance = nil;
 	} else {
 		[aCell setFont:[NSFont systemFontOfSize:13.0]];
 	}
-}	
+}
 
 
 - (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar
 {
-    return [NSArray arrayWithObjects:@"NewSnippetCollectionToolbarItem",
-		@"NewSnippetToolbarItem",
-		@"FilterSnippetsToolbarItem",
-		NSToolbarFlexibleSpaceItemIdentifier,
-		nil];
+    return @[@"NewSnippetCollectionToolbarItem",
+             @"NewSnippetToolbarItem",
+             @"FilterSnippetsToolbarItem",
+             NSToolbarFlexibleSpaceItemIdentifier];
 }
 
 
-- (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar  
-{      
-	return [NSArray arrayWithObjects:@"NewSnippetCollectionToolbarItem",
-		NSToolbarFlexibleSpaceItemIdentifier,
-		@"FilterSnippetsToolbarItem",
-		@"NewSnippetToolbarItem",
-		nil];  
-} 
+- (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar
+{
+	return @[@"NewSnippetCollectionToolbarItem",
+             NSToolbarFlexibleSpaceItemIdentifier,
+             @"FilterSnippetsToolbarItem",
+             @"NewSnippetToolbarItem"];
+}
 
 
 - (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)willBeInserted
@@ -340,15 +330,15 @@ static id sharedInstance = nil;
     if ([itemIdentifier isEqualToString:@"NewSnippetCollectionToolbarItem"]) {
         
 		NSImage *newSnippetCollectionImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRANewCollectionIcon" ofType:@"pdf" inDirectory:@"Toolbar Icons"]];
-		[[[newSnippetCollectionImage representations] objectAtIndex:0] setAlpha:YES];
+		[[newSnippetCollectionImage representations][0] setAlpha:YES];
 		
 		return [NSToolbarItem createToolbarItemWithIdentifier:itemIdentifier name:NEW_COLLECTION_STRING image:newSnippetCollectionImage action:@selector(newCollectionAction:) tag:0 target:self];
 		
 		
 	} else if ([itemIdentifier isEqualToString:@"NewSnippetToolbarItem"]) {
-
+        
 		NSImage *newSnippetImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRANewIcon" ofType:@"pdf" inDirectory:@"Toolbar Icons"]];
-		[[[newSnippetImage representations] objectAtIndex:0] setAlpha:YES];
+		[[newSnippetImage representations][0] setAlpha:YES];
 		
 		return [NSToolbarItem createToolbarItemWithIdentifier:itemIdentifier name:NSLocalizedStringFromTable(@"New Snippet", @"Localizable3", @"New Snippet") image:newSnippetImage action:@selector(newSnippetAction:) tag:0 target:self];
 		

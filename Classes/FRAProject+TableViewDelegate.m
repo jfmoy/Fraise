@@ -37,7 +37,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 			return;
 		}
 		
-		id document = [[[self documentsArrayController] selectedObjects] objectAtIndex:0];
+		id document = [[self documentsArrayController] selectedObjects][0];
 		
 		[self performInsertFirstDocument:document];
 	}
@@ -54,7 +54,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	}
 	
 	if (aTableView == [self documentsTableView]) {
-		id document = [[[self documentsArrayController] arrangedObjects] objectAtIndex:rowIndex];
+		id document = [[self documentsArrayController] arrangedObjects][rowIndex];
 		
 		if ([[document valueForKey:@"isNewDocument"] boolValue] == YES) {
 			[aTableView addToolTipRect:[aTableView rectOfRow:rowIndex] owner:UNSAVED_STRING userData:nil];
