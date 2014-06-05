@@ -91,7 +91,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	while (numberOfSpaces--) {
 		[sizeString appendString:@" "];
 	}
-	NSDictionary *sizeAttribute = [[NSDictionary alloc] initWithObjectsAndKeys:[NSUnarchiver unarchiveObjectWithData:[FRADefaults valueForKey:@"PrintFont"]], NSFontAttributeName, nil];
+	NSDictionary *sizeAttribute = @{NSFontAttributeName: [NSUnarchiver unarchiveObjectWithData:[FRADefaults valueForKey:@"PrintFont"]]};
 	CGFloat sizeOfTab = [sizeString sizeWithAttributes:sizeAttribute].width;
 	
 	NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
@@ -101,7 +101,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	}
 	
 	[style setDefaultTabInterval:sizeOfTab];
-	NSDictionary *attributes = [[NSDictionary alloc] initWithObjectsAndKeys:style, NSParagraphStyleAttributeName, nil];
+	NSDictionary *attributes = @{NSParagraphStyleAttributeName: style};
 	[self setTypingAttributes:attributes];
 	
 	BOOL printOnlySelection = NO;

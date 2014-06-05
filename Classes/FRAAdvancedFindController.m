@@ -102,12 +102,12 @@ static id sharedInstance = nil;
 	for (id document in enumerator) {
 		node = [NSMutableDictionary dictionary];
 		if ([[FRADefaults valueForKey:@"ShowFullPathInWindowTitle"] boolValue] == YES) {
-			[node setValue:[document valueForKey:@"nameWithPath"] forKey:@"displayString"];
+			node[@"displayString"] = [document valueForKey:@"nameWithPath"];
 		} else {
-			[node setValue:[document valueForKey:@"name"] forKey:@"displayString"];
+			node[@"displayString"] = [document valueForKey:@"name"];
 		}
-		[node setValue:@NO forKey:@"isLeaf"];
-		[node setValue:[FRABasic uriFromObject:document] forKey:@"document"];
+		node[@"isLeaf"] = @NO;
+		node[@"document"] = [FRABasic uriFromObject:document];
 		folderIndexPath = [[NSIndexPath alloc] initWithIndex:documentIndex];
 		[findResultsTreeController insertObject:node atArrangedObjectIndexPath:folderIndexPath];
 		

@@ -229,17 +229,17 @@ static id sharedInstance = nil;
                                                   for (NSDictionary *item in enumerator)
                                                   {
                                                       NSMutableDictionary *command = [[NSMutableDictionary alloc] init];
-                                                      [command setValue:[item valueForKey:@"name"] forKey:@"name"];
-                                                      [command setValue:[item valueForKey:@"text"] forKey:@"text"];
-                                                      [command setValue:[collection valueForKey:@"name"] forKey:@"collectionName"];
-                                                      [command setValue:[item valueForKey:@"shortcutDisplayString"] forKey:@"shortcutDisplayString"];
-                                                      [command setValue:[item valueForKey:@"shortcutMenuItemKeyString"] forKey:@"shortcutMenuItemKeyString"];
-                                                      [command setValue:[item valueForKey:@"shortcutModifier"] forKey:@"shortcutModifier"];
-                                                      [command setValue:[item valueForKey:@"sortOrder"] forKey:@"sortOrder"];
-                                                      [command setValue:@3 forKey:@"version"];
-                                                      [command setValue:[item valueForKey:@"inline"] forKey:@"inline"];
-                                                      [command setValue:[item valueForKey:@"interpreter"] forKey:@"interpreter"];
-                                                      [exportArray addObject:command];
+                                                      command[@"name"] = [item valueForKey:@"name"];
+                                                      command[@"text"] = [item valueForKey:@"text"];
+                                                      command[@"collectionName"] = [collection valueForKey:@"name"];
+                                                      command[@"shortcutDisplayString"] = [item valueForKey:@"shortcutDisplayString"];
+                                                      command[@"shortcutMenuItemKeyString"] = [item valueForKey:@"shortcutMenuItemKeyString"];
+                                                      command[@"shortcutModifier"] = [item valueForKey:@"shortcutModifier"];
+                                                      command[@"sortOrder"] = [item valueForKey:@"sortOrder"];
+                                                      command[@"version"] = @3;
+                                                      command[@"inline"] = [item valueForKey:@"inline"];
+                                                      command[@"interpreter"] = [item valueForKey:@"interpreter"];
+                                                      [exportArray addObject: command];
                                                   }
                                                   
                                                   NSData *data = [NSKeyedArchiver archivedDataWithRootObject:exportArray];

@@ -82,7 +82,7 @@ static id sharedInstance = nil;
 	NSInteger index = 1;
 	for (id document in array) {
 		if (index < 10) {
-			menuItem = [[NSMenuItem alloc] initWithTitle:[document valueForKey:@"name"] action:@selector(changeSelectedDocument:) keyEquivalent:[[NSNumber numberWithUnsignedShort:index] stringValue]];
+			menuItem = [[NSMenuItem alloc] initWithTitle:[document valueForKey:@"name"] action:@selector(changeSelectedDocument:) keyEquivalent:[ @(index) stringValue]];
 		} else if (index == 10) {
 			menuItem = [[NSMenuItem alloc] initWithTitle:[document valueForKey:@"name"] action:@selector(changeSelectedDocument:) keyEquivalent:@"0"];
 		} else {

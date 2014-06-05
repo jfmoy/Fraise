@@ -659,17 +659,17 @@
                         NSInteger desiredReduction = (NSInteger)neededWidth/(q+1);
                         if(([newWidths[q] doubleValue] - desiredReduction) < _cellMinWidth){
                             NSInteger actualReduction = (NSInteger)[newWidths[q] doubleValue] - _cellMinWidth;
-                            newWidths[q] = [NSNumber numberWithDouble:_cellMinWidth];
+                            newWidths[q] =  @(_cellMinWidth);
                             neededWidth -= actualReduction;
                         } else {
                             NSInteger newCellWidth = (NSInteger)[newWidths[q] doubleValue] - desiredReduction;
-                            newWidths[q] = [NSNumber numberWithDouble:newCellWidth];
+                            newWidths[q] =  @(newCellWidth);
                             neededWidth -= desiredReduction;
                         }
                     }
                     // one cell left!
                     NSInteger thisWidth = width - neededWidth;
-                    [newWidths addObject:[NSNumber numberWithDouble:thisWidth]];
+                    [newWidths addObject: @(thisWidth)];
                     numberOfVisibleCells++;
                 } else {
                     // stretch - distribute leftover room among cells
@@ -678,7 +678,7 @@
                     for(q = (i - 1); q >= 0; q--){
                         NSInteger desiredAddition = (NSInteger)leftoverWidth/(q+1);
                         NSInteger newCellWidth = (NSInteger)[newWidths[q] doubleValue] + desiredAddition;
-                        newWidths[q] = [NSNumber numberWithDouble:newCellWidth];
+                        newWidths[q] =  @(newCellWidth);
                         leftoverWidth -= desiredAddition;
                     }
                 }
@@ -689,11 +689,11 @@
                     NSInteger q;
                     totalOccupiedWidth = 0;
                     for(q = 0; q < [newWidths count]; q++){
-                        newWidths[q] = [NSNumber numberWithDouble:revisedWidth];
+                        newWidths[q] =  @(revisedWidth);
                         totalOccupiedWidth += revisedWidth;
                     }
                     // just squeezed this one in...
-                    [newWidths addObject:[NSNumber numberWithDouble:revisedWidth]];
+                    [newWidths addObject: @(revisedWidth)];
                     totalOccupiedWidth += revisedWidth;
                     numberOfVisibleCells++;
                 } else {

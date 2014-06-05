@@ -126,7 +126,7 @@ static id sharedInstance = nil;
 	} else {
 		selectionRange = [textView selectedRange];
 	}
-	[positionTextField setStringValue:[NSString stringWithFormat:@"%@\\%@", [FRABasic thousandFormatedStringFromNumber:[NSNumber numberWithInteger:(selectionRange.location - [text lineRangeForRange:selectionRange].location)]], [FRABasic thousandFormatedStringFromNumber:[NSNumber numberWithInteger:selectionRange.location]]]];
+	[positionTextField setStringValue:[NSString stringWithFormat:@"%@\\%@", [FRABasic thousandFormatedStringFromNumber: @((selectionRange.location - [text lineRangeForRange:selectionRange].location))], [FRABasic thousandFormatedStringFromNumber: @(selectionRange.location)]]];
 	
 	NSInteger index;
 	NSInteger lineNumber;

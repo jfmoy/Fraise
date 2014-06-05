@@ -68,8 +68,8 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (void)insertView:(FRAView)view
 {
-	[FRADefaults setValue:[NSNumber numberWithInteger:view] forKey:@"View"];
-	[project setValue:[NSNumber numberWithInteger:view] forKey:@"view"];
+	[FRADefaults setValue: @(view) forKey:@"View"];
+	[project setValue: @(view) forKey:@"view"];
 	
 	[FRAInterface removeAllSubviewsFromView:leftDocumentsView];
 	

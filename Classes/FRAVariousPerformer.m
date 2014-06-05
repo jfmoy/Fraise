@@ -85,7 +85,7 @@ static id sharedInstance = nil;
 	while ((encoding = *availableEncodings++))
     {
 		id item = [FRABasic createNewObjectForEntity:@"Encoding"];
-		NSNumber *encodingObject = [NSNumber numberWithInteger:encoding];
+		NSNumber *encodingObject =  @(encoding);
 		if ([activeEncodings containsObject:encodingObject]) {
 			[item setValue:@YES forKey:@"active"];
 		}
@@ -179,25 +179,34 @@ static id sharedInstance = nil;
 		NSDictionary *defaultCommands = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"DefaultCommands" ofType:@"plist"]];
 		
 		NSEnumerator *collectionEnumerator = [defaultCommands keyEnumerator];
-		for (id collection in collectionEnumerator) {
+		for (id collection in collectionEnumerator)
+        {
 			id newCollection = [FRABasic createNewObjectForEntity:@"CommandCollection"];
 			[newCollection setValue:collection forKey:@"name"];
-			NSEnumerator *snippetEnumerator = [[defaultCommands valueForKey:collection] objectEnumerator];
-			for (id command in snippetEnumerator) {
+			
+            NSEnumerator *snippetEnumerator = [defaultCommands[collection] objectEnumerator];
+			for (id command in snippetEnumerator)
+            {
 				id newCommand = [FRABasic createNewObjectForEntity:@"Command"];
-				[newCommand setValue:[command valueForKey:@"name"] forKey:@"name"];
-				[newCommand setValue:[command valueForKey:@"text"] forKey:@"text"];
-				if ([command valueForKey:@"inline"] != nil) {
-					[newCommand setValue:[command valueForKey:@"inline"] forKey:@"inline"];
+				newCommand[@"name"] = command[@"name"];
+				newCommand[@"text"] = command[@"text"];
+				
+                if (command[@"inline"] != nil)
+                {
+					[newCommand setValue:command[@"inline"] forKey:@"inline"];
 				}
-				if ([command valueForKey:@"interpreter"] != nil) {
-					[newCommand setValue:[command valueForKey:@"interpreter"] forKey:@"interpreter"];
+                
+				if (command[@"interpreter"] != nil)
+                {
+					newCommand[@"interpreter"] = command[@"interpreter"];
 				}
+                
 				[[newCollection mutableSetValueForKey:@"commands"] addObject:newCommand];
 			}
 		}
 		
-		[FRADefaults setValue:@YES forKey:@"HasInsertedDefaultCommands3"];
+		[FRADefaults setValue: @YES
+                       forKey: @"HasInsertedDefaultCommands3"];
 	}
 }
 

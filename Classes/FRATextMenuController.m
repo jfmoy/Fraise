@@ -107,7 +107,7 @@ static id sharedInstance = nil;
 	[[[document valueForKey:@"syntaxColouring"] undoManager] registerUndoWithTarget:self selector:@selector(performUndoChangeEncoding:) object:@[[document valueForKey:@"encoding"]]];
 	[[[document valueForKey:@"syntaxColouring"] undoManager] setActionName:NAME_FOR_UNDO_CHANGE_ENCODING];
 	
-	[document setValue:[NSNumber numberWithInteger:encoding] forKey:@"encoding"];
+	[document setValue: @(encoding) forKey:@"encoding"];
 	[document setValue:[NSString localizedNameOfStringEncoding:encoding] forKey:@"encodingName"];
 	
 	[FRAInterface updateStatusBar];
@@ -900,7 +900,7 @@ static id sharedInstance = nil;
 - (void)reloadText:(id)sender
 {
 	id document = FRACurrentDocument;
-	[document setValue:[NSNumber numberWithUnsignedInteger:[sender tag]] forKey:@"encoding"];
+	[document setValue: @([sender tag]) forKey:@"encoding"];
 	[document setValue:[NSString localizedNameOfStringEncoding:[sender tag]] forKey:@"encodingName"];
 	[[FRAFileMenuController sharedInstance] performRevertOfDocument:document];
 }

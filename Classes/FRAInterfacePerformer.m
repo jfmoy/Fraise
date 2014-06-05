@@ -369,7 +369,8 @@ static id sharedInstance = nil;
 	NSRect frame;
 	
 	// Update document value first.
-	[document setValue:[NSNumber numberWithUnsignedInt:gutterWidth] forKey:@"gutterWidth"];
+	[document setValue: @(gutterWidth)
+                forKey:@"gutterWidth"];
 	
 	for (NSString* viewNumber in viewNumbers) {
 		NSScrollView *gutterScrollView = (NSScrollView *) [document valueForKey:[NSString stringWithFormat:@"%@GutterScrollView", viewNumber]];
@@ -457,7 +458,7 @@ static id sharedInstance = nil;
 		} else {
 			selectionRange = [textView selectedRange];
 		}
-		[statusBarString appendFormat:@"%@: %@\\%@", statusBarPositionString, [FRABasic thousandFormatedStringFromNumber:[NSNumber numberWithInteger:(selectionRange.location - [text lineRangeForRange:selectionRange].location)]], [FRABasic thousandFormatedStringFromNumber:[NSNumber numberWithInteger:selectionRange.location]]];
+		[statusBarString appendFormat:@"%@: %@\\%@", statusBarPositionString, [FRABasic thousandFormatedStringFromNumber: @((selectionRange.location - [text lineRangeForRange:selectionRange].location))], [FRABasic thousandFormatedStringFromNumber: @(selectionRange.location)]];
 	}
 	
 	if ([[FRADefaults valueForKey:@"StatusBarShowEncoding"] boolValue] == YES) {
@@ -598,7 +599,7 @@ static id sharedInstance = nil;
 	NSInteger index = 0;
 	NSInteger lineNumber = 0;
 	NSMutableArray *returnArray = [NSMutableArray array];
-	NSArray *keys = [[NSArray alloc] initWithObjects:@"lineNumber", @"name", nil];
+	NSArray *keys = @[@"lineNumber", @"name"];
 	while ([matcher findNext]) {
 		NSRange matchRange = [matcher rangeOfMatch];
 		while (index <= matchRange.location + 1) {

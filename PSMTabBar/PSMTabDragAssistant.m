@@ -160,7 +160,7 @@ static PSMTabDragAssistant *sharedDragAssistant = nil;
     [cell setHighlighted:NO];
     NSSize offset = NSZeroSize;
     [pboard declareTypes:@[@"PSMTabBarControlItemPBType"] owner: nil];
-    [pboard setString:[[NSNumber numberWithInteger:[[control cells] indexOfObject:cell]] stringValue] forType:@"PSMTabBarControlItemPBType"];
+    [pboard setString:[ @([[control cells] indexOfObject:cell]) stringValue] forType:@"PSMTabBarControlItemPBType"];
     _animationTimer = [NSTimer scheduledTimerWithTimeInterval:(1.0/30.0) target:self selector:@selector(animateDrag:) userInfo:nil repeats:YES];
     [control dragImage:dragImage at:cellFrame.origin offset:offset event:event pasteboard:pboard source:control slideBack:YES];
 }

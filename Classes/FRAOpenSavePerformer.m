@@ -305,7 +305,7 @@ static id sharedInstance = nil;
 	[[FRAApplicationDelegate sharedInstance] setAppleEventDescriptor:nil];
 	
 	
-	[document setValue:[NSNumber numberWithInteger:encoding] forKey:@"encoding"];
+	[document setValue: @(encoding) forKey:@"encoding"];
 	[document setValue:[NSString localizedNameOfStringEncoding:[[document valueForKey:@"encoding"] integerValue]] forKey:@"encodingName"];
 	[document setValue:path forKey:@"path"];
 	[FRACurrentProject updateWindowTitleBarForDocument:document];

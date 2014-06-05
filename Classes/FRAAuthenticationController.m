@@ -83,7 +83,7 @@ static id sharedInstance = nil;
 	[writeHandle writeData:data];
 	
 	close([writeHandle fileDescriptor]); // Close it manually
-	[writeHandle setValue:[NSNumber numberWithUnsignedShort:1] forKey:@"_flags"];
+	[writeHandle setValue: @1 forKey:@"_flags"];
 	
 	[task waitUntilExit];
 	
@@ -123,7 +123,7 @@ static id sharedInstance = nil;
 		[writeHandle writeData:fraiseData];
 		
 		close([writeHandle fileDescriptor]); // Close it manually
-		[writeHandle setValue:[NSNumber numberWithUnsignedShort:1] forKey:@"_flags"];
+		[writeHandle setValue: @1 forKey:@"_flags"];
 	}
 	@catch (NSException *exception) {
 		status = 1;
@@ -148,7 +148,7 @@ static id sharedInstance = nil;
 		[writeHandle writeData:fraiseManPageData];
 		
 		close([writeHandle fileDescriptor]); // Close it manually
-		[writeHandle setValue:[NSNumber numberWithUnsignedShort:1] forKey:@"_flags"];
+		[writeHandle setValue: @1 forKey:@"_flags"];
 		
 		[task waitUntilExit];
 		

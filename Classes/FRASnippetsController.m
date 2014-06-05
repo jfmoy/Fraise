@@ -250,14 +250,14 @@ static id sharedInstance = nil;
                                                   for (id item in array)
                                                   {
                                                       NSMutableDictionary *snippet = [NSMutableDictionary dictionary];
-                                                      [snippet setValue:[item valueForKey:@"name"] forKey:@"name"];
-                                                      [snippet setValue:[item valueForKey:@"text"] forKey:@"text"];
-                                                      [snippet setValue:[collection valueForKey:@"name"] forKey:@"collectionName"];
-                                                      [snippet setValue:[item valueForKey:@"shortcutDisplayString"] forKey:@"shortcutDisplayString"];
-                                                      [snippet setValue:[item valueForKey:@"shortcutMenuItemKeyString"] forKey:@"shortcutMenuItemKeyString"];
-                                                      [snippet setValue:[item valueForKey:@"shortcutModifier"] forKey:@"shortcutModifier"];
-                                                      [snippet setValue:[item valueForKey:@"sortOrder"] forKey:@"sortOrder"];
-                                                      [snippet setValue:@3 forKey:@"version"];
+                                                      snippet[@"name"] = [item valueForKey:@"name"];
+                                                      snippet[@"text"] = [item valueForKey:@"text"];
+                                                      snippet[@"collectionName"] = [collection valueForKey:@"name"];
+                                                      snippet[@"shortcutDisplayString"] = [item valueForKey:@"shortcutDisplayString"];
+                                                      snippet[@"shortcutMenuItemKeyString"] = [item valueForKey:@"shortcutMenuItemKeyString"];
+                                                      snippet[@"shortcutModifier"] = [item valueForKey:@"shortcutModifier"];
+                                                      snippet[@"sortOrder"] = [item valueForKey:@"sortOrder"];
+                                                      snippet[@"version"] = @3;
                                                       [exportArray addObject:snippet];
                                                   }
                                                   
