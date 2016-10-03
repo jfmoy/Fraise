@@ -117,7 +117,7 @@ static id sharedInstance = nil;
                                           {
                                               [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"AppleShowAllFiles"];
                                               
-                                              if (returnCode == NSOKButton)
+                                              if (returnCode == NSModalResponseOK)
                                               {
                                                   [FRADefaults setValue: [[[openPanel URL] path] stringByDeletingLastPathComponent]
                                                                  forKey: @"LastOpenDirectory"];
@@ -159,7 +159,7 @@ static id sharedInstance = nil;
                                               [savePanel close];
                                               [FRAVarious stopModalLoop];
                                               
-                                              if (returnCode == NSOKButton)
+                                              if (returnCode == NSModalResponseOK)
                                               {
                                                   if ([[FRACurrentDocument valueForKey:@"fromExternal"] boolValue] == YES)
                                                   {
@@ -202,7 +202,7 @@ static id sharedInstance = nil;
     [savePanel beginSheetModalForWindow: FRACurrentWindow
                       completionHandler: (^(NSInteger returnCode)
                                           {
-                                              if (returnCode == NSOKButton)
+                                              if (returnCode == NSModalResponseOK)
                                               {
                                                   NSString *path = [[savePanel URL] path];
                                                   [FRAOpenSave performSaveOfDocument: FRACurrentDocument
@@ -248,7 +248,7 @@ static id sharedInstance = nil;
 
 - (void)revertSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
 {
-    if (returnCode == NSAlertDefaultReturn) {
+    if (returnCode == NSAlertFirstButtonReturn) {
 		[self performRevertOfDocument:FRACurrentDocument];
 	}
 }
@@ -288,7 +288,7 @@ static id sharedInstance = nil;
 	NSInteger tag = [anItem tag];
 	if (FRACurrentProject != nil && [FRACurrentProject areThereAnyDocuments]) {
 		if (tag == 2) { // Save All
-			NSArray *array = [FRACurrentProject documents];
+			NSSet *array = [FRACurrentProject documents];
 			for (id item in array) {
 				if ([[item valueForKey:@"isEdited"] boolValue] == YES) {
 					enableMenuItem = YES;
@@ -342,7 +342,7 @@ static id sharedInstance = nil;
 
 - (IBAction)saveAllAction:(id)sender
 {
-	NSArray *array = [FRACurrentProject documents];
+	NSSet *array = [FRACurrentProject documents];
 	for (id item in array) {
 		if ([[item valueForKey:@"isEdited"] boolValue] == YES) {
 			if ([[item valueForKey:@"isNewDocument"] boolValue] == YES) {
@@ -369,7 +369,7 @@ static id sharedInstance = nil;
                                               [savePanel close];
                                               [FRAVarious stopModalLoop];
                                               
-                                              if (returnCode == NSOKButton)
+                                              if (returnCode == NSModalResponseOK)
                                               {                                                  
                                                   NSString *path = [[savePanel URL] path];
                                                   [FRAOpenSave performSaveOfDocument:document path:path fromSaveAs:NO aCopy:NO];

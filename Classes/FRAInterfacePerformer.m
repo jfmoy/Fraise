@@ -501,6 +501,11 @@ static id sharedInstance = nil;
 	} else {
 		directory = [FRADefaults valueForKey:@"OpenAlwaysUseTextField"];
 	}
+    
+    if (directory == nil) {
+        directory = [[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory
+                                                            inDomains:NSUserDomainMask] lastObject] path];
+    }
 	
 	return [directory stringByExpandingTildeInPath];
 }
