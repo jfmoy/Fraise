@@ -187,17 +187,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 }
 
 
-// See -[FRATextView complete:]
-- (NSEvent *)nextEventMatchingMask:(NSUInteger)eventMask untilDate:(NSDate *)expirationDate inMode:(NSString *)runLoopMode dequeue:(BOOL)dequeue
-{
-	if ([runLoopMode isEqualToString:NSEventTrackingRunLoopMode]) {
-		if ([FRACurrentTextView inCompleteMethod]) eventMask &= ~NSEventMaskAppKitDefined;
-	}
-	
-	return [super nextEventMatchingMask:eventMask untilDate:expirationDate inMode:runLoopMode dequeue:dequeue];
-}
-
-
 #pragma mark
 #pragma mark AppleScript
 - (NSString *)name

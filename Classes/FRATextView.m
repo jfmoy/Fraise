@@ -26,7 +26,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 @implementation FRATextView
 
-@synthesize colouredIBeamCursor, inCompleteMethod;
+@synthesize colouredIBeamCursor;
 
 - (id)initWithFrame:(NSRect)frame
 {
@@ -42,8 +42,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (void)setDefaults
 {
-	inCompleteMethod = NO;
-	
 	[self setTabWidth];
 	
 	[self setVerticallyResizable:YES];
@@ -641,13 +639,4 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	[super performFindPanelAction:sender];
 }
 
-
-
-// A workaround for Radar ID 5663445 (the complete menu disappears too soon)
-//- (void)complete:(id)sender
-//{
-//	inCompleteMethod = YES;
-//	[super complete:sender];
-//	inCompleteMethod = NO;
-//}
 @end
