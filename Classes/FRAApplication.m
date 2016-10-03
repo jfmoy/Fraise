@@ -43,10 +43,10 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (void)sendEvent:(NSEvent *)event
 {
-	if ([event type] == NSKeyDown) {
+	if ([event type] == NSEventTypeKeyDown) {
 		eventWindow = [event window];
 		if (eventWindow == FRACurrentWindow) {
-			flags = [event modifierFlags] & NSDeviceIndependentModifierFlagsMask;
+			flags = [event modifierFlags] & NSEventModifierFlagDeviceIndependentFlagsMask;
 			
 			if (flags == 1703936) { // Command, Option, Shift
 				keyCode = [event keyCode];
@@ -104,7 +104,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 			
 		} else if (eventWindow == [FRAInterface fullScreenWindow]) {
 			if ([FRAMain isInFullScreenMode]) {
-				flags = [event modifierFlags] & NSDeviceIndependentModifierFlagsMask;
+				flags = [event modifierFlags] & NSEventModifierFlagDeviceIndependentFlagsMask;
 				keyCode = [event keyCode];
 				if (keyCode == 0x35 && flags == 0) { // 35 is Escape,
 					[(FRAFullScreenWindow *)[FRAInterface fullScreenWindow] returnFromFullScreen];
@@ -191,7 +191,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 - (NSEvent *)nextEventMatchingMask:(NSUInteger)eventMask untilDate:(NSDate *)expirationDate inMode:(NSString *)runLoopMode dequeue:(BOOL)dequeue
 {
 	if ([runLoopMode isEqualToString:NSEventTrackingRunLoopMode]) {
-		if ([FRACurrentTextView inCompleteMethod]) eventMask &= ~NSAppKitDefinedMask;
+		if ([FRACurrentTextView inCompleteMethod]) eventMask &= ~NSEventMaskAppKitDefined;
 	}
 	
 	return [super nextEventMatchingMask:eventMask untilDate:expirationDate inMode:runLoopMode dequeue:dequeue];

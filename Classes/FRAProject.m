@@ -476,51 +476,38 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	if ([[document valueForKey:@"isEdited"] boolValue] == YES) {
 		[self selectDocument:document];
 		NSString *title = [NSString stringWithFormat:NSLocalizedString(@"The document %@ has not been saved", @"Indicate in Close-sheet that the document %@ has not been saved."), [document valueForKey:@"name"]];
-		NSBeginAlertSheet(title,
-						  SAVE_STRING,
-						  NSLocalizedString(@"Don't Save", @"Don't Save-button in Close-sheet"),
-						  CANCEL_BUTTON,
-						  [self window],
-						  self,
-						  @selector(closeSheetDidEnd:returnCode:contextInfo:),
-						  nil,
-						  (__bridge void *)@[document, @(keepOpen)],
-						  NSLocalizedString(@"Your changes will be lost if you close the document without saving.", @"Your changes will be lost if you close the document without saving in Close-sheet"));
-		[NSApp runModalForWindow:[[self window] attachedSheet]]; // Modal to make sure that nothing happens while the sheet is displaying
+        
+        NSAlert* alert = [[NSAlert alloc] init];
+        [alert addButtonWithTitle:SAVE_STRING];
+        [alert addButtonWithTitle:NSLocalizedString(@"Don't Save", @"Don't Save-button in Close-sheet")];
+        [alert addButtonWithTitle:CANCEL_BUTTON];
+        [alert setMessageText:title];
+        [alert setInformativeText:NSLocalizedString(@"Your changes will be lost if you close the document without saving.", @"Your changes will be lost if you close the document without saving in Close-sheet")];
+        [alert setAlertStyle:NSAlertStyleInformational];
+        
+        NSInteger returnCode = [alert runModal];
+        if (returnCode == NSAlertFirstButtonReturn) {
+            [[FRAFileMenuController sharedInstance] saveAction:nil];
+            if ([[document valueForKey:@"isEdited"] boolValue] == NO) { // Save didn't fail
+                if (keepOpen == NO) {
+                    [self performCloseDocument:document];
+                }
+            } else {
+                shouldWindowClose = NO;
+            }
+        } else if (returnCode == NSAlertSecondButtonReturn) {
+            if (keepOpen == NO) {
+                [self performCloseDocument:document];
+            }
+        } else { // The user wants to review the document
+            shouldWindowClose = NO;
+        }
 	} else {
 		if (keepOpen == NO) {
 			[self performCloseDocument:document];
 		}
 	}
 }
-
-
-- (void)closeSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
-{
-    [FRAVarious stopModalLoop];
-	
-	id document = ((__bridge NSArray *)contextInfo)[0];
-	BOOL keepOpen = [((__bridge NSArray *)contextInfo)[1] boolValue];
-	
-	if (returnCode == NSAlertDefaultReturn) {
-		[sheet close];
-		[[FRAFileMenuController sharedInstance] saveAction:nil];
-		if ([[document valueForKey:@"isEdited"] boolValue] == NO) { // Save didn't fail
-			if (keepOpen == NO) {
-				[self performCloseDocument:document];
-			}
-		} else {
-			shouldWindowClose = NO;
-		}
-	} else if (returnCode == NSAlertAlternateReturn) {
-		if (keepOpen == NO) {
-			[self performCloseDocument:document];
-		}
-	} else { // The user wants to review the document
-		shouldWindowClose = NO;
-	}
-}
-
 
 - (void)performCloseDocument:(id)document
 {
