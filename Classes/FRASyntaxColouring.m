@@ -27,6 +27,7 @@
 #import "FRAPreviewController.h"
 #import "FRALineNumbers.h"
 #import "FRAProject.h"
+#import "FRAProject+DocumentViewsController.h"
 
 #import "ICUPattern.h"
 #import "ICUMatcher.h"
@@ -1289,7 +1290,7 @@
 	if (![undoManager canUndo]) {
 		[FRACurrentDocument setValue:@NO forKey:@"isEdited"];
 		[FRACurrentProject updateEditedBlobStatus];
-		[FRACurrentProject reloadData];
+		[(FRAProject*)FRACurrentProject reloadData];
 	}
 }
 

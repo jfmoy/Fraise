@@ -25,6 +25,7 @@
 #import "FRALayoutManager.h"
 #import "FRASyntaxColouring.h"
 #import "FRAProject.h"
+#import "FRAProject+DocumentViewsController.h"
 #import "FRALineNumbers.h"
 
 
@@ -276,7 +277,7 @@ static id sharedInstance = nil;
 	[[document valueForKey:@"firstTextView"] setSelectedRange:NSMakeRange(0,0)];
 	[document setValue:@NO forKey:@"isEdited"];
 	[FRACurrentProject updateEditedBlobStatus];
-	[FRACurrentProject reloadData];
+	[(FRAProject*)FRACurrentProject reloadData];
 	[FRAInterface updateStatusBar];
 }
 
