@@ -22,9 +22,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		1F7486DD114F201200767B18 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1FB4A7F8114ED9C30056E2EC /* Sparkle.framework */; };
 		1FACC99F113FAE1200515523 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FACC99E113FAE1200515523 /* QuartzCore.framework */; };
-		1FB4A7F9114ED9C30056E2EC /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FB4A7F8114ED9C30056E2EC /* Sparkle.framework */; };
 		1FB593BA113EE34600ECB6C0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1FB593B9113EE34600ECB6C0 /* Localizable.strings */; };
 		1FB593BD113EE35E00ECB6C0 /* Localizable3.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1FB593BC113EE35E00ECB6C0 /* Localizable3.strings */; };
 		1FD4A30F114F120E00131FFB /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 1FD4A30E114F120E00131FFB /* dsa_pub.pem */; };
@@ -154,6 +152,8 @@
 		8D15AC310486D014006FF6A4 /* FRAProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* FRAProject.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
+		E1FD9F4A1DA29ECE0076C3B9 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1FD9F491DA29ECE0076C3B9 /* Sparkle.framework */; };
+		E1FD9F4C1DA29F760076C3B9 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E1FD9F491DA29ECE0076C3B9 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -174,22 +174,22 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		1F7486E8114F202A00767B18 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				1F7486DD114F201200767B18 /* Sparkle.framework in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		7F1DE28F0BD198FA00AD5707 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = ../Library/Spotlight;
 			dstSubfolderSpec = 7;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1FD9F4B1DA29F390076C3B9 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E1FD9F4C1DA29F760076C3B9 /* Sparkle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,7 +211,6 @@
 		1F0917C4113F973000F3BB28 /* sv */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable3.strings; sourceTree = "<group>"; };
 		1F7485FB114F13BF00767B18 /* Distribution-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Distribution-Info.plist"; sourceTree = "<group>"; };
 		1FACC99E113FAE1200515523 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		1FB4A7F8114ED9C30056E2EC /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		1FB593BB113EE35000ECB6C0 /* French */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1FB593BE113EE36300ECB6C0 /* French */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/Localizable3.strings; sourceTree = "<group>"; };
 		1FD4A30E114F120E00131FFB /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
@@ -521,6 +520,7 @@
 		7FD53F120D91A8F30071054F /* Fraise-Manual.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Fraise-Manual.pdf"; sourceTree = "<group>"; };
 		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* Fraise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fraise.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1FD9F491DA29ECE0076C3B9 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -543,9 +543,9 @@
 				7F5C26B90B73C06D00D2EDDC /* SystemConfiguration.framework in Frameworks */,
 				7F6C9C680B75F23000531EF9 /* libicucore.dylib in Frameworks */,
 				7F51225C0BA72E7E00183863 /* QuartzCore.framework in Frameworks */,
+				E1FD9F4A1DA29ECE0076C3B9 /* Sparkle.framework in Frameworks */,
 				7FBDDF360CF79C7D003BAFB5 /* QuickLook.framework in Frameworks */,
 				1FACC99F113FAE1200515523 /* QuartzCore.framework in Frameworks */,
-				1FB4A7F9114ED9C30056E2EC /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -560,7 +560,6 @@
 				7F1DE27A0BD1984700AD5707 /* CoreFoundation.framework */,
 				7F51225B0BA72E7E00183863 /* QuartzCore.framework */,
 				7F6C9C670B75F23000531EF9 /* libicucore.dylib */,
-				1FB4A7F8114ED9C30056E2EC /* Sparkle.framework */,
 				7F5C26B80B73C06D00D2EDDC /* SystemConfiguration.framework */,
 				7F5C26B40B73C05100D2EDDC /* WebKit.framework */,
 				7F5C26B20B73C04800D2EDDC /* ApplicationServices.framework */,
@@ -573,6 +572,7 @@
 		1058C7A8FEA54F5311CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E1FD9F491DA29ECE0076C3B9 /* Sparkle.framework */,
 				2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */,
 				13E42FBA07B3F13500E4EEF1 /* CoreData.framework */,
 				2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */,
@@ -1069,7 +1069,7 @@
 				8D15AC300486D014006FF6A4 /* Sources */,
 				8D15AC330486D014006FF6A4 /* Frameworks */,
 				7F1DE28F0BD198FA00AD5707 /* CopyFiles */,
-				1F7486E8114F202A00767B18 /* CopyFiles */,
+				E1FD9F4B1DA29F390076C3B9 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -1632,7 +1632,8 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -1641,6 +1642,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				PRODUCT_NAME = Fraise;
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = YES;
@@ -1656,7 +1658,8 @@
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../FraiseSource\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)\"";
@@ -1664,6 +1667,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				PRODUCT_NAME = Fraise;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1673,7 +1677,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_ENABLE_OBJC_GC = required;
+				GCC_ENABLE_OBJC_GC = "";
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
@@ -1697,7 +1701,7 @@
 			buildSettings = {
 				DEAD_CODE_STRIPPING = YES;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_ENABLE_OBJC_GC = required;
+				GCC_ENABLE_OBJC_GC = "";
 				GCC_MODEL_TUNING = G5;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
