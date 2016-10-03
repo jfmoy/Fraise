@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <deployment version="1050" identifier="macosx"/>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
     </dependencies>
     <objects>
@@ -12,7 +12,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="5" userLabel="Appearance &lt;do not localise&gt;">
             <rect key="frame" x="0.0" y="0.0" width="600" height="439"/>
             <autoresizingMask key="autoresizingMask"/>
@@ -81,8 +81,8 @@
                         </menu>
                     </popUpButtonCell>
                     <connections>
-                        <binding destination="55" name="enabled" keyPath="values.StatusBarShowWhenLastSaved" id="79"/>
                         <binding destination="55" name="selectedIndex" keyPath="values.StatusBarLastSavedFormatPopUp" id="78"/>
+                        <binding destination="55" name="enabled" keyPath="values.StatusBarShowWhenLastSaved" id="79"/>
                     </connections>
                 </popUpButton>
                 <box verticalHuggingPriority="750" boxType="separator" id="37">
@@ -296,14 +296,14 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="55" name="font" keyPath="values.TextFont" id="59">
-                            <dictionary key="options">
-                                <string key="NSValueTransformerName">NSUnarchiveFromData</string>
-                            </dictionary>
-                        </binding>
                         <binding destination="55" name="value" keyPath="values.TextFont" id="57">
                             <dictionary key="options">
                                 <string key="NSValueTransformerName">FontTransformer</string>
+                            </dictionary>
+                        </binding>
+                        <binding destination="55" name="font" keyPath="values.TextFont" id="59">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">NSUnarchiveFromData</string>
                             </dictionary>
                         </binding>
                     </connections>
@@ -366,7 +366,6 @@
                     </connections>
                 </button>
             </subviews>
-            <metadata/>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="55" userLabel="Shared Defaults"/>
         <view id="38">
