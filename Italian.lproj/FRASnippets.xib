@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <deployment version="1060" defaultVersion="1060" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="FRASnippetsController">
@@ -17,7 +17,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Frammenti di testo - Fraise" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="SnippetsWindow" animationBehavior="default" id="5" userLabel="SnippetsWindow" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" unifiedTitleAndToolbar="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -44,8 +44,8 @@
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="35" horizontalPageScroll="10" verticalLineScroll="35" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="136">
                                 <rect key="frame" x="0.0" y="0.0" width="172" height="386"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <clipView key="contentView" id="UdD-d2-XKb">
-                                    <rect key="frame" x="1" y="17" width="170" height="368"/>
+                                <clipView key="contentView" drawsBackground="NO" id="UdD-d2-XKb">
+                                    <rect key="frame" x="1" y="0.0" width="170" height="385"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" selectionHighlightStyle="sourceList" columnReordering="NO" multipleSelection="NO" emptySelection="NO" autosaveName="SnippetCollections" rowHeight="33" headerView="205" id="137" customClass="FRATableView">
@@ -78,7 +78,7 @@
                                             </connections>
                                         </tableView>
                                     </subviews>
-                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <nil key="backgroundColor"/>
                                 </clipView>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" controlSize="small" horizontal="YES" id="204">
                                     <rect key="frame" x="1" y="-22" width="132" height="11"/>
@@ -101,14 +101,14 @@
                                         <rect key="frame" x="0.0" y="0.0" width="404" height="209"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <clipView key="contentView" id="Pjj-Ua-nP1">
-                                            <rect key="frame" x="1" y="17" width="402" height="191"/>
+                                            <rect key="frame" x="1" y="0.0" width="402" height="208"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" emptySelection="NO" autosaveName="SelectedSnippets" headerView="210" id="140" customClass="FRATableView">
                                                     <rect key="frame" x="0.0" y="0.0" width="402" height="191"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
                                                         <tableColumn identifier="name" width="225" minWidth="40" maxWidth="1000" id="141">
@@ -150,7 +150,6 @@
                                                     </connections>
                                                 </tableView>
                                             </subviews>
-                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </clipView>
                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" controlSize="small" horizontal="YES" id="209">
                                             <rect key="frame" x="1" y="-22" width="361" height="11"/>
@@ -172,22 +171,20 @@
                                             <rect key="frame" x="1" y="1" width="402" height="166"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <textView importsGraphics="NO" richText="NO" findStyle="panel" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="135">
+                                                <textView importsGraphics="NO" richText="NO" usesFontPanel="YES" findStyle="panel" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="135">
                                                     <rect key="frame" x="0.0" y="0.0" width="402" height="166"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <size key="minSize" width="402" height="166"/>
-                                                    <size key="maxSize" width="402" height="10000000"/>
+                                                    <size key="maxSize" width="404" height="10000000"/>
                                                     <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <size key="minSize" width="402" height="166"/>
-                                                    <size key="maxSize" width="402" height="10000000"/>
                                                     <connections>
+                                                        <binding destination="10" name="value" keyPath="selection.text" id="167"/>
                                                         <binding destination="168" name="font" keyPath="values.TextFont" id="171">
                                                             <dictionary key="options">
                                                                 <string key="NSValueTransformerName">NSUnarchiveFromData</string>
                                                             </dictionary>
                                                         </binding>
-                                                        <binding destination="10" name="value" keyPath="selection.text" id="167"/>
                                                     </connections>
                                                 </textView>
                                             </subviews>
@@ -225,7 +222,6 @@
                     </textField>
                 </subviews>
             </view>
-            <metadata/>
             <connections>
                 <outlet property="delegate" destination="-2" id="158"/>
             </connections>

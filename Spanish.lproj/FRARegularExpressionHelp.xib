@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <deployment version="1060" defaultVersion="1060" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="FRAExtraInterfaceController">
@@ -11,7 +11,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Regular Expressions" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="RegularExpressionsPanel" animationBehavior="default" id="8" userLabel="RegularExpressionHelp" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -26,16 +26,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="345" height="281"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" id="XJm-9R-MuV">
-                            <rect key="frame" x="1" y="1" width="343" height="279"/>
+                            <rect key="frame" x="1" y="1" width="332" height="279"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textView editable="NO" importsGraphics="NO" richText="NO" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="11">
-                                    <rect key="frame" x="0.0" y="0.0" width="343" height="322"/>
+                                <textView editable="NO" importsGraphics="NO" richText="NO" usesFontPanel="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="11">
+                                    <rect key="frame" x="0.0" y="0.0" width="332" height="322"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <size key="minSize" width="343" height="279"/>
-                                    <size key="maxSize" width="343" height="10000000"/>
+                                    <size key="minSize" width="332" height="279"/>
+                                    <size key="maxSize" width="345" height="10000000"/>
                                     <attributedString key="textStorage">
                                         <fragment>
                                             <mutableString key="content">^	Comienzo de una cadena de caracteres
@@ -65,8 +65,6 @@ ab{2}	Corresponde a dos caracteres b</mutableString>
                                         </fragment>
                                     </attributedString>
                                     <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    <size key="minSize" width="343" height="279"/>
-                                    <size key="maxSize" width="343" height="10000000"/>
                                 </textView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -76,13 +74,12 @@ ab{2}	Corresponde a dos caracteres b</mutableString>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" verticalHuggingPriority="750" controlSize="small" horizontal="NO" id="14">
-                            <rect key="frame" x="330" y="1" width="14" height="279"/>
+                            <rect key="frame" x="333" y="1" width="11" height="279"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
                 </subviews>
             </view>
-            <metadata/>
         </window>
     </objects>
 </document>
