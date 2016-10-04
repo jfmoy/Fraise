@@ -280,7 +280,7 @@ static id sharedInstance = nil;
 - (void)showPreferencesWindow
 {
 	if (preferencesWindow == nil) {
-		[NSBundle loadNibNamed:@"FRAPreferences.nib" owner:self];
+		[[NSBundle mainBundle] loadNibNamed:@"FRAPreferences" owner:self topLevelObjects:nil];
 		[preferencesWindow setShowsToolbarButton:NO];
 		
 		preferencesToolbar = [[NSToolbar alloc] initWithIdentifier:@"PreferencesToolbarIdentifier"];
