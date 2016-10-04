@@ -16,21 +16,21 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 @interface FRASnippetsController : NSObject <NSToolbarDelegate>
 { 
-    IBOutlet NSArrayController *__unsafe_unretained snippetCollectionsArrayController;
-    IBOutlet NSTableView *__unsafe_unretained snippetCollectionsTableView;
-    IBOutlet NSArrayController *__unsafe_unretained snippetsArrayController;
-    IBOutlet NSTableView *__unsafe_unretained snippetsTableView;
-    IBOutlet NSWindow *__unsafe_unretained snippetsWindow;
-	IBOutlet NSTextView *__unsafe_unretained snippetsTextView;
+    IBOutlet NSArrayController * snippetCollectionsArrayController;
+    IBOutlet NSTableView * snippetCollectionsTableView;
+    IBOutlet NSArrayController * snippetsArrayController;
+    IBOutlet NSTableView * snippetsTableView;
+    IBOutlet NSWindow * snippetsWindow;
+	IBOutlet NSTextView * snippetsTextView;
 	IBOutlet NSView *snippetsFilterView;
 }
 
-@property (unsafe_unretained, readonly) IBOutlet NSTextView *snippetsTextView;
-@property (unsafe_unretained, readonly) IBOutlet NSWindow *snippetsWindow;
-@property (unsafe_unretained, readonly) IBOutlet NSArrayController *snippetCollectionsArrayController;
-@property (unsafe_unretained, readonly) IBOutlet NSTableView *snippetCollectionsTableView;
-@property (unsafe_unretained, readonly) IBOutlet NSArrayController *snippetsArrayController;
-@property (unsafe_unretained, readonly) IBOutlet NSTableView *snippetsTableView;
+@property (strong, readonly) IBOutlet NSTextView *snippetsTextView;
+@property (strong, readonly) IBOutlet NSWindow *snippetsWindow;
+@property (strong, readonly) IBOutlet NSArrayController *snippetCollectionsArrayController;
+@property (strong, readonly) IBOutlet NSTableView *snippetCollectionsTableView;
+@property (strong, readonly) IBOutlet NSArrayController *snippetsArrayController;
+@property (strong, readonly) IBOutlet NSTableView *snippetsTableView;
 
 + (FRASnippetsController *)sharedInstance;
 

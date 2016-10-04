@@ -55,7 +55,7 @@ static id sharedInstance = nil;
 - (void)openSnippetsWindow
 {
 	if (snippetsWindow == nil) {
-		[NSBundle loadNibNamed:@"FRASnippets.nib" owner:self];
+        [[NSBundle mainBundle] loadNibNamed:@"FRASnippets" owner:self topLevelObjects:nil];
 		
 		[snippetCollectionsTableView setDataSource:[FRADragAndDropController sharedInstance]];
 		[snippetsTableView setDataSource:[FRADragAndDropController sharedInstance]];
