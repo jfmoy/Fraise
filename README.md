@@ -15,3 +15,4 @@ Fraise was originally forked from an earlier version of Smultron, maintained by 
 * forked from Fraise 3.7.3 (https://github.com/jfmoy/Fraise)
 * support for macOS Sierra (10.12); removed support for OS X 10.11 and earlier
 * removed 32bit support
+* removed auto-update feature (because it did't work for a long time, and currently there is no maintainer providing releases)
