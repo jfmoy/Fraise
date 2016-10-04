@@ -11,7 +11,6 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 1F7486C4114F1F6D00767B18 /* Build configuration list for PBXAggregateTarget "Distribution" */;
 			buildPhases = (
-				1F7486CA114F1F9900767B18 /* ShellScript */,
 			);
 			dependencies = (
 				1F7486C8114F1F8000767B18 /* PBXTargetDependency */,
@@ -152,8 +151,6 @@
 		8D15AC310486D014006FF6A4 /* FRAProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* FRAProject.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
-		E1FD9F4A1DA29ECE0076C3B9 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1FD9F491DA29ECE0076C3B9 /* Sparkle.framework */; };
-		E1FD9F4C1DA29F760076C3B9 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E1FD9F491DA29ECE0076C3B9 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -180,16 +177,6 @@
 			dstPath = ../Library/Spotlight;
 			dstSubfolderSpec = 7;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E1FD9F4B1DA29F390076C3B9 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 12;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				E1FD9F4C1DA29F760076C3B9 /* Sparkle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -520,7 +507,6 @@
 		7FD53F120D91A8F30071054F /* Fraise-Manual.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Fraise-Manual.pdf"; sourceTree = "<group>"; };
 		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* Fraise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fraise.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E1FD9F491DA29ECE0076C3B9 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -543,7 +529,6 @@
 				7F5C26B90B73C06D00D2EDDC /* SystemConfiguration.framework in Frameworks */,
 				7F6C9C680B75F23000531EF9 /* libicucore.dylib in Frameworks */,
 				7F51225C0BA72E7E00183863 /* QuartzCore.framework in Frameworks */,
-				E1FD9F4A1DA29ECE0076C3B9 /* Sparkle.framework in Frameworks */,
 				7FBDDF360CF79C7D003BAFB5 /* QuickLook.framework in Frameworks */,
 				1FACC99F113FAE1200515523 /* QuartzCore.framework in Frameworks */,
 			);
@@ -572,7 +557,6 @@
 		1058C7A8FEA54F5311CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E1FD9F491DA29ECE0076C3B9 /* Sparkle.framework */,
 				2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */,
 				13E42FBA07B3F13500E4EEF1 /* CoreData.framework */,
 				2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */,
@@ -1069,7 +1053,6 @@
 				8D15AC300486D014006FF6A4 /* Sources */,
 				8D15AC330486D014006FF6A4 /* Frameworks */,
 				7F1DE28F0BD198FA00AD5707 /* CopyFiles */,
-				E1FD9F4B1DA29F390076C3B9 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -1179,22 +1162,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		1F7486CA114F1F9900767B18 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-			shellPath = /bin/bash;
-			shellScript = "set -o errexit\n\n[ $BUILD_STYLE = Release ] || { echo Distribution target requires \"'Release'\" build style; false; }\n\nVERSION=$(defaults read \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app/Contents/Info\" CFBundleVersion)\nDOWNLOAD_BASE_URL=\"http://www.github.com/jfmoy/Fraise\"\nRELEASENOTES_URL=\"http://www.bloggezmoy.com/fraise/release-notes.html#version-$VERSION\"\n\nARCHIVE_FILENAME=\"$PROJECT_NAME $VERSION.zip\"\nDOWNLOAD_URL=\"$DOWNLOAD_BASE_URL/$ARCHIVE_FILENAME\"\nKEYCHAIN_PRIVKEY_NAME=\"Sparkle Private Key\"\n\nWD=$PWD\ncd \"$BUILT_PRODUCTS_DIR\"\nrm -f \"$PROJECT_NAME\"*.zip\nditto -ck --keepParent \"$PROJECT_NAME.app\" \"$ARCHIVE_FILENAME\"\n\nSIZE=$(stat -f %z \"$ARCHIVE_FILENAME\")\nPUBDATE=$(date +\"%a, %d %b %G %T %z\")\nSIGNATURE=$(\n\topenssl dgst -sha1 -binary < \"$ARCHIVE_FILENAME\" \\\n\t| openssl dgst -dss1 -sign <(security find-generic-password -g -s \"$KEYCHAIN_PRIVKEY_NAME\" 2>&1 1>/dev/null | perl -pe '($_) = /\"(.+)\"/; s/\\\\012/\\n/g' | perl -MXML::LibXML -e 'print XML::LibXML->new()->parse_file(\"-\")->findvalue(q(//string[preceding-sibling::key[1] = \"NOTE\"]))') \\\n\t| openssl enc -base64\n)\n\n[ $SIGNATURE ] || { echo Unable to load signing private key with name \"'$KEYCHAIN_PRIVKEY_NAME'\" from keychain; false; }\n\ncat <<EOF\n\t\t<item>\n\t\t\t<title>Version $VERSION</title>\n\t\t\t<sparkle:releaseNotesLink>$RELEASENOTES_URL</sparkle:releaseNotesLink>\n\t\t\t<pubDate>$PUBDATE</pubDate>\n\t\t\t<enclosure\n\t\t\t\turl=\"$DOWNLOAD_URL\"\n\t\t\t\tsparkle:version=\"$VERSION\"\n\t\t\t\ttype=\"application/octet-stream\"\n\t\t\t\tlength=\"$SIZE\"\n\t\t\t\tsparkle:dsaSignature=\"$SIGNATURE\"\n\t\t\t/>\n\t\t</item>\nEOF\n\necho scp \"'$HOME/Documents/Project/Smultron/build/Release/$ARCHIVE_FILENAME'\"http://www.github.com/jfmoy/Smultron/\necho scp \"'$WD/appcast.xml'\" www.bloggezmoy.com:smultron/appcast.xml";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7F5C26620B73BF2200D2EDDC /* Sources */ = {

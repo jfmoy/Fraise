@@ -11,60 +11,11 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
-        <customView id="35" userLabel="General &lt;do not localise&gt;">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="398"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView misplaced="YES" id="35" userLabel="General &lt;do not localise&gt;">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="396"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <textField verticalHuggingPriority="750" id="97">
-                    <rect key="frame" x="31" y="22" width="97" height="17"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Miscellaneous:" id="160">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <button id="86">
-                    <rect key="frame" x="132" y="300" width="108" height="18"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <buttonCell key="cell" type="check" title="Syntax colour" bezelStyle="regularSquare" imagePosition="leading" alignment="left" inset="2" id="157">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="68" name="value" keyPath="values.SyntaxColourNewDocuments" id="87"/>
-                    </connections>
-                </button>
-                <button id="63">
-                    <rect key="frame" x="162" y="126" width="178" height="18"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <buttonCell key="cell" type="check" title="Treat { and } intelligently" bezelStyle="regularSquare" imagePosition="leading" alignment="left" inset="2" id="156">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="68" name="value" keyPath="values.AutomaticallyIndentBraces" id="80"/>
-                    </connections>
-                </button>
-                <textField verticalHuggingPriority="750" id="62">
-                    <rect key="frame" x="76" y="171" width="52" height="17"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Editing:" id="155">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField verticalHuggingPriority="750" id="61">
-                    <rect key="frame" x="17" y="301" width="111" height="17"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="New Documents:" id="154">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
                 <textField verticalHuggingPriority="750" id="60">
                     <rect key="frame" x="56" y="361" width="72" height="17"/>
                     <autoresizingMask key="autoresizingMask"/>
@@ -74,8 +25,68 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" id="59">
-                    <rect key="frame" x="25" y="88" width="103" height="17"/>
+                <button id="36">
+                    <rect key="frame" x="131" y="360" width="160" height="18"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <buttonCell key="cell" type="check" title="Create new document" bezelStyle="regularSquare" imagePosition="leading" alignment="left" inset="2" id="134">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="68" name="value" keyPath="values.NewDocumentAtStartup" id="69"/>
+                    </connections>
+                </button>
+                <textField verticalHuggingPriority="750" misplaced="YES" id="97">
+                    <rect key="frame" x="32" y="39" width="97" height="17"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Miscellaneous:" id="160">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button misplaced="YES" id="86">
+                    <rect key="frame" x="133" y="317" width="108" height="18"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <buttonCell key="cell" type="check" title="Syntax colour" bezelStyle="regularSquare" imagePosition="leading" alignment="left" inset="2" id="157">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="68" name="value" keyPath="values.SyntaxColourNewDocuments" id="87"/>
+                    </connections>
+                </button>
+                <button misplaced="YES" id="63">
+                    <rect key="frame" x="163" y="143" width="178" height="18"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <buttonCell key="cell" type="check" title="Treat { and } intelligently" bezelStyle="regularSquare" imagePosition="leading" alignment="left" inset="2" id="156">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="68" name="value" keyPath="values.AutomaticallyIndentBraces" id="80"/>
+                    </connections>
+                </button>
+                <textField verticalHuggingPriority="750" misplaced="YES" id="62">
+                    <rect key="frame" x="77" y="188" width="52" height="17"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Editing:" id="155">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" misplaced="YES" id="61">
+                    <rect key="frame" x="18" y="318" width="111" height="17"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="New Documents:" id="154">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" misplaced="YES" id="59">
+                    <rect key="frame" x="26" y="105" width="103" height="17"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Auto Complete:" id="152">
                         <font key="font" metaFont="system"/>
@@ -83,8 +94,8 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button id="54">
-                    <rect key="frame" x="132" y="234" width="169" height="18"/>
+                <button misplaced="YES" id="54">
+                    <rect key="frame" x="133" y="251" width="169" height="18"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <buttonCell key="cell" type="check" title="Spell check as you type" bezelStyle="regularSquare" imagePosition="leading" alignment="left" inset="2" id="148">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -94,8 +105,8 @@
                         <binding destination="68" name="value" keyPath="values.AutoSpellCheck" id="74"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" id="53">
-                    <rect key="frame" x="459" y="74" width="41" height="11"/>
+                <textField verticalHuggingPriority="750" misplaced="YES" id="53">
+                    <rect key="frame" x="460" y="91" width="41" height="11"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="(0.1-99)" id="147">
                         <font key="font" metaFont="miniSystem"/>
@@ -103,8 +114,8 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" id="51">
-                    <rect key="frame" x="458" y="86" width="43" height="19"/>
+                <textField verticalHuggingPriority="750" misplaced="YES" id="51">
+                    <rect key="frame" x="459" y="103" width="43" height="19"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" drawsBackground="YES" id="146">
                         <numberFormatter key="formatter" formatterBehavior="10_0" positiveFormat="0.0" negativeFormat="-0.0" hasThousandSeparators="NO" thousandSeparator="." id="52">
@@ -123,12 +134,12 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="68" name="enabled" keyPath="values.AutocompleteSuggestAutomatically" id="83"/>
                         <binding destination="68" name="value" keyPath="values.AutocompleteAfterDelay" id="82"/>
+                        <binding destination="68" name="enabled" keyPath="values.AutocompleteSuggestAutomatically" id="83"/>
                     </connections>
                 </textField>
-                <button id="50">
-                    <rect key="frame" x="132" y="61" width="170" height="18"/>
+                <button misplaced="YES" id="50">
+                    <rect key="frame" x="133" y="78" width="170" height="18"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <buttonCell key="cell" type="check" title="Include standard words" bezelStyle="regularSquare" imagePosition="leading" alignment="left" inset="2" id="145">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -138,8 +149,8 @@
                         <binding destination="68" name="value" keyPath="values.AutocompleteIncludeStandardWords" id="84"/>
                     </connections>
                 </button>
-                <button id="49">
-                    <rect key="frame" x="132" y="87" width="320" height="18"/>
+                <button misplaced="YES" id="49">
+                    <rect key="frame" x="133" y="104" width="320" height="18"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <buttonCell key="cell" type="check" title="Suggest automatically, after delay (in seconds):" bezelStyle="regularSquare" imagePosition="leading" alignment="left" inset="2" id="144">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -149,8 +160,8 @@
                         <binding destination="68" name="value" keyPath="values.AutocompleteSuggestAutomatically" id="81"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" id="48">
-                    <rect key="frame" x="424" y="193" width="38" height="17"/>
+                <textField verticalHuggingPriority="750" misplaced="YES" id="48">
+                    <rect key="frame" x="425" y="210" width="38" height="17"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="(25-99)" id="143">
                         <font key="font" metaFont="miniSystem"/>
@@ -158,8 +169,8 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button id="47">
-                    <rect key="frame" x="132" y="256" width="181" height="18"/>
+                <button misplaced="YES" id="47">
+                    <rect key="frame" x="133" y="273" width="181" height="18"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <buttonCell key="cell" type="check" title="Show invisible characters" bezelStyle="regularSquare" imagePosition="leading" alignment="left" inset="2" id="142">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -169,8 +180,8 @@
                         <binding destination="68" name="value" keyPath="values.ShowInvisibleCharacters" id="73"/>
                     </connections>
                 </button>
-                <button id="46">
-                    <rect key="frame" x="132" y="148" width="298" height="18"/>
+                <button misplaced="YES" id="46">
+                    <rect key="frame" x="133" y="165" width="298" height="18"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <buttonCell key="cell" type="check" title="Indent new lines the same as the line above" bezelStyle="regularSquare" imagePosition="leading" alignment="left" inset="2" id="141">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -180,8 +191,8 @@
                         <binding destination="68" name="value" keyPath="values.IndentNewLinesAutomatically" id="79"/>
                     </connections>
                 </button>
-                <button id="45">
-                    <rect key="frame" x="132" y="170" width="164" height="18"/>
+                <button misplaced="YES" id="45">
+                    <rect key="frame" x="133" y="187" width="164" height="18"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <buttonCell key="cell" type="check" title="Show matching braces" bezelStyle="regularSquare" imagePosition="leading" alignment="left" inset="2" id="140">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -191,8 +202,8 @@
                         <binding destination="68" name="value" keyPath="values.ShowMatchingBraces" id="78"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" id="43">
-                    <rect key="frame" x="429" y="211" width="26" height="19"/>
+                <textField verticalHuggingPriority="750" misplaced="YES" id="43">
+                    <rect key="frame" x="430" y="228" width="26" height="19"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" title="40" drawsBackground="YES" id="139">
                         <numberFormatter key="formatter" formatterBehavior="10_0" positiveFormat="0" negativeFormat="-0" localizesFormat="NO" hasThousandSeparators="NO" thousandSeparator="," id="44">
@@ -212,12 +223,12 @@
                     </textFieldCell>
                     <connections>
                         <action selector="changeGutterWidth:" target="-2" id="183"/>
-                        <binding destination="68" name="enabled" keyPath="values.ShowLineNumberGutter" id="77"/>
                         <binding destination="68" name="value" keyPath="values.GutterWidth" id="76"/>
+                        <binding destination="68" name="enabled" keyPath="values.ShowLineNumberGutter" id="77"/>
                     </connections>
                 </textField>
-                <textField verticalHuggingPriority="750" id="42">
-                    <rect key="frame" x="131" y="22" width="217" height="17"/>
+                <textField verticalHuggingPriority="750" misplaced="YES" id="42">
+                    <rect key="frame" x="132" y="39" width="217" height="17"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="138">
                         <font key="font" metaFont="system"/>
@@ -227,8 +238,8 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" id="40">
-                    <rect key="frame" x="353" y="20" width="36" height="19"/>
+                <textField verticalHuggingPriority="750" misplaced="YES" id="40">
+                    <rect key="frame" x="354" y="37" width="36" height="19"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" drawsBackground="YES" id="137">
                         <numberFormatter key="formatter" formatterBehavior="10_0" positiveFormat="0" negativeFormat="-0" hasThousandSeparators="NO" thousandSeparator="." id="41">
@@ -246,8 +257,8 @@
                         <binding destination="68" name="value" keyPath="values.NSRecentDocumentsLimit" id="85"/>
                     </connections>
                 </textField>
-                <button id="39">
-                    <rect key="frame" x="132" y="278" width="83" height="18"/>
+                <button misplaced="YES" id="39">
+                    <rect key="frame" x="133" y="295" width="83" height="18"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <buttonCell key="cell" type="check" title="Line wrap" bezelStyle="regularSquare" imagePosition="leading" alignment="left" inset="2" id="136">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -257,8 +268,8 @@
                         <binding destination="68" name="value" keyPath="values.LineWrapNewDocuments" id="72"/>
                     </connections>
                 </button>
-                <button id="37">
-                    <rect key="frame" x="132" y="212" width="291" height="18"/>
+                <button misplaced="YES" id="37">
+                    <rect key="frame" x="133" y="229" width="291" height="18"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <buttonCell key="cell" type="check" title="Show line number gutter, width (in pixels):" bezelStyle="regularSquare" imagePosition="leading" alignment="left" inset="2" id="135">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -268,53 +279,9 @@
                         <binding destination="68" name="value" keyPath="values.ShowLineNumberGutter" id="75"/>
                     </connections>
                 </button>
-                <button id="36">
-                    <rect key="frame" x="131" y="360" width="160" height="18"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <buttonCell key="cell" type="check" title="Create new document" bezelStyle="regularSquare" imagePosition="leading" alignment="left" inset="2" id="134">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="68" name="value" keyPath="values.NewDocumentAtStartup" id="69"/>
-                    </connections>
-                </button>
-                <button id="162">
-                    <rect key="frame" x="131" y="340" width="225" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Automatically check for updates" bezelStyle="regularSquare" imagePosition="leading" alignment="left" state="on" inset="2" id="163">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="161" name="value" keyPath="automaticallyChecksForUpdates" id="170"/>
-                    </connections>
-                </button>
-                <popUpButton verticalHuggingPriority="750" id="171">
-                    <rect key="frame" x="362" y="335" width="100" height="26"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="push" title="Hourly" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="3600" imageScaling="proportionallyDown" inset="2" selectedItem="174" id="172">
-                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                        <menu key="menu" title="OtherViews" id="173">
-                            <items>
-                                <menuItem title="Hourly" state="on" tag="3600" id="174"/>
-                                <menuItem title="Daily" tag="86400" id="175"/>
-                                <menuItem title="Weekly" tag="604800" id="176"/>
-                                <menuItem title="Monthly" tag="2629800" id="177">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                            </items>
-                        </menu>
-                    </popUpButtonCell>
-                    <connections>
-                        <binding destination="161" name="enabled" keyPath="automaticallyChecksForUpdates" id="182"/>
-                        <binding destination="161" name="selectedTag" keyPath="updateCheckInterval" id="180"/>
-                    </connections>
-                </popUpButton>
             </subviews>
+            <point key="canvasLocation" x="117" y="153"/>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="68" userLabel="Shared Defaults"/>
-        <customObject id="161" customClass="SUUpdater"/>
     </objects>
 </document>

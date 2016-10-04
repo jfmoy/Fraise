@@ -7,7 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication"/>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <menu title="MainMenu" systemMenu="main" id="29" userLabel="MainMenu">
             <items>
                 <menuItem title="Fraise" id="56">
@@ -17,12 +17,6 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="orderFrontStandardAboutPanel:" target="-2" id="142"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Check for Updates..." id="1145">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="checkForUpdates:" target="1144" id="1146"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="202">
@@ -919,6 +913,5 @@
         </customObject>
         <customObject id="388" userLabel="FRAViewMenuController" customClass="FRAViewMenuController"/>
         <customObject id="389" userLabel="FRAProjectsController" customClass="FRAProjectsController"/>
-        <customObject id="1144" customClass="SUUpdater"/>
     </objects>
 </document>
