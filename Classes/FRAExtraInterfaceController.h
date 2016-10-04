@@ -24,24 +24,24 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	IBOutlet NSWindow *detabWindow;
 	IBOutlet NSWindow *goToLineWindow;
 	
-	IBOutlet NSView *__unsafe_unretained openPanelAccessoryView;
-	IBOutlet NSPopUpButton *__unsafe_unretained openPanelEncodingsPopUp;
+	IBOutlet NSView * openPanelAccessoryView;
+	IBOutlet NSPopUpButton * openPanelEncodingsPopUp;
 	//IBOutlet NSView *printAccessoryView;
 	
-	IBOutlet NSWindow *__unsafe_unretained commandResultWindow;
-	IBOutlet NSTextView *__unsafe_unretained commandResultTextView;
+	IBOutlet NSWindow * commandResultWindow;
+	IBOutlet NSTextView * commandResultTextView;
 	
-	IBOutlet NSWindow *__unsafe_unretained newProjectWindow;
+	IBOutlet NSWindow * newProjectWindow;
 	IBOutlet NSPanel *regularExpressionsHelpPanel;
 }
 
 
-@property (unsafe_unretained, readonly) IBOutlet NSView *openPanelAccessoryView;
-@property (unsafe_unretained, readonly) IBOutlet NSPopUpButton *openPanelEncodingsPopUp;
+@property (strong, readonly) IBOutlet NSView *openPanelAccessoryView;
+@property (strong, readonly) IBOutlet NSPopUpButton *openPanelEncodingsPopUp;
 //@property (readonly) IBOutlet NSView *printAccessoryView;
-@property (unsafe_unretained, readonly) IBOutlet NSWindow *commandResultWindow;
-@property (unsafe_unretained, readonly) IBOutlet NSTextView *commandResultTextView;
-@property (unsafe_unretained, readonly) IBOutlet NSWindow *newProjectWindow;
+@property (strong, readonly) IBOutlet NSWindow *commandResultWindow;
+@property (strong, readonly) IBOutlet NSTextView *commandResultTextView;
+@property (strong, readonly) IBOutlet NSWindow *newProjectWindow;
 
 + (FRAExtraInterfaceController *)sharedInstance;
 

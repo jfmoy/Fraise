@@ -52,7 +52,7 @@ static id sharedInstance = nil;
 - (void)displayEntab
 {
 	if (entabWindow == nil) {
-		[NSBundle loadNibNamed:@"FRAEntab.nib" owner:self];
+		[[NSBundle mainBundle] loadNibNamed:@"FRAEntab" owner:self topLevelObjects:nil];
 	}
 	
 	[NSApp beginSheet:entabWindow modalForWindow:FRACurrentWindow modalDelegate:self didEndSelector:nil contextInfo:nil];
@@ -62,7 +62,7 @@ static id sharedInstance = nil;
 - (void)displayDetab
 {
 	if (detabWindow == nil) {
-		[NSBundle loadNibNamed:@"FRADetab.nib" owner:self];
+		[[NSBundle mainBundle] loadNibNamed:@"FRADetab" owner:self topLevelObjects:nil];
 	}
 	
 	[NSApp beginSheet:detabWindow modalForWindow:FRACurrentWindow modalDelegate:self didEndSelector:nil contextInfo:nil];
@@ -97,7 +97,7 @@ static id sharedInstance = nil;
 - (void)displayGoToLine
 {
 	if (goToLineWindow == nil) {
-		[NSBundle loadNibNamed:@"FRAGoToLine.nib" owner:self];
+		[[NSBundle mainBundle] loadNibNamed:@"FRAGoToLine" owner:self topLevelObjects:nil];
 	}
 	
 	[NSApp beginSheet:goToLineWindow modalForWindow:FRACurrentWindow modalDelegate:self didEndSelector:nil contextInfo:nil];
@@ -124,7 +124,7 @@ static id sharedInstance = nil;
 - (NSPopUpButton *)openPanelEncodingsPopUp
 {
 	if (openPanelEncodingsPopUp == nil) {
-		[NSBundle loadNibNamed:@"FRAOpenPanelAccessoryView.nib" owner:self];
+		[[NSBundle mainBundle] loadNibNamed:@"FRAOpenPanelAccessoryView" owner:self topLevelObjects:nil];
 	}
 	
 	return openPanelEncodingsPopUp;
@@ -134,7 +134,7 @@ static id sharedInstance = nil;
 - (NSView *)openPanelAccessoryView
 {
 	if (openPanelAccessoryView == nil) {
-		[NSBundle loadNibNamed:@"FRAOpenPanelAccessoryView.nib" owner:self];
+		[[NSBundle mainBundle] loadNibNamed:@"FRAOpenPanelAccessoryView" owner:self topLevelObjects:nil];
 	}
 	
 	return openPanelAccessoryView;
@@ -144,7 +144,7 @@ static id sharedInstance = nil;
 //- (NSView *)printAccessoryView
 //{
 //	if (printAccessoryView == nil) {
-//		[NSBundle loadNibNamed:@"FRAPrintAccessoryView.nib" owner:self];
+//		[[NSBundle mainBundle] loadNibNamed:@"FRAPrintAccessoryView" owner:self topLevelObjects:nil];
 //	}
 //	
 //	return printAccessoryView;
@@ -154,7 +154,7 @@ static id sharedInstance = nil;
 - (NSWindow *)commandResultWindow
 {
     if (commandResultWindow == nil) {
-		[NSBundle loadNibNamed:@"FRACommandResult.nib" owner:self];
+		[[NSBundle mainBundle] loadNibNamed:@"FRACommandResult" owner:self topLevelObjects:nil];
 		[commandResultWindow setTitle:COMMAND_RESULT_WINDOW_TITLE];
 	}
 	
@@ -165,7 +165,7 @@ static id sharedInstance = nil;
 - (NSTextView *)commandResultTextView
 {
     if (commandResultTextView == nil) {
-		[NSBundle loadNibNamed:@"FRACommandResult.nib" owner:self];
+		[[NSBundle mainBundle] loadNibNamed:@"FRACommandResult" owner:self topLevelObjects:nil];
 		[commandResultWindow setTitle:COMMAND_RESULT_WINDOW_TITLE];		
 	}
 	
@@ -183,7 +183,7 @@ static id sharedInstance = nil;
 - (NSWindow *)newProjectWindow
 {
 	if (newProjectWindow == nil) {
-		[NSBundle loadNibNamed:@"FRANewProject.nib" owner:self];
+        [[NSBundle mainBundle] loadNibNamed:@"FRANewProject" owner:self topLevelObjects:nil];
 	}
 	
 	return newProjectWindow;
@@ -210,7 +210,7 @@ static id sharedInstance = nil;
                                                   
                                                   [newProjectWindow orderOut:nil];
                                                   
-                                                  if (returnCode == NSOKButton)
+                                                  if (returnCode == NSModalResponseOK)
                                                   {
                                                       NSURL *URL = [savePanel URL];
                                                       [[FRAProjectsController sharedDocumentController] newDocument:nil];
@@ -229,7 +229,7 @@ static id sharedInstance = nil;
 - (void)showRegularExpressionsHelpPanel
 {
 	if (regularExpressionsHelpPanel == nil) {
-		[NSBundle loadNibNamed:@"FRARegularExpressionHelp.nib" owner:self];
+		[[NSBundle mainBundle] loadNibNamed:@"FRARegularExpressionHelp" owner:self topLevelObjects:nil];
 	}
 	
 	[regularExpressionsHelpPanel makeKeyAndOrderFront:nil];

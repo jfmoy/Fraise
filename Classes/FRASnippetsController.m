@@ -195,7 +195,7 @@ static id sharedInstance = nil;
                       completionHandler: (^(NSInteger result)
                                           {
                                               
-                                              if (result == NSOKButton)
+                                              if (result == NSModalResponseOK)
                                               {
                                                   [self performSnippetsImportWithPath: [[openPanel URL] path]];
                                               }
@@ -249,7 +249,7 @@ static id sharedInstance = nil;
     [savePanel beginSheetModalForWindow: snippetsWindow
                       completionHandler: (^(NSInteger result)
                                           {
-                                              if (result == NSOKButton)
+                                              if (result == NSModalResponseOK)
                                               {
                                                   id collection = [snippetCollectionsArrayController selectedObjects][0];
                                                   

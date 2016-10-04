@@ -50,7 +50,7 @@ static id sharedInstance = nil;
 		[previewWindow close];
 	}
 	
-	[NSBundle loadNibNamed:@"FRAPreview.nib" owner:self]; // Otherwise [webView mainFrame] return nil the second time the window loads
+    [[NSBundle mainBundle] loadNibNamed:@"FRAPreview" owner:self topLevelObjects:nil]; // Otherwise [webView mainFrame] return nil the second time the window loads
 		
 	[webView setResourceLoadDelegate:self];
 	[webView setFrameLoadDelegate:self];

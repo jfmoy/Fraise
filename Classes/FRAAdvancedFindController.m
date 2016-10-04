@@ -414,7 +414,7 @@ static id sharedInstance = nil;
 - (void)replaceSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
 {
 	[sheet close];
-    if (returnCode == NSAlertDefaultReturn) { // Replace
+    if (returnCode == NSAlertFirstButtonReturn) { // Replace
 		[self performNumberOfReplaces:(NSInteger)contextInfo];
 	}
 }

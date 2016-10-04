@@ -41,9 +41,9 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (void)installCommandLineUtiltiySheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
 {
-	if (returnCode == NSAlertDefaultReturn) {
+	if (returnCode == NSAlertFirstButtonReturn) {
 		[[FRAAuthenticationController sharedInstance] installCommandLineUtility];
-	} else if (returnCode == NSAlertAlternateReturn) {
+	} else if (returnCode == NSAlertSecondButtonReturn) {
 		NSFileManager *fileManager = [NSFileManager defaultManager];
 		NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
 		NSString *pathToFolder = [[NSHomeDirectory() stringByAppendingPathComponent:@"Desktop"]

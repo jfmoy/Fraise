@@ -52,7 +52,7 @@ static id sharedInstance = nil;
 - (void)openInfoWindow
 {
 	if (infoWindow == nil) {
-		[NSBundle loadNibNamed:@"FRAInfo.nib" owner:self];
+		[[NSBundle mainBundle] loadNibNamed:@"FRAInfo" owner:self topLevelObjects:nil];
 		
 	}
 	

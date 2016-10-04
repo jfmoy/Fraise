@@ -296,7 +296,7 @@ static id sharedInstance = nil;
 	
 	if ([preferencesToolbar selectedItemIdentifier] == nil) {
 		if (generalView == nil) {
-			[NSBundle loadNibNamed:@"FRAPreferencesGeneral.nib" owner:self];
+			[[NSBundle mainBundle] loadNibNamed:@"FRAPreferencesGeneral" owner:self topLevelObjects:nil];
 		}
 		[preferencesToolbar setSelectedItemIdentifier:@"GeneralPreferencesToolbarItem"];
 		if ([FRADefaults valueForKey:@"PreferencesGeneralViewSavedFrame"] == nil) {
@@ -389,7 +389,7 @@ static id sharedInstance = nil;
 	NSString *identifier = [sender itemIdentifier];
 	if ([identifier isEqualToString:@"GeneralPreferencesToolbarItem"]) {
 		if (generalView == nil) {
-			[NSBundle loadNibNamed:@"FRAPreferencesGeneral.nib" owner:self];
+			[[NSBundle mainBundle] loadNibNamed:@"FRAPreferencesGeneral" owner:self topLevelObjects:nil];
 		}
 		if (currentView == generalView) {
 			return;
@@ -401,7 +401,7 @@ static id sharedInstance = nil;
 		
 	} else if ([identifier isEqualToString:@"AppearancePreferencesToolbarItem"]) {
 		if (appearanceView == nil) {
-			[NSBundle loadNibNamed:@"FRAPreferencesAppearance.nib" owner:self];
+			[[NSBundle mainBundle] loadNibNamed:@"FRAPreferencesAppearance" owner:self topLevelObjects:nil];
 		}
 		
 		NSCalendarDate *now = [NSCalendarDate calendarDate];
@@ -420,7 +420,7 @@ static id sharedInstance = nil;
 		
 	} else if ([identifier isEqualToString:@"OpenSavePreferencesToolbarItem"]) {
 		if (openSaveView == nil) {
-			[NSBundle loadNibNamed:@"FRAPreferencesOpenSave.nib" owner:self];
+			[[NSBundle mainBundle] loadNibNamed:@"FRAPreferencesOpenSave" owner:self topLevelObjects:nil];
 		}
 		if (currentView == openSaveView) {
 			return;
@@ -432,7 +432,7 @@ static id sharedInstance = nil;
 		
 	} else if ([identifier isEqualToString:@"AdvancedPreferencesToolbarItem"]) {
 		if (advancedView == nil) {
-			[NSBundle loadNibNamed:@"FRAPreferencesAdvanced.nib" owner:self];
+			[[NSBundle mainBundle] loadNibNamed:@"FRAPreferencesAdvanced" owner:self topLevelObjects:nil];
 		}
 		if (currentView == advancedView) {
 			return;
@@ -561,7 +561,7 @@ static id sharedInstance = nil;
     [openPanel beginSheetModalForWindow: preferencesWindow
                       completionHandler: (^(NSInteger result)
                                           {
-                                              if (result == NSOKButton)
+                                              if (result == NSModalResponseOK)
                                               {
                                                   [FRADefaults setValue: [[[openPanel URL] path] stringByAbbreviatingWithTildeInPath]
                                                                  forKey: @"OpenAlwaysUseTextField"];
@@ -578,7 +578,7 @@ static id sharedInstance = nil;
     [openPanel beginSheetModalForWindow: preferencesWindow
                       completionHandler: (^(NSInteger result)
                                           {
-                                              if (result == NSOKButton)
+                                              if (result == NSModalResponseOK)
                                               {
                                                   [FRADefaults setValue:[[[openPanel URL] path] stringByAbbreviatingWithTildeInPath]
                                                                  forKey: @"SaveAsAlwaysUseTextField"];

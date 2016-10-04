@@ -375,9 +375,9 @@ static id sharedInstance = nil;
 	[FRAVarious stopModalLoop];
 	
 	id document = ((__bridge NSArray *)contextInfo)[0];
-	if (returnCode == NSAlertDefaultReturn) {
+	if (returnCode == NSAlertFirstButtonReturn) {
 		[document setValue:@YES forKey:@"ignoreAnotherApplicationHasUpdatedDocument"];
-	} else if (returnCode == NSAlertOtherReturn) {
+	} else if (returnCode == NSAlertThirdButtonReturn) {
 		[[FRAFileMenuController sharedInstance] performRevertOfDocument:document];
 		[document setValue:[[NSFileManager defaultManager] attributesOfItemAtPath:[document valueForKey:@"path"] error:nil] forKey:@"fileAttributes"];
 	}

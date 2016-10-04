@@ -18,12 +18,12 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 @interface FRACommandsController : NSObject <NSToolbarDelegate> {
 
-	IBOutlet NSArrayController *__unsafe_unretained commandCollectionsArrayController;
-	IBOutlet NSTableView *__unsafe_unretained commandCollectionsTableView;
-	IBOutlet NSArrayController *__unsafe_unretained commandsArrayController;
-	IBOutlet NSTableView *__unsafe_unretained commandsTableView;
-	IBOutlet NSWindow *__unsafe_unretained commandsWindow;
-	IBOutlet NSTextView *__unsafe_unretained commandsTextView;
+	IBOutlet NSArrayController * commandCollectionsArrayController;
+	IBOutlet NSTableView * commandCollectionsTableView;
+	IBOutlet NSArrayController * commandsArrayController;
+	IBOutlet NSTableView * commandsTableView;
+	IBOutlet NSWindow * commandsWindow;
+	IBOutlet NSTextView * commandsTextView;
 	IBOutlet NSView *commandsFilterView;
 	
 	BOOL currentCommandShouldBeInsertedInline;
@@ -33,12 +33,12 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 }
 
-@property (unsafe_unretained, readonly) IBOutlet NSTextView *commandsTextView;
-@property (unsafe_unretained, readonly) IBOutlet NSWindow *commandsWindow;
-@property (unsafe_unretained, readonly) IBOutlet NSArrayController *commandCollectionsArrayController;
-@property (unsafe_unretained, readonly) IBOutlet NSTableView *commandCollectionsTableView;
-@property (unsafe_unretained, readonly) IBOutlet NSArrayController *commandsArrayController;
-@property (unsafe_unretained, readonly) IBOutlet NSTableView *commandsTableView;
+@property (strong, readonly) IBOutlet NSTextView *commandsTextView;
+@property (strong, readonly) IBOutlet NSWindow *commandsWindow;
+@property (strong, readonly) IBOutlet NSArrayController *commandCollectionsArrayController;
+@property (strong, readonly) IBOutlet NSTableView *commandCollectionsTableView;
+@property (strong, readonly) IBOutlet NSArrayController *commandsArrayController;
+@property (strong, readonly) IBOutlet NSTableView *commandsTableView;
 
 + (FRACommandsController *)sharedInstance;
 

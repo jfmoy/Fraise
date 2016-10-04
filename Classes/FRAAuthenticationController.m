@@ -48,7 +48,7 @@ static id sharedInstance = nil;
 {
 	[sheet close];
 	[FRAVarious stopModalLoop];
-	if (returnCode == NSAlertDefaultReturn) {
+	if (returnCode == NSAlertFirstButtonReturn) {
 		[self performAuthenticatedOpenOfPath:((__bridge NSArray *)contextInfo)[0] withEncoding:[((__bridge NSArray *)contextInfo)[1] unsignedIntegerValue]];
 	}
 }
@@ -58,7 +58,7 @@ static id sharedInstance = nil;
 {
 	[sheet close];
 	[FRAVarious stopModalLoop];
-	if (returnCode == NSAlertDefaultReturn) {
+	if (returnCode == NSAlertFirstButtonReturn) {
 		[self performAuthenticatedSaveOfDocument:((__bridge NSArray *)contextInfo)[0] data:((__bridge NSArray *)contextInfo)[1] path:((__bridge NSArray *)contextInfo)[2] fromSaveAs:[((__bridge NSArray *)contextInfo)[3] boolValue] aCopy:[((__bridge NSArray *)contextInfo)[4] boolValue]];
 	}
 }

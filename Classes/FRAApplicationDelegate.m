@@ -206,7 +206,7 @@ static id sharedInstance = nil;
                     reply = NSTerminateCancel;
                 } else {
                     NSInteger alertReturn = NSRunAlertPanel(nil, @"Could not save changes while quitting. Quit anyway?" , @"Quit anyway", @"Cancel", nil);
-                    if (alertReturn == NSAlertAlternateReturn) {
+                    if (alertReturn == NSAlertSecondButtonReturn) {
                         reply = NSTerminateCancel;	
                     }
                 }

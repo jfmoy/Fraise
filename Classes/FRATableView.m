@@ -116,7 +116,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 {
 	[sheet close];
 	
-	if (returnCode == NSAlertDefaultReturn) {
+	if (returnCode == NSAlertFirstButtonReturn) {
 		[[FRASnippetsController sharedInstance] performDeleteCollection];
 		
 	}
@@ -127,7 +127,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 {
 	[sheet close];
 	
-	if (returnCode == NSAlertDefaultReturn) {
+	if (returnCode == NSAlertFirstButtonReturn) {
 		[[FRACommandsController sharedInstance] performDeleteCollection];
 	}
 }

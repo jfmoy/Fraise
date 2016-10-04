@@ -135,7 +135,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
     [openPanel setAllowedFileTypes: @[@"smlp", @"fraiseProject"]];
     
 	NSInteger result = [openPanel runModal];
-	if (result == NSOKButton)
+	if (result == NSModalResponseOK)
     {
 		[self performOpenProjectWithPath: [[openPanel URLs][0] path]];
 	}

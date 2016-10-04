@@ -58,7 +58,7 @@ static id sharedInstance = nil;
 - (void)openCommandsWindow
 {
 	if (commandsWindow == nil) {
-		[NSBundle loadNibNamed:@"FRACommands.nib" owner:self];
+		[[NSBundle mainBundle] loadNibNamed:@"FRACommands" owner:self topLevelObjects:nil];
 		
 		[commandCollectionsTableView setDataSource:[FRADragAndDropController sharedInstance]];
 		[commandsTableView setDataSource:[FRADragAndDropController sharedInstance]];
@@ -172,7 +172,7 @@ static id sharedInstance = nil;
     [openPanel beginSheetModalForWindow: commandsWindow
                       completionHandler: (^(NSInteger returnCode)
                                           {
-                                              if (returnCode == NSOKButton) {
+                                              if (returnCode == NSModalResponseOK) {
                                                   [self performCommandsImportWithPath: [[openPanel URL] path]];
                                               }
                                               [commandsWindow makeKeyAndOrderFront:nil];
@@ -225,7 +225,7 @@ static id sharedInstance = nil;
     [savePanel beginSheetModalForWindow: commandsWindow
                       completionHandler: (^(NSInteger returnCode)
                                           {
-                                              if (returnCode == NSOKButton)
+                                              if (returnCode == NSModalResponseOK)
                                               {
                                                   id collection = [commandCollectionsArrayController selectedObjects][0];
                                                   

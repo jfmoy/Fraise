@@ -14,15 +14,15 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 #import <Cocoa/Cocoa.h>
 
-@interface FRAPreviewController : NSObject {
+@interface FRAPreviewController : NSObject <WebFrameLoadDelegate, WebResourceLoadDelegate> {
 	
-	IBOutlet NSWindow *__unsafe_unretained previewWindow;
+	IBOutlet NSWindow * previewWindow;
     IBOutlet WebView *webView;
 	
 	NSPoint scrollPoint;
 }
 
-@property (unsafe_unretained, readonly) IBOutlet NSWindow *previewWindow;
+@property (strong, readonly) IBOutlet NSWindow *previewWindow;
 
 
 + (FRAPreviewController *)sharedInstance;
