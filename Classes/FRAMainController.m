@@ -53,8 +53,8 @@ static id sharedInstance = nil;
 
 + (void)initialize
 {
-    NSOperatingSystemVersion systemVersion = [[NSProcessInfo init] operatingSystemVersion];
-    if (systemVersion.minorVersion < 0x50) {
+    NSOperatingSystemVersion systemVersion = [[NSProcessInfo processInfo] operatingSystemVersion];
+    if (systemVersion.minorVersion < 5) {
         [NSApp activateIgnoringOtherApps:YES];
         [FRAVarious alertWithMessage:[NSString stringWithFormat:NSLocalizedStringFromTable(@"You need %@ or later to run this version of Fraise", @"Localizable3", @"You need %@ or later to run this version of Fraise"), @"Mac OS X 10.5 Leopard"] informativeText:NSLocalizedStringFromTable(@"Go to the web site (http://fraise.sourceforge.net) to download another version for an earlier Mac OS X system", @"Localizable3", @"Go to the web site (http://fraise.sourceforge.net) to download another version for an earlier Mac OS X system") defaultButton:OK_BUTTON alternateButton:nil otherButton:nil];
 			
