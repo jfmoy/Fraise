@@ -194,7 +194,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		liveFindToolbarItem = toolbarItem;
 	} else if ([[toolbarItem itemIdentifier] isEqualToString:@"FunctionToolbarItem"]) {
 		functionToolbarItem = toolbarItem;
-		[functionButton sendActionOn:NSLeftMouseDownMask];
+		[functionButton sendActionOn:NSEventMaskLeftMouseDown];
 //	} else if ([[toolbarItem itemIdentifier] isEqualToString:@"SplitWindowToolbarItem"]) {
 //		splitWindowToolbarItem = toolbarItem;
 //	} else if ([[toolbarItem itemIdentifier] isEqual:@"LineWrapToolbarItem"]) {
@@ -267,7 +267,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	if (textView == nil || (textView != [document valueForKey:@"firstTextView"] && textView != [document valueForKey:@"secondTextView"] && textView != [document valueForKey:@"thirdTextView"])) {
 		textView = [document valueForKey:@"firstTextView"];
 	}
-	if (![searchString length] > 0 || document == nil) {
+	if (!([searchString length] > 0) || document == nil) {
 		[self removeLiveFindSession];
 		NSBeep();
 		return;

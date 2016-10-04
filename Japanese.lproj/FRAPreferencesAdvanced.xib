@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <deployment version="1050" identifier="macosx"/>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
     </dependencies>
     <objects>
@@ -17,7 +17,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="5" userLabel="Advanced &lt;do not localise&gt;">
             <rect key="frame" x="0.0" y="0.0" width="664" height="513"/>
             <autoresizingMask key="autoresizingMask"/>
@@ -398,7 +398,7 @@
                                         <rect key="frame" x="20" y="16" width="578" height="315"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <clipView key="contentView" id="JQb-uV-4f4">
-                                            <rect key="frame" x="1" y="23" width="576" height="291"/>
+                                            <rect key="frame" x="1" y="0.0" width="576" height="314"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveName="SyntaxDefinitions" headerView="305" id="90">
@@ -428,7 +428,7 @@
                                                                 </binding>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn identifier="extensions" width="255.59569999999999" minWidth="223.59569999999999" maxWidth="1000" id="92">
+                                                        <tableColumn identifier="extensions" width="255.59569999999997" minWidth="223.59569999999999" maxWidth="1000" id="92">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="拡張子 (スペースで区切る、ドットは不要)">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -530,7 +530,7 @@
                                         <rect key="frame" x="20" y="16" width="578" height="315"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <clipView key="contentView" id="HzL-ZX-gGa">
-                                            <rect key="frame" x="1" y="23" width="576" height="291"/>
+                                            <rect key="frame" x="1" y="0.0" width="576" height="314"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveName="ActiveEncodings" headerView="308" id="105">
@@ -663,8 +663,8 @@
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <connections>
-                                            <binding destination="120" name="enabled" keyPath="values.OpenAllFilesWithinAFolder" id="151"/>
                                             <binding destination="120" name="value" keyPath="values.OpenAllFilesInAFolderRecursively" id="156"/>
+                                            <binding destination="120" name="enabled" keyPath="values.OpenAllFilesWithinAFolder" id="151"/>
                                         </connections>
                                     </button>
                                     <button id="28">
@@ -675,8 +675,8 @@
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <connections>
-                                            <binding destination="120" name="enabled" keyPath="values.OpenAllFilesWithinAFolder" id="153"/>
                                             <binding destination="120" name="value" keyPath="values.FilterOutExtensions" id="157"/>
+                                            <binding destination="120" name="enabled" keyPath="values.OpenAllFilesWithinAFolder" id="153"/>
                                         </connections>
                                     </button>
                                     <textField verticalHuggingPriority="750" id="29">
@@ -697,8 +697,8 @@
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <connections>
-                                            <binding destination="120" name="enabled" keyPath="values.OpenAllFilesWithinAFolder" id="155"/>
                                             <binding destination="120" name="value" keyPath="values.FilterOutExtensionsString" id="250"/>
+                                            <binding destination="120" name="enabled" keyPath="values.OpenAllFilesWithinAFolder" id="155"/>
                                         </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" id="32">
@@ -849,7 +849,6 @@
                     </tabViewItems>
                 </tabView>
             </subviews>
-            <metadata/>
         </customView>
         <arrayController mode="entity" entityName="Encoding" automaticallyPreparesContent="YES" id="109" userLabel="EncodingsArrayController">
             <declaredKeys>

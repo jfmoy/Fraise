@@ -85,7 +85,7 @@ typedef struct URegularExpression URegularExpression;
 	[self reset];
 
 	UErrorCode status = 0;
-	UBool r = uregex_find(re, index, &status);
+	UBool r = uregex_find(re, (int32_t) index, &status);
 	CheckStatus(status);
 
 	return r;
@@ -103,7 +103,7 @@ typedef struct URegularExpression URegularExpression;
 	while(YES) { 
 		UErrorCode status = 0;
 		UChar *dest = (UChar *)NSZoneCalloc(nil, groupSize, sizeof(UChar));
-		int32_t buffSize = uregex_group(re, groupIndex, dest, groupSize, &status);
+		int32_t buffSize = uregex_group(re, (int32_t) groupIndex, dest, (int32_t) groupSize, &status);
 
 		if(U_BUFFER_OVERFLOW_ERROR == status) {
 			groupSize *= 2;
@@ -163,9 +163,9 @@ typedef struct URegularExpression URegularExpression;
 	
 		status = 0;
 		if(replacingAll)
-			resultLength = uregex_replaceAll(re, replacementText, -1, destString, destStringBufferSize, &status);
+			resultLength = uregex_replaceAll(re, replacementText, -1, destString, (int32_t) destStringBufferSize, &status);
 		else
-			resultLength = uregex_replaceFirst(re, replacementText, -1, destString, destStringBufferSize, &status);
+			resultLength = uregex_replaceFirst(re, replacementText, -1, destString, (int32_t) destStringBufferSize, &status);
 
 		// realloc some more space if possible
 		if(status == U_BUFFER_OVERFLOW_ERROR) {
@@ -216,10 +216,10 @@ typedef struct URegularExpression URegularExpression;
 -(NSRange)rangeOfMatchGroup:(NSUInteger)groupNumber {
 	UErrorCode status = 0;
 	URegularExpression *re = [[self pattern] re];
-	NSInteger start = uregex_start(re, groupNumber, &status);
+	NSInteger start = uregex_start(re, (int32_t)groupNumber, &status);
 	CheckStatus(status);
 	
-	NSInteger end = uregex_end(re, groupNumber, &status);
+	NSInteger end = uregex_end(re, (int32_t)groupNumber, &status);
 	CheckStatus(status);
 	
 	return NSMakeRange(start == -1 ? NSNotFound : start, end-start);

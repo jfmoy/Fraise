@@ -62,7 +62,7 @@ NSUInteger const ICUUnicodeWordBoundaries = UREGEX_UWORD;
 	UParseError err;
 	UErrorCode status = 0;
 	UChar *regexStr = [aPattern UTF16String];
-	URegularExpression *e = uregex_open(regexStr, -1, flags, &err, &status);
+	URegularExpression *e = uregex_open(regexStr, -1, (uint32_t)flags, &err, &status);
 
 	if(U_FAILURE(status)) {
 		[NSException raise:@"Invalid Pattern Exception"
@@ -195,10 +195,10 @@ NSUInteger const ICUUnicodeWordBoundaries = UREGEX_UWORD;
 		UChar *destFields[destFieldsCapacity];
 		NSInteger numberOfComponents = uregex_split([self re],
 													destBuf,
-													destCapacity,
+													(int32_t)destCapacity,
 													&requiredCapacity,
 													destFields,
-													destFieldsCapacity,
+													(int32_t)destFieldsCapacity,
 													&status);
 		
 		if(status == U_BUFFER_OVERFLOW_ERROR) { // buffer was too small, grow it

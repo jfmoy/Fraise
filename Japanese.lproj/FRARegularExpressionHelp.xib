@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <deployment version="1060" defaultVersion="1060" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner"/>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="高度な検索 - Smultron" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="AdvancedFind" animationBehavior="default" id="7" userLabel="AdvancedFindWindow">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -15,7 +15,7 @@
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
             <value key="minSize" type="size" width="500" height="200"/>
             <view key="contentView" id="8">
-                <rect key="frame" x="1" y="9" width="566" height="361"/>
+                <rect key="frame" x="0.0" y="0.0" width="566" height="361"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" id="18">
@@ -122,19 +122,16 @@ ab{2}	Matches two b characters
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" id="19">
+                    <box verticalHuggingPriority="750" boxType="separator" id="19">
                         <rect key="frame" x="0.0" y="265" width="566" height="5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <font key="titleFont" metaFont="system"/>
                     </box>
                     <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="9">
                         <rect key="frame" x="0.0" y="0.0" width="566" height="246"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                         <clipView key="contentView" id="Rls-UX-z6L">
-                            <rect key="frame" x="1" y="17" width="564" height="228"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <rect key="frame" x="1" y="0.0" width="564" height="245"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" multipleSelection="NO" autosaveName="Search Results Advanced Find" headerView="96" id="10">
                                     <rect key="frame" x="0.0" y="0.0" width="564" height="228"/>
@@ -147,7 +144,7 @@ ab{2}	Matches two b characters
                                         <tableColumn identifier="document" editable="NO" width="200" minWidth="100" maxWidth="1000" id="13">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center" title="ドキュメント">
                                                 <font key="font" metaFont="smallSystem"/>
-                                                <color key="textColor" red="0.31764706999999998" green="0.094117648999999998" blue="0.21176470999999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
                                             </tableHeaderCell>
                                             <textFieldCell key="dataCell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" alignment="left" id="92">
@@ -160,7 +157,7 @@ ab{2}	Matches two b characters
                                         <tableColumn identifier="line" editable="NO" width="55" minWidth="45" maxWidth="65" id="14">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center" title="行">
                                                 <font key="font" metaFont="smallSystem"/>
-                                                <color key="textColor" red="0.14901961" green="0.043137255999999999" blue="0.098039216999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
                                             </tableHeaderCell>
                                             <textFieldCell key="dataCell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" alignment="center" id="93">
@@ -173,7 +170,7 @@ ab{2}	Matches two b characters
                                         <tableColumn identifier="text" editable="NO" width="289" minWidth="41" maxWidth="1000" id="11">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center" title="文字列">
                                                 <font key="font" metaFont="smallSystem"/>
-                                                <color key="textColor" red="0.31764706999999998" green="0.094117648999999998" blue="0.21176470999999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                             </tableHeaderCell>
                                             <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" id="91">
@@ -190,7 +187,6 @@ ab{2}	Matches two b characters
                                     </connections>
                                 </tableView>
                             </subviews>
-                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </clipView>
                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" controlSize="small" horizontal="YES" id="95">
                             <rect key="frame" x="1" y="-22" width="553" height="11"/>
@@ -209,7 +205,7 @@ ab{2}	Matches two b characters
                         <rect key="frame" x="541" y="248" width="16" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     </progressIndicator>
-                    <searchField verticalHuggingPriority="750" id="15">
+                    <searchField wantsLayer="YES" verticalHuggingPriority="750" id="15">
                         <rect key="frame" x="68" y="324" width="392" height="19"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <searchFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" alignment="left" bezelStyle="round" sendsWholeSearchString="YES" maximumRecents="15" recentsAutosaveName="Advanced Find Search Field" id="79">
@@ -222,7 +218,7 @@ ab{2}	Matches two b characters
                             <outlet property="searchMenuTemplate" destination="48" id="53"/>
                         </connections>
                     </searchField>
-                    <searchField verticalHuggingPriority="750" tag="1" id="16">
+                    <searchField wantsLayer="YES" verticalHuggingPriority="750" tag="1" id="16">
                         <rect key="frame" x="68" y="297" width="392" height="19"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <searchFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" alignment="left" tag="1" bezelStyle="round" sendsWholeSearchString="YES" maximumRecents="15" recentsAutosaveName="Advanced Replace Search Field" id="80">
@@ -277,7 +273,7 @@ ab{2}	Matches two b characters
         <menu title="Menu" id="48" userLabel="RecentSearches">
             <items>
                 <menuItem title="最近検索した項目" tag="1000" id="52"/>
-                <menuItem title="Recents &lt;do not localise>" tag="1001" id="51"/>
+                <menuItem title="Recents &lt;do not localise&gt;" tag="1001" id="51"/>
                 <menuItem isSeparatorItem="YES" id="50">
                     <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                 </menuItem>
@@ -299,15 +295,15 @@ ab{2}	Matches two b characters
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" id="PNy-eT-iPM">
                             <rect key="frame" x="1" y="1" width="309" height="279"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
-                                <textView editable="NO" importsGraphics="NO" richText="NO" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="71">
-                                    <rect key="frame" x="0.0" y="0.0" width="309" height="342"/>
+                                <textView editable="NO" importsGraphics="NO" richText="NO" usesFontPanel="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="71">
+                                    <rect key="frame" x="0.0" y="-0.00020670890808105469" width="309" height="279"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <size key="minSize" width="309" height="279"/>
-                                    <size key="maxSize" width="309" height="10000000"/>
+                                    <size key="maxSize" width="311" height="10000000"/>
                                     <attributedString key="textStorage">
                                         <fragment>
                                             <string key="content">^	</string>
@@ -669,8 +665,6 @@ ab{2}	Matches two b characters
                                         </fragment>
                                     </attributedString>
                                     <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    <size key="minSize" width="309" height="279"/>
-                                    <size key="maxSize" width="309" height="10000000"/>
                                     <connections>
                                         <binding destination="41" name="font" keyPath="values.TextFont" id="73">
                                             <dictionary key="options">
@@ -686,7 +680,7 @@ ab{2}	Matches two b characters
                             <rect key="frame" x="-100" y="-100" width="87" height="18"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
-                        <scroller key="verticalScroller" verticalHuggingPriority="750" controlSize="small" horizontal="NO" id="97">
+                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" controlSize="small" horizontal="NO" id="97">
                             <rect key="frame" x="296" y="1" width="14" height="279"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>

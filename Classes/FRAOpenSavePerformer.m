@@ -151,7 +151,7 @@ static id sharedInstance = nil;
 			
 			NSString *title = [NSString stringWithFormat:NSLocalizedString(@"It seems as if you do not have permission to open the file %@", @"Indicate that it seems as if you do not have permission to open the file %@ in Not-enough-permission-to-open sheet"), path];
 			NSArray *openArray = @[path, @(chosenEncoding)];
-			NSBeginAlertSheet(title,
+            NSBeginAlertSheet(title,
 							  AUTHENTICATE_STRING,
 							  nil,
 							  CANCEL_BUTTON,

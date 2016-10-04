@@ -555,7 +555,7 @@ static id sharedInstance = nil;
 	}
 	fullScreenRect = NSMakeRect(fullScreenRect.origin.x - ((width - fullScreenRect.size.width + [[document valueForKey:@"gutterWidth"] doubleValue]) / 2), fullScreenRect.origin.y, width + [[document valueForKey:@"gutterWidth"] doubleValue], fullScreenRect.size.height);
 
-	fullScreenWindow = [[FRAFullScreenWindow alloc] initWithContentRect:[[NSScreen mainScreen] frame] styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO screen:[NSScreen mainScreen]];
+	fullScreenWindow = [[FRAFullScreenWindow alloc] initWithContentRect:[[NSScreen mainScreen] frame] styleMask:NSWindowStyleMaskBorderless backing:NSBackingStoreBuffered defer:NO screen:[NSScreen mainScreen]];
 	
 	if ([FRAMain singleDocumentWindowWasOpenBeforeEnteringFullScreen] == NO) {
 		NSRange sell = [[document valueForKey:@"firstTextView"] selectedRange];

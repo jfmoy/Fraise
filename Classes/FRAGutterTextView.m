@@ -28,7 +28,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		[self setRichText:NO];
 		[self setUsesFindPanel:NO];
 		[self setUsesFontPanel:NO];
-		[self setAlignment:NSRightTextAlignment];
+		[self setAlignment:NSTextAlignmentRight];
 		[self setEditable:NO];
 		[self setSelectable:NO];
 		[[self textContainer] setContainerSize:NSMakeSize([[FRADefaults valueForKey:@"GutterWidth"] integerValue], NSIntegerMax)];

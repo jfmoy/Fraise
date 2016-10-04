@@ -486,7 +486,7 @@ static id sharedInstance = nil;
 	CGFloat newY = windowOrigin.y + (windowSize.height - viewSize.height - [self toolbarHeight]);
 	
 	NSRect rectWithoutTitleBar = NSMakeRect(windowOrigin.x, newY, viewSize.width, viewSize.height);
-	NSRect rectWithTitleBar = [NSWindow frameRectForContentRect:rectWithoutTitleBar styleMask:NSTitledWindowMask];
+	NSRect rectWithTitleBar = [NSWindow frameRectForContentRect:rectWithoutTitleBar styleMask:NSWindowStyleMaskTitled];
 	
 	CGFloat titleBarHeight = rectWithTitleBar.size.height - rectWithoutTitleBar.size.height;
 	

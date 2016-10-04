@@ -277,7 +277,7 @@
 {
     if(_isPlaceholder){
         [[NSColor colorWithCalibratedWhite:0.0 alpha:0.2] set];
-        NSRectFillUsingOperation(cellFrame, NSCompositeSourceAtop);
+        NSRectFillUsingOperation(cellFrame, NSCompositingOperationSourceAtop);
         return;
     }
     
@@ -330,7 +330,7 @@
 //    [image compositeToPoint:NSMakePoint(0.0, 0.0) operation:NSCompositeSourceOver fraction:0.7];
     [image drawAtPoint: NSMakePoint(0.0, 0.0)
               fromRect: NSMakeRect(0, 0, size.width, size.height)
-             operation: NSCompositeSourceOver
+             operation: NSCompositingOperationSourceOver
               fraction: 0.7];
 
     [returnImage unlockFocus];
@@ -342,7 +342,7 @@
         NSPoint indicatorPoint = NSMakePoint([self frame].size.width - MARGIN_X - kPSMTabBarIndicatorWidth, MARGIN_Y);
         if(([self state] == NSOnState) && ([[_controlView styleName] isEqualToString:@"Metal"]))
             indicatorPoint.y += 1.0;
-        [pi compositeToPoint:indicatorPoint operation:NSCompositeSourceOver fraction:0.7];
+        [pi compositeToPoint:indicatorPoint operation:NSCompositingOperationSourceOver fraction:0.7];
         [returnImage unlockFocus];
     }
     return returnImage;

@@ -11,7 +11,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="5" userLabel="PrintAccessoryView">
             <rect key="frame" x="0.0" y="0.0" width="486" height="179"/>
             <autoresizingMask key="autoresizingMask"/>
@@ -128,14 +128,14 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="19" name="font" keyPath="values.PrintFont" id="24">
-                            <dictionary key="options">
-                                <string key="NSValueTransformerName">NSUnarchiveFromData</string>
-                            </dictionary>
-                        </binding>
                         <binding destination="19" name="value" keyPath="values.PrintFont" id="22">
                             <dictionary key="options">
                                 <string key="NSValueTransformerName">FontTransformer</string>
+                            </dictionary>
+                        </binding>
+                        <binding destination="19" name="font" keyPath="values.PrintFont" id="24">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">NSUnarchiveFromData</string>
                             </dictionary>
                         </binding>
                     </connections>

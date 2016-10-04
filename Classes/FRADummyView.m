@@ -72,7 +72,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		centeredRect.origin.x += ((rect.size.width - centeredRect.size.width) / 2.0);
 		centeredRect.origin.y = ((rect.size.height - centeredRect.size.height) / 2.0) + 48;
 		
-		[fraiseImage drawInRect:centeredRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:0.80];
+		[fraiseImage drawInRect:centeredRect fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:0.80];
 	}
 }
 

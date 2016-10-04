@@ -164,7 +164,7 @@ static id sharedInstance = nil;
 	else if (keyCode == 0x72) returnString = @"?"; // help
 	
 	else {
-		if ([event modifierFlags] & NSShiftKeyMask) { // If Shift is pressed, get the character this way so the "correct" character will be displayed, e.g. 3 and not #
+		if ([event modifierFlags] & NSEventModifierFlagShift) { // If Shift is pressed, get the character this way so the "correct" character will be displayed, e.g. 3 and not #
 			OSStatus err;
 			
 			static UInt32 deadKeyState = 0;
@@ -176,7 +176,7 @@ static id sharedInstance = nil;
 			
 			CFDataRef uchrDataRef = (CFDataRef)TISGetInputSourceProperty(kbInputSourceRef, kTISPropertyUnicodeKeyLayoutData);
 				
-			err = UCKeyTranslate((const UCKeyboardLayout *)CFDataGetBytePtr(uchrDataRef), keyCode, kUCKeyActionDown, [self carbonModifierFromCocoaModifier:[event modifierFlags]], LMGetKbdType(), kUCKeyTranslateNoDeadKeysMask, &deadKeyState, maxStringLength, &actualStringLength, unicodeString);
+			err = UCKeyTranslate((const UCKeyboardLayout *)CFDataGetBytePtr(uchrDataRef), keyCode, kUCKeyActionDown, (UInt32) [self carbonModifierFromCocoaModifier:[event modifierFlags]], LMGetKbdType(), kUCKeyTranslateNoDeadKeysMask, &deadKeyState, maxStringLength, &actualStringLength, unicodeString);
 			returnString = [NSString stringWithCharacters:unicodeString length:1];
 	
 			if (err != noErr) {
@@ -229,19 +229,19 @@ static id sharedInstance = nil;
 	NSMutableString *returnString = [NSMutableString stringWithString:@""];
 	NSInteger modifier = [event modifierFlags];
 	
-	if (modifier & NSCommandKeyMask) {
+	if (modifier & NSEventModifierFlagCommand) {
 		[returnString appendString:[NSString stringWithFormat:@"%C", 0x2318]];
 	}
 	
-	if (modifier & NSAlternateKeyMask) {
+	if (modifier & NSEventModifierFlagOption) {
 		[returnString appendString:[NSString stringWithFormat:@"%C", 0x2325]];
 	}
 	
-	if (modifier & NSControlKeyMask) {
+	if (modifier & NSEventModifierFlagControl) {
 		[returnString appendString:[NSString stringWithFormat:@"%C", 0x2303]];
 	}
 	
-	if (modifier & NSShiftKeyMask) {
+	if (modifier & NSEventModifierFlagShift) {
 		[returnString appendString:[NSString stringWithFormat:@"%C", 0x21E7]];
 	}	
 	
@@ -252,10 +252,10 @@ static id sharedInstance = nil;
 - (NSUInteger)carbonModifierFromCocoaModifier:(NSUInteger)cocoaModifier
 {
 	NSUInteger carbonModifier = 0;
-	if (cocoaModifier & NSShiftKeyMask) carbonModifier |= shiftKey;
-	if (cocoaModifier & NSControlKeyMask) carbonModifier |= controlKey;
-	if (cocoaModifier & NSCommandKeyMask) carbonModifier |= cmdKey;
-	if (cocoaModifier & NSAlternateKeyMask) carbonModifier |= optionKey;
+	if (cocoaModifier & NSEventModifierFlagShift) carbonModifier |= shiftKey;
+	if (cocoaModifier & NSEventModifierFlagControl) carbonModifier |= controlKey;
+	if (cocoaModifier & NSEventModifierFlagCommand) carbonModifier |= cmdKey;
+	if (cocoaModifier & NSEventModifierFlagOption) carbonModifier |= optionKey;
 	
 	return carbonModifier;
 }

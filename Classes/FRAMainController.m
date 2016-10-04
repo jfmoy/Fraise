@@ -53,15 +53,13 @@ static id sharedInstance = nil;
 
 + (void)initialize
 {
-	SInt32 systemVersion;
-	if (Gestalt(gestaltSystemVersion, &systemVersion) == noErr) {
-		if (systemVersion < 0x1050) {
-			[NSApp activateIgnoringOtherApps:YES];
-			[FRAVarious alertWithMessage:[NSString stringWithFormat:NSLocalizedStringFromTable(@"You need %@ or later to run this version of Fraise", @"Localizable3", @"You need %@ or later to run this version of Fraise"), @"Mac OS X 10.5 Leopard"] informativeText:NSLocalizedStringFromTable(@"Go to the web site (http://fraise.sourceforge.net) to download another version for an earlier Mac OS X system", @"Localizable3", @"Go to the web site (http://fraise.sourceforge.net) to download another version for an earlier Mac OS X system") defaultButton:OK_BUTTON alternateButton:nil otherButton:nil];
+    NSOperatingSystemVersion systemVersion = [[NSProcessInfo init] operatingSystemVersion];
+    if (systemVersion.minorVersion < 0x50) {
+        [NSApp activateIgnoringOtherApps:YES];
+        [FRAVarious alertWithMessage:[NSString stringWithFormat:NSLocalizedStringFromTable(@"You need %@ or later to run this version of Fraise", @"Localizable3", @"You need %@ or later to run this version of Fraise"), @"Mac OS X 10.5 Leopard"] informativeText:NSLocalizedStringFromTable(@"Go to the web site (http://fraise.sourceforge.net) to download another version for an earlier Mac OS X system", @"Localizable3", @"Go to the web site (http://fraise.sourceforge.net) to download another version for an earlier Mac OS X system") defaultButton:OK_BUTTON alternateButton:nil otherButton:nil];
 			
-			[NSApp terminate:nil];
-		}
-	}
+        [NSApp terminate:nil];
+    }
 	
 	[FRABasic insertFetchRequests];
 	

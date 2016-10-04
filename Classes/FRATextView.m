@@ -371,7 +371,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (void)mouseDown:(NSEvent *)theEvent
 {
-	if (([theEvent modifierFlags] & NSAlternateKeyMask) && ([theEvent modifierFlags] & NSCommandKeyMask)) { // If the option and command keys are pressed, change the cursor to grab-cursor
+	if (([theEvent modifierFlags] & NSAlternateKeyMask) && ([theEvent modifierFlags] & NSEventModifierFlagCommand)) { // If the option and command keys are pressed, change the cursor to grab-cursor
 		startPoint = [theEvent locationInWindow];
 		startOrigin = [[[self enclosingScrollView] contentView] documentVisibleRect].origin;
 		[[self enclosingScrollView] setDocumentCursor:[NSCursor openHandCursor]];
@@ -613,7 +613,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		NSImage *cursorImage = [[NSCursor IBeamCursor] image];
 		[cursorImage lockFocus];
 		[(NSColor *)[NSUnarchiver unarchiveObjectWithData:[FRADefaults valueForKey:@"TextColourWell"]] set];
-		NSRectFillUsingOperation(NSMakeRect(0, 0, [cursorImage size].width, [cursorImage size].height), NSCompositeSourceAtop);
+		NSRectFillUsingOperation(NSMakeRect(0, 0, [cursorImage size].width, [cursorImage size].height), NSCompositingOperationSourceAtop);
 		[cursorImage unlockFocus];
 		[self setColouredIBeamCursor:[[NSCursor alloc] initWithImage:cursorImage hotSpot:[[NSCursor IBeamCursor] hotSpot]]];
 	}

@@ -81,7 +81,7 @@ static id sharedInstance = nil;
 	[findSearchField setRecentSearches:recentSearches];
 	
 	NSInteger searchStringLength = [searchString length];
-	if (!searchStringLength > 0 || FRACurrentDocument == nil || FRACurrentProject == nil) {
+	if (!(searchStringLength > 0) || FRACurrentDocument == nil || FRACurrentProject == nil) {
 		NSBeep();
 		return;
 	}
@@ -272,7 +272,7 @@ static id sharedInstance = nil;
 	[replaceSearchField setRecentSearches:recentReplaces];
 	
 	NSInteger searchStringLength = [searchString length];
-	if (!searchStringLength > 0 || FRACurrentDocument == nil || FRACurrentProject == nil) {
+	if (!(searchStringLength > 0) || FRACurrentDocument == nil || FRACurrentProject == nil) {
 		NSBeep();
 		return;
 	}

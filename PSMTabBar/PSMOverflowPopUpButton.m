@@ -45,7 +45,7 @@
 //    [image compositeToPoint:rect.origin operation:NSCompositeSourceOver];
     [image drawAtPoint: rect.origin
               fromRect: rect
-             operation: NSCompositeSourceOver
+             operation: NSCompositingOperationSourceOver
               fraction: 1.0];
 
 }

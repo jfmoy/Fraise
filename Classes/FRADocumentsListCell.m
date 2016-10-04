@@ -96,7 +96,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 //        [image compositeToPoint:imageFrame.origin operation:NSCompositeSourceOver];
         [image drawAtPoint: imageFrame.origin
                   fromRect: imageFrame
-                 operation: NSCompositeSourceOver
+                 operation: NSCompositingOperationSourceOver
                   fraction: 1.0];
     }
 	

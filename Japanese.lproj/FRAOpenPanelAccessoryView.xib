@@ -12,7 +12,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="5" userLabel="OpenPanelAccessoryView &lt;do not localise&gt;">
             <rect key="frame" x="0.0" y="0.0" width="427" height="37"/>
             <autoresizingMask key="autoresizingMask"/>
@@ -31,7 +31,7 @@
                     <autoresizingMask key="autoresizingMask"/>
                     <popUpButtonCell key="cell" type="push" title="&lt;do not localise&gt;" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="8" id="17">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
+                        <font key="font" metaFont="menu"/>
                         <menu key="menu" title="OtherViews" id="7">
                             <items>
                                 <menuItem title="&lt;do not localise&gt;" state="on" id="8"/>
@@ -40,7 +40,6 @@
                     </popUpButtonCell>
                 </popUpButton>
             </subviews>
-            <metadata/>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="13" userLabel="Shared Defaults"/>
     </objects>
