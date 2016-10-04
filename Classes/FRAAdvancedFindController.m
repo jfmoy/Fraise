@@ -509,7 +509,7 @@ static id sharedInstance = nil;
 - (void)showAdvancedFindWindow
 {
 	if (advancedFindWindow == nil) {
-		[NSBundle loadNibNamed:@"FRAAdvancedFind.nib" owner:self];
+		[[NSBundle mainBundle] loadNibNamed:@"FRAAdvancedFind" owner:self topLevelObjects:nil];
 	
 		[[findResultTextField cell] setBackgroundStyle:NSBackgroundStyleRaised];
 				
