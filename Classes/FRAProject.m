@@ -745,10 +745,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 - (void)insertDefaultIconsInDocument:(id)document
 {
 	NSImage *defaultIcon = [FRAInterface defaultIcon];
-	[defaultIcon setScalesWhenResized:YES];
-		
 	NSImage *defaultUnsavedIcon = [FRAInterface defaultUnsavedIcon];
-	[defaultUnsavedIcon setScalesWhenResized:YES];
 	
 	[document setValue:defaultIcon forKey:@"icon"];	
 	[document setValue:defaultUnsavedIcon forKey:@"unsavedIcon"];

@@ -39,7 +39,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	//Log(ciImage);
 	[unsavedIcon addRepresentation:[NSCIImageRep imageRepWithCIImage:[NSImage unsavedFilterForCIImage:ciImage]]];
 	[unsavedIcon setSize:NSMakeSize(ICON_MAX_SIZE, ICON_MAX_SIZE)];
-	[unsavedIcon setScalesWhenResized:YES];
 	iconsArray = @[icon, unsavedIcon];
 	
 	return iconsArray;
@@ -65,9 +64,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 			NSImage *unsavedIcon = [[NSImage alloc] initWithSize:iconSize];
 			CIImage *ciImage = [[CIImage alloc] initWithBitmapImageRep:bitmapImageRep];
 			[unsavedIcon addRepresentation:[NSCIImageRep imageRepWithCIImage:[NSImage unsavedFilterForCIImage:ciImage]]];
-			
-			[icon setScalesWhenResized:YES];
-			[unsavedIcon setScalesWhenResized:YES];
 			
 			return @[icon, unsavedIcon];
 		}
