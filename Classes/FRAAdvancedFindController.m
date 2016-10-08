@@ -234,8 +234,6 @@ static id sharedInstance = nil;
 	}
 	
 	[findResultsOutlineView setDelegate:self];
-	
-//	[[NSGarbageCollector defaultCollector] collectIfNeeded];
 }
 
 

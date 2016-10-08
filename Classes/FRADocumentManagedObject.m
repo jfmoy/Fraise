@@ -22,17 +22,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 {
 	[super awakeFromInsert];
 	
-//	NSImage *defaultDocumentIcon = [FRAInterface documentIcon];
-//	[defaultDocumentIcon setDataRetained:NO];
-//	[defaultDocumentIcon setScalesWhenResized:YES];
-//	
-//	NSImage *defaultUnsavedDocumentIcon = [[NSImage alloc] initWithData:[[FRAVarious unsavedIconFromImage:defaultDocumentIcon] TIFFRepresentation]];
-//	[defaultUnsavedDocumentIcon setDataRetained:NO];
-//	[defaultUnsavedDocumentIcon setScalesWhenResized:YES];
-//	
-//	[self setValue:defaultDocumentIcon forKey:@"icon"];	
-//	[self setValue:defaultUnsavedDocumentIcon forKey:@"unsavedIcon"];
-
 	[self setValue:@([[FRADefaults valueForKey:@"SyntaxColourNewDocuments"] boolValue]) forKey:@"isSyntaxColoured"];
 	[self setValue:@([[FRADefaults valueForKey:@"LineWrapNewDocuments"] boolValue]) forKey:@"isLineWrapped"];
 	[self setValue:@([[FRADefaults valueForKey:@"ShowInvisibleCharacters"] boolValue]) forKey:@"showInvisibleCharacters"];

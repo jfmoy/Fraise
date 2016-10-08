@@ -29,7 +29,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Fraise" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="SmultronProjectWindow" animationBehavior="default" id="5" userLabel="ProjectWindow" customClass="FRAProjectWindow">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" unifiedTitleAndToolbar="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -124,8 +124,8 @@
                 <string>name</string>
             </declaredKeys>
             <connections>
-                <binding destination="-2" name="contentObject" keyPath="project" id="100"/>
                 <binding destination="-2" name="managedObjectContext" keyPath="managedObjectContext" id="83"/>
+                <binding destination="-2" name="contentObject" keyPath="project" id="100"/>
             </connections>
         </objectController>
         <customView id="180" userLabel="SecondContentViewNavigationBar" customClass="FRAGradientBackgroundView">
@@ -154,9 +154,9 @@
                 <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="0.0" verticalLineScroll="19" verticalPageScroll="0.0" usesPredominantAxisScrolling="NO" id="190">
                     <rect key="frame" x="0.0" y="0.0" width="215" height="501"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <clipView key="contentView" id="kUC-ip-XhI">
+                    <clipView key="contentView" drawsBackground="NO" id="kUC-ip-XhI">
                         <rect key="frame" x="0.0" y="0.0" width="215" height="501"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" columnResizing="NO" multipleSelection="NO" emptySelection="NO" autosaveName="DocumentsList" id="191" customClass="FRATableView">
                                 <rect key="frame" x="0.0" y="0.0" width="215" height="501"/>
@@ -189,6 +189,7 @@
                                 </tableColumns>
                             </tableView>
                         </subviews>
+                        <nil key="backgroundColor"/>
                     </clipView>
                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="296">
                         <rect key="frame" x="1" y="-30" width="198" height="15"/>
@@ -205,7 +206,7 @@
             <rect key="frame" x="0.0" y="0.0" width="114" height="32"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <searchField verticalHuggingPriority="750" id="209" customClass="FRASearchField">
+                <searchField wantsLayer="YES" verticalHuggingPriority="750" id="209" customClass="FRASearchField">
                     <rect key="frame" x="11" y="4" width="91" height="22"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" alignment="left" bezelStyle="round" maximumRecents="0" recentsAutosaveName="" id="290">

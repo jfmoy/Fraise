@@ -83,9 +83,6 @@ static id sharedInstance = nil;
 		[toolbar setSizeMode:NSToolbarSizeModeSmall];
 		[toolbar setDelegate:self];
 		[snippetsWindow setToolbar:toolbar];
-		
-		//[snippetCollectionsTableView setBackgroundColor:[[NSColor controlAlternatingRowBackgroundColors] objectAtIndex:1]];
-		
 	}
 	
 	[snippetsWindow makeKeyAndOrderFront:self];

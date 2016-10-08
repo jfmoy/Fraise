@@ -19,14 +19,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 }
 
-//- (IBAction)selectAction:(id)sender;
 - (IBAction)advancedFindReplaceAction:(id)sender;
 - (IBAction)liveFindAction:(id)sender;
-
-//- (IBAction)deleteLineAction:(id)sender;
-//- (IBAction)deleteToBeginningOfLineAction:(id)sender;
-//- (IBAction)deleteToEndOfLineAction:(id)sender;
-
-
 
 @end

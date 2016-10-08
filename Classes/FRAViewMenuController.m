@@ -89,8 +89,6 @@ static id sharedInstance = nil;
 		[FRACurrentProject buildSecondContentViewNavigationBarMenu];
 		[[[FRACurrentProject firstDocument] valueForKey:@"syntaxColouring"] pageRecolour];
 	}
-	
-	//[FRACurrentProject updateSplitWindowToolbarItem];
 }
 
 

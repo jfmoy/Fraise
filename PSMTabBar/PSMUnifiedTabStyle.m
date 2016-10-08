@@ -303,8 +303,6 @@
 		NSGradient *gradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedWhite:0.99 alpha:1.0] endingColor:[NSColor colorWithCalibratedWhite:0.941 alpha:1.0]];
 		[gradient drawInBezierPath:bezier angle:90];
 		
-		//[bezier linearGradientFillWithStartColor:[NSColor colorWithCalibratedWhite:0.99 alpha:1.0] endColor:[NSColor colorWithCalibratedWhite:0.941 alpha:1.0]];
-		
 		[lineColor set];
         [bezier stroke];
     }
@@ -448,7 +446,6 @@
 	NSGradient *gradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedWhite:0.918 alpha:1.0] endingColor:[NSColor colorWithCalibratedWhite:0.843 alpha:1.0]];
 	[gradient drawInBezierPath:path angle:90];
 	
-	//[path linearGradientFillWithStartColor:[NSColor colorWithCalibratedWhite:0.918 alpha:1.0] endColor:[NSColor colorWithCalibratedWhite:0.843 alpha:1.0]];
 	[[NSColor colorWithCalibratedWhite:0.576 alpha:1.0] set];
 	[NSBezierPath strokeLineFromPoint:NSMakePoint(rect.origin.x,NSMaxY(rect) - 1.0)
 							  toPoint:NSMakePoint(NSMaxX(rect),NSMaxY(rect) - 1.0)];

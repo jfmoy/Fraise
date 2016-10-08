@@ -79,13 +79,8 @@ NSUInteger const ICUUnicodeWordBoundaries = UREGEX_UWORD;
 }
 
 -(void)dealloc {
-
-//	if(re != NULL)
-//		NSZoneFree([self zone], re);
-
 	if(textToSearch != NULL)
 		free(textToSearch);
-	
 }
 
 -(NSString *)stringToSearch {

@@ -88,12 +88,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		closeToolbarItem = [NSToolbarItem createToolbarItemWithIdentifier:itemIdentifier name:NSLocalizedString(@"Close", @"Close") image:closeImage action:@selector(close:) tag:0 target:self];
 		return closeToolbarItem;
 		
-		
-//	} else if ([itemIdentifier isEqualToString:@"PreferencesToolbarItem"]) {
-//        
-//		return [NSToolbarItem createToolbarItemWithIdentifier:itemIdentifier name:NSLocalizedString(@"Preferences", @"Preferences") image:preferencesImage action:@selector(preferences:) tag:1 target:self];
-//		
-		
 	} else if ([itemIdentifier isEqualToString:@"QuicklyFindNextToolbarItem"]) {
 		
 		return [NSToolbarItem createSeachFieldToolbarItemWithIdentifier:itemIdentifier name:NSLocalizedString(@"Live Find", @"Live Find") view:liveFindSearchField];
@@ -148,37 +142,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		
 		return functionToolbarItem;
 		
-		
-//	} else if ([itemIdentifier isEqualToString:@"SplitWindowToolbarItem"]) {
-//		NSToolbarItem *toolbarItem = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
-//		[toolbarItem setLabel:SPLIT_WINDOW_STRING];
-//		[toolbarItem setToolTip:SPLIT_WINDOW_STRING];
-//		[toolbarItem setImage:splitWindowImage];
-//		[toolbarItem setPaletteLabel:NSLocalizedString(@"Split Window / Close Split", @"Split Window / Close Split toolbar item Palette Label")];
-//		[toolbarItem setTarget:self];
-//		[toolbarItem setAction:@selector(splitWindow:)];
-//		
-//		return toolbarItem;
-//		
-//		
-//	} else if ([itemIdentifier isEqual:@"LineWrapToolbarItem"]) {
-//		NSToolbarItem *toolbarItem = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
-//		if ([[FRADefaults valueForKey:@"LineWrapNewDocuments"] boolValue] == NO) {
-//			[toolbarItem setLabel:LINE_WRAP_STRING];
-//			[toolbarItem setToolTip:LINE_WRAP_STRING];
-//			[toolbarItem setImage:lineWrapImage];
-//		} else {
-//			[toolbarItem setLabel:DONT_LINE_WRAP_STRING];
-//			[toolbarItem setToolTip:DONT_LINE_WRAP_STRING];
-//			[toolbarItem setImage:dontLineWrapImage];
-//		}
-//        [toolbarItem setPaletteLabel:NSLocalizedString(@"Line Wrap / Don't Line Wrap",@"Line Wrap / Don't Line Wrap toolbar item Palette Label")];
-//        [toolbarItem setTarget:self];
-//        [toolbarItem setAction:@selector(lineWrap:)];
-//		
-//		return toolbarItem;
-//		
-//		
 	}
 		
 	return nil;
@@ -195,32 +158,8 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	} else if ([[toolbarItem itemIdentifier] isEqualToString:@"FunctionToolbarItem"]) {
 		functionToolbarItem = toolbarItem;
 		[functionButton sendActionOn:NSEventMaskLeftMouseDown];
-//	} else if ([[toolbarItem itemIdentifier] isEqualToString:@"SplitWindowToolbarItem"]) {
-//		splitWindowToolbarItem = toolbarItem;
-//	} else if ([[toolbarItem itemIdentifier] isEqual:@"LineWrapToolbarItem"]) {
-//		lineWrapToolbarItem = toolbarItem;
 	}
 } 
-
-
-//- (BOOL)validateToolbarItem:(NSToolbarItem *)toolbarItem 
-//{
-//	// Function and Live Find are validated in -[FRAProject documentsListHasUpdated] so that they don't need to be updated all the time as they would have been here 
-//	
-//	BOOL enableItem = YES;
-//	Log(toolbarItem);
-//	if ([self areThereAnyDocuments] == NO) {
-//		if ([toolbarItem tag] != 1) { // All the items that should always be active have the tag 1
-//			//enableItem = NO;
-//			//[(NSButton *)[[[toolbarItem view] subviews] objectAtIndex:0] setEnabled:NO];
-//			//[(NSButtonCell *)[[[[toolbarItem view] subviews] objectAtIndex:0] cell] setEnabled:NO];
-//			[toolbarItem setEnabled:NO];
-//			Pos;
-//		}
-//	}
-//
-//    return enableItem;
-//}
 
 
 - (void)save:(id)sender
@@ -251,12 +190,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 {
 	[[FRAFileMenuController sharedInstance] printAction:nil];
 }
-
-
-//- (void)preferences:(id)sender
-//{
-//	[[FRAPreferencesController sharedInstance] showPreferencesWindow];
-//}
 
 
 - (IBAction)liveFindToolbarItemAction:(id)sender;
@@ -421,49 +354,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
     return functionButton; 
 }
 
-
-//- (void)splitWindow:(id)sender
-//{
-//	[[FRAViewMenuController sharedInstance] splitWindowAction:nil];
-//}
-
-
-//- (void)updateSplitWindowToolbarItem
-//{
-//	if (secondDocument == nil) {
-//		[splitWindowToolbarItem setLabel:SPLIT_WINDOW_STRING];
-//		[splitWindowToolbarItem setToolTip:SPLIT_WINDOW_STRING];
-//		[splitWindowToolbarItem setImage:splitWindowImage];
-//	} else {
-//		[splitWindowToolbarItem setLabel:CLOSE_SPLIT_STRING];
-//		[splitWindowToolbarItem setToolTip:CLOSE_SPLIT_STRING];
-//		[splitWindowToolbarItem setImage:closeSplitImage];
-//	}
-//}
-
-
-//- (void)lineWrap:(id)sender
-//{
-//	[[FRAViewMenuController sharedInstance] lineWrapTextAction:nil];
-//}
-//
-//
-//- (void)updateLineWrapToolbarItem
-//{
-//	if ([[FRAApplicationDelegate sharedInstance] hasFinishedLaunching] == YES) {
-//		if ([[FRACurrentDocument valueForKey:@"isLineWrapped"] boolValue] == NO) {
-//			[lineWrapToolbarItem setLabel:LINE_WRAP_STRING];
-//			[lineWrapToolbarItem setToolTip:LINE_WRAP_STRING];
-//			[lineWrapToolbarItem setImage:lineWrapImage];
-//		} else {
-//			[lineWrapToolbarItem setLabel:DONT_LINE_WRAP_STRING];
-//			[lineWrapToolbarItem setToolTip:DONT_LINE_WRAP_STRING];
-//			[lineWrapToolbarItem setImage:dontLineWrapImage];
-//		}
-//	}
-//}
-
-
 - (void)extraToolbarValidation
 {
 	if ([self areThereAnyDocuments] == YES) {
@@ -519,7 +409,5 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	
 	
 	[self updateLabelsInToolbar]; // Do this so the labels are properly greyed out
-	//[self updateSplitWindowToolbarItem];
-//	[self updateLineWrapToolbarItem];
 }
 @end

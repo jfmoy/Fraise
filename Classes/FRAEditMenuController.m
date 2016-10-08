@@ -24,20 +24,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 @implementation FRAEditMenuController
 
 
-//- (IBAction)selectAction:(id)sender
-//{
-//	NSTextView *textView = FRACurrentTextView;
-//	NSInteger tag = [sender tag];
-//	if (tag == 1) {
-//		[textView selectWord:nil];
-//	} else if (tag == 11) {
-//		[textView selectLine:nil];
-//	} else if (tag == 111) {
-//		[textView selectParagraph:nil];
-//	}
-//}
-
-
 - (BOOL)validateMenuItem:(NSMenuItem *)anItem
 {
 	BOOL enableMenuItem = YES;
@@ -75,52 +61,5 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	}
 }
 
-
-//- (IBAction)deleteLineAction:(id)sender
-//{
-//	id firstResponder = [FRACurrentWindow firstResponder];
-//	if ([firstResponder isKindOfClass:[FRATextView class]]) {
-//		NSEnumerator *enumerator = [[firstResponder selectedRanges] reverseObjectEnumerator];
-//		for (id item in enumerator) {
-//			NSRange lineRange = [[firstResponder string] lineRangeForRange:[item rangeValue]];
-//			if ([firstResponder shouldChangeTextInRange:lineRange replacementString:@""]) { // Do it this way to mark it as an Undo
-//				[firstResponder replaceCharactersInRange:lineRange withString:@""];
-//				[firstResponder didChangeText];
-//			}
-//		}
-//	}
-//}
-//
-//
-//- (IBAction)deleteToBeginningOfLineAction:(id)sender
-//{
-//	id firstResponder = [FRACurrentWindow firstResponder];
-//	if ([firstResponder isKindOfClass:[FRATextView class]]) {
-//		NSRange selectedRange = [firstResponder selectedRange];
-//		if (selectedRange.length == 0) {
-//			NSRange lineRange = [[firstResponder string] lineRangeForRange:selectedRange];
-//			if ([firstResponder shouldChangeTextInRange:NSMakeRange(lineRange.location, selectedRange.location - lineRange.location) replacementString:@""]) { // Do it this way to mark it as an Undo
-//				[firstResponder replaceCharactersInRange:NSMakeRange(lineRange.location, selectedRange.location - lineRange.location) withString:@""];
-//				[firstResponder didChangeText];
-//			}
-//		}
-//	}
-//}
-//
-//
-//- (IBAction)deleteToEndOfLineAction:(id)sender
-//{
-//	id firstResponder = [FRACurrentWindow firstResponder];
-//	if ([firstResponder isKindOfClass:[FRATextView class]]) {
-//		NSRange selectedRange = [firstResponder selectedRange];
-//		if (selectedRange.length == 0) {
-//			NSRange lineRange = [[firstResponder string] lineRangeForRange:selectedRange];
-//			if ([firstResponder shouldChangeTextInRange:NSMakeRange(selectedRange.location, NSMaxRange(lineRange) - selectedRange.location) replacementString:@""]) { // Do it this way to mark it as an Undo
-//				[firstResponder replaceCharactersInRange:NSMakeRange(selectedRange.location, NSMaxRange(lineRange) - selectedRange.location) withString:@""];
-//				[firstResponder didChangeText];
-//			}
-//		}
-//	}
-//}
 
 @end

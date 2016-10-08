@@ -34,8 +34,5 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (NSButton *)functionButton;
 
-//- (void)updateSplitWindowToolbarItem;
-//- (void)updateLineWrapToolbarItem;
-
 - (void)extraToolbarValidation;
 @end

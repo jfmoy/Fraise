@@ -113,14 +113,6 @@ static id sharedInstance = nil;
 }
 
 
-//- (IBAction)setPrintFontAction:(id)sender
-//{
-//	NSFontManager *fontManager = [NSFontManager sharedFontManager];
-//	[fontManager setSelectedFont:[NSUnarchiver unarchiveObjectWithData:[FRADefaults valueForKey:@"PrintFont"]] isMultiple:NO];
-//	[fontManager orderFrontFontPanel:nil];
-//}
-
-
 - (NSPopUpButton *)openPanelEncodingsPopUp
 {
 	if (openPanelEncodingsPopUp == nil) {
@@ -139,16 +131,6 @@ static id sharedInstance = nil;
 	
 	return openPanelAccessoryView;
 }
-
-
-//- (NSView *)printAccessoryView
-//{
-//	if (printAccessoryView == nil) {
-//		[[NSBundle mainBundle] loadNibNamed:@"FRAPrintAccessoryView" owner:self topLevelObjects:nil];
-//	}
-//	
-//	return printAccessoryView;
-//}
 
 
 - (NSWindow *)commandResultWindow

@@ -87,9 +87,6 @@ static id sharedInstance = nil;
 		[toolbar setSizeMode:NSToolbarSizeModeSmall];
 		[toolbar setDelegate:self];
 		[commandsWindow setToolbar:toolbar];
-		
-		//[commandCollectionsTableView setBackgroundColor:[[NSColor controlAlternatingRowBackgroundColors] objectAtIndex:1]];
-        
 	}
 	
 	[commandsWindow makeKeyAndOrderFront:self];

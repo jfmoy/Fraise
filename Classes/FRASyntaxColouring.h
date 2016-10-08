@@ -100,21 +100,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	NSRange lastLineHighlightRange;
 }
 
-//@property ICUPattern *firstStringPattern;
-//@property ICUPattern *secondStringPattern;
-//
-//@property ICUMatcher *firstStringMatcher;
-//@property ICUMatcher *secondStringMatcher;
-
-//@property NSSet *keywords;
-//@property NSSet *autocompleteWords;
-//@property NSArray *keywordsAndAutocompleteWords;
-//
-//@property BOOL keywordsCaseSensitive;
-//@property BOOL recolourKeywordIfAlreadyColoured;
 @property BOOL reactToChanges;
-
-//@property NSEnumerator *wordEnumerator;
 
 @property (copy) NSString *functionDefinition;
 @property (copy) NSString *removeFromFunction;
@@ -124,7 +110,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 @property (unsafe_unretained) FRALayoutManager *fourthLayoutManager;
 
 @property (readonly) NSUndoManager *undoManager;
-//@property (readonly) NSDictionary *highlightColour;
 
 
 

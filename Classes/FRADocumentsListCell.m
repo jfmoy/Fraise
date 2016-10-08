@@ -93,7 +93,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		
 		[image setSize:NSMakeSize(actualImageSize.width * scaleFactor, actualImageSize.height * scaleFactor)];
 
-//        [image compositeToPoint:imageFrame.origin operation:NSCompositeSourceOver];
         [image drawAtPoint: imageFrame.origin
                   fromRect: imageFrame
                  operation: NSCompositingOperationSourceOver

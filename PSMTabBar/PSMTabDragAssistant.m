@@ -211,13 +211,9 @@ static PSMTabDragAssistant *sharedDragAssistant = nil;
 		}
 		
 		if (destinationProject != nil) {
-			//NSArrayController *destinationArrayController = [destinationProject documentsArrayController];
-			
 			id document = [[[self draggedCell] representedObject] identifier];
 			[(NSMutableSet *)[destinationProject documents] addObject:document];
 			[destinationProject updateDocumentOrderFromCells:[[self destinationTabBar] cells]];
-			//[document setValue:[NSNumber numberWithInteger:row] forKey:@"sortOrder"];
-			//[destinationProject documentsListHasUpdated];
 			[destinationProject selectDocument:document];
 		}
 		
@@ -231,9 +227,7 @@ static PSMTabDragAssistant *sharedDragAssistant = nil;
 		}
 		
 		if (sourceProject != nil) {
-			//NSArrayController *destinationArrayController = [sourceProject documentsArrayController];
-			[sourceProject selectionDidChange];//updateDocumentOrderFromCells:[[self sourceTabBar] cells]];
-			//[sourceProject documentsListHasUpdated];
+			[sourceProject selectionDidChange];
 		}
 		
     } else {

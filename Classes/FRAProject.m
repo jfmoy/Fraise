@@ -68,7 +68,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	
 	[[self windowControllers][0] setWindowFrameAutosaveName:@"FraiseProjectWindow"];
 	[[self window] setFrameAutosaveName:@"FraiseProjectWindow"];
-	//[[[self windowControllers] objectAtIndex:0] setShouldCascadeWindows:NO];
 	
 	[self setDefaultAppearanceAtStartup];
 	
@@ -76,8 +75,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	
 	[documentsTableView setDelegate:self];
 	[mainSplitView setDelegate:self];
-	//[mainSplitView setAutosaveName:@"MainSplitView"];
-	[contentSplitView setDelegate:self];	
+	[contentSplitView setDelegate:self];
 	
 	[[FRAViewMenuController sharedInstance] performCollapse];
 	[self performSelector:@selector(performSetupAfterItIsCurrentProject) withObject:nil afterDelay:0.0];
@@ -89,32 +87,15 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	[documentsTableView setDraggingSourceOperationMask:(NSDragOperationCopy | NSDragOperationMove) forLocal:NO];
 	
 	
-//	splitWindowImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRASplitWindowIcon" ofType:@"pdf" inDirectory:@"Toolbar Icons"]];
-//	[[[splitWindowImage representations] objectAtIndex:0] setAlpha:YES];
-//	closeSplitImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRACloseSplitIcon" ofType:@"pdf" inDirectory:@"Toolbar Icons"]];
-//	[[[closeSplitImage representations] objectAtIndex:0] setAlpha:YES];
-//	lineWrapImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRALineWrapIcon" ofType:@"pdf" inDirectory:@"Toolbar Icons"]];
-//	[[[lineWrapImage representations] objectAtIndex:0] setAlpha:YES];
-//	dontLineWrapImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRADontLineWrapIcon" ofType:@"pdf" inDirectory:@"Toolbar Icons"]];
-//	[[[dontLineWrapImage representations] objectAtIndex:0] setAlpha:YES];
 	saveImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRASaveIcon" ofType:@"pdf" inDirectory:@"Toolbar Icons"]];
-	//[[[saveImage representations] objectAtIndex:0] setAlpha:YES];
 	openDocumentImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRAOpenIcon" ofType:@"pdf" inDirectory:@"Toolbar Icons"]];
-	//[[[openDocumentImage representations] objectAtIndex:0] setAlpha:YES];
 	newImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRANewIcon" ofType:@"pdf" inDirectory:@"Toolbar Icons"]];
-	//[[[newImage representations] objectAtIndex:0] setAlpha:YES];
 	closeImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRACloseIcon" ofType:@"pdf" inDirectory:@"Toolbar Icons"]];
-	//[[[closeImage representations] objectAtIndex:0] setAlpha:YES];
-	//preferencesImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRAPreferencesIcon" ofType:@"pdf" inDirectory:@"Toolbar Icons"]];
-	//[[[preferencesImage representations] objectAtIndex:0] setAlpha:YES];
 	advancedFindImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRAAdvancedFindIcon" ofType:@"pdf" inDirectory:@"Toolbar Icons"]];
 	[[advancedFindImage representations][0] setAlpha:YES];
 	previewImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRAPreviewIcon" ofType:@"pdf" inDirectory:@"Toolbar Icons"]];
-	//[[[previewImage representations] objectAtIndex:0] setAlpha:YES];
 	functionImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRAFunctionIcon" ofType:@"pdf" inDirectory:@"Toolbar Icons"]];
-	//[[[functionImage representations] objectAtIndex:0] setAlpha:YES];
 	infoImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRAInfoIcon" ofType:@"pdf" inDirectory:@"Toolbar Icons"]];
-	//[[[infoImage representations] objectAtIndex:0] setAlpha:YES];
 	
 	NSToolbar *toolbar = [[NSToolbar alloc] initWithIdentifier:@"ToolbarIdentifier"];
     [toolbar setShowsBaselineSeparator:YES];
@@ -122,7 +103,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
     [toolbar setAutosavesConfiguration:YES];
     [toolbar setDisplayMode:NSToolbarDisplayModeDefault];
     [toolbar setDelegate:self];
-	//[toolbar setSizeMode:NSToolbarSizeModeSmall];
     [[self window] setToolbar:toolbar];
 	
 	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"sortOrder" ascending:YES];
@@ -543,8 +523,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	}
 	
 	[FRAVarious resetSortOrderNumbersForArrayController:documentsArrayController];
-	
-//	[[NSGarbageCollector defaultCollector] collectExhaustively];
 }
 
 
@@ -643,7 +621,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	}
 	
 	NSString *urlString = (NSString*)CFBridgingRelease(CFURLCreateStringByReplacingPercentEscapesUsingEncoding(NULL, (CFStringRef)[[self fileURL] absoluteString], CFSTR(""), kCFStringEncodingUTF8));
-//	NSMakeCollectable(urlString);
 	return [[urlString lastPathComponent] stringByDeletingPathExtension];
 }
 

@@ -16,8 +16,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 @interface FRATextMenuController : NSObject
 {
-	//NSArray *availableEncodingsArray;
-	
 	IBOutlet NSMenu *textEncodingMenu;
 	IBOutlet NSMenu *reloadTextWithEncodingMenu;	
 	IBOutlet NSMenu *syntaxDefinitionMenu;

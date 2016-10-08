@@ -72,8 +72,6 @@ static id sharedInstance = nil;
 	for (projectPath in projectsArray) { // Do it this way so all normal documents are opened in the front window and not in any coming project, and then the projects are opened one by one
 		[[FRAProjectsController sharedDocumentController] performOpenProjectWithPath:projectPath];
 	}
-	
-//	[[NSGarbageCollector defaultCollector] collectExhaustively];
 }
 
 
@@ -316,9 +314,6 @@ static id sharedInstance = nil;
 	[[document valueForKey:@"firstTextView"] setSelectedRange:NSMakeRange(0,0)];
 	
 	[FRAVarious insertIconsInBackground:@[document, path]];
-	//NSArray *icons = [NSImage iconsForPath:path];
-//	[document setValue:[icons objectAtIndex:0] forKey:@"icon"];
-//	[document setValue:[icons objectAtIndex:1] forKey:@"unsavedIcon"];
 	
 	NSDictionary *fileAttributes = [NSDictionary dictionaryWithDictionary:[[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil]];
 	[document setValue:fileAttributes forKey:@"fileAttributes"];
@@ -521,9 +516,6 @@ static id sharedInstance = nil;
 	if ([[FRADefaults valueForKey:@"UpdateIconForEverySave"] boolValue] == YES && [[FRADefaults valueForKey:@"UseQuickLookIcon"] boolValue] == YES) {
 		[FRAVarious insertIconsInBackground:@[document, path]];
 		
-		//NSArray *icons = [NSImage iconsForPath:path];
-//		[document setValue:[icons objectAtIndex:0] forKey:@"icon"];
-//		[document setValue:[icons objectAtIndex:1] forKey:@"unsavedIcon"];
 	}
 	
 	[[NSWorkspace sharedWorkspace] noteFileSystemChanged:path];
@@ -531,8 +523,6 @@ static id sharedInstance = nil;
 	[document setValue:[[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil] forKey:@"fileAttributes"];
 	
 	[FRACurrentProject documentsListHasUpdated];
-	
-//	[[NSGarbageCollector defaultCollector] collectExhaustively];
 }
 
 

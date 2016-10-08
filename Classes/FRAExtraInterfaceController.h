@@ -26,7 +26,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	
 	IBOutlet NSView * openPanelAccessoryView;
 	IBOutlet NSPopUpButton * openPanelEncodingsPopUp;
-	//IBOutlet NSView *printAccessoryView;
 	
 	IBOutlet NSWindow * commandResultWindow;
 	IBOutlet NSTextView * commandResultTextView;
@@ -38,7 +37,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 @property (strong, readonly) IBOutlet NSView *openPanelAccessoryView;
 @property (strong, readonly) IBOutlet NSPopUpButton *openPanelEncodingsPopUp;
-//@property (readonly) IBOutlet NSView *printAccessoryView;
 @property (strong, readonly) IBOutlet NSWindow *commandResultWindow;
 @property (strong, readonly) IBOutlet NSTextView *commandResultTextView;
 @property (strong, readonly) IBOutlet NSWindow *newProjectWindow;
@@ -53,11 +51,8 @@ Unless required by applicable law or agreed to in writing, software distributed 
 - (void)displayGoToLine;
 - (IBAction)goButtonGoToLineWindowAction:(id)sender;
 
-//- (IBAction)setPrintFontAction:(id)sender;
-
 - (NSPopUpButton *)openPanelEncodingsPopUp;
 - (NSView *)openPanelAccessoryView;
-//- (NSView *)printAccessoryView;
 - (NSWindow *)commandResultWindow;
 -(NSTextView *)commandResultTextView;
 - (NSWindow *)newProjectWindow;

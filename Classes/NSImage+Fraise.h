@@ -23,6 +23,4 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 + (CIImage *)unsavedFilterForCIImage:(CIImage *)ciImage;
 
-//+ (NSBitmapImageRep *)unsavedIconBitmapRep:(NSBitmapImageRep *)bitmapImageRep;
-
 @end

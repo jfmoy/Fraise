@@ -31,17 +31,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	
 	NSImage *icon = [[NSWorkspace sharedWorkspace] iconForFile:path];
 
-	//NSImageRep *imageRep = [temporaryIcon bestRepresentationForRect:NSMakeRect(0.0, 0.0, 128, 128) context:nil hints:nil];
-//
-//	unsigned char *bitmapData = [imageRep bitmapData];
-//	
-//	NSBitmapImageRep *imageRep2 = [NSBitmapImageRep imageRepWithData:[NSData dataWithBytes:bitmapData length:sizeof(bitmapData)]];									   
-												   
-	//NSSize iconSize = NSMakeSize([icon pixelsWide], [icon pixelsHigh]);
-	//NSImage *icon = [[NSImage alloc] initWithSize:iconSize];
-
-	//[icon addRepresentation:imageRep];
-	
 	[icon setSize:NSMakeSize(ICON_MAX_SIZE, ICON_MAX_SIZE)]; // This makes sure that unsavedIcon will not get "fuzzy"
 	
 	NSImage *unsavedIcon = [[NSImage alloc] initWithSize:[icon size]];
@@ -63,7 +52,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	
     NSDictionary *options = @{(NSString *)kQLThumbnailOptionIconModeKey: @YES};
     CGImageRef imageRef = QLThumbnailImageCreate(kCFAllocatorDefault, (__bridge CFURLRef)[NSURL fileURLWithPath:path], CGSizeMake(ICON_MAX_SIZE, ICON_MAX_SIZE), (__bridge CFDictionaryRef)options);
-//	NSMakeCollectable(imageRef);
     
 	if (imageRef != NULL) {
 		NSBitmapImageRep *bitmapImageRep = [[NSBitmapImageRep alloc] initWithCGImage:imageRef];

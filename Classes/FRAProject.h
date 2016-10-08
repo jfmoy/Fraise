@@ -67,7 +67,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	
 	NSMenuItem *menuFormRepresentation;
 	
-	//NSImage *splitWindowImage, *closeSplitImage, *lineWrapImage, *dontLineWrapImage, *saveImage, *openDocumentImage, *newImage, *closeImage, *preferencesImage, *advancedFindImage, *previewImage, *functionImage, *infoImage;
 	NSImage *saveImage, *openDocumentImage, *newImage, *closeImage, *advancedFindImage, *previewImage, *functionImage, *infoImage;
 	
 	// FRADocumentViewsControllerCategory

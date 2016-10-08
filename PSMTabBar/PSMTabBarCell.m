@@ -327,7 +327,6 @@
     [image addRepresentation:rep];
     NSImage *returnImage = [[NSImage alloc] initWithSize: size];
     [returnImage lockFocus];
-//    [image compositeToPoint:NSMakePoint(0.0, 0.0) operation:NSCompositeSourceOver fraction:0.7];
     [image drawAtPoint: NSMakePoint(0.0, 0.0)
               fromRect: NSMakeRect(0, 0, size.width, size.height)
              operation: NSCompositingOperationSourceOver
