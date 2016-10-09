@@ -232,24 +232,18 @@ static id sharedInstance = nil;
 			[[FRACurrentWindow attachedSheet] close];
 		}
 		
-		NSBeginAlertSheet(NSLocalizedString(@"Are you sure you want to revert this document?", @"Ask if you are sure you want to revert this document in Revert-sheet"),
-						  NSLocalizedString(@"Revert", @"Revert-button in Revert-sheet"),
-						  nil,
-						  CANCEL_BUTTON,
-						  FRACurrentWindow,
-						  self,
-						  @selector(revertSheetDidEnd:returnCode:contextInfo:),
-						  nil,
-						  nil,
-						  NSLocalizedString(@"Your changes will be lost if you revert the document", @"Warn that changes will be lost if you revert in Revert-sheet"));
-	}
-}
-
-
-- (void)revertSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
-{
-    if (returnCode == NSAlertFirstButtonReturn) {
-		[self performRevertOfDocument:FRACurrentDocument];
+        NSAlert* alert = [[NSAlert alloc] init];
+        [alert setMessageText:NSLocalizedString(@"Are you sure you want to revert this document?", @"Ask if you are sure you want to revert this document in Revert-sheet")];
+        [alert setInformativeText:NSLocalizedString(@"Your changes will be lost if you revert the document", @"Warn that changes will be lost if you revert in Revert-sheet")];
+        [alert addButtonWithTitle:NSLocalizedString(@"Revert", @"Revert-button in Revert-sheet")];
+        [alert addButtonWithTitle:CANCEL_BUTTON];
+        [alert setAlertStyle:NSAlertStyleInformational];
+        
+        [alert beginSheetModalForWindow:FRACurrentWindow completionHandler:^(NSInteger result) {
+            if (result == NSAlertFirstButtonReturn) {
+                [self performRevertOfDocument:FRACurrentDocument];
+            }
+        }];
 	}
 }
 

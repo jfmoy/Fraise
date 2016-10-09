@@ -44,26 +44,6 @@ static id sharedInstance = nil;
 }
 
 
-- (void)authenticateOpenSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
-{
-	[sheet close];
-	[FRAVarious stopModalLoop];
-	if (returnCode == NSAlertFirstButtonReturn) {
-		[self performAuthenticatedOpenOfPath:((__bridge NSArray *)contextInfo)[0] withEncoding:[((__bridge NSArray *)contextInfo)[1] unsignedIntegerValue]];
-	}
-}
-
-
-- (void)authenticateSaveSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
-{
-	[sheet close];
-	[FRAVarious stopModalLoop];
-	if (returnCode == NSAlertFirstButtonReturn) {
-		[self performAuthenticatedSaveOfDocument:((__bridge NSArray *)contextInfo)[0] data:((__bridge NSArray *)contextInfo)[1] path:((__bridge NSArray *)contextInfo)[2] fromSaveAs:[((__bridge NSArray *)contextInfo)[3] boolValue] aCopy:[((__bridge NSArray *)contextInfo)[4] boolValue]];
-	}
-}
-
-
 - (void)performAuthenticatedOpenOfPath:(NSString *)path withEncoding:(NSStringEncoding)encoding
 {
 	NSTask *task = [[NSTask alloc] init];

@@ -49,16 +49,19 @@ Unless required by applicable law or agreed to in writing, software distributed 
 						[[FRASnippetsController sharedInstance] performDeleteCollection];
 					} else {
 						NSString *title = [NSString stringWithFormat:WILL_DELETE_ALL_ITEMS_IN_COLLECTION, [collection valueForKey:@"name"]];
-						NSBeginAlertSheet(title,
-										  DELETE_BUTTON,
-										  nil,
-										  CANCEL_BUTTON,
-										  [[FRASnippetsController sharedInstance] snippetsWindow],
-										  self,
-										  nil,
-										  @selector(snippetSheetDidDismiss:returnCode:contextInfo:),
-										  nil,
-										  NSLocalizedString(@"Please consider exporting the snippets first. There is no undo available.", @"Please consider exporting the snippets first. There is no undo available. when deleting a collection"));
+                        
+                        NSAlert* alert = [[NSAlert alloc] init];
+                        [alert setMessageText:title];
+                        [alert setInformativeText:NSLocalizedString(@"Please consider exporting the snippets first. There is no undo available.", @"Please consider exporting the snippets first. There is no undo available. when deleting a collection")];
+                        [alert addButtonWithTitle:DELETE_BUTTON];
+                        [alert addButtonWithTitle:CANCEL_BUTTON];
+                        [alert setAlertStyle:NSAlertStyleInformational];
+                        
+                        [alert beginSheetModalForWindow:[[FRASnippetsController sharedInstance] snippetsWindow] completionHandler:^(NSInteger returnCode) {
+                            if (returnCode == NSAlertFirstButtonReturn) {
+                                [[FRASnippetsController sharedInstance] performDeleteCollection];
+                            }
+                        }];
 					}
 					[[FRAToolsMenuController sharedInstance] buildInsertSnippetMenu];
 					
@@ -78,16 +81,19 @@ Unless required by applicable law or agreed to in writing, software distributed 
 						[[FRACommandsController sharedInstance] performDeleteCollection];
 					} else {
 						NSString *title = [NSString stringWithFormat:WILL_DELETE_ALL_ITEMS_IN_COLLECTION, [collection valueForKey:@"name"]];
-						NSBeginAlertSheet(title,
-										  DELETE_BUTTON,
-										  nil,
-										  CANCEL_BUTTON,
-										  [[FRACommandsController sharedInstance] commandsWindow],
-										  self,
-										  nil,
-										  @selector(commandSheetDidDismiss:returnCode:contextInfo:),
-										  nil,
-										  NSLocalizedStringFromTable(@"Please consider exporting the commands first. There is no undo available", @"Localizable3", @"Please consider exporting the commands first. There is no undo available"));
+                        
+                        NSAlert* alert = [[NSAlert alloc] init];
+                        [alert setMessageText:title];
+                        [alert setInformativeText:NSLocalizedStringFromTable(@"Please consider exporting the commands first. There is no undo available", @"Localizable3", @"Please consider exporting the commands first. There is no undo available")];
+                        [alert addButtonWithTitle:DELETE_BUTTON];
+                        [alert addButtonWithTitle:CANCEL_BUTTON];
+                        [alert setAlertStyle:NSAlertStyleInformational];
+                        
+                        [alert beginSheetModalForWindow:[[FRACommandsController sharedInstance] commandsWindow] completionHandler:^(NSInteger returnCode) {
+                            if (returnCode == NSAlertFirstButtonReturn) {
+                                [[FRACommandsController sharedInstance] performDeleteCollection];
+                            }
+                        }];
 					}
 					[[FRAToolsMenuController sharedInstance] buildRunCommandMenu];
 				
@@ -110,28 +116,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		[super keyDown:event];
 	}
 }
-
-
-- (void)snippetSheetDidDismiss:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
-{
-	[sheet close];
-	
-	if (returnCode == NSAlertFirstButtonReturn) {
-		[[FRASnippetsController sharedInstance] performDeleteCollection];
-		
-	}
-}
-
-
-- (void)commandSheetDidDismiss:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
-{
-	[sheet close];
-	
-	if (returnCode == NSAlertFirstButtonReturn) {
-		[[FRACommandsController sharedInstance] performDeleteCollection];
-	}
-}
-
 
 - (void)textDidEndEditing:(NSNotification *)aNotification
 {

@@ -465,23 +465,28 @@ Unless required by applicable law or agreed to in writing, software distributed 
         [alert setInformativeText:NSLocalizedString(@"Your changes will be lost if you close the document without saving.", @"Your changes will be lost if you close the document without saving in Close-sheet")];
         [alert setAlertStyle:NSAlertStyleInformational];
         
-        NSInteger returnCode = [alert runModal];
-        if (returnCode == NSAlertFirstButtonReturn) {
-            [[FRAFileMenuController sharedInstance] saveAction:nil];
-            if ([[document valueForKey:@"isEdited"] boolValue] == NO) { // Save didn't fail
+        [alert beginSheetModalForWindow:[self window] completionHandler:^(NSInteger returnCode) {
+            [FRAVarious stopModalLoop];
+
+            if (returnCode == NSAlertFirstButtonReturn) {
+                [[FRAFileMenuController sharedInstance] saveAction:nil];
+                if ([[document valueForKey:@"isEdited"] boolValue] == NO) { // Save didn't fail
+                    if (keepOpen == NO) {
+                        [self performCloseDocument:document];
+                    }
+                } else {
+                    shouldWindowClose = NO;
+                }
+            } else if (returnCode == NSAlertSecondButtonReturn) {
                 if (keepOpen == NO) {
                     [self performCloseDocument:document];
                 }
-            } else {
+            } else { // The user wants to review the document
                 shouldWindowClose = NO;
             }
-        } else if (returnCode == NSAlertSecondButtonReturn) {
-            if (keepOpen == NO) {
-                [self performCloseDocument:document];
-            }
-        } else { // The user wants to review the document
-            shouldWindowClose = NO;
-        }
+        }];
+        
+        [NSApp runModalForWindow:[[self window] attachedSheet]]; // Modal to make sure that nothing happens while the sheet is displaying
 	} else {
 		if (keepOpen == NO) {
 			[self performCloseDocument:document];

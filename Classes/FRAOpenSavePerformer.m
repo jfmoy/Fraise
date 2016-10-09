@@ -148,18 +148,20 @@ static id sharedInstance = nil;
 			}
 			
 			NSString *title = [NSString stringWithFormat:NSLocalizedString(@"It seems as if you do not have permission to open the file %@", @"Indicate that it seems as if you do not have permission to open the file %@ in Not-enough-permission-to-open sheet"), path];
-			NSArray *openArray = @[path, @(chosenEncoding)];
-            NSBeginAlertSheet(title,
-							  AUTHENTICATE_STRING,
-							  nil,
-							  CANCEL_BUTTON,
-							  FRACurrentWindow,
-							  [FRAAuthenticationController sharedInstance],
-							  @selector(authenticateOpenSheetDidEnd:returnCode:contextInfo:),
-							  nil,
-							  (__bridge void *)openArray,
-							  TRY_TO_AUTHENTICATE_STRING);
-			[NSApp runModalForWindow:[FRACurrentWindow attachedSheet]]; // Modal to allow for many documents
+            
+            NSAlert* alert = [[NSAlert alloc] init];
+            [alert setMessageText:title];
+            [alert setInformativeText:TRY_TO_AUTHENTICATE_STRING];
+            [alert addButtonWithTitle:AUTHENTICATE_STRING];
+            [alert addButtonWithTitle:CANCEL_BUTTON];
+            [alert setAlertStyle:NSAlertStyleInformational];
+            
+            [alert beginSheetModalForWindow:FRACurrentWindow completionHandler:^(NSInteger result) {
+                if (result == NSAlertFirstButtonReturn) {
+                    [[FRAAuthenticationController sharedInstance] performAuthenticatedOpenOfPath:path withEncoding:chosenEncoding];
+                }
+            }];
+
 			return;
 		}
 
@@ -365,7 +367,7 @@ static id sharedInstance = nil;
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	BOOL isDirectory;
 	if ([fileManager fileExistsAtPath:path isDirectory:&isDirectory] && isDirectory) { // Check if it is a folder
-		NSString *title = [NSString stringWithFormat:IS_NOW_FOLDER_STRING, path];
+		NSString* title = [NSString stringWithFormat:IS_NOW_FOLDER_STRING, path];
 		[FRAVarious standardAlertSheetWithTitle:title message:[NSString stringWithFormat:NSLocalizedString(@"Please save it at a different location with Save As%C in the File menu", @"Indicate that they should try to save at a different location with Save As%C in File menu in Path-is-a-directory sheet"), 0x2026] window:FRACurrentWindow];
 		return;
 	}
@@ -390,19 +392,21 @@ static id sharedInstance = nil;
 		}
 		NSString *title = [NSString stringWithFormat:FILE_IS_UNWRITABLE_SAVE_STRING, path];
 		NSData *data = [[NSData alloc] initWithData:[string dataUsingEncoding:[[document valueForKey:@"encoding"] integerValue] allowLossyConversion:YES]];
-		NSArray *saveArray = @[document, data, path, @(fromSaveAs), @(aCopy)];
-		NSBeginAlertSheet(title,
-						  AUTHENTICATE_STRING,
-						  nil,
-						  CANCEL_BUTTON,
-						  FRACurrentWindow,
-						  [FRAAuthenticationController sharedInstance],
-						  @selector(authenticateSaveSheetDidEnd:returnCode:contextInfo:),
-						  nil,
-						  (__bridge void *)saveArray,
-						  TRY_TO_AUTHENTICATE_STRING);
-		[NSApp runModalForWindow:[FRACurrentWindow attachedSheet]]; // Modal to allow for many documents
-		return;
+        
+        NSAlert* alert = [[NSAlert alloc] init];
+        [alert setMessageText:title];
+        [alert setInformativeText:TRY_TO_AUTHENTICATE_STRING];
+        [alert addButtonWithTitle:AUTHENTICATE_STRING];
+        [alert addButtonWithTitle:CANCEL_BUTTON];
+        [alert setAlertStyle:NSAlertStyleInformational];
+        
+        [alert beginSheetModalForWindow:FRACurrentWindow completionHandler:^(NSInteger result) {
+            if (result == NSAlertFirstButtonReturn) {
+                [[FRAAuthenticationController sharedInstance] performAuthenticatedSaveOfDocument:document data:data path:path fromSaveAs:fromSaveAs aCopy:aCopy];
+            }
+        }];
+        
+        return;
 	}
 	
 	BOOL error = NO;

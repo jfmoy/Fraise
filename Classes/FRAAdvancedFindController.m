@@ -394,26 +394,19 @@ static id sharedInstance = nil;
 			}
 			defaultButton = DELETE_BUTTON;
 		}
-
-		NSBeginAlertSheet(title,
-						  defaultButton,
-						  nil,
-						  NSLocalizedString(@"Cancel", @"Cancel-button"),
-						  advancedFindWindow,
-						  self,
-						  @selector(replaceSheetDidEnd:returnCode:contextInfo:),
-						  nil,
-						  (void *)numberOfResults,
-						  NSLocalizedString(@"Remember that you can always Undo any changes", @"Remember that you can always Undo any changes in ask-if-sure-you-want-to-replace-in-advanced-find-sheet"));
-	}
-}
-
-
-- (void)replaceSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
-{
-	[sheet close];
-    if (returnCode == NSAlertFirstButtonReturn) { // Replace
-		[self performNumberOfReplaces:(NSInteger)contextInfo];
+        
+        NSAlert* alert = [[NSAlert alloc] init];
+        [alert setMessageText:title];
+        [alert setInformativeText:NSLocalizedString(@"Remember that you can always Undo any changes", @"Remember that you can always Undo any changes in ask-if-sure-you-want-to-replace-in-advanced-find-sheet")];
+        [alert addButtonWithTitle:defaultButton];
+        [alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel-button")];
+        [alert setAlertStyle:NSAlertStyleWarning];
+        
+        [alert beginSheetModalForWindow:advancedFindWindow completionHandler:^(NSInteger result) {
+            if (result == NSAlertFirstButtonReturn) {
+                [self performNumberOfReplaces:numberOfResults];
+            }
+        }];
 	}
 }
 
@@ -550,16 +543,15 @@ static id sharedInstance = nil;
 	
 	if (document == nil) {
 		NSString *title = [NSString stringWithFormat:NSLocalizedString(@"The document %@ is no longer open", @"Indicate that the document %@ is no longer open in Document-is-no-longer-opened-after-selection-in-advanced-find-sheet"), [document valueForKey:@"name"]];
-		NSBeginAlertSheet(title,
-						  OK_BUTTON,
-						  nil,
-						  nil,
-						  advancedFindWindow,
-						  self,
-						  nil,
-						  NULL,
-						  nil,
-						  @"");
+        
+        
+        NSAlert* alert = [[NSAlert alloc] init];
+        [alert setMessageText:title];
+        [alert addButtonWithTitle:OK_BUTTON];
+        [alert setAlertStyle:NSAlertStyleInformational];
+        [alert beginSheetModalForWindow:advancedFindWindow completionHandler:^(NSInteger result) {
+        }];
+        
 		return;
 	}
 	
@@ -725,25 +717,18 @@ static id sharedInstance = nil;
 - (void)alertThatThisIsNotAValidRegularExpression:(NSString *)string
 {
 	NSString *title = [NSString stringWithFormat:NSLocalizedStringFromTable(@"%@ is not a valid regular expression", @"Localizable3", @"%@ is not a valid regular expression"), string];
-	NSBeginAlertSheet(title,
-					  OK_BUTTON,
-					  nil,
-					  nil,
-					  advancedFindWindow,
-					  self,
-					  @selector(notAValidRegularExpressionSheetDidEnd:returnCode:contextInfo:),
-					  nil,
-					  nil,
-					  @"");
-}
+    
+    NSAlert* alert = [[NSAlert alloc] init];
+    [alert setMessageText:title];
+    [alert addButtonWithTitle:OK_BUTTON];
+    [alert setAlertStyle:NSAlertStyleInformational];
+    
+    [alert beginSheetModalForWindow:advancedFindWindow completionHandler:^(NSInteger result) {
+        [findResultsTreeController setContent:nil];
+        [findResultsTreeController setContent:@[]];
+        [advancedFindWindow makeKeyAndOrderFront:nil];
+    }];
 
-
-- (void)notAValidRegularExpressionSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
-{
-	[sheet close];
-	[findResultsTreeController setContent:nil];
-	[findResultsTreeController setContent:@[]];
-	[advancedFindWindow makeKeyAndOrderFront:nil];
 }
 
 

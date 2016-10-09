@@ -209,19 +209,18 @@ static id sharedInstance = nil;
 	if ([window attachedSheet]) {
 		[[window attachedSheet] close];
 	}
-	
-	NSBeginAlertSheet(title,
-					  OK_BUTTON,
-					  nil,
-					  nil,
-					  window,
-					  self,
-					  nil,
-					  @selector(sheetDidDismiss:returnCode:contextInfo:),
-					  nil,
-					  @"%@", message);
-	
-	[NSApp runModalForWindow:[window attachedSheet]]; // Modal to catch if there are sheets for many files to be displayed
+    
+    NSAlert* alert = [[NSAlert alloc] init];
+    [alert setMessageText:title];
+    [alert setInformativeText:message];
+    [alert addButtonWithTitle:OK_BUTTON];
+    [alert setAlertStyle:NSAlertStyleInformational];
+    
+    [alert beginSheetModalForWindow:window completionHandler:^(NSInteger returnCode) {
+        [self stopModalLoop];
+    }];
+
+    [NSApp runModalForWindow:[window attachedSheet]]; // Modal to catch if there are sheets for many files to be displayed
 }
 
 
@@ -352,37 +351,30 @@ static id sharedInstance = nil;
 				} else {
 					message = NSLocalizedString(@"Do you want to ignore the updates the other application has made or reload the document?", @"Ask whether they want to ignore the updates the other application has made or reload the document Document-has-been-updated-alert sheet");
 				}
-				NSBeginAlertSheet(title,
-								  NSLocalizedString(@"Ignore", @"Ignore-button in Document-has-been-updated-alert sheet"),
-								  nil,
-								  NSLocalizedString(@"Reload", @"Reload-button in Document-has-been-updated-alert sheet"),
-								  FRACurrentWindow,
-								  self,
-								  @selector(sheetDidFinish:returnCode:contextInfo:),
-								  nil,
-								  (__bridge void *)@[item],
-								  @"%@", message);
-				[NSApp runModalForWindow:[FRACurrentWindow attachedSheet]];
+                
+                NSAlert* alert = [[NSAlert alloc] init];
+                [alert setMessageText:title];
+                [alert setInformativeText:message];
+                [alert addButtonWithTitle:NSLocalizedString(@"Ignore", @"Ignore-button in Document-has-been-updated-alert sheet")];
+                [alert addButtonWithTitle:NSLocalizedString(@"Reload", @"Reload-button in Document-has-been-updated-alert sheet")];
+                [alert setAlertStyle:NSAlertStyleInformational];
+                
+                [alert beginSheetModalForWindow:FRACurrentWindow completionHandler:^(NSInteger returnCode) {
+                    [self stopModalLoop];
+                    
+                    id document = item;
+                    if (returnCode == NSAlertFirstButtonReturn) {
+                        [document setValue:@YES forKey:@"ignoreAnotherApplicationHasUpdatedDocument"];
+                    } else if (returnCode == NSAlertSecondButtonReturn) {
+                        [[FRAFileMenuController sharedInstance] performRevertOfDocument:document];
+                        [document setValue:[[NSFileManager defaultManager] attributesOfItemAtPath:[document valueForKey:@"path"] error:nil] forKey:@"fileAttributes"];
+                    }
+                }];
+                [NSApp runModalForWindow:[FRACurrentWindow attachedSheet]];
 			}
 		}
 	}
 }
-
-
-- (void)sheetDidFinish:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
-{
-	[sheet close];
-	[FRAVarious stopModalLoop];
-	
-	id document = ((__bridge NSArray *)contextInfo)[0];
-	if (returnCode == NSAlertFirstButtonReturn) {
-		[document setValue:@YES forKey:@"ignoreAnotherApplicationHasUpdatedDocument"];
-	} else if (returnCode == NSAlertThirdButtonReturn) {
-		[[FRAFileMenuController sharedInstance] performRevertOfDocument:document];
-		[document setValue:[[NSFileManager defaultManager] attributesOfItemAtPath:[document valueForKey:@"path"] error:nil] forKey:@"fileAttributes"];
-	}
-}
-
 
 - (NSString *)performCommand:(NSString *)command
 {
