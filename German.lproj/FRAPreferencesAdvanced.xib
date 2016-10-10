@@ -33,14 +33,14 @@
                         <action selector="revertToStandardSettingsAction:" target="-2" id="113"/>
                     </connections>
                 </button>
-                <tabView id="41">
-                    <rect key="frame" x="13" y="42" width="574" height="467"/>
+                <tabView misplaced="YES" id="41">
+                    <rect key="frame" x="13" y="37" width="574" height="472"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
                         <tabViewItem label="Syntaxhervorhebung" identifier="" id="43">
                             <view key="view" id="45">
-                                <rect key="frame" x="10" y="33" width="554" height="421"/>
+                                <rect key="frame" x="10" y="33" width="554" height="426"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <colorWell id="50">
@@ -79,30 +79,10 @@
                                             </binding>
                                         </connections>
                                     </colorWell>
-                                    <textField verticalHuggingPriority="750" id="53">
-                                        <rect key="frame" x="115" y="186" width="94" height="17"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Kommentare:" id="273">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                    <textField verticalHuggingPriority="750" id="54">
-                                        <rect key="frame" x="105" y="152" width="104" height="17"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="274">
-                                            <font key="font" metaFont="system"/>
-                                            <string key="title">Schlüsselworte:
-</string>
-                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
                                     <textField verticalHuggingPriority="750" id="55">
                                         <rect key="frame" x="115" y="254" width="94" height="17"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Anweisungen:" id="275">
+                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Anweisungen:" id="275">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -123,7 +103,7 @@
                                     <textField verticalHuggingPriority="750" id="57">
                                         <rect key="frame" x="145" y="220" width="64" height="17"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Variable:" id="276">
+                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Variable:" id="276">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -144,7 +124,7 @@
                                     <textField verticalHuggingPriority="750" id="59">
                                         <rect key="frame" x="154" y="322" width="55" height="17"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Befehle:" id="277">
+                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Befehle:" id="277">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -193,17 +173,6 @@
                                             <binding destination="120" name="value" keyPath="values.ColourMultiLineStrings" id="184"/>
                                         </connections>
                                     </button>
-                                    <textField verticalHuggingPriority="750" id="64">
-                                        <rect key="frame" x="46" y="118" width="163" height="17"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="281">
-                                            <font key="font" metaFont="system"/>
-                                            <string key="title">Auto-Vervollständigung:
-</string>
-                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
                                     <colorWell id="65">
                                         <rect key="frame" x="297" y="113" width="54" height="26"/>
                                         <autoresizingMask key="autoresizingMask"/>
@@ -315,10 +284,10 @@
                                             <binding destination="120" name="value" keyPath="values.ColourInstructions" id="174"/>
                                         </connections>
                                     </button>
-                                    <textField verticalHuggingPriority="750" id="78">
-                                        <rect key="frame" x="143" y="288" width="71" height="17"/>
+                                    <textField verticalHuggingPriority="750" misplaced="YES" id="78">
+                                        <rect key="frame" x="138" y="288" width="71" height="17"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Attribute:" id="291">
+                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Attribute:" id="291">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -351,12 +320,39 @@
                                         <rect key="frame" x="20" y="95" width="514" height="5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </box>
+                                    <textField verticalHuggingPriority="750" misplaced="YES" id="amz-Ed-6Ii">
+                                        <rect key="frame" x="87" y="152" width="122" height="17"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Schlüsselworte:" id="off-xc-LR7">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" misplaced="YES" id="53">
+                                        <rect key="frame" x="115" y="186" width="94" height="17"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Kommentare:" id="273">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" misplaced="YES" id="JhW-Ab-aSU">
+                                        <rect key="frame" x="28" y="118" width="181" height="17"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Auto-Vervollständigung:" id="bnN-Xc-X6J">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
                                 </subviews>
                             </view>
                         </tabViewItem>
                         <tabViewItem label="Syntax-Definitionen" identifier="" id="48">
                             <view key="view" id="49">
-                                <rect key="frame" x="10" y="33" width="554" height="421"/>
+                                <rect key="frame" x="10" y="33" width="554" height="426"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" id="83">
@@ -481,7 +477,7 @@
                         </tabViewItem>
                         <tabViewItem label="Kodierung" identifier="" id="95">
                             <view key="view" id="96">
-                                <rect key="frame" x="10" y="33" width="554" height="421"/>
+                                <rect key="frame" x="10" y="33" width="554" height="426"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" id="97">
@@ -539,7 +535,7 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <clipView key="contentView" id="ZQX-Vw-FJE">
                                             <rect key="frame" x="1" y="0.0" width="512" height="314"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveName="ActiveEncodings" headerView="309" id="105">
                                                     <rect key="frame" x="0.0" y="0.0" width="512" height="291"/>
@@ -604,7 +600,7 @@
                         </tabViewItem>
                         <tabViewItem label="Erweitert" identifier="" id="42">
                             <view key="view" id="44">
-                                <rect key="frame" x="10" y="33" width="554" height="421"/>
+                                <rect key="frame" x="10" y="33" width="554" height="426"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button id="16">
@@ -857,6 +853,7 @@
                     </tabViewItems>
                 </tabView>
             </subviews>
+            <point key="canvasLocation" x="129" y="153.5"/>
         </customView>
         <arrayController mode="entity" entityName="Encoding" automaticallyPreparesContent="YES" id="109" userLabel="EncodingsArrayController">
             <declaredKeys>
