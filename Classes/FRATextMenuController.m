@@ -500,7 +500,7 @@ static id sharedInstance = nil;
 		NSString *originalString = [FRACurrentText substringWithRange:selectedRange];
 		NSString *newString = [NSString stringWithString:[originalString lowercaseString]];
 		[textView setSelectedRange:selectedRange];
-		[textView insertText:newString];
+		[textView insertText:newString replacementRange:[textView selectedRange]];
 	}
 }
 
@@ -514,7 +514,7 @@ static id sharedInstance = nil;
 		NSString *originalString = [FRACurrentText substringWithRange:selectedRange];
 		NSString *newString = [NSString stringWithString:[originalString uppercaseString]];
 		[textView setSelectedRange:selectedRange];
-		[textView insertText:newString];
+		[textView insertText:newString replacementRange:[textView selectedRange]];
 	}
 }
 
@@ -528,7 +528,7 @@ static id sharedInstance = nil;
 		NSString *originalString = [FRACurrentText substringWithRange:selectedRange];
 		NSString *newString = [NSString stringWithString:[originalString capitalizedString]];
 		[textView setSelectedRange:selectedRange];
-		[textView insertText:newString];
+		[textView insertText:newString replacementRange:[textView selectedRange]];
 	}
 }
 

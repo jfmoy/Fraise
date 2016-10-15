@@ -256,7 +256,7 @@ static id sharedInstance = nil;
 	
 	
 	NSRange selectedRange = [textViewToInsertColourInto selectedRange];
-	[textViewToInsertColourInto insertText:insertString];
+	[textViewToInsertColourInto insertText:insertString replacementRange:selectedRange];
 	[textViewToInsertColourInto setSelectedRange:NSMakeRange(selectedRange.location, [insertString length])]; // Select the inserted string so it will replace the last colour if more colours are inserted
 }
 
@@ -440,7 +440,7 @@ static id sharedInstance = nil;
 		if ([[NSFileManager defaultManager] fileExistsAtPath:resultPath]) {
 			result = [NSString stringWithContentsOfFile:resultPath encoding:[[document valueForKey:@"encoding"] integerValue] error:nil];
 			[[NSFileManager defaultManager] removeItemAtPath:resultPath error:nil];
-			[textView insertText:result];
+			[textView insertText:result replacementRange:[textView selectedRange]];
 		}
 		if ([[NSFileManager defaultManager] fileExistsAtPath:textPath]) {
 			[[NSFileManager defaultManager] removeItemAtPath:textPath error:nil];

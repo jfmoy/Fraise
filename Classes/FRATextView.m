@@ -128,7 +128,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		NSScanner *previousLineScanner = [[NSScanner alloc] initWithString:[[self string] substringWithRange:[[self string] lineRangeForRange:NSMakeRange([self selectedRange].location - 1, 0)]]];
 		[previousLineScanner setCharactersToBeSkipped:nil];		
 		if ([previousLineScanner scanCharactersFromSet:[NSCharacterSet whitespaceCharacterSet] intoString:&previousLineWhitespaceString]) {
-			[self insertText:previousLineWhitespaceString];
+            [self insertText:previousLineWhitespaceString replacementRange:[self selectedRange]];
 		}
 		
 		if ([[FRADefaults valueForKey:@"AutomaticallyIndentBraces"] boolValue] == YES) {
@@ -360,7 +360,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 			[spacesString appendString:@" "];
 		}
 		
-		[self insertText:spacesString];
+		[self insertText:spacesString replacementRange:[self selectedRange]];
 	} else if ([self selectedRange].length > 0) { // If there's only one word matching in auto-complete there's no list but just the rest of the word inserted and selected; and if you do a normal tab then the text is removed so this will put the cursor at the end of that word
 		[self setSelectedRange:NSMakeRange(NSMaxRange([self selectedRange]), 0)];
 	} else {
@@ -456,7 +456,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 }
 
 
-- (void)insertText:(NSString *)aString
+- (void)insertText:(id)aString replacementRange:(NSRange)replacementRange
 {
 	if ([aString isEqualToString:@"}"] && [[FRADefaults valueForKey:@"IndentNewLinesAutomatically"] boolValue] == YES && [[FRADefaults valueForKey:@"AutomaticallyIndentBraces"] boolValue] == YES) {
 		unichar characterToCheck;
@@ -470,7 +470,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 			if ([whitespaceCharacterSet characterIsMember:[completeString characterAtIndex:lineLocation]]) {
 				continue;
 			}
-			[super insertText:aString];
+            [super insertText:aString replacementRange:replacementRange];
 			return;
 		}
 		
@@ -524,10 +524,10 @@ Unless required by applicable law or agreed to in writing, software distributed 
 			}
 		}
 		if (hasInsertedBrace == NO) {
-			[super insertText:aString];
+			[super insertText:aString replacementRange:replacementRange];
 		}
 	} else if ([aString isEqualToString:@"("] && [[FRADefaults valueForKey:@"AutoInsertAClosingParenthesis"] boolValue] == YES) {
-		[super insertText:aString];
+		[super insertText:aString replacementRange:replacementRange];
 		NSRange selectedRange = [self selectedRange];
 		if ([self shouldChangeTextInRange:selectedRange replacementString:@")"]) {
 			[self replaceCharactersInRange:selectedRange withString:@")"];
@@ -535,7 +535,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 			[self setSelectedRange:NSMakeRange(selectedRange.location - 0, 0)];
 		}
 	} else if ([aString isEqualToString:@"{"] && [[FRADefaults valueForKey:@"AutoInsertAClosingBrace"] boolValue] == YES) {
-		[super insertText:aString];
+		[super insertText:aString replacementRange:replacementRange];
 		NSRange selectedRange = [self selectedRange];
 		if ([self shouldChangeTextInRange:selectedRange replacementString:@"}"]) {
 			[self replaceCharactersInRange:selectedRange withString:@"}"];
@@ -543,7 +543,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 			[self setSelectedRange:NSMakeRange(selectedRange.location - 0, 0)];
 		}
 	} else {
-		[super insertText:aString];
+		[super insertText:aString replacementRange:replacementRange];
 	}
 }
 

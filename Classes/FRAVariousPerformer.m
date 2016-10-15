@@ -487,7 +487,7 @@ static id sharedInstance = nil;
 
 	if ([asynchronousTask terminationStatus] == 0) {
 		if ([[FRACommandsController sharedInstance] currentCommandShouldBeInsertedInline]) {
-			[FRACurrentTextView insertText:asynchronousTaskResult];
+			[FRACurrentTextView insertText:asynchronousTaskResult replacementRange:[FRACurrentTextView selectedRange]];
 			[[[FRAExtraInterfaceController sharedInstance] commandResultTextView] setString:@""];
 		} else {
 			[[[FRAExtraInterfaceController sharedInstance] commandResultTextView] setString:asynchronousTaskResult];

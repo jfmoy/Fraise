@@ -281,7 +281,7 @@ static id sharedInstance = nil;
 		return;
 	}
 	
-	[commandsTextView insertText:[document valueForKey:@"path"]];
+	[commandsTextView insertText:[document valueForKey:@"path"] replacementRange:[commandsTextView selectedRange]];
 }
 
 
@@ -293,7 +293,7 @@ static id sharedInstance = nil;
 		return;
 	}
 	
-	[commandsTextView insertText:[[document valueForKey:@"path"] stringByDeletingLastPathComponent]];
+	[commandsTextView insertText:[[document valueForKey:@"path"] stringByDeletingLastPathComponent] replacementRange:[commandsTextView selectedRange]];
 }
 
 

@@ -164,7 +164,7 @@ static id sharedInstance = nil;
 	[insertString replaceOccurrencesOfString:@"%%s" withString:selectedText options:NSLiteralSearch range:NSMakeRange(0, [insertString length])];
 	NSInteger locationOfSelectionInString = [insertString rangeOfString:@"%%c"].location;
 	[insertString replaceOccurrencesOfString:@"%%c" withString:@"" options:NSLiteralSearch range:NSMakeRange(0, [insertString length])];
-	[textView insertText:insertString];
+	[textView insertText:insertString replacementRange:[textView selectedRange]];
 	if (locationOfSelectionInString != NSNotFound) {
 		[textView setSelectedRange:NSMakeRange(selectedRange.location + locationOfSelectionInString, 0)];
 	}
