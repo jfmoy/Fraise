@@ -549,9 +549,9 @@ static id sharedInstance = nil;
 	fullScreenRect = [[NSScreen mainScreen] frame];	
 	CGFloat width;
 	if ([FRAMain singleDocumentWindowWasOpenBeforeEnteringFullScreen] == YES) {
-		width = [[document valueForKey:@"thirdTextView"] bounds].size.width * [[NSScreen mainScreen] userSpaceScaleFactor];
+		width = [[document valueForKey:@"thirdTextView"] bounds].size.width * [[NSScreen mainScreen] backingScaleFactor];
 	} else {
-		width = [[document valueForKey:@"firstTextView"] bounds].size.width * [[NSScreen mainScreen] userSpaceScaleFactor];
+		width = [[document valueForKey:@"firstTextView"] bounds].size.width * [[NSScreen mainScreen] backingScaleFactor];
 	}
 	fullScreenRect = NSMakeRect(fullScreenRect.origin.x - ((width - fullScreenRect.size.width + [[document valueForKey:@"gutterWidth"] doubleValue]) / 2), fullScreenRect.origin.y, width + [[document valueForKey:@"gutterWidth"] doubleValue], fullScreenRect.size.height);
 

@@ -625,7 +625,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		return nil;
 	}
 	
-	NSString *urlString = (NSString*)CFBridgingRelease(CFURLCreateStringByReplacingPercentEscapesUsingEncoding(NULL, (CFStringRef)[[self fileURL] absoluteString], CFSTR(""), kCFStringEncodingUTF8));
+    NSString *urlString = [[[self fileURL] absoluteString] stringByRemovingPercentEncoding];
 	return [[urlString lastPathComponent] stringByDeletingPathExtension];
 }
 

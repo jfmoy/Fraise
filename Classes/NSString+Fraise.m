@@ -19,7 +19,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 @implementation NSString (NSStringFraise)
 
 
-+ (NSString *)dateStringForDate:(NSCalendarDate *)date formatIndex:(NSInteger)index
++ (NSString *)dateStringForDate:(NSDate *)date formatIndex:(NSInteger)index
 {	
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];	

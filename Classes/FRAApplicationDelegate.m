@@ -400,7 +400,7 @@ static id sharedInstance = nil;
 			return;
 		}  
 		
-		NSManagedObjectContext *managedObjectContextVersion2 = [[NSManagedObjectContext alloc] init];
+		NSManagedObjectContext *managedObjectContextVersion2 = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
 		[managedObjectContextVersion2 setPersistentStoreCoordinator:persistentStoreCoordinatorVersion2];
 		
 		NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Command" inManagedObjectContext:managedObjectContextVersion2];

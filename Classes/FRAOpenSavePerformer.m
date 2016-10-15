@@ -114,10 +114,9 @@ static id sharedInstance = nil;
 	}
 	
 	
-	NSArray *array = [FRACurrentProject documents];
 	id document;
 	BOOL documentAlreadyOpened = NO;
-	for (document in array) {
+	for (document in [FRACurrentProject documents]) {
 		if ([[document valueForKey:@"path"] isEqualToString:path]) {
 			documentAlreadyOpened = YES;
 			break;

@@ -17,7 +17,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 @interface NSString (NSStringFraise)
 
-+ (NSString *)dateStringForDate:(NSCalendarDate *)date formatIndex:(NSInteger)index;
++ (NSString *)dateStringForDate:(NSDate *)date formatIndex:(NSInteger)index;
 
 - (NSArray *)divideCommandIntoArray;
 

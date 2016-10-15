@@ -371,7 +371,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (void)mouseDown:(NSEvent *)theEvent
 {
-	if (([theEvent modifierFlags] & NSAlternateKeyMask) && ([theEvent modifierFlags] & NSEventModifierFlagCommand)) { // If the option and command keys are pressed, change the cursor to grab-cursor
+	if (([theEvent modifierFlags] & NSEventModifierFlagOption) && ([theEvent modifierFlags] & NSEventModifierFlagCommand)) { // If the option and command keys are pressed, change the cursor to grab-cursor
 		startPoint = [theEvent locationInWindow];
 		startOrigin = [[[self enclosingScrollView] contentView] documentVisibleRect].origin;
 		[[self enclosingScrollView] setDocumentCursor:[NSCursor openHandCursor]];
@@ -582,7 +582,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 			} else {
 				keyString = @"";
 			}
-			NSMenuItem *subMenuItem = [[NSMenuItem alloc] initWithTitle:[snippet valueForKey:@"name"] action:@selector(snippetShortcutFired:) keyEquivalent:@""];
+            NSMenuItem *subMenuItem = [[NSMenuItem alloc] initWithTitle:[snippet valueForKey:@"name"] action:@selector(snippetShortcutFired:) keyEquivalent:@""];
 			[subMenuItem setTarget:[FRAToolsMenuController sharedInstance]];			
 			[subMenuItem setRepresentedObject:snippet];
 			[subMenu insertItem:subMenuItem atIndex:0];

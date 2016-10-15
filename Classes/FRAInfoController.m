@@ -92,8 +92,8 @@ static id sharedInstance = nil;
 	if (fileAttributes != nil) {
 		[fileSizeTextField setStringValue:[NSString stringWithFormat:@"%@ %@", [FRABasic thousandFormatedStringFromNumber:[NSNumber numberWithLongLong:[fileAttributes fileSize]]], NSLocalizedString(@"bytes", @"The name for bytes in the info window")]];
 		[whereTextField setStringValue:[[document valueForKey:@"path"] stringByDeletingLastPathComponent]];
-		[createdTextField setStringValue:[NSString dateStringForDate:(NSCalendarDate *)[fileAttributes fileCreationDate] formatIndex:[[FRADefaults valueForKey:@"StatusBarLastSavedFormatPopUp"] integerValue]]];
-		[modifiedTextField setStringValue:[NSString dateStringForDate:(NSCalendarDate *)[fileAttributes fileModificationDate] formatIndex:[[FRADefaults valueForKey:@"StatusBarLastSavedFormatPopUp"] integerValue]]];
+		[createdTextField setStringValue:[NSString dateStringForDate:[fileAttributes fileCreationDate] formatIndex:[[FRADefaults valueForKey:@"StatusBarLastSavedFormatPopUp"] integerValue]]];
+		[modifiedTextField setStringValue:[NSString dateStringForDate:[fileAttributes fileModificationDate] formatIndex:[[FRADefaults valueForKey:@"StatusBarLastSavedFormatPopUp"] integerValue]]];
 		[creatorTextField setStringValue:NSFileTypeForHFSTypeCode([fileAttributes fileHFSCreatorCode])];
 		[typeTextField setStringValue:NSFileTypeForHFSTypeCode([fileAttributes fileHFSTypeCode])];
 		[ownerTextField setStringValue:[fileAttributes fileOwnerAccountName]];

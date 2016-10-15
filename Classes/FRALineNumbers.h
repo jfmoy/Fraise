@@ -56,4 +56,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 - (void)updateLineNumbersCheckWidth:(BOOL)checkWidth recolour:(BOOL)recolour;
 - (void)updateLineNumbersForClipView:(NSClipView *)clipView checkWidth:(BOOL)checkWidth recolour:(BOOL)recolour;
 
+- (void)viewBoundsDidChange:(NSNotification *)notification;
+
+
 @end

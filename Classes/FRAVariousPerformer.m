@@ -511,7 +511,7 @@ static id sharedInstance = nil;
 
 - (void)setLastSavedDateForDocument:(id)document date:(NSDate *)lastSavedDate
 {
-	[document setValue:[NSString dateStringForDate:(NSCalendarDate *)lastSavedDate formatIndex:[[FRADefaults valueForKey:@"StatusBarLastSavedFormatPopUp"] integerValue]] forKey:@"lastSaved"];
+	[document setValue:[NSString dateStringForDate:lastSavedDate formatIndex:[[FRADefaults valueForKey:@"StatusBarLastSavedFormatPopUp"] integerValue]] forKey:@"lastSaved"];
 }
 
 

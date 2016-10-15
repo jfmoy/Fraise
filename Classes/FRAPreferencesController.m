@@ -303,7 +303,7 @@ static id sharedInstance = nil;
 			[preferencesWindow setFrame:[self getRectForView:generalView] display:YES animate:NO];
 		} else { // It sometimes get the frame wrong after it has been resized so use the own saved version
 			NSRect temporaryRect = NSRectFromString([FRADefaults valueForKey:@"PreferencesGeneralViewSavedFrame"]);
-			[preferencesWindow setFrame:NSMakeRect(temporaryRect.origin.x, temporaryRect.origin.y, temporaryRect.size.width * [preferencesWindow userSpaceScaleFactor], temporaryRect.size.height * [preferencesWindow userSpaceScaleFactor]) display:YES animate:NO];
+			[preferencesWindow setFrame:NSMakeRect(temporaryRect.origin.x, temporaryRect.origin.y, temporaryRect.size.width * [preferencesWindow backingScaleFactor], temporaryRect.size.height * [preferencesWindow backingScaleFactor]) display:YES animate:NO];
 		}
 		[[preferencesWindow contentView] addSubview:generalView];
 		currentView = generalView;
@@ -404,7 +404,7 @@ static id sharedInstance = nil;
 			[[NSBundle mainBundle] loadNibNamed:@"FRAPreferencesAppearance" owner:self topLevelObjects:nil];
 		}
 		
-		NSCalendarDate *now = [NSCalendarDate calendarDate];
+		NSDate *now = [NSDate date];
 		NSMenu *lastSavedFormatMenu = [lastSavedFormatPopUp menu];
 		NSInteger index;
 		for (index = 0; index < 9; index++) {
@@ -473,7 +473,7 @@ static id sharedInstance = nil;
     
 	[preferencesToolbar setSelectedItemIdentifier:identifier]; // Needed to make the selection "stick" in the toolbar
 	NSRect generalViewFrame = [self getRectForView:generalView];
-	[FRADefaults setValue:NSStringFromRect(NSMakeRect(generalViewFrame.origin.x, generalViewFrame.origin.y, (generalViewFrame.size.width / [preferencesWindow userSpaceScaleFactor]), (generalViewFrame.size.height / [preferencesWindow userSpaceScaleFactor]))) forKey:@"PreferencesGeneralViewSavedFrame"]; // It sometimes get the frame wrong after it has been resized so save a version to be used when displayed the next time
+	[FRADefaults setValue:NSStringFromRect(NSMakeRect(generalViewFrame.origin.x, generalViewFrame.origin.y, (generalViewFrame.size.width / [preferencesWindow backingScaleFactor]), (generalViewFrame.size.height / [preferencesWindow backingScaleFactor]))) forKey:@"PreferencesGeneralViewSavedFrame"]; // It sometimes get the frame wrong after it has been resized so save a version to be used when displayed the next time
     
 }
 
@@ -490,7 +490,7 @@ static id sharedInstance = nil;
 	
 	CGFloat titleBarHeight = rectWithTitleBar.size.height - rectWithoutTitleBar.size.height;
 	
-	return NSMakeRect(windowOrigin.x, newY - titleBarHeight, viewSize.width * [preferencesWindow userSpaceScaleFactor], (viewSize.height + [self toolbarHeight] + titleBarHeight));
+	return NSMakeRect(windowOrigin.x, newY - titleBarHeight, viewSize.width * [preferencesWindow backingScaleFactor], (viewSize.height + [self toolbarHeight] + titleBarHeight));
 }
 
 
@@ -504,7 +504,7 @@ static id sharedInstance = nil;
 		toolbarHeight = NSHeight(windowFrame) - NSHeight([[preferencesWindow contentView] frame]);
 	}
 	
-	return toolbarHeight * [[NSScreen mainScreen] userSpaceScaleFactor];
+	return toolbarHeight * [[NSScreen mainScreen] backingScaleFactor];
 }
 
 

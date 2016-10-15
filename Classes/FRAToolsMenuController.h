@@ -59,4 +59,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 - (IBAction)newSnippetAction:(id)sender;
 - (IBAction)newSnippetCollectionAction:(id)sender;
 
+- (void)snippetShortcutFired:(id)sender;
+
 @end

@@ -23,7 +23,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (BOOL)performKeyEquivalent:(NSEvent *)anEvent
 {
-	NSUInteger flags = [anEvent modifierFlags] & NSDeviceIndependentModifierFlagsMask;
+	NSUInteger flags = [anEvent modifierFlags] & NSEventModifierFlagDeviceIndependentFlagsMask;
 	unsigned short keyCode = [anEvent keyCode];
 	
 	if (flags == 1048576 && keyCode == 5) { // Command-G

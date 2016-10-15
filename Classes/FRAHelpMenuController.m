@@ -39,17 +39,25 @@ Unless required by applicable law or agreed to in writing, software distributed 
             [[FRAAuthenticationController sharedInstance] installCommandLineUtility];
         } else if (returnCode == NSAlertSecondButtonReturn) {
             NSFileManager *fileManager = [NSFileManager defaultManager];
-            NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
             NSString *pathToFolder = [[NSHomeDirectory() stringByAppendingPathComponent:@"Desktop"]
                                       stringByAppendingPathComponent:@"Fraise command-line utility"];
             [fileManager createDirectoryAtPath:pathToFolder withIntermediateDirectories:YES attributes:nil error:nil];
             
-            [workspace performFileOperation:NSWorkspaceCopyOperation source:[[NSBundle mainBundle] resourcePath] destination:pathToFolder files:@[@"fraise", @"fraise.1", @"fraise - installation instructions"] tag:NULL];
+            [self copyResource:@"fraise" pathToFolder:pathToFolder];
+            [self copyResource:@"fraise.1" pathToFolder:pathToFolder];
         }
     }];
     
 }
 
+- (void)copyResource:(NSString*)resource pathToFolder:(NSString*)pathToFolder {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSURL *toURL = [NSURL fileURLWithPath:[pathToFolder stringByAppendingPathComponent:resource]];
+    NSURL *item = [[NSBundle mainBundle] URLForResource:resource withExtension:@""];
+    NSError *error;
+    [fileManager copyItemAtURL:item toURL:toURL error:&error];
+    //NSLog(@"Error: %@", error);
+}
 
 - (IBAction)fraiseHelp:(id)sender
 {

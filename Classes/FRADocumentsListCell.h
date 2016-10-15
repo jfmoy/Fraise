@@ -21,7 +21,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	CGFloat heightAndWidth;
 }
 
-@property (copy) NSImage *image;
+@property (strong) NSImage *image;
 
 @property (assign, readwrite) CGFloat heightAndWidth;
 

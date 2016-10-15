@@ -200,7 +200,8 @@ static id sharedInstance = nil;
                                                       [FRACurrentProject saveToURL: URL
                                                                             ofType: @"fraiseProject"
                                                                   forSaveOperation: NSSaveOperation
-                                                                             error: nil];
+                                                                 completionHandler: ^(NSError* error) {
+                                                                 }];
                                                       [FRACurrentProject updateWindowTitleBarForDocument:nil];
                                                       [FRACurrentProject saveDocument:nil];
                                                   }
