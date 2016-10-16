@@ -85,21 +85,20 @@ static id sharedInstance = nil;
 			} else {
 				enumerator = [[fileManager contentsOfDirectoryAtPath:path error:nil] objectEnumerator];
 			}
-			NSString *temporaryPath;
 			NSMutableString *extensionsToFilterOutString = [NSMutableString stringWithString:[FRADefaults valueForKey:@"FilterOutExtensionsString"]];
 			[extensionsToFilterOutString replaceOccurrencesOfString:@"." withString:@"" options:NSLiteralSearch range:NSMakeRange(0, [extensionsToFilterOutString length])]; // If the user has included some dots
 			NSArray *extensionsToFilterOut = [extensionsToFilterOutString componentsSeparatedByString:@" "];
 			for (id file in enumerator) {
+                NSString *absoluteFileName = [path stringByAppendingPathComponent:file];
 				NSString *pathExtension = [[file pathExtension] lowercaseString];
 				if ([[FRADefaults valueForKey:@"FilterOutExtensions"] boolValue] == YES && [extensionsToFilterOut containsObject:pathExtension]) {
 					continue;
 				}
-				if ([self isPathVisible:file] == NO || [self isPartOfSVN:file] == YES) {
+                if ([self isPathVisible:absoluteFileName] == NO || [self isPartOfSVN:file] == YES) {
 					continue;
 				}
-				temporaryPath = [NSString stringWithFormat:@"%@/%@", path, file];
-				if ([fileManager fileExistsAtPath:temporaryPath isDirectory:&isDirectory] && !isDirectory && ![[temporaryPath lastPathComponent] hasPrefix:@"."]) {
-					[self shouldOpen:temporaryPath withEncoding:chosenEncoding];
+				if ([fileManager fileExistsAtPath:absoluteFileName isDirectory:&isDirectory] && !isDirectory && ![[absoluteFileName lastPathComponent] hasPrefix:@"."]) {
+					[self shouldOpen:absoluteFileName withEncoding:chosenEncoding];
 				}
 			}
 			
@@ -572,10 +571,12 @@ static id sharedInstance = nil;
 
 - (BOOL)isPathVisible:(NSString *)path
 {
-	LSItemInfoRecord itemInfo;
-	LSCopyItemInfoForURL((__bridge CFURLRef)[NSURL URLWithString:[@"file:///" stringByAppendingString:path]], kLSRequestAllInfo, &itemInfo);
-	
-	if ((itemInfo.flags & kLSItemInfoIsInvisible) != 0) {
+    NSError *error;
+    NSURL *url = [NSURL fileURLWithPath:path];
+    NSDictionary<NSURLResourceKey,id> *resourceValues = [url resourceValuesForKeys:@[NSURLIsHiddenKey] error:&error];
+    NSNumber *isHidden = (NSNumber*)resourceValues[NSURLIsHiddenKey];
+    
+	if (isHidden.boolValue) {
 		return NO;
 	} else {
 		if ([path isEqualToString:@"/.vol"] || [path isEqualToString:@"/automount"] || [path isEqualToString:@"/dev"] || [path isEqualToString:@"/mach"] || [path isEqualToString:@"/mach.sym"]) { // It seems to miss these...
