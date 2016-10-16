@@ -597,7 +597,7 @@
                         <tabViewItem label="Riktigt avancerat" identifier="" id="42">
                             <view key="view" id="44">
                                 <rect key="frame" x="10" y="33" width="554" height="421"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button id="16">
                                         <rect key="frame" x="132" y="319" width="346" height="18"/>
@@ -679,8 +679,8 @@
                                             <binding destination="120" name="enabled" keyPath="values.OpenAllFilesWithinAFolder" id="153"/>
                                         </connections>
                                     </button>
-                                    <textField verticalHuggingPriority="750" id="29">
-                                        <rect key="frame" x="310" y="79" width="120" height="11"/>
+                                    <textField verticalHuggingPriority="750" misplaced="YES" id="29">
+                                        <rect key="frame" x="310" y="76" width="161" height="14"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="(mellanslag emellan, inga punkter)" id="258">
                                             <font key="font" metaFont="miniSystem"/>
@@ -849,6 +849,7 @@
                     </tabViewItems>
                 </tabView>
             </subviews>
+            <point key="canvasLocation" x="117" y="153.5"/>
         </customView>
         <arrayController mode="entity" entityName="Encoding" automaticallyPreparesContent="YES" id="109" userLabel="EncodingsArrayController">
             <declaredKeys>
