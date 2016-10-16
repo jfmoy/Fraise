@@ -14,8 +14,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 #import <Cocoa/Cocoa.h>
 
-@class FRAFullScreenWindow;
-
 @interface FRAInterfacePerformer : NSObject {
 	
 	NSString *statusBarBetweenString;
@@ -26,17 +24,9 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	NSString *statusBarSyntaxDefinitionString;
 	NSString *statusBarEncodingString;
 	
-	FRAFullScreenWindow *fullScreenWindow;
-	id __unsafe_unretained fullScreenDocument;
-	NSMenu *savedMainMenu;
-	NSRect fullScreenRect;
-	
 	NSImage *defaultIcon;
 	NSImage *defaultUnsavedIcon;
 }
-
-@property (readonly) FRAFullScreenWindow *fullScreenWindow;
-@property (unsafe_unretained, readonly) id fullScreenDocument;
 
 @property (strong) NSImage *defaultIcon;
 @property (strong) NSImage *defaultUnsavedIcon;
@@ -57,9 +47,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 - (NSString *)whichDirectoryForSave;
 
 - (void)removeAllSubviewsFromView:(NSView *)view;
-- (void)enterFullScreenForDocument:(id)document;
-- (void)insertDocumentIntoFullScreenWindow;
-- (void)returnFromFullScreen;
 
 - (void)insertAllFunctionsIntoMenu:(NSMenu *)menu;
 - (NSArray *)allFunctions;

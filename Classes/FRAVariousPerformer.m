@@ -319,7 +319,7 @@ static id sharedInstance = nil;
 
 - (void)checkIfDocumentsHaveBeenUpdatedByAnotherApplication
 {
-	if ([FRACurrentProject areThereAnyDocuments] == NO || [FRAMain isInFullScreenMode] == YES || [[FRADefaults valueForKey:@"CheckIfDocumentHasBeenUpdated"] boolValue] == NO || [FRACurrentWindow attachedSheet] != nil) {
+	if ([FRACurrentProject areThereAnyDocuments] == NO || [[FRADefaults valueForKey:@"CheckIfDocumentHasBeenUpdated"] boolValue] == NO || [FRACurrentWindow attachedSheet] != nil) {
 		return;
 	}
 	

@@ -357,22 +357,7 @@ static id sharedInstance = nil;
 
 - (IBAction)viewDocumentInFullScreenAction:(id)sender
 {
-	if ([FRAMain isInFullScreenMode] == NO) {
-		if ([[FRADefaults valueForKey:@"UserHasBeenShownAlertHowToReturnFromFullScreen"] boolValue] == NO) {
-			[FRAVarious alertWithMessage:NSLocalizedString(@"Press the Escape-button on the keyboard to return from the full screen mode", @"Press the Escape-button on the keyboard to return from the full screen mode in Show Document In Full Screen") informativeText:NSLocalizedString(@"This message will NOT appear again so try to remember it:-)", @"This message will NOT appear again so try to remember it:-) in Show Document In Full Screen") defaultButton:OK_BUTTON alternateButton:nil otherButton:nil];
-			[FRADefaults setValue:@YES forKey:@"UserHasBeenShownAlertHowToReturnFromFullScreen"];
-		}
-		id currentDocument = [[FRACurrentProject documentsArrayController] selectedObjects][0];
-		if ([currentDocument valueForKey:@"singleDocumentWindow"] == nil) {
-			[FRAInterface insertDocumentIntoThirdContentView:currentDocument orderFront:NO];
-			[FRAMain setSingleDocumentWindowWasOpenBeforeEnteringFullScreen:NO];
-		} else {
-			[FRAMain setSingleDocumentWindowWasOpenBeforeEnteringFullScreen:YES];
-		}
-		
-		[FRAInterface enterFullScreenForDocument:currentDocument];
-		[FRAMain setIsInFullScreenMode:YES];
-	}
+    [FRACurrentWindow toggleFullScreen:self];
 }
 
 

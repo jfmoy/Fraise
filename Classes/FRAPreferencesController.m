@@ -177,7 +177,6 @@ static id sharedInstance = nil;
 	[dictionary setValue:@NO forKey:@"HasInsertedDefaultSnippets"];
 	[dictionary setValue:@NO forKey:@"HasImportedFromVersion2"];
 	[dictionary setValue:@NO forKey:@"HasInsertedDefaultCommands3"];
-	[dictionary setValue:@NO forKey:@"UserHasBeenShownAlertHowToReturnFromFullScreen"];
 	[dictionary setValue:@NO forKey:@"UpdateDocumentAutomaticallyWithoutWarning"];
 	[dictionary setValue:@4 forKey:@"SpacesPerTabEntabDetab"];
 	[dictionary setValue:@15 forKey:@"TimeBetweenDocumentUpdateChecks"];

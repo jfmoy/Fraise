@@ -14,7 +14,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 #import <Cocoa/Cocoa.h>
 
-@class FRAFullScreenWindow;
 @class FRAPrintTextView;
 
 @interface FRAVariousPerformer : NSObject {

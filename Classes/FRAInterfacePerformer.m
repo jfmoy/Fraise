@@ -25,7 +25,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 #import "FRAMainController.h"
 #import "FRAProject.h"
 #import "FRASyntaxColouring.h"
-#import "FRAFullScreenWindow.h"
 
 #import "ICUPattern.h"
 #import "ICUMatcher.h"
@@ -34,7 +33,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 @implementation FRAInterfacePerformer
 
-@synthesize fullScreenWindow, fullScreenDocument, defaultIcon, defaultUnsavedIcon;
+@synthesize defaultIcon, defaultUnsavedIcon;
 
 static id sharedInstance = nil;
 
@@ -537,71 +536,6 @@ static id sharedInstance = nil;
 //		[item removeFromSuperview];
 //		item = nil;
 //	}
-}
-
-
-- (void)enterFullScreenForDocument:(id)document
-{
-	savedMainMenu = [NSApp mainMenu];
-	
-	fullScreenRect = [[NSScreen mainScreen] frame];	
-	CGFloat width;
-	if ([FRAMain singleDocumentWindowWasOpenBeforeEnteringFullScreen] == YES) {
-		width = [[document valueForKey:@"thirdTextView"] bounds].size.width * [[NSScreen mainScreen] backingScaleFactor];
-	} else {
-		width = [[document valueForKey:@"firstTextView"] bounds].size.width * [[NSScreen mainScreen] backingScaleFactor];
-	}
-	fullScreenRect = NSMakeRect(fullScreenRect.origin.x - ((width - fullScreenRect.size.width + [[document valueForKey:@"gutterWidth"] doubleValue]) / 2), fullScreenRect.origin.y, width + [[document valueForKey:@"gutterWidth"] doubleValue], fullScreenRect.size.height);
-
-	fullScreenWindow = [[FRAFullScreenWindow alloc] initWithContentRect:[[NSScreen mainScreen] frame] styleMask:NSWindowStyleMaskBorderless backing:NSBackingStoreBuffered defer:NO screen:[NSScreen mainScreen]];
-	
-	if ([FRAMain singleDocumentWindowWasOpenBeforeEnteringFullScreen] == NO) {
-		NSRange sell = [[document valueForKey:@"firstTextView"] selectedRange];
-		[[document valueForKey:@"thirdTextView"] scrollRangeToVisible:sell];
-		[[document valueForKey:@"thirdTextView"] setSelectedRange:sell];
-	}
-	
-	fullScreenDocument = document;
-	[fullScreenWindow orderFront:nil];
-	[fullScreenWindow enterFullScreen];
-}
-
-
-- (void)insertDocumentIntoFullScreenWindow
-{
-	CGDisplayCapture(kCGDirectMainDisplay);
-	[fullScreenWindow setLevel:CGShieldingWindowLevel()];
-	[fullScreenWindow setContentView:[[fullScreenDocument valueForKey:@"singleDocumentWindow"] contentView]];
-	[fullScreenWindow makeKeyAndOrderFront:nil];
-	[fullScreenWindow setFrame:fullScreenRect display:YES animate:YES];
-	
-	[[fullScreenDocument valueForKey:@"lineNumbers"] updateLineNumbersForClipView:[[fullScreenDocument valueForKey:@"thirdTextScrollView"] contentView] checkWidth:YES recolour:YES];
-	[[fullScreenDocument valueForKey:@"singleDocumentWindow"] orderOut:nil];
-	[fullScreenWindow makeFirstResponder:[fullScreenDocument valueForKey:@"thirdTextView"]];
-}
-
-
-- (void)returnFromFullScreen
-{	
-	SetSystemUIMode(kUIModeNormal, 0);
-	[NSApp setMainMenu:savedMainMenu];
-	
-	[[fullScreenDocument valueForKey:@"singleDocumentWindow"] setContentView:[fullScreenWindow contentView]];
-	
-	[fullScreenWindow orderOut:self];
-	fullScreenWindow = nil;
-	
-	CGDisplayRelease(kCGDirectMainDisplay);
-	
-	if ([FRAMain singleDocumentWindowWasOpenBeforeEnteringFullScreen] == NO) {
-		[[fullScreenDocument valueForKey:@"singleDocumentWindow"] performClose:nil];
-	} else {
-		[[fullScreenDocument valueForKey:@"singleDocumentWindow"] makeKeyAndOrderFront:nil];
-		[[fullScreenDocument valueForKey:@"lineNumbers"] updateLineNumbersForClipView:[[fullScreenDocument valueForKey:@"thirdTextScrollView"] contentView] checkWidth:YES recolour:YES];
-	}
-	
-	fullScreenDocument = nil;
-	[FRAMain setIsInFullScreenMode:NO];
 }
 
 

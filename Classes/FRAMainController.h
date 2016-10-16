@@ -17,14 +17,8 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 @interface FRAMainController : NSObject
 {
-	BOOL isInFullScreenMode;
-	BOOL singleDocumentWindowWasOpenBeforeEnteringFullScreen;
-	
 	NSOperationQueue *operationQueue;
 }
-
-@property BOOL isInFullScreenMode;
-@property BOOL singleDocumentWindowWasOpenBeforeEnteringFullScreen;
 
 @property (readonly) NSOperationQueue *operationQueue;
 
