@@ -62,7 +62,7 @@ static id sharedInstance = nil;
 		} else if ([[filename pathExtension] isEqualToString:@"smlp"] || [[filename pathExtension] isEqualToString:@"frap"] || [[filename pathExtension] isEqualToString:@"fraiseProject"]) { // If the file is a project open all its files
 			[projectsArray addObject:filename];
 		} else {
-			[self shouldOpen:[FRABasic resolveAliasInPath:filename] withEncoding:0];
+			[self shouldOpen:filename withEncoding:0];
 		}
 	}
 	
@@ -75,6 +75,7 @@ static id sharedInstance = nil;
 
 - (void)shouldOpen:(NSString *)path withEncoding:(NSStringEncoding)chosenEncoding
 {
+    path = [FRABasic resolveAliasInPath:path];
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	BOOL isDirectory;
 	if ([fileManager fileExistsAtPath:path isDirectory:&isDirectory] && isDirectory) { // Check if folder

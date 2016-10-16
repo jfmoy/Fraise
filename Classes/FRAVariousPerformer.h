@@ -47,7 +47,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 - (NSInteger)alertWithMessage:(NSString *)message informativeText:(NSString *)informativeText defaultButton:(NSString *)defaultButton alternateButton:(NSString *)alternateButton otherButton:(NSString *)otherButton;
 
 - (void)checkIfDocumentsHaveBeenUpdatedByAnotherApplication;
-- (void)sheetDidFinish:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
 - (NSString *)performCommand:(NSString *)command;
 - (void)performCommandAsynchronously:(NSString *)command;
 - (void)asynchronousTaskCompleted;

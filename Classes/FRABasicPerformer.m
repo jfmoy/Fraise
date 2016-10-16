@@ -228,27 +228,11 @@ static id sharedInstance = nil;
 
 - (NSString *)resolveAliasInPath:(NSString *)path
 {
-	NSString *resolvedPath = nil;
-	CFURLRef url = CFURLCreateWithFileSystemPath(NULL, (CFStringRef)path, kCFURLPOSIXPathStyle, NO);
-	
-	if (url != NULL) {
-		FSRef fsRef;
-		if (CFURLGetFSRef(url, &fsRef)) {
-			Boolean targetIsFolder, wasAliased;
-			if (FSResolveAliasFile (&fsRef, true, &targetIsFolder, &wasAliased) == noErr && wasAliased) {
-				CFURLRef resolvedURL = CFURLCreateFromFSRef(NULL, &fsRef);
-				if (resolvedURL != NULL) {
-					resolvedPath = (NSString*)CFBridgingRelease(CFURLCopyFileSystemPath(resolvedURL, kCFURLPOSIXPathStyle));
-				}
-			}
-		}
-	}
-	
-	if (resolvedPath==nil) {
-		return path;
-	}
-	
-	return resolvedPath;
+    NSError *error;
+    NSURL *url = [NSURL URLByResolvingAliasFileAtURL:[NSURL fileURLWithPath:path] options:NSURLBookmarkResolutionWithoutUI error:&error];
+    
+    NSString *resolvedPath = [url path];
+    return resolvedPath;
 }
 
 @end
