@@ -374,11 +374,8 @@
         if ([cell closeButtonPressed]) closeButton = unifiedCloseButtonDown;
         
         closeButtonSize = [closeButton size];
-        if ([controlView isFlipped]) {
-            closeButtonRect.origin.y += closeButtonRect.size.height;
-        }
         
-        [closeButton compositeToPoint:closeButtonRect.origin operation:NSCompositingOperationSourceOver fraction:1.0];
+        [closeButton drawAtPoint:closeButtonRect.origin fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1.0];
         
         // scoot label over
         labelPosition += closeButtonSize.width + kPSMTabBarCellPadding;
@@ -391,7 +388,7 @@
         if ([controlView isFlipped]) {
             iconRect.origin.y = cellFrame.size.height - iconRect.origin.y;
         }
-        [icon compositeToPoint:iconRect.origin operation:NSCompositingOperationSourceOver fraction:1.0];
+        [icon drawAtPoint:iconRect.origin fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1.0];
         
         // scoot label over
         labelPosition += iconRect.size.width + kPSMTabBarCellPadding;

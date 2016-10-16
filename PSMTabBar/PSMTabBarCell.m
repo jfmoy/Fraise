@@ -341,7 +341,7 @@
         NSPoint indicatorPoint = NSMakePoint([self frame].size.width - MARGIN_X - kPSMTabBarIndicatorWidth, MARGIN_Y);
         if(([self state] == NSOnState) && ([[_controlView styleName] isEqualToString:@"Metal"]))
             indicatorPoint.y += 1.0;
-        [pi compositeToPoint:indicatorPoint operation:NSCompositingOperationSourceOver fraction:0.7];
+        [pi drawAtPoint:indicatorPoint fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:0.7];
         [returnImage unlockFocus];
     }
     return returnImage;
