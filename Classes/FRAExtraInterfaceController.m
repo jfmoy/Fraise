@@ -53,7 +53,8 @@ static id sharedInstance = nil;
 		[[NSBundle mainBundle] loadNibNamed:@"FRAEntab" owner:self topLevelObjects:nil];
 	}
 	
-	[NSApp beginSheet:entabWindow modalForWindow:FRACurrentWindow modalDelegate:self didEndSelector:nil contextInfo:nil];
+    [FRACurrentWindow beginSheet:entabWindow completionHandler:^(NSModalResponse returnCode) {
+    }];
 }
 
 
@@ -63,7 +64,8 @@ static id sharedInstance = nil;
 		[[NSBundle mainBundle] loadNibNamed:@"FRADetab" owner:self topLevelObjects:nil];
 	}
 	
-	[NSApp beginSheet:detabWindow modalForWindow:FRACurrentWindow modalDelegate:self didEndSelector:nil contextInfo:nil];
+    [FRACurrentWindow beginSheet:detabWindow completionHandler:^(NSModalResponse returnCode) {
+    }];
 }
 
 
@@ -98,7 +100,8 @@ static id sharedInstance = nil;
 		[[NSBundle mainBundle] loadNibNamed:@"FRAGoToLine" owner:self topLevelObjects:nil];
 	}
 	
-	[NSApp beginSheet:goToLineWindow modalForWindow:FRACurrentWindow modalDelegate:self didEndSelector:nil contextInfo:nil];
+    [FRACurrentWindow beginSheet:goToLineWindow completionHandler:^(NSModalResponse returnCode) {
+    }];
 }
 
 
