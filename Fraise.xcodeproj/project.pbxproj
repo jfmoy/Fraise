@@ -21,7 +21,6 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		1FACC99F113FAE1200515523 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FACC99E113FAE1200515523 /* QuartzCore.framework */; };
 		1FB593BA113EE34600ECB6C0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1FB593B9113EE34600ECB6C0 /* Localizable.strings */; };
 		1FB593BD113EE35E00ECB6C0 /* Localizable3.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1FB593BC113EE35E00ECB6C0 /* Localizable3.strings */; };
 		1FF6CD34115543F1002681B2 /* FRAPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FF6CD31115543F1002681B2 /* FRAPreferences.xib */; };
@@ -505,6 +504,7 @@
 		7FD53F120D91A8F30071054F /* Fraise-Manual.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Fraise-Manual.pdf"; sourceTree = "<group>"; };
 		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* Fraise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fraise.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E18EFF321DB378C000DA64C3 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -528,7 +528,6 @@
 				7F6C9C680B75F23000531EF9 /* libicucore.dylib in Frameworks */,
 				7F51225C0BA72E7E00183863 /* QuartzCore.framework in Frameworks */,
 				7FBDDF360CF79C7D003BAFB5 /* QuickLook.framework in Frameworks */,
-				1FACC99F113FAE1200515523 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -587,6 +586,7 @@
 		2A37F4ABFDCFA73011CA2CEA /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				E18EFF321DB378C000DA64C3 /* PrefixHeader.pch */,
 				7F980AEE0B73B6A2000A9140 /* FRAStandardHeader.h */,
 				7F5C248D0B73B85900D2EDDC /* Controllers */,
 				7F5C248E0B73B86100D2EDDC /* Performers */,
@@ -1047,8 +1047,8 @@
 			buildConfigurationList = C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "Fraise" */;
 			buildPhases = (
 				8D15AC2B0486D014006FF6A4 /* Resources */,
-				8D15AC300486D014006FF6A4 /* Sources */,
 				8D15AC330486D014006FF6A4 /* Frameworks */,
+				8D15AC300486D014006FF6A4 /* Sources */,
 				7F1DE28F0BD198FA00AD5707 /* CopyFiles */,
 			);
 			buildRules = (
@@ -1602,11 +1602,16 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_ENABLE_OBJC_GC = unsupported;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/PrefixHeader.pch";
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PRODUCT_NAME = Fraise;
 				VALID_ARCHS = x86_64;
 				WRAPPER_EXTENSION = app;
@@ -1628,9 +1633,14 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)\"";
 				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/PrefixHeader.pch";
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PRODUCT_NAME = Fraise;
 				VALID_ARCHS = x86_64;
 				WRAPPER_EXTENSION = app;

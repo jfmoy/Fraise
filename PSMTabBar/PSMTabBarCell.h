@@ -11,7 +11,6 @@
 
 @class PSMTabBarControl;
 
-
 @interface PSMTabBarCell : NSActionCell {
     // sizing
     NSRect              _frame;

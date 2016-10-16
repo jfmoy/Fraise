@@ -14,8 +14,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 // Based on ImageAndTextCell.m by Chuck Pisula (Apple)
 
-#import "FRAStandardHeader.h"
-
 #import "FRADocumentsListCell.h"
 
 @implementation FRADocumentsListCell

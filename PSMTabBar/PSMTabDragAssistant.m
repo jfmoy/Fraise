@@ -11,7 +11,6 @@
 #import "PSMTabStyle.h"
 #import "PSMRolloverButton.h"
 #import "PSMOverflowPopUpButton.h"
-#import "FRAStandardHeader.h"
 #import "FRAProjectsController.h"
 #import "FRAProject.h"
 #import "FRAProject+DocumentViewsController.h"

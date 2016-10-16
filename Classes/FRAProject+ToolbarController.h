@@ -15,6 +15,8 @@ Unless required by applicable law or agreed to in writing, software distributed 
 #import <Cocoa/Cocoa.h>
 #import "FRAProject.h"
 
+@class FRAProject;
+
 @interface FRAProject (ToolbarController)
 
 - (IBAction)liveFindToolbarItemAction:(id)sender;

@@ -13,8 +13,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 */
 
 
-#import "FRAStandardHeader.h"
-
 #import "NSImage+Fraise.h"
 #import "FRAProject.h"
 #import "FRABasicPerformer.h"

@@ -14,8 +14,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 #import <SystemConfiguration/SCNetworkReachability.h>
 
-#import "FRAStandardHeader.h"
-
 #import "FRAMainController.h"
 #import "FRAPreferencesController.h"
 #import "FRATextMenuController.h"

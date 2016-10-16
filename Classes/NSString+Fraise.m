@@ -14,8 +14,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 #import "NSString+Fraise.h"
 
-#import "FRAStandardHeader.h"
-
 @implementation NSString (NSStringFraise)
 
 

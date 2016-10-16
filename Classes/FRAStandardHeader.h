@@ -162,8 +162,3 @@ typedef NSUInteger FRAErrors;
 
 
 
-@interface FRAStandardHeader : NSObject
-{
-}
-
-@end

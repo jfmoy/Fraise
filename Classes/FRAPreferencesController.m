@@ -13,8 +13,6 @@
  */
 
 
-#import "FRAStandardHeader.h"
-
 #import "FRAPreferencesController.h"
 #import "NSString+Fraise.h"
 #import "FRABasicPerformer.h"
