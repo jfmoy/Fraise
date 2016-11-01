@@ -90,7 +90,6 @@
 		7F961E9B0B7A7DAD001E9189 /* FRASnippetManagedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F961E9A0B7A7DAD001E9189 /* FRASnippetManagedObject.m */; };
 		7F961E9E0B7A7DBF001E9189 /* FRACommandManagedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F961E9D0B7A7DBF001E9189 /* FRACommandManagedObject.m */; };
 		7F9809D20B73B4E1000A9140 /* FRADocumentIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7F9809BC0B73B4E1000A9140 /* FRADocumentIcon.icns */; };
-		7F9809D80B73B4E1000A9140 /* FRAMainIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7F9809C20B73B4E1000A9140 /* FRAMainIcon.icns */; };
 		7F9809DB0B73B4E1000A9140 /* FRAProjectIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7F9809C50B73B4E1000A9140 /* FRAProjectIcon.icns */; };
 		7F980A410B73B4F4000A9140 /* Syntax Definitions in Resources */ = {isa = PBXBuildFile; fileRef = 7F9809E70B73B4F4000A9140 /* Syntax Definitions */; };
 		7F980A420B73B4F4000A9140 /* Toolbar Icons in Resources */ = {isa = PBXBuildFile; fileRef = 7F980A230B73B4F4000A9140 /* Toolbar Icons */; };
@@ -148,6 +147,7 @@
 		8D15AC310486D014006FF6A4 /* FRAProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* FRAProject.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
+		E1E8E9D11DC8D6BC0072BEF0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1E8E9D01DC8D6BC0072BEF0 /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -402,7 +402,6 @@
 		7F961E9C0B7A7DBF001E9189 /* FRACommandManagedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRACommandManagedObject.h; path = Classes/FRACommandManagedObject.h; sourceTree = "<group>"; };
 		7F961E9D0B7A7DBF001E9189 /* FRACommandManagedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FRACommandManagedObject.m; path = Classes/FRACommandManagedObject.m; sourceTree = "<group>"; };
 		7F9809BC0B73B4E1000A9140 /* FRADocumentIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = FRADocumentIcon.icns; path = Graphics/FRADocumentIcon.icns; sourceTree = "<group>"; };
-		7F9809C20B73B4E1000A9140 /* FRAMainIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = FRAMainIcon.icns; path = Graphics/FRAMainIcon.icns; sourceTree = "<group>"; };
 		7F9809C50B73B4E1000A9140 /* FRAProjectIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = FRAProjectIcon.icns; path = Graphics/FRAProjectIcon.icns; sourceTree = "<group>"; };
 		7F9809E70B73B4F4000A9140 /* Syntax Definitions */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Syntax Definitions"; sourceTree = "<group>"; };
 		7F980A230B73B4F4000A9140 /* Toolbar Icons */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Toolbar Icons"; path = "Graphics/Toolbar Icons"; sourceTree = "<group>"; };
@@ -502,6 +501,7 @@
 		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* Fraise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fraise.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E18EFF321DB378C000DA64C3 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		E1E8E9D01DC8D6BC0072BEF0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Fraise/Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -613,6 +613,7 @@
 		2A37F4B8FDCFA73011CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E1E8E9D01DC8D6BC0072BEF0 /* Images.xcassets */,
 				1F7485FB114F13BF00767B18 /* Distribution-Info.plist */,
 				7F5C24D90B73BCF200D2EDDC /* Xibs */,
 				7F9809B40B73B4C8000A9140 /* Graphics */,
@@ -948,7 +949,6 @@
 				7F980A230B73B4F4000A9140 /* Toolbar Icons */,
 				7F81FED50BA9DDCD00549CDB /* Tab Bar */,
 				7F9809BC0B73B4E1000A9140 /* FRADocumentIcon.icns */,
-				7F9809C20B73B4E1000A9140 /* FRAMainIcon.icns */,
 				7F9809C50B73B4E1000A9140 /* FRAProjectIcon.icns */,
 				2FC46AFC0BD608C500F209AA /* FRACommandsIcon.icns */,
 				2FC46AFD0BD608C500F209AA /* FRASnippetsIcon.icns */,
@@ -1105,11 +1105,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F5C26740B73BF9B00D2EDDC /* fraise in Resources */,
+				E1E8E9D11DC8D6BC0072BEF0 /* Images.xcassets in Resources */,
 				7F980A8B0B73B629000A9140 /* fraise.1 in Resources */,
 				7FB9116B101E6245008DB1DA /* InfoPlist.strings in Resources */,
 				1FB593BA113EE34600ECB6C0 /* Localizable.strings in Resources */,
 				7F9809D20B73B4E1000A9140 /* FRADocumentIcon.icns in Resources */,
-				7F9809D80B73B4E1000A9140 /* FRAMainIcon.icns in Resources */,
 				7F9809DB0B73B4E1000A9140 /* FRAProjectIcon.icns in Resources */,
 				7F980A410B73B4F4000A9140 /* Syntax Definitions in Resources */,
 				7F980A420B73B4F4000A9140 /* Toolbar Icons in Resources */,
@@ -1584,6 +1584,7 @@
 		C05733C808A9546B00998B17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -1616,6 +1617,7 @@
 		C05733C908A9546B00998B17 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (

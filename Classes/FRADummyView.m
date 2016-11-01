@@ -22,7 +22,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
         
 		gradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedWhite:0.12 alpha:1.0] endingColor:[NSColor colorWithCalibratedWhite:0.38 alpha:1.0]];
 		
-		fraiseImage = [NSImage imageNamed:@"FRAMainIcon.icns"];
+		fraiseImage = [NSApp applicationIconImage];
 		[[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
 		[fraiseImage setSize:NSMakeSize(128.0, 128.0)];
 		[[fraiseImage bestRepresentationForRect:NSMakeRect(0.0, 0.0, 128.0, 128.0) context:nil hints:nil] setSize:NSMakeSize(128.0, 128.0)];
