@@ -341,7 +341,7 @@ static id sharedInstance = nil;
 		NSRect visibleRect = [[scrollView contentView] documentVisibleRect];
 		NSRange visibleRange = [item glyphRangeForBoundingRect:visibleRect inTextContainer:textContainer];
 		[item invalidateDisplayForGlyphRange:visibleRange];
-		[item setShowInvisibleCharacters:[[document valueForKey:@"showInvisibleCharacters"] boolValue]];
+		[item setShowsInvisibleCharacters:[[document valueForKey:@"showInvisibleCharacters"] boolValue]];
 	}
 }
 

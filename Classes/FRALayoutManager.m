@@ -16,8 +16,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 @implementation FRALayoutManager
 
-@synthesize showInvisibleCharacters;
-
 - (id)init
 {
 	if (self = [super init]) {
@@ -28,7 +26,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		unichar newLineUnichar = 0x00B6;
 		newLineCharacter = [[NSString alloc] initWithCharacters:&newLineUnichar length:1];
 		
-		[self setShowInvisibleCharacters:[[FRADefaults valueForKey:@"ShowInvisibleCharacters"] boolValue]];
+		self.showsInvisibleCharacters = [[FRADefaults valueForKey:@"ShowInvisibleCharacters"] boolValue];
 		[self setAllowsNonContiguousLayout:YES]; // Setting this to YES sometimes causes "an extra toolbar" and other graphical glitches to sometimes appear in the text view when one sets a temporary attribute, reported as ID #5832329 to Apple
 		
 		NSUserDefaultsController *defaultsController = [NSUserDefaultsController sharedUserDefaultsController];
@@ -53,38 +51,31 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (void)drawGlyphsForGlyphRange:(NSRange)glyphRange atPoint:(NSPoint)containerOrigin
 {
-    if (showInvisibleCharacters) {
-		completeString = [[self textStorage] string];
-		lengthToRedraw = NSMaxRange(glyphRange);	
+    if (self.showsInvisibleCharacters) {
+        NSString *completeString = [[self textStorage] string];
+		NSInteger lengthToRedraw = NSMaxRange(glyphRange);
 		
-		for (index = glyphRange.location; index < lengthToRedraw; index++) {
-			characterToCheck = [completeString characterAtIndex:index];
-			if (characterToCheck == '\t') {
-				pointToDrawAt = [self locationForGlyphAtIndex:index];
-				glyphFragment = [self lineFragmentRectForGlyphAtIndex:index effectiveRange:NULL];
-				pointToDrawAt.x += glyphFragment.origin.x;
-				pointToDrawAt.y = glyphFragment.origin.y;
-				[tabCharacter drawAtPoint:pointToDrawAt withAttributes:attributes];
-				
-			} else if (characterToCheck == '\n' || characterToCheck == '\r') {
-				pointToDrawAt = [self locationForGlyphAtIndex:index];
-				glyphFragment = [self lineFragmentRectForGlyphAtIndex:index effectiveRange:NULL];
-				pointToDrawAt.x += glyphFragment.origin.x;
-				pointToDrawAt.y = glyphFragment.origin.y;
-				[newLineCharacter drawAtPoint:pointToDrawAt withAttributes:attributes];
-			}
+        for (NSInteger index = glyphRange.location; index < lengthToRedraw; index++) {
+			unichar characterToCheck = [completeString characterAtIndex:index];
+
+            NSString *character = nil;
+            if (characterToCheck == '\t') {
+                character = tabCharacter;
+            } else if (characterToCheck == '\n' || characterToCheck == '\r') {
+                character = newLineCharacter;
+            }
+
+            if (character != nil) {
+                NSPoint pointToDrawAt = [self locationForGlyphAtIndex:index];
+                NSRect glyphFragment = [self lineFragmentRectForGlyphAtIndex:index effectiveRange:NULL];
+                pointToDrawAt.x += glyphFragment.origin.x;
+                pointToDrawAt.y = glyphFragment.origin.y;
+                [character drawAtPoint:pointToDrawAt withAttributes:attributes];
+            }
 		}
     } 
 	
     [super drawGlyphsForGlyphRange:glyphRange atPoint:containerOrigin];
 }
-
-
-- (void)setShowInvisibleCharacters:(BOOL)flag
-{
-	showInvisibleCharacters = flag;
-	[self setShowsInvisibleCharacters:flag];
-}
-
 
 @end

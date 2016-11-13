@@ -19,19 +19,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	NSDictionary *attributes;
 	NSString *tabCharacter;
 	NSString *newLineCharacter;
-	
-	NSString *completeString;
-	NSInteger lengthToRedraw;
-	NSInteger index;
-	unichar characterToCheck;
-	NSPoint pointToDrawAt;
-	NSRect glyphFragment;
-
-	BOOL showInvisibleCharacters;
 }
-
-//-(void)setShowInvisibleCharacters:(BOOL)flag;
-
-@property (nonatomic) BOOL showInvisibleCharacters;
 
 @end
