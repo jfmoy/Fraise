@@ -37,15 +37,6 @@
                         <binding destination="68" name="value" keyPath="values.NewDocumentAtStartup" id="69"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" misplaced="YES" id="97">
-                    <rect key="frame" x="5" y="44" width="123" height="17"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Verschiedenes:" id="160">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
                 <button misplaced="YES" id="86">
                     <rect key="frame" x="132" y="322" width="164" height="18"/>
                     <autoresizingMask key="autoresizingMask"/>
@@ -87,9 +78,9 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" misplaced="YES" id="59">
-                    <rect key="frame" x="6" y="93" width="123" height="51"/>
+                    <rect key="frame" x="5" y="111" width="123" height="35"/>
                     <autoresizingMask key="autoresizingMask"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Auto-Vervollständigung:" id="152">
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Auto-Vervollständigung:" id="152">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -229,7 +220,7 @@
                     </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" misplaced="YES" id="42">
-                    <rect key="frame" x="131" y="44" width="217" height="17"/>
+                    <rect key="frame" x="131" y="43" width="334" height="18"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="138">
                         <font key="font" metaFont="system"/>
@@ -240,7 +231,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" misplaced="YES" id="40">
-                    <rect key="frame" x="353" y="42" width="36" height="19"/>
+                    <rect key="frame" x="468" y="43" width="36" height="19"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" drawsBackground="YES" id="137">
                         <numberFormatter key="formatter" formatterBehavior="10_0" positiveFormat="0" negativeFormat="-0" hasThousandSeparators="NO" thousandSeparator="." id="41">
@@ -280,6 +271,15 @@
                         <binding destination="68" name="value" keyPath="values.ShowLineNumberGutter" id="75"/>
                     </connections>
                 </button>
+                <textField verticalHuggingPriority="750" misplaced="YES" id="97">
+                    <rect key="frame" x="5" y="44" width="123" height="17"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Verschiedenes:" id="160">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="68" userLabel="Shared Defaults"/>

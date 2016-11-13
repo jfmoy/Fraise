@@ -311,12 +311,12 @@
             </connections>
         </arrayController>
         <userDefaultsController representsSharedInstance="YES" id="168" userLabel="Shared Defaults"/>
-        <customView id="213" userLabel="CommandsFilterView">
-            <rect key="frame" x="0.0" y="0.0" width="114" height="32"/>
+        <customView misplaced="YES" id="213" userLabel="CommandsFilterView">
+            <rect key="frame" x="0.0" y="0.0" width="155" height="32"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <searchField wantsLayer="YES" verticalHuggingPriority="750" id="214">
-                    <rect key="frame" x="7" y="5" width="101" height="22"/>
+                    <rect key="frame" x="7" y="5" width="142" height="22"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                     <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" alignment="left" placeholderString="Aktuelle Gruppe" bezelStyle="round" maximumRecents="0" recentsAutosaveName="C" id="239">
                         <font key="font" metaFont="system"/>
@@ -333,6 +333,7 @@
                     </connections>
                 </searchField>
             </subviews>
+            <point key="canvasLocation" x="152.5" y="169"/>
         </customView>
     </objects>
 </document>

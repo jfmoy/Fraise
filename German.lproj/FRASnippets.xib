@@ -29,10 +29,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="583" height="405"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField verticalHuggingPriority="750" id="112">
-                        <rect key="frame" x="489" y="5" width="73" height="11"/>
+                    <textField verticalHuggingPriority="750" misplaced="YES" id="112">
+                        <rect key="frame" x="489" y="5" width="85" height="11"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="%%s = selection" id="197">
+                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="%%s = Selektion" id="197">
                             <font key="font" metaFont="miniSystem"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -215,7 +215,7 @@
                     <textField verticalHuggingPriority="750" id="187">
                         <rect key="frame" x="320" y="5" width="151" height="11"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="%%c = cursor position after insert" id="198">
+                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="%%c = Cursor Position danach" id="198">
                             <font key="font" metaFont="miniSystem"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -226,6 +226,7 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="158"/>
             </connections>
+            <point key="canvasLocation" x="131.5" y="161.5"/>
         </window>
         <arrayController mode="entity" entityName="SnippetCollection" automaticallyPreparesContent="YES" id="9" userLabel="SnippetCollectionsArrayController">
             <declaredKeys>

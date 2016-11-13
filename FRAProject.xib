@@ -252,8 +252,8 @@
                 </button>
             </subviews>
         </customView>
-        <customView id="230" userLabel="ViewSelectionView" customClass="FRAGradientBackgroundView">
-            <rect key="frame" x="0.0" y="0.0" width="224" height="22"/>
+        <customView misplaced="YES" id="230" userLabel="ViewSelectionView" customClass="FRAGradientBackgroundView">
+            <rect key="frame" x="0.0" y="0.0" width="224" height="24"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
             <subviews>
                 <slider verticalHuggingPriority="750" id="231">
@@ -267,6 +267,7 @@
                     </connections>
                 </slider>
             </subviews>
+            <point key="canvasLocation" x="132" y="168"/>
         </customView>
     </objects>
 </document>
