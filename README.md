@@ -12,6 +12,11 @@ Fraise was originally forked from an earlier version of Smultron, maintained by 
 
 see https://github.com/abentele/Fraise/releases
 
+# Roadmap
+
+Currently I'm working on a more stable release with many bug fixes and some minor features. 
+If you would like to contribute, please let me know.
+
 # Changelog
 
 ## 3.7.4
