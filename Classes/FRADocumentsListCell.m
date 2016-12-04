@@ -13,6 +13,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 */
 
 // Based on ImageAndTextCell.m by Chuck Pisula (Apple)
+// look at https://github.com/jdg/opmlviewer
 
 #import "FRADocumentsListCell.h"
 
@@ -22,8 +23,8 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (id)copyWithZone:(NSZone *)zone
 {
-	FRADocumentsListCell *cell = (FRADocumentsListCell *)[super copyWithZone:zone];
-	cell->image = image;
+	FRADocumentsListCell *cell = [super copyWithZone:zone];
+    cell.image = self.image;
 	return cell;
 }
 
@@ -46,7 +47,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 - (void)editWithFrame:(NSRect)aRect inView:(NSView *)controlView editor:(NSText *)textObj delegate:(id)anObject event:(NSEvent *)theEvent
 {
     NSRect textFrame = aRect;
-	NSSize contentSize = [self cellSize];
+	NSSize contentSize = self.cellSize;
     textFrame.origin.y += ceil((textFrame.size.height - contentSize.height) / 2);
     textFrame.size.height = contentSize.height;
     [super editWithFrame:textFrame inView:controlView editor:textObj delegate:anObject event:theEvent];
@@ -56,7 +57,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 - (void)selectWithFrame:(NSRect)aRect inView:(NSView *)controlView editor:(NSText *)textObj delegate:(id)anObject start:(NSInteger)selStart length:(NSInteger)selLength
 {
 	NSRect textFrame = aRect;
-	NSSize contentSize = [self cellSize];
+	NSSize contentSize = self.cellSize;
     textFrame.origin.y += ceil((textFrame.size.height - contentSize.height) / 2);
     textFrame.size.height = contentSize.height;
     [super selectWithFrame:textFrame inView:controlView editor:textObj delegate:anObject start:selStart length:selLength];
@@ -65,52 +66,30 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (void)drawInteriorWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
 {
-	if (image != nil) {
-        NSSize imageSize;
-        NSRect imageFrame;
-		
-		CGFloat scaleFactor = heightAndWidth / ICON_MAX_SIZE;
-		NSSize iconSize = NSMakeSize(heightAndWidth, heightAndWidth);
-		
-        imageSize = iconSize;
+    if (image != nil) {
+        NSRect imageFrame = NSZeroRect;
+        NSSize imageSize = NSMakeSize(heightAndWidth, heightAndWidth);
         NSDivideRect(cellFrame, &imageFrame, &cellFrame, 3 + imageSize.width, NSMinXEdge);
-        if ([self drawsBackground]) {
-            [[self backgroundColor] set];
+        if (self.drawsBackground) {
+            [self.backgroundColor set];
             NSRectFill(imageFrame);
         }
-        imageFrame.origin.x += 3;
-        imageFrame.size = imageSize;
-		
-		imageFrame.origin.y += ceil((cellFrame.size.height + imageFrame.size.height) / 2);
-
-		NSSize actualImageSize = [image size];
-		CGFloat x = ((ICON_MAX_SIZE - actualImageSize.width) / 2); // Do this to make sure that the icon appears in the center of the image
-		imageFrame.origin.x += x * scaleFactor;
-		CGFloat y = (ICON_MAX_SIZE - actualImageSize.height) / 2;
-		imageFrame.origin.y -= y * scaleFactor;
-		
-		[image setSize:NSMakeSize(actualImageSize.width * scaleFactor, actualImageSize.height * scaleFactor)];
-
-        [image drawAtPoint: imageFrame.origin
-                  fromRect: imageFrame
-                 operation: NSCompositingOperationSourceOver
-                  fraction: 1.0];
+        [image drawInRect:imageFrame fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1.0 respectFlipped:YES hints:nil];
     }
-	
-    NSSize contentSize = [self cellSize];
+    NSSize contentSize = self.cellSize;
     cellFrame.origin.y += ceil((cellFrame.size.height - contentSize.height) / 2);
     cellFrame.size.height = contentSize.height;
-	if (cellFrame.origin.x < heightAndWidth) { // This is to make sure that the text is properly aligned before the icon has been created in a separate thread
-		cellFrame.origin.x += heightAndWidth + 3;
-	}
-	
+    if (cellFrame.origin.x < heightAndWidth) {
+        // This is to make sure that the text is properly aligned before the icon has been created in a separate thread
+        cellFrame.origin.x += heightAndWidth + 3;
+    }
     [super drawInteriorWithFrame:cellFrame inView:controlView];
 }
 
 
 - (NSSize)cellSize 
 {
-    NSSize cellSize = [super cellSize];
+    NSSize cellSize = super.cellSize;
     cellSize.width += heightAndWidth + 3;
     return cellSize;
 }

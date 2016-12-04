@@ -15,15 +15,12 @@ Unless required by applicable law or agreed to in writing, software distributed 
 #import <Cocoa/Cocoa.h>
 
 @interface FRADocumentsListCell : NSTextFieldCell {
-	
+@private
     NSImage	*image;
-
-	CGFloat heightAndWidth;
+	CGFloat heightAndWidth; // heigth and weight are set equal, thus describing a square
 }
 
 @property (strong) NSImage *image;
-
 @property (assign, readwrite) CGFloat heightAndWidth;
-
 
 @end
