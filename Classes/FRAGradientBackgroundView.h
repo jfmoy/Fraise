@@ -19,7 +19,6 @@
 @interface FRAGradientBackgroundView : NSView {
 
 	NSGradient *gradient;	
-	CGFloat scaleFactor;
 }
 
 @end
