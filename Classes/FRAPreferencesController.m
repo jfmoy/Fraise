@@ -1,10 +1,12 @@
 /*
  Fraise version 3.7 - Based on Smultron by Peter Borg
- Written by Jean-François Moy - jeanfrancois.moy@gmail.com
- Find the latest version at http://github.com/jfmoy/Fraise
  
- Copyright 2010 Jean-François Moy
+ Current Maintainer (2016): 
+ Andreas Bentele: abentele.github@icloud.com (https://github.com/abentele/Fraise)
  
+ Maintainer before macOS Sierra (2010-2016): 
+ Jean-François Moy: jeanfrancois.moy@gmail.com (http://github.com/jfmoy/Fraise)
+
  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  
  http://www.apache.org/licenses/LICENSE-2.0
