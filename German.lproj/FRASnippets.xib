@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11542"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -47,7 +47,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <clipView key="contentView" drawsBackground="NO" id="QjQ-l2-ltl">
                                     <rect key="frame" x="1" y="0.0" width="170" height="385"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" selectionHighlightStyle="sourceList" columnReordering="NO" multipleSelection="NO" emptySelection="NO" autosaveName="SnippetCollections" rowHeight="33" headerView="205" id="137" customClass="FRATableView">
                                             <rect key="frame" x="0.0" y="0.0" width="170" height="368"/>
@@ -103,7 +103,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <clipView key="contentView" id="var-PC-ZoO">
                                             <rect key="frame" x="1" y="0.0" width="402" height="208"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" emptySelection="NO" autosaveName="SelectedSnippets" headerView="210" id="140" customClass="FRATableView">
                                                     <rect key="frame" x="0.0" y="0.0" width="402" height="191"/>
@@ -170,7 +170,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <clipView key="contentView" id="ZCe-M9-g0g">
                                             <rect key="frame" x="1" y="1" width="402" height="166"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView importsGraphics="NO" richText="NO" usesFontPanel="YES" findStyle="panel" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="135">
                                                     <rect key="frame" x="0.0" y="0.0" width="402" height="166"/>
@@ -250,12 +250,12 @@
             </connections>
         </arrayController>
         <userDefaultsController representsSharedInstance="YES" id="168" userLabel="Shared Defaults"/>
-        <customView id="180" userLabel="SnippetsFilterView">
-            <rect key="frame" x="0.0" y="0.0" width="120" height="32"/>
+        <customView misplaced="YES" id="180" userLabel="SnippetsFilterView">
+            <rect key="frame" x="0.0" y="0.0" width="163" height="32"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
             <subviews>
                 <searchField wantsLayer="YES" verticalHuggingPriority="750" id="191">
-                    <rect key="frame" x="9" y="5" width="101" height="22"/>
+                    <rect key="frame" x="9" y="5" width="144" height="22"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                     <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" placeholderString="Aktuelle Gruppe" bezelStyle="round" id="199">
                         <font key="font" metaFont="system"/>
@@ -272,6 +272,7 @@
                     </connections>
                 </searchField>
             </subviews>
+            <point key="canvasLocation" x="161.5" y="168"/>
         </customView>
     </objects>
 </document>
