@@ -23,10 +23,10 @@ If you would like to contribute, please let me know.
 
 New features:
 * added markdown to supported document types
-* replaced proprietary full screen mode with macOS full screen mode (https://github.com/abentele/Fraise/issues/1)
 * added russian translation (thanks to gpongelli)
 
 Enhancements:
+* replaced proprietary full screen mode with macOS full screen mode (https://github.com/abentele/Fraise/issues/1)
 * improved layout for some dialogs
 * improved some translations
 * changed icons in preferences dialog
