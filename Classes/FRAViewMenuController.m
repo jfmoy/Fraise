@@ -336,14 +336,14 @@ static id sharedInstance = nil;
 	}
 	
 	// To update visible range in all three (possible) views
-	NSArray *array = [[[document valueForKey:@"firstTextView"] textStorage] layoutManagers];
-	for (id item in array) {
-		NSTextContainer *textContainer = [item textContainers][0];
+	NSArray<FRALayoutManager*> *layoutManagers = (NSArray<FRALayoutManager*> *)[[[document valueForKey:@"firstTextView"] textStorage] layoutManagers];
+	for (FRALayoutManager* layoutManager in layoutManagers) {
+		NSTextContainer *textContainer = [layoutManager textContainers][0];
 		NSScrollView *scrollView = [[textContainer textView] enclosingScrollView];
 		NSRect visibleRect = [[scrollView contentView] documentVisibleRect];
-		NSRange visibleRange = [item glyphRangeForBoundingRect:visibleRect inTextContainer:textContainer];
-		[item invalidateDisplayForGlyphRange:visibleRange];
-		[item setShowsInvisibleCharacters:[[document valueForKey:@"showInvisibleCharacters"] boolValue]];
+		NSRange visibleRange = [layoutManager glyphRangeForBoundingRect:visibleRect inTextContainer:textContainer];
+		[layoutManager invalidateDisplayForGlyphRange:visibleRange];
+		[layoutManager setShowsInvisibleChars:[[document valueForKey:@"showInvisibleCharacters"] boolValue]];
 	}
 }
 
