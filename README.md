@@ -14,10 +14,28 @@ see https://github.com/abentele/Fraise/releases
 
 # Roadmap
 
-Currently I'm working on a more stable release with many bug fixes and some minor features. 
+Currently I'm working on a more stable release with many bug fixes and some minor features.
 If you would like to contribute, please let me know.
 
 # Changelog
+
+## 3.7.5
+
+New features:
+* added markdown to supported document types
+* replace proprietary full screen mode with macOS full screen mode (https://github.com/abentele/Fraise/issues/1)
+
+Enhancements:
+* improved layout for some dialogs
+* improved some translations
+* changed icons in preferences dialog
+
+Bug fixes:
+* no icons in document list panel (https://github.com/abentele/Fraise/issues/12)
+* wrong Window sizes on retina display (https://github.com/abentele/Fraise/issues/16)
+* draw invisible whitespace characters: draw space character with color defined in settings (https://github.com/abentele/Fraise/issues/13)
+
+This release also fixes many deprecations and code cleanup not done with release 3.7.4.
 
 ## 3.7.4
 
