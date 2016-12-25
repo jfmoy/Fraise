@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication"/>
@@ -450,12 +450,6 @@
                                     <action selector="viewDocumentInSeparateWindowAction:" target="388" id="546"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="View Document In Full Screen" tag="13" keyEquivalent="f" toolTip="Press Escape to return from full screen mode" id="298">
-                                <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
-                                <connections>
-                                    <action selector="viewDocumentInFullScreenAction:" target="388" id="547"/>
-                                </connections>
-                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="299">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
@@ -490,6 +484,12 @@
                             <menuItem title="Customize Toolbar..." id="306">
                                 <connections>
                                     <action selector="runToolbarCustomizationPalette:" target="-1" id="310"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="View Document In Full Screen" tag="13" keyEquivalent="f" toolTip="Press Escape to return from full screen mode" id="298">
+                                <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                <connections>
+                                    <action selector="viewDocumentInFullScreenAction:" target="388" id="547"/>
                                 </connections>
                             </menuItem>
                         </items>
