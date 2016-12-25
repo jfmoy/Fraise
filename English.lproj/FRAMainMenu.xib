@@ -486,10 +486,10 @@
                                     <action selector="runToolbarCustomizationPalette:" target="-1" id="310"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="View Document In Full Screen" tag="13" keyEquivalent="f" toolTip="Press Escape to return from full screen mode" id="298">
+                            <menuItem title="Enter Full Screen" tag="13" keyEquivalent="f" toolTip="Escape drücken, um den Vollbildmodus zu verlassen" id="Zik-V7-IgQ">
                                 <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                 <connections>
-                                    <action selector="viewDocumentInFullScreenAction:" target="388" id="547"/>
+                                    <action selector="toggleFullScreen:" target="-1" id="9wB-P5-9MS"/>
                                 </connections>
                             </menuItem>
                         </items>

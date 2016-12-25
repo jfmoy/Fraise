@@ -486,10 +486,10 @@
                                     <action selector="runToolbarCustomizationPalette:" target="-1" id="310"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Ver Documentos a Pantalla Completa" tag="13" keyEquivalent="f" toolTip="Presiona Escape para volver desde el modo de pantalla completa" id="298">
+                            <menuItem title="Enter Full Screen" tag="13" keyEquivalent="f" toolTip="Escape drücken, um den Vollbildmodus zu verlassen" id="icm-RE-OjU">
                                 <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                 <connections>
-                                    <action selector="viewDocumentInFullScreenAction:" target="388" id="547"/>
+                                    <action selector="toggleFullScreen:" target="-1" id="wJJ-nf-cnE"/>
                                 </connections>
                             </menuItem>
                         </items>

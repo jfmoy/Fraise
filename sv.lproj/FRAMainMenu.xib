@@ -486,10 +486,10 @@
                                     <action selector="runToolbarCustomizationPalette:" target="-1" id="310"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Se dokumentet i fullskärmsläge" tag="13" keyEquivalent="f" toolTip="Tryck Escape för att återvända från fullskärmsläge" id="298">
+                            <menuItem title="Enter Full Screen" tag="13" keyEquivalent="f" toolTip="Escape drücken, um den Vollbildmodus zu verlassen" id="T31-07-ROv">
                                 <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                 <connections>
-                                    <action selector="viewDocumentInFullScreenAction:" target="388" id="547"/>
+                                    <action selector="toggleFullScreen:" target="-1" id="VBn-I7-hoP"/>
                                 </connections>
                             </menuItem>
                         </items>

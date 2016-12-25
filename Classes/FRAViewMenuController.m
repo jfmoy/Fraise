@@ -357,12 +357,6 @@ static id sharedInstance = nil;
 }
 
 
-- (IBAction)viewDocumentInFullScreenAction:(id)sender
-{
-    [FRACurrentWindow toggleFullScreen:self];
-}
-
-
 - (IBAction)showTabBarAction:(id)sender
 {
 	NSArray *selectedObjects = [[FRACurrentProject documentsArrayController] selectedObjects];

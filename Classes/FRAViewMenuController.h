@@ -18,8 +18,6 @@
 
 @interface FRAViewMenuController : NSObject
 {
-	
-	
 }
 
 + (FRAViewMenuController *)sharedInstance;
@@ -33,7 +31,6 @@
 - (void)performHideStatusBar;
 - (IBAction)showInvisibleCharactersAction:(id)sender;
 - (IBAction)viewDocumentInSeparateWindowAction:(id)sender;
-- (IBAction)viewDocumentInFullScreenAction:(id)sender;
 
 - (IBAction)showTabBarAction:(id)sender;
 - (void)performHideTabBar;
