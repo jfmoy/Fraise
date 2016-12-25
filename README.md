@@ -30,11 +30,13 @@ Enhancements:
 * improved layout for some dialogs
 * improved some translations
 * changed icons in preferences dialog
+* ignore .git folder when opening the contents of a folder
 
 Bug fixes:
 * no icons in document list panel (https://github.com/abentele/Fraise/issues/12)
 * wrong Window sizes on retina display (https://github.com/abentele/Fraise/issues/16)
 * print space character with color defined in settings didn't work (https://github.com/abentele/Fraise/issues/13)
+* fixed a crash when trying to open a folder
 
 This release also fixes many deprecations and code cleanup not done with release 3.7.4.
 
