@@ -97,7 +97,7 @@ static id sharedInstance = nil;
 				if ([[FRADefaults valueForKey:@"FilterOutExtensions"] boolValue] == YES && [extensionsToFilterOut containsObject:pathExtension]) {
 					continue;
 				}
-                if ([self isPathVisible:absoluteFileName] == NO || [self isPartOfSVN:file] == YES) {
+                if ([self isPathVisible:absoluteFileName] == NO || [self isPartOfHiddenSCMFolder:file] == YES) {
 					continue;
 				}
 				if ([fileManager fileExistsAtPath:absoluteFileName isDirectory:&isDirectory] && !isDirectory && ![[absoluteFileName lastPathComponent] hasPrefix:@"."]) {
@@ -591,11 +591,12 @@ static id sharedInstance = nil;
 }
 
 
-- (BOOL)isPartOfSVN:(NSString *)path
+- (BOOL)isPartOfHiddenSCMFolder:(NSString *)path
 {
 	NSArray *array = [path pathComponents];
 	for (id item in array) {
-		if ([item isEqualToString:@".svn"]) {
+        // subversion or git folders
+		if ([item isEqualToString:@".svn"] || [item isEqualToString:@".git"]) {
 			return YES;
 		}
 	}

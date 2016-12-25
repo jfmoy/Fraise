@@ -37,5 +37,5 @@
 - (void)resetExtraMetaData:(NSDictionary *)dictionary path:(NSString *)path;
 
 - (BOOL)isPathVisible:(NSString *)path;
-- (BOOL)isPartOfSVN:(NSString *)path;
+- (BOOL)isPartOfHiddenSCMFolder:(NSString *)path;
 @end
