@@ -19,8 +19,13 @@
 @interface FRALayoutManager : NSLayoutManager {
 	
 	NSDictionary *attributes;
+    NSString *spaceCharacter;
 	NSString *tabCharacter;
 	NSString *newLineCharacter;
+    
+    bool showsInvisibleChars;
 }
+
+@property bool showsInvisibleChars;
 
 @end
