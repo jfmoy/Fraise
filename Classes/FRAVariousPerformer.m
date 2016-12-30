@@ -190,18 +190,14 @@ static id sharedInstance = nil;
 			for (id command in snippetEnumerator)
             {
 				id newCommand = [FRABasic createNewObjectForEntity:@"Command"];
-				newCommand[@"name"] = command[@"name"];
-				newCommand[@"text"] = command[@"text"];
-				
-                if (command[@"inline"] != nil)
-                {
-					[newCommand setValue:command[@"inline"] forKey:@"inline"];
-				}
-                
-				if (command[@"interpreter"] != nil)
-                {
-					newCommand[@"interpreter"] = command[@"interpreter"];
-				}
+                [newCommand setValue:[command valueForKey:@"name"] forKey:@"name"];
+                [newCommand setValue:[command valueForKey:@"text"] forKey:@"text"];
+                if ([command valueForKey:@"inline"] != nil) {
+                    [newCommand setValue:[command valueForKey:@"inline"] forKey:@"inline"];
+                }
+                if ([command valueForKey:@"interpreter"] != nil) {
+                    [newCommand setValue:[command valueForKey:@"interpreter"] forKey:@"interpreter"];
+                }
                 
 				[[newCollection mutableSetValueForKey:@"commands"] addObject:newCommand];
 			}
