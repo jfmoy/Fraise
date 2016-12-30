@@ -49,18 +49,11 @@
         
 		NSString *headerString = [NSString stringWithFormat:@"%ld   %C   %@   %C   %@   %C   %@", [[NSPrintOperation currentOperation] currentPage], 0x00B7, [FRACurrentDocument valueForKey:@"name"], 0x00B7, dateString, 0x00B7, NSFullUserName()];
 		
-		NSRect savedTextRect = [self frame];	
-		[self setFrame:NSMakeRect(0, 0, borderSize.width, borderSize.height)];
-		[self setFrameOrigin:NSMakePoint(0.0, 0.0)]; // It seems one needs to set this twice otherwise only the first header is visible
-		[self setFrameSize:borderSize];
-		
 		[self lockFocus];
 		[headerString drawAtPoint:NSMakePoint([printInfo leftMargin], [[FRADefaults valueForKey:@"MarginsMin"] integerValue]) withAttributes:@{NSFontAttributeName: [NSFont systemFontOfSize:10.0]}];
 		[NSBezierPath setDefaultLineWidth:1.0];
 		[NSBezierPath strokeLineFromPoint:NSMakePoint([printInfo leftMargin], [[FRADefaults valueForKey:@"MarginsMin"] integerValue] + 14) toPoint:NSMakePoint([printInfo paperSize].width - [printInfo leftMargin], [[FRADefaults valueForKey:@"MarginsMin"] integerValue] + 14)];
 		[self unlockFocus];
-		
-		[self setFrame:savedTextRect];
 	}
 }
 
