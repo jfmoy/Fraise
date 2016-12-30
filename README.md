@@ -27,6 +27,8 @@ Bug fixes:
 * fixed a crash when printing to PDF
 * fixed margins when printing with header (https://github.com/abentele/Fraise/issues/5)
 
+[Commit list](https://github.com/abentele/Fraise/compare/3.7.5...3.7.6)
+
 ## 3.7.5
 
 New features:
@@ -48,9 +50,13 @@ Bug fixes:
 
 This release also fixes many deprecations and code cleanup not done with release 3.7.4.
 
+[Commit list](https://github.com/abentele/Fraise/compare/3.7.4...3.7.5)
+
 ## 3.7.4
 
 * forked from [Fraise 3.7.3](https://github.com/jfmoy/Fraise)
 * support for macOS Sierra (10.12); removed support for OS X 10.11 and earlier
 * removed 32bit support
 * removed auto-update feature (because it did't work for a long time, and currently there is no maintainer providing releases)
+
+[Commit list](https://github.com/abentele/Fraise/compare/3.7.3...3.7.4)
