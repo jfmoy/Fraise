@@ -163,15 +163,15 @@
 	
 	CGFloat marginsMin = [[FRADefaults valueForKey:@"MarginsMin"] doubleValue];
 	if ([[FRADefaults valueForKey:@"PrintHeader"] boolValue] == YES) {
-		[printInfo setTopMargin:(marginsMin + 22)];
+		[printInfo setBottomMargin:(marginsMin + 22)];
 	} else {
-		[printInfo setTopMargin:marginsMin];
+		[printInfo setBottomMargin:marginsMin];
 	}
 	[printInfo setLeftMargin:marginsMin];	
 	[printInfo setRightMargin:marginsMin];
-	[printInfo setBottomMargin:marginsMin];
+	[printInfo setTopMargin:marginsMin];
 	
-	[printInfo setHorizontallyCentered:NO];    
+	[printInfo setHorizontallyCentered:NO];
 	[printInfo setVerticallyCentered:NO];
 	
 	[printInfo setHorizontalPagination:NSAutoPagination];
