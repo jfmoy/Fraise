@@ -492,7 +492,14 @@
 	}
 	visibleRect = [[[textView enclosingScrollView] contentView] documentVisibleRect];
 	visibleRange = [[textView layoutManager] glyphRangeForBoundingRect:visibleRect inTextContainer:[textView textContainer]];
-	beginningOfFirstVisibleLine = [[textView string] lineRangeForRange:NSMakeRange(visibleRange.location, 0)].location;
+    NSString *textString = [textView string];
+    if (visibleRange.location > textString.length) {
+        visibleRange.location = textString.length;
+    }
+    if (visibleRange.location + visibleRange.length > textString.length) {
+        visibleRange.length = textString.length - visibleRange.location;
+    }
+	beginningOfFirstVisibleLine = [textString lineRangeForRange:NSMakeRange(visibleRange.location, 0)].location;
 	endOfLastVisibleLine = NSMaxRange([completeString lineRangeForRange:NSMakeRange(NSMaxRange(visibleRange), 0)]);
 	
 	[self recolourRange:NSMakeRange(beginningOfFirstVisibleLine, endOfLastVisibleLine - beginningOfFirstVisibleLine)];

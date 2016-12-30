@@ -112,24 +112,35 @@
 	visibleRect = [[scrollView contentView] documentVisibleRect];
 	visibleRange = [layoutManager glyphRangeForBoundingRect:visibleRect inTextContainer:[textView textContainer]];
 	textString = [textView string];
+    if (visibleRange.location > textString.length) {
+        visibleRange.location = textString.length;
+    }
+    if (visibleRange.location + visibleRange.length > textString.length) {
+        visibleRange.length = textString.length - visibleRange.location;
+    }
 	searchString = [textString substringWithRange:NSMakeRange(0,visibleRange.location)];
 	
-	for (index = 0, lineNumber = 0; index < visibleRange.location; lineNumber++) {
+    for (index = 0, lineNumber = 0; index < visibleRange.location; lineNumber++) {
 		index = NSMaxRange([searchString lineRangeForRange:NSMakeRange(index, 0)]);
 	}
 	
 	indexNonWrap = [searchString lineRangeForRange:NSMakeRange(index, 0)].location;
-	maxRangeVisibleRange = NSMaxRange([textString lineRangeForRange:NSMakeRange(NSMaxRange(visibleRange), 0)]); // Set it to just after the last glyph on the last visible line 
+	maxRangeVisibleRange = NSMaxRange([textString lineRangeForRange:NSMakeRange(NSMaxRange(visibleRange), 0)]); // Set it to just after the last glyph on the last visible line
 	numberOfGlyphsInTextString = [layoutManager numberOfGlyphs];
 	oneMoreTime = NO;
 	if (numberOfGlyphsInTextString != 0) {
-		lastGlyph = [textString characterAtIndex:numberOfGlyphsInTextString - 1];
+        if (numberOfGlyphsInTextString <= textString.length) {
+            lastGlyph = [textString characterAtIndex:numberOfGlyphsInTextString - 1];
+        }
+        else {
+            lastGlyph = [textString characterAtIndex:textString.length - 1];
+        }
 		if (lastGlyph == '\n' || lastGlyph == '\r') {
 			oneMoreTime = YES; // Continue one more time through the loop if the last glyph isn't newline
 		}
 	}
 	NSMutableString *lineNumbersString = [[NSMutableString alloc] init];
-	
+    
 	while (indexNonWrap <= maxRangeVisibleRange) {
 		if (index == indexNonWrap) {
 			lineNumber++;
