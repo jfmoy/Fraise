@@ -46,13 +46,25 @@
         dateFormatter.dateStyle = NSDateFormatterMediumStyle;
         dateFormatter.timeStyle = NSDateFormatterShortStyle;
         NSString *dateString = [dateFormatter stringFromDate:[NSDate date]];
+        unichar separator = 0x00B7;
         
-		NSString *headerString = [NSString stringWithFormat:@"%ld   %C   %@   %C   %@   %C   %@", [[NSPrintOperation currentOperation] currentPage], 0x00B7, [FRACurrentDocument valueForKey:@"name"], 0x00B7, dateString, 0x00B7, NSFullUserName()];
+		NSString *headerString = [NSString stringWithFormat:@"%ld   %C   %@   %C   %@   %C   %@",
+                                  [[NSPrintOperation currentOperation] currentPage],
+                                  separator,
+                                  [FRACurrentDocument valueForKey:@"name"],
+                                  separator,
+                                  dateString,
+                                  separator,
+                                  NSFullUserName()];
+        
+        NSInteger marginsMin = [[FRADefaults valueForKey:@"MarginsMin"] integerValue];
 		
 		[self lockFocus];
-		[headerString drawAtPoint:NSMakePoint([printInfo leftMargin], [[FRADefaults valueForKey:@"MarginsMin"] integerValue]) withAttributes:@{NSFontAttributeName: [NSFont systemFontOfSize:10.0]}];
+		[headerString drawAtPoint:NSMakePoint([printInfo leftMargin], marginsMin)
+                   withAttributes:@{NSFontAttributeName: [NSFont systemFontOfSize:10.0]}];
 		[NSBezierPath setDefaultLineWidth:1.0];
-		[NSBezierPath strokeLineFromPoint:NSMakePoint([printInfo leftMargin], [[FRADefaults valueForKey:@"MarginsMin"] integerValue] + 14) toPoint:NSMakePoint([printInfo paperSize].width - [printInfo leftMargin], [[FRADefaults valueForKey:@"MarginsMin"] integerValue] + 14)];
+		[NSBezierPath strokeLineFromPoint:NSMakePoint([printInfo leftMargin], marginsMin + 14)
+                                  toPoint:NSMakePoint([printInfo paperSize].width - [printInfo leftMargin], marginsMin + 14)];
 		[self unlockFocus];
 	}
 }
