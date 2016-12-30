@@ -19,6 +19,14 @@ If you would like to contribute, please let me know.
 
 # Changelog
 
+## 3.7.6
+
+Bug fixes:
+* fixed a crash on launch (https://github.com/abentele/Fraise/issues/18)
+* fixed a crash when loading binary files (https://github.com/abentele/Fraise/issues/10)
+* fixed a crash when printing to PDF
+* fixed margins when printing with header (https://github.com/abentele/Fraise/issues/5)
+
 ## 3.7.5
 
 New features:
