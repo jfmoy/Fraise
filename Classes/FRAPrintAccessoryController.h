@@ -17,7 +17,7 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface FRAPrintViewController : NSViewController <NSPrintPanelAccessorizing> 
+@interface FRAPrintAccessoryController : NSViewController <NSPrintPanelAccessorizing> 
 {
 	IBOutlet NSView *printAccessoryView;
 	

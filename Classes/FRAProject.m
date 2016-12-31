@@ -32,7 +32,7 @@
 #import "FRAProject+DocumentViewsController.h"
 #import "FRAProject+ToolbarController.h"
 #import "FRALineNumbers.h"
-#import "FRAPrintViewController.h"
+#import "FRAPrintAccessoryController.h"
 #import "FRAPrintTextView.h"
 #import "PSMTabBarControl.h"
 
@@ -150,8 +150,8 @@
 	[printOperation setCanSpawnSeparateThread:YES]; // Allow the printing process to be executed in a new thread.
     
     NSPrintPanel *printPanel = [printOperation printPanel];
-	FRAPrintViewController *printViewController = [[FRAPrintViewController alloc] init];    
-	[printPanel addAccessoryController:printViewController];
+	FRAPrintAccessoryController *printAccessoryController = [[FRAPrintAccessoryController alloc] init];
+	[printPanel addAccessoryController:printAccessoryController];
 	
     return printOperation;
 }

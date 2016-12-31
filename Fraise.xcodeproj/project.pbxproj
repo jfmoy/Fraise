@@ -138,7 +138,7 @@
 		7F9C38DE0BD29AE200B45805 /* FRADataModel2.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C38DD0BD29AE200B45805 /* FRADataModel2.xcdatamodel */; };
 		7FA2666E0B7796BE00AEA870 /* ICUMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA266690B7796BE00AEA870 /* ICUMatcher.m */; };
 		7FA2666F0B7796BE00AEA870 /* ICUPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA2666B0B7796BE00AEA870 /* ICUPattern.m */; };
-		7FAD46800D9E43A600ECD508 /* FRAPrintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAD467F0D9E43A600ECD508 /* FRAPrintViewController.m */; };
+		7FAD46800D9E43A600ECD508 /* FRAPrintAccessoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAD467F0D9E43A600ECD508 /* FRAPrintAccessoryController.m */; };
 		7FB41E060B7A2A43006ADB1E /* FRAOpenSavePerformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB41E050B7A2A43006ADB1E /* FRAOpenSavePerformer.m */; };
 		7FB9116A101E623F008DB1DA /* Fraise-Manual.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7FD53F120D91A8F30071054F /* Fraise-Manual.pdf */; };
 		7FB9116B101E6245008DB1DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1660FE840EACC02AAC07 /* InfoPlist.strings */; };
@@ -489,8 +489,8 @@
 		7FA266690B7796BE00AEA870 /* ICUMatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ICUMatcher.m; path = ICU/ICUMatcher.m; sourceTree = "<group>"; };
 		7FA2666A0B7796BE00AEA870 /* ICUPattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ICUPattern.h; path = ICU/ICUPattern.h; sourceTree = "<group>"; };
 		7FA2666B0B7796BE00AEA870 /* ICUPattern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ICUPattern.m; path = ICU/ICUPattern.m; sourceTree = "<group>"; };
-		7FAD467E0D9E43A600ECD508 /* FRAPrintViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRAPrintViewController.h; path = Classes/FRAPrintViewController.h; sourceTree = "<group>"; };
-		7FAD467F0D9E43A600ECD508 /* FRAPrintViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FRAPrintViewController.m; path = Classes/FRAPrintViewController.m; sourceTree = "<group>"; };
+		7FAD467E0D9E43A600ECD508 /* FRAPrintAccessoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRAPrintAccessoryController.h; path = Classes/FRAPrintAccessoryController.h; sourceTree = "<group>"; };
+		7FAD467F0D9E43A600ECD508 /* FRAPrintAccessoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FRAPrintAccessoryController.m; path = Classes/FRAPrintAccessoryController.m; sourceTree = "<group>"; };
 		7FB41E040B7A2A43006ADB1E /* FRAOpenSavePerformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRAOpenSavePerformer.h; path = Classes/FRAOpenSavePerformer.h; sourceTree = "<group>"; };
 		7FB41E050B7A2A43006ADB1E /* FRAOpenSavePerformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FRAOpenSavePerformer.m; path = Classes/FRAOpenSavePerformer.m; sourceTree = "<group>"; };
 		7FBDDEFA0CF794F8003BAFB5 /* FRAProjectWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FRAProjectWindow.h; path = Classes/FRAProjectWindow.h; sourceTree = "<group>"; };
@@ -1036,8 +1036,8 @@
 			children = (
 				7F980ADE0B73B6A2000A9140 /* FRAPrintTextView.h */,
 				7F980ADF0B73B6A2000A9140 /* FRAPrintTextView.m */,
-				7FAD467E0D9E43A600ECD508 /* FRAPrintViewController.h */,
-				7FAD467F0D9E43A600ECD508 /* FRAPrintViewController.m */,
+				7FAD467E0D9E43A600ECD508 /* FRAPrintAccessoryController.h */,
+				7FAD467F0D9E43A600ECD508 /* FRAPrintAccessoryController.m */,
 			);
 			name = Print;
 			sourceTree = "<group>";
@@ -1262,7 +1262,7 @@
 				7F79EE3A0D93D5760034017B /* NSImage+Fraise.m in Sources */,
 				7F79EE3D0D93D58C0034017B /* NSToolbarItem+Fraise.m in Sources */,
 				7F2B7E330D9463A100C60435 /* FRASearchField.m in Sources */,
-				7FAD46800D9E43A600ECD508 /* FRAPrintViewController.m in Sources */,
+				7FAD46800D9E43A600ECD508 /* FRAPrintAccessoryController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
