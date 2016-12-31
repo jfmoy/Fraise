@@ -142,8 +142,13 @@
  */
 - (NSPrintOperation *)printOperationWithSettings:(NSDictionary *)printSettings error:(NSError **)outError
 {
-	NSPrintInfo *printInfo = [self printInfo]; 
-	FRAPrintTextView *printTextView = [[FRAPrintTextView alloc] initWithFrame:NSMakeRect([printInfo leftMargin], [printInfo bottomMargin], [printInfo paperSize].width - [printInfo leftMargin] - [printInfo rightMargin], [printInfo paperSize].height - [printInfo topMargin] - [printInfo bottomMargin])];
+	NSPrintInfo *printInfo = [self printInfo];
+    
+    NSRect printTextViewFrame = NSMakeRect([printInfo leftMargin],
+                                           [printInfo bottomMargin],
+                                           [printInfo paperSize].width - [printInfo leftMargin] - [printInfo rightMargin],
+                                           [printInfo paperSize].height - [printInfo topMargin] - [printInfo bottomMargin]);
+	FRAPrintTextView *printTextView = [[FRAPrintTextView alloc] initWithFrame:printTextViewFrame];
 	
 	NSPrintOperation *printOperation = [NSPrintOperation printOperationWithView:printTextView printInfo:printInfo];
     [printOperation setShowsPrintPanel:YES];
