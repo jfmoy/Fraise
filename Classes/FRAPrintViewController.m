@@ -42,6 +42,16 @@
 	[self performSelector:@selector(hackToMakeDisplayUpdateDirectly) withObject:nil afterDelay:0.0];
 }
 
+- (void) dealloc
+{
+    NSUserDefaultsController *defaultsController = [NSUserDefaultsController sharedUserDefaultsController];
+    [defaultsController removeObserver:self forKeyPath:@"values.PrintHeader"];
+    [defaultsController removeObserver:self forKeyPath:@"values.PrintSyntaxColours"];
+    [defaultsController removeObserver:self forKeyPath:@"values.OnlyPrintSelection"];
+    [defaultsController removeObserver:self forKeyPath:@"values.MarginsMin"];
+    [defaultsController removeObserver:self forKeyPath:@"values.PrintFont"];
+}
+
 
 - (void)hackToMakeDisplayUpdateDirectly
 {
