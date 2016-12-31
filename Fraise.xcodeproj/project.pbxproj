@@ -603,6 +603,7 @@
 			children = (
 				E18EFF321DB378C000DA64C3 /* PrefixHeader.pch */,
 				7F980AEE0B73B6A2000A9140 /* FRAStandardHeader.h */,
+				E10DF1891E17E219008084EC /* Print */,
 				7F5C248D0B73B85900D2EDDC /* Controllers */,
 				7F5C248E0B73B86100D2EDDC /* Performers */,
 				7F5C24910B73B87F00D2EDDC /* Menu Controllers */,
@@ -743,8 +744,6 @@
 				2F8C9F020B8054E100C6502F /* FRADummyView.m */,
 				2FF0FC2C0BA6C8FF00B21D83 /* FRAGradientBackgroundView.m */,
 				7F980AC90B73B6A2000A9140 /* FRAGutterTextView.m */,
-				7F980ADF0B73B6A2000A9140 /* FRAPrintTextView.m */,
-				7FAD467F0D9E43A600ECD508 /* FRAPrintViewController.m */,
 				2A37F4ACFDCFA73011CA2CEA /* FRAProject.m */,
 				7FBDDEFB0CF794F8003BAFB5 /* FRAProjectWindow.m */,
 				7F2B7E320D9463A100C60435 /* FRASearchField.m */,
@@ -815,8 +814,6 @@
 				2F8C9F010B8054E100C6502F /* FRADummyView.h */,
 				2FF0FC2B0BA6C8FF00B21D83 /* FRAGradientBackgroundView.h */,
 				7F980AC80B73B6A2000A9140 /* FRAGutterTextView.h */,
-				7F980ADE0B73B6A2000A9140 /* FRAPrintTextView.h */,
-				7FAD467E0D9E43A600ECD508 /* FRAPrintViewController.h */,
 				2A37F4AEFDCFA73011CA2CEA /* FRAProject.h */,
 				7FBDDEFA0CF794F8003BAFB5 /* FRAProjectWindow.h */,
 				7F2B7E310D9463A100C60435 /* FRASearchField.h */,
@@ -1032,6 +1029,17 @@
 				2F8CCC110BA8158E00BA791C /* NSStringICUAdditions.m */,
 			);
 			name = ICU;
+			sourceTree = "<group>";
+		};
+		E10DF1891E17E219008084EC /* Print */ = {
+			isa = PBXGroup;
+			children = (
+				7F980ADE0B73B6A2000A9140 /* FRAPrintTextView.h */,
+				7F980ADF0B73B6A2000A9140 /* FRAPrintTextView.m */,
+				7FAD467E0D9E43A600ECD508 /* FRAPrintViewController.h */,
+				7FAD467F0D9E43A600ECD508 /* FRAPrintViewController.m */,
+			);
+			name = Print;
 			sourceTree = "<group>";
 		};
 		E1C536451E0FFC0600D25115 /* LayoutManager */ = {
