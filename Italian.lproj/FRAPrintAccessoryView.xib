@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="FRAPrintViewController">
@@ -11,7 +12,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="5" userLabel="PrintAccessoryView &lt;do not localise&gt;">
             <rect key="frame" x="0.0" y="0.0" width="529" height="179"/>
             <autoresizingMask key="autoresizingMask"/>
@@ -68,8 +69,8 @@
                         <binding destination="19" name="value" keyPath="values.MarginsMin" id="28"/>
                     </connections>
                 </textField>
-                <textField verticalHuggingPriority="750" id="11">
-                    <rect key="frame" x="17" y="20" width="307" height="17"/>
+                <textField verticalHuggingPriority="750" misplaced="YES" id="11">
+                    <rect key="frame" x="17" y="20" width="285" height="17"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="I margini non dovrebbero essere più piccoli di" id="35">
                         <font key="font" metaFont="system"/>
@@ -128,19 +129,20 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="19" name="font" keyPath="values.PrintFont" id="24">
-                            <dictionary key="options">
-                                <string key="NSValueTransformerName">NSUnarchiveFromData</string>
-                            </dictionary>
-                        </binding>
                         <binding destination="19" name="value" keyPath="values.PrintFont" id="22">
                             <dictionary key="options">
                                 <string key="NSValueTransformerName">FontTransformer</string>
                             </dictionary>
                         </binding>
+                        <binding destination="19" name="font" keyPath="values.PrintFont" id="24">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">NSUnarchiveFromData</string>
+                            </dictionary>
+                        </binding>
                     </connections>
                 </textField>
             </subviews>
+            <point key="canvasLocation" x="140.5" y="168.5"/>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="19" userLabel="Shared Defaults"/>
     </objects>
