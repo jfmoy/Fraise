@@ -19,7 +19,9 @@ If you would like to contribute, please let me know.
 
 # Changelog
 
-## 3.7.6
+## Fraise 3.7.6
+
+Release date: 2016-12-31
 
 Bug fixes:
 * fixed a crash on launch (https://github.com/abentele/Fraise/issues/18)
@@ -29,7 +31,9 @@ Bug fixes:
 
 [Commit list](https://github.com/abentele/Fraise/compare/3.7.5...3.7.6)
 
-## 3.7.5
+## Fraise 3.7.5
+
+Release date: 2016-12-25
 
 New features:
 * added markdown to supported document types
@@ -52,7 +56,9 @@ This release also fixes many deprecations and code cleanup not done with release
 
 [Commit list](https://github.com/abentele/Fraise/compare/3.7.4...3.7.5)
 
-## 3.7.4
+## Fraise 3.7.4
+
+Release date: 2016-10-04
 
 * forked from [Fraise 3.7.3](https://github.com/jfmoy/Fraise)
 * support for macOS Sierra (10.12); removed support for OS X 10.11 and earlier
