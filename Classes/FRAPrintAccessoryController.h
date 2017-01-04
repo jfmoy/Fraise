@@ -19,8 +19,6 @@
 
 @interface FRAPrintAccessoryController : NSViewController <NSPrintPanelAccessorizing> 
 {
-	IBOutlet NSView *printAccessoryView;
-	
 	BOOL dummyValue;
 }
 

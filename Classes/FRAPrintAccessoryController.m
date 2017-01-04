@@ -29,8 +29,6 @@
 
 - (void)awakeFromNib
 {
-	[self setView:printAccessoryView];
-	
 	NSUserDefaultsController *defaultsController = [NSUserDefaultsController sharedUserDefaultsController];
 
 	[defaultsController addObserver:self forKeyPath:@"values.PrintHeader" options:NSKeyValueObservingOptionNew context:@"PrinterSettingsChanged"];
