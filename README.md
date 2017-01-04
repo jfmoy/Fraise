@@ -4,6 +4,7 @@ This is a fork of Fraise 3.7.3 providing the missing support for macOS Sierra (1
 Forked in 2016 from a github repository discontinued long ago, my main interest is to keep the popular app alive.
 
 Author: Andreas Bentele
+
 Website: http://github.com/abentele/Fraise
 
 [Fraise 3.7.3](https://github.com/jfmoy/Fraise) was maintained by Jean-Francois Moy, but discontinued.
