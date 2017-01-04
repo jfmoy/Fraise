@@ -3,7 +3,7 @@
 /*
  Fraise version 3.7 - Based on Smultron by Peter Borg
  
- Current Maintainer (2016): 
+ Current Maintainer (since 2016): 
  Andreas Bentele: abentele.github@icloud.com (https://github.com/abentele/Fraise)
  
  Maintainer before macOS Sierra (2010-2016): 
