@@ -82,9 +82,13 @@ This release also fixes many deprecations and code cleanup not done with release
 
 Release date: 2016-10-04
 
-* forked from [Fraise 3.7.3](https://github.com/jfmoy/Fraise)
+Forked from Fraise 3.7.3 (https://github.com/jfmoy/Fraise)
+
+Changes:
 * support for macOS Sierra (10.12); removed support for OS X 10.11 and earlier
 * removed 32bit support
 * removed auto-update feature (because it did't work for a long time, and currently there is no maintainer providing releases)
+
+(maybe it's not a very stable release, because I didn't have time to test it very much, but wanted to provide a working release today, which maybe is long awaited by many people)
 
 [Commit list](https://github.com/abentele/Fraise/compare/3.7.3...3.7.4)
