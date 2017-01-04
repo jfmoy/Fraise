@@ -155,7 +155,7 @@
 	[printOperation setCanSpawnSeparateThread:YES]; // Allow the printing process to be executed in a new thread.
     
     NSPrintPanel *printPanel = [printOperation printPanel];
-    [printPanel setOptions:NSPrintPanelShowsCopies | NSPrintPanelShowsPageRange | NSPrintPanelShowsPaperSize | NSPrintPanelShowsOrientation | NSPrintPanelShowsScaling | NSPrintPanelShowsPrintSelection | NSPrintPanelShowsPageSetupAccessory | NSPrintPanelShowsPreview];
+    [printPanel setOptions:NSPrintPanelShowsCopies | NSPrintPanelShowsPageRange | NSPrintPanelShowsPaperSize | NSPrintPanelShowsOrientation | NSPrintPanelShowsPrintSelection | NSPrintPanelShowsPageSetupAccessory | NSPrintPanelShowsPreview];
 	FRAPrintAccessoryController *printAccessoryController = [[FRAPrintAccessoryController alloc] init];
 	[printPanel addAccessoryController:printAccessoryController];
 	
