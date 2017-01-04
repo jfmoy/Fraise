@@ -20,7 +20,7 @@ Currently my main interest is to fix bugs, enhance already existing features and
 * provide many helpful tools to edit texts
 * support for many code languages (e.g. syntax highlighting)
 
-For more details, see the [Issues list](https://github.com/abentele/Fraise/issues).
+For more details, see the [Issues list](https://github.com/abentele/Fraise/issues) and the [Roadmap](https://github.com/abentele/Fraise/projects/1#card-1266185).
 
 # Contribution
 
