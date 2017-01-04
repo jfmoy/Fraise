@@ -29,6 +29,18 @@ If you would like to contribute, please let me know.
 
 # Changelog
 
+## Fraise 3.7.7
+
+Release date: 2017-01-04
+
+Bug fixes:
+* fixed all known bugs related to printing
+* remove the page setup menu, as recommended by Apple, to simplify the UI; instead add all settings to the printing panel
+* fixed wrong API usage of font selection in preferences and print dialog
+* improved German translation
+
+[Commit list](https://github.com/abentele/Fraise/compare/3.7.6...3.7.7)
+
 ## Fraise 3.7.6
 
 Release date: 2016-12-31
