@@ -167,16 +167,6 @@
 {
     NSPrintInfo *printInfo = [super printInfo];
 	
-	CGFloat marginsMin = [[FRADefaults valueForKey:@"MarginsMin"] doubleValue];
-	if ([[FRADefaults valueForKey:@"PrintHeader"] boolValue] == YES) {
-		[printInfo setBottomMargin:(marginsMin + 22)];
-	} else {
-		[printInfo setBottomMargin:marginsMin];
-	}
-	[printInfo setLeftMargin:marginsMin];	
-	[printInfo setRightMargin:marginsMin];
-	[printInfo setTopMargin:marginsMin];
-	
 	[printInfo setHorizontallyCentered:NO];
 	[printInfo setVerticallyCentered:NO];
 	

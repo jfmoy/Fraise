@@ -18,8 +18,10 @@
 
 
 @interface FRAPrintTextView : NSTextView {
-	
-	
+    bool initialized;
+    NSInteger selectionLocation;
+    bool printSelection;
+    bool printSyntaxColours;
 }
 
 - (void)setupView;

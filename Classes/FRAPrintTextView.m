@@ -39,8 +39,9 @@
 
 - (void)drawPageBorderWithSize:(NSSize)borderSize
 {	
-	NSPrintInfo *printInfo = [FRACurrentProject printInfo];
-	if ([printInfo topMargin] != [printInfo bottomMargin]) { // We should print a header
+    NSPrintInfo *printInfo = [[NSPrintOperation currentOperation] printInfo];
+    
+    if ([[FRADefaults valueForKey:@"PrintHeader"] boolValue] == YES) {
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         dateFormatter.dateStyle = NSDateFormatterMediumStyle;
@@ -81,17 +82,84 @@
 	return YES;
 }
 
+- (BOOL)knowsPageRange:(NSRangePointer)range {
+    NSPrintInfo *printInfo = [[NSPrintOperation currentOperation] printInfo];
+
+    [self setFont:[NSUnarchiver unarchiveObjectWithData:[FRADefaults valueForKey:@"PrintFont"]]];
+    
+    [self setFrame:NSMakeRect([printInfo leftMargin], [printInfo bottomMargin], [printInfo paperSize].width - [printInfo leftMargin] - [printInfo rightMargin], [printInfo paperSize].height - [printInfo topMargin] - [printInfo bottomMargin])];
+
+    if ([FRACurrentProject areThereAnyDocuments]) {
+        bool shouldPrintSelection = [[FRADefaults valueForKey:@"OnlyPrintSelection"] boolValue] && [FRACurrentTextView selectedRange].length > 0;
+        bool textInvalid = !initialized || (printSelection != shouldPrintSelection);
+        
+        bool shouldPrintSyntaxColor = [[FRACurrentDocument valueForKey:@"isSyntaxColoured"] boolValue] == YES && [[FRADefaults valueForKey:@"PrintSyntaxColours"] boolValue] == YES;
+        bool printSyntaxColoursInvalid = textInvalid || (printSyntaxColours != shouldPrintSyntaxColor);
+        
+        if (textInvalid) {
+            printSelection = shouldPrintSelection;
+            if (printSelection == YES) {
+                [self setString:[FRACurrentText substringWithRange:[FRACurrentTextView selectedRange]]];
+                selectionLocation = [FRACurrentTextView selectedRange].location;
+            } else {
+                [self setString:FRACurrentText];
+                selectionLocation = 0;
+            }
+        }
+        
+        if (printSyntaxColoursInvalid) {
+            printSyntaxColours = shouldPrintSyntaxColor;
+            
+            FRATextView *textView = [FRACurrentDocument valueForKey:@"firstTextView"];
+            NSTextStorage *textStorage = [self textStorage];
+            [textStorage setAttributes:nil range:NSMakeRange(0, [[self string] length])];
+            
+            if (printSyntaxColours) {
+                FRALayoutManager *layoutManager = (FRALayoutManager *)[textView layoutManager];
+                NSInteger lastCharacter = [[textView string] length];
+                [layoutManager removeTemporaryAttribute:NSBackgroundColorAttributeName forCharacterRange:NSMakeRange(0, lastCharacter)];
+                NSInteger index = 0;
+                if (printSelection) {
+                    index = [FRACurrentTextView selectedRange].location;
+                    lastCharacter = NSMaxRange([FRACurrentTextView selectedRange]);
+                    [[FRACurrentDocument valueForKey:@"syntaxColouring"] recolourRange:[FRACurrentTextView selectedRange]];
+                } else {
+                    [[FRACurrentDocument valueForKey:@"syntaxColouring"] recolourRange:NSMakeRange(0, lastCharacter)];
+                }
+                NSRange range;
+                NSDictionary *attributes;
+                NSInteger rangeLength = 0;
+                while (index < lastCharacter) {
+                    attributes = [layoutManager temporaryAttributesAtCharacterIndex:index effectiveRange:&range];
+                    rangeLength = range.length;
+                    if ([attributes count] != 0) {
+                        if (printSelection) {
+                            [textStorage setAttributes:attributes range:NSMakeRange(range.location - selectionLocation, rangeLength)];
+                        } else {
+                            [textStorage setAttributes:attributes range:range];
+                        }
+                    }
+                    if (rangeLength != 0) {
+                        index = index + rangeLength;
+                    } else {
+                        index++;
+                    }
+                }
+            }
+        }
+    }
+    
+    initialized = true;
+
+    return [super knowsPageRange:range];
+}
+
 /**
  * Setup the view used for printing regarding current application settings specified by the
  * user.
  **/
 - (void)setupView
 {
-	NSPrintInfo *printInfo = [FRACurrentProject printInfo];
-	
-	[self setFrame:NSMakeRect([printInfo leftMargin], [printInfo bottomMargin], [printInfo paperSize].width - [printInfo leftMargin] - [printInfo rightMargin], [printInfo paperSize].height - [printInfo topMargin] - [printInfo bottomMargin])];
-	
-	
 	// Set the tabs
 	NSMutableString *sizeString = [NSMutableString string];
 	NSUInteger numberOfSpaces = [[FRADefaults valueForKey:@"TabWidth"] integerValue];
@@ -110,57 +178,6 @@
 	[style setDefaultTabInterval:sizeOfTab];
 	NSDictionary *attributes = @{NSParagraphStyleAttributeName: style};
 	[self setTypingAttributes:attributes];
-	
-	BOOL printOnlySelection = NO;
-	NSInteger selectionLocation = 0;
-	
-	if ([FRACurrentProject areThereAnyDocuments]) {
-		if ([[FRADefaults valueForKey:@"OnlyPrintSelection"] boolValue] == YES && [FRACurrentTextView selectedRange].length > 0) {
-			[self setString:[FRACurrentText substringWithRange:[FRACurrentTextView selectedRange]]];
-			printOnlySelection = YES;
-			selectionLocation = [FRACurrentTextView selectedRange].location;
-		} else {
-			[self setString:FRACurrentText];
-		}
-		
-		if ([[FRACurrentDocument valueForKey:@"isSyntaxColoured"] boolValue] == YES && [[FRADefaults valueForKey:@"PrintSyntaxColours"] boolValue] == YES) {
-			FRATextView *textView = [FRACurrentDocument valueForKey:@"firstTextView"];
-			FRALayoutManager *layoutManager = (FRALayoutManager *)[textView layoutManager];
-			NSTextStorage *textStorage = [self textStorage];
-			NSInteger lastCharacter = [[textView string] length];
-			[layoutManager removeTemporaryAttribute:NSBackgroundColorAttributeName forCharacterRange:NSMakeRange(0, lastCharacter)];
-			NSInteger index = 0;
-			if (printOnlySelection == YES) {
-				index = [FRACurrentTextView selectedRange].location;
-				lastCharacter = NSMaxRange([FRACurrentTextView selectedRange]);
-				[[FRACurrentDocument valueForKey:@"syntaxColouring"] recolourRange:[FRACurrentTextView selectedRange]];
-			} else {
-				[[FRACurrentDocument valueForKey:@"syntaxColouring"] recolourRange:NSMakeRange(0, lastCharacter)];
-			}
-			NSRange range;
-			NSDictionary *attributes;
-			NSInteger rangeLength = 0;
-			while (index < lastCharacter) {
-				attributes = [layoutManager temporaryAttributesAtCharacterIndex:index effectiveRange:&range];
-				rangeLength = range.length;
-				if ([attributes count] != 0) {
-					if (printOnlySelection == YES) {
-						[textStorage setAttributes:attributes range:NSMakeRange(range.location - selectionLocation, rangeLength)];
-					} else {
-						[textStorage setAttributes:attributes range:range];
-					}
-				}
-				if (rangeLength != 0) {
-					index = index + rangeLength;
-				} else {
-					index++;
-				}
-			}
-		}
-	}
-	
-	[self setFont:[NSUnarchiver unarchiveObjectWithData:[FRADefaults valueForKey:@"PrintFont"]]];
-	
 }
 
 @end

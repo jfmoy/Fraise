@@ -26,8 +26,4 @@
 
 - (IBAction)setPrintFontAction:(id)sender;
 
-- (BOOL)dummyValue;
-- (void)setDummyValue:(BOOL)flag;
-
-
 @end

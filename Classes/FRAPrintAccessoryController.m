@@ -16,7 +16,6 @@
 
 #import "FRAPrintAccessoryController.h"
 
-
 @implementation FRAPrintAccessoryController
 
 @synthesize dummyValue;
@@ -24,6 +23,26 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     return [super initWithNibName:@"FRAPrintAccessoryView" bundle:nibBundleOrNil];
+}
+
+
+- (void) updateMargins {
+    NSPrintInfo *printInfo = [self representedObject];
+    CGFloat marginsMin = [[FRADefaults valueForKey:@"MarginsMin"] doubleValue];
+    if ([[FRADefaults valueForKey:@"PrintHeader"] boolValue] == YES) {
+        [printInfo setBottomMargin:(marginsMin + 22)];
+    } else {
+        [printInfo setBottomMargin:marginsMin];
+    }
+    [printInfo setLeftMargin:marginsMin];
+    [printInfo setRightMargin:marginsMin];
+    [printInfo setTopMargin:marginsMin];
+}
+
+
+- (void)setRepresentedObject:(id)representedObject {
+    [super setRepresentedObject:representedObject];
+    [self updateMargins];
 }
 
 
@@ -36,9 +55,8 @@
 	[defaultsController addObserver:self forKeyPath:@"values.OnlyPrintSelection" options:NSKeyValueObservingOptionNew context:@"PrinterSettingsChanged"];
 	[defaultsController addObserver:self forKeyPath:@"values.MarginsMin" options:NSKeyValueObservingOptionNew context:@"PrinterSettingsChanged"];
 	[defaultsController addObserver:self forKeyPath:@"values.PrintFont" options:NSKeyValueObservingOptionNew context:@"PrinterSettingsChanged"];
-	
-	[self performSelector:@selector(hackToMakeDisplayUpdateDirectly) withObject:nil afterDelay:0.0];
 }
+
 
 - (void) dealloc
 {
@@ -51,21 +69,17 @@
 }
 
 
-- (void)hackToMakeDisplayUpdateDirectly
-{
-	[self setDummyValue:!dummyValue];
-}
-
-
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
 	if ([(__bridge NSString *)context isEqualToString:@"PrinterSettingsChanged"]) {
+        // update the margins because they depend on the settings in this view
+        [self updateMargins];
+        
 		[self setDummyValue:!dummyValue];
 
 	} else {
 		[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 	}
-	
 }
 
 
@@ -77,7 +91,7 @@
 
 - (NSArray *)localizedSummaryItems
 {    
-	return @[@{}];
+	return nil;
 }
 
 
