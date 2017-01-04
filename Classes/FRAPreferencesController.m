@@ -517,8 +517,8 @@ static id sharedInstance = nil;
 
 - (void)changeFont:(id)sender
 {
-	NSFontManager *fontManager = [NSFontManager sharedFontManager];
-	NSFont *panelFont = [fontManager convertFont:[fontManager selectedFont]];
+    NSFont *oldFont = [NSUnarchiver unarchiveObjectWithData:[FRADefaults valueForKey:@"TextFont"]];
+    NSFont *panelFont = [sender convertFont:oldFont];
 	[FRADefaults setValue:[NSArchiver archivedDataWithRootObject:panelFont] forKey:@"TextFont"];
 }
 
