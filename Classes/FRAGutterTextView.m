@@ -48,6 +48,13 @@
 }
 
 
+- (void) dealloc
+{
+    NSUserDefaultsController *defaultsController = [NSUserDefaultsController sharedUserDefaultsController];
+    [defaultsController removeObserver:self forKeyPath:@"values.TextFont"];
+}
+
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
 	if ([(__bridge NSString *)context isEqualToString:@"TextFontChanged"]) {

@@ -114,6 +114,33 @@
 }
 
 
+- (void) dealloc
+{
+    NSUserDefaultsController *defaultsController = [NSUserDefaultsController sharedUserDefaultsController];
+    [defaultsController removeObserver:self forKeyPath:@"values.CommandsColourWell"];
+    [defaultsController removeObserver:self forKeyPath:@"values.CommentsColourWell"];
+    [defaultsController removeObserver:self forKeyPath:@"values.InstructionsColourWell"];
+    [defaultsController removeObserver:self forKeyPath:@"values.KeywordsColourWell"];
+    [defaultsController removeObserver:self forKeyPath:@"values.AutocompleteColourWell"];
+    [defaultsController removeObserver:self forKeyPath:@"values.VariablesColourWell"];
+    [defaultsController removeObserver:self forKeyPath:@"values.StringsColourWell"];
+    [defaultsController removeObserver:self forKeyPath:@"values.AttributesColourWell"];
+    [defaultsController removeObserver:self forKeyPath:@"values.ColourCommands"];
+    [defaultsController removeObserver:self forKeyPath:@"values.ColourComments"];
+    [defaultsController removeObserver:self forKeyPath:@"values.ColourInstructions"];
+    [defaultsController removeObserver:self forKeyPath:@"values.ColourKeywords"];
+    [defaultsController removeObserver:self forKeyPath:@"values.ColourAutocomplete"];
+    [defaultsController removeObserver:self forKeyPath:@"values.ColourVariables"];
+    [defaultsController removeObserver:self forKeyPath:@"values.ColourStrings"];
+    [defaultsController removeObserver:self forKeyPath:@"values.ColourAttributes"];
+    [defaultsController removeObserver:self forKeyPath:@"values.ColourMultiLineStrings"];
+    [defaultsController removeObserver:self forKeyPath:@"values.OnlyColourTillTheEndOfLine"];
+    [defaultsController removeObserver:self forKeyPath:@"values.HighlightCurrentLine"];
+    [defaultsController removeObserver:self forKeyPath:@"values.HighlightLineColourWell"];
+    [defaultsController removeObserver:self forKeyPath:@"values.ColourMultiLineStrings"];
+}
+
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
 	if ([(__bridge NSString *)context isEqualToString:@"ColoursChanged"]) {

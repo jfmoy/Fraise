@@ -387,6 +387,7 @@
                 NSMutableDictionary *bindingOptions = [NSMutableDictionary dictionary];
                 bindingOptions[@"NSValueTransformerName"] = NSIsNotNilTransformerName;
                 [cell bind:@"hasIcon" toObject:[item identifier] withKeyPath:@"selection.icon" options:bindingOptions];
+                // TODO observer must be removed; but not used in Fraise, so ignore it...
                 [[item identifier] addObserver:self forKeyPath:@"selection.icon" options:NSKeyValueObservingOptionNew context:nil];
             } 
         } 

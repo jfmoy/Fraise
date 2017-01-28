@@ -216,6 +216,23 @@ static id sharedInstance = nil;
 }
 
 
+- (void) dealloc
+{
+    NSUserDefaultsController *defaultsController = [NSUserDefaultsController sharedUserDefaultsController];
+    [defaultsController removeObserver:self forKeyPath:@"values.StatusBarShowEncoding"];
+    [defaultsController removeObserver:self forKeyPath:@"values.StatusBarShowLength"];
+    [defaultsController removeObserver:self forKeyPath:@"values.StatusBarShowSelection"];
+    [defaultsController removeObserver:self forKeyPath:@"values.StatusBarShowPosition"];
+    [defaultsController removeObserver:self forKeyPath:@"values.StatusBarShowSyntax"];
+    [defaultsController removeObserver:self forKeyPath:@"values.StatusBarShowWhenLastSaved"];
+    [defaultsController removeObserver:self forKeyPath:@"values.StatusBarLastSavedFormatPopUp"];
+    [defaultsController removeObserver:self forKeyPath:@"values.SizeOfDocumentsListTextPopUp"];
+    [defaultsController removeObserver:self forKeyPath:@"values.ShowFullPathInWindowTitle"];
+    [defaultsController removeObserver:self forKeyPath:@"values.CheckIfDocumentHasBeenUpdated"];
+    [defaultsController removeObserver:self forKeyPath:@"values.ShowFullPathInDocumentsList"];
+}
+
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
 	if ([(__bridge NSString *)context isEqualToString:@"StatusBarChanged"]) {

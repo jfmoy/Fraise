@@ -89,6 +89,20 @@
 }
 
 
+- (void) dealloc
+{
+    NSUserDefaultsController *defaultsController = [NSUserDefaultsController sharedUserDefaultsController];
+    [defaultsController removeObserver:self forKeyPath:@"values.TextFont"];
+    [defaultsController removeObserver:self forKeyPath:@"values.TextColourWell"];
+    [defaultsController removeObserver:self forKeyPath:@"values.BackgroundColourWell"];
+    [defaultsController removeObserver:self forKeyPath:@"values.SmartInsertDelete"];
+    [defaultsController removeObserver:self forKeyPath:@"values.TabWidth"];
+    [defaultsController removeObserver:self forKeyPath:@"values.ShowPageGuide"];
+    [defaultsController removeObserver:self forKeyPath:@"values.ShowPageGuideAtColumn"];
+    [defaultsController removeObserver:self forKeyPath:@"values.SmartInsertDelete"];
+}
+
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
 	if ([(__bridge NSString *)context isEqualToString:@"TextFontChanged"]) {
