@@ -1,18 +1,18 @@
 /*
-Fraise version 3.7 - Based on Smultron by Peter Borg
-Written by Jean-François Moy - jeanfrancois.moy@gmail.com
-Find the latest version at http://github.com/jfmoy/Fraise
+ Fraise version 3.7 - Based on Smultron by Peter Borg
+ 
+ Current Maintainer (since 2016): 
+ Andreas Bentele: abentele.github@icloud.com (https://github.com/abentele/Fraise)
+ 
+ Maintainer before macOS Sierra (2010-2016): 
+ Jean-François Moy: jeanfrancois.moy@gmail.com (http://github.com/jfmoy/Fraise)
 
-Copyright 2010 Jean-François Moy
+ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ http://www.apache.org/licenses/LICENSE-2.0
  
-http://www.apache.org/licenses/LICENSE-2.0
- 
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 */
-
-#import "FRAStandardHeader.h"
 
 #import "FRAToolsMenuController.h"
 #import "FRACommandsController.h"
@@ -251,12 +251,12 @@ static id sharedInstance = nil;
 	if ([[FRADefaults valueForKey:@"UseRGBRatherThanHexWhenInsertingColourValues"] boolValue] == YES) {
 		insertString = [NSString stringWithFormat:@"rgb(%lu,%lu,%lu)", red, green, blue];
 	} else {
-		insertString = [[NSString stringWithFormat:@"#%02x%02x%02x", red, green, blue] uppercaseString];
+		insertString = [[NSString stringWithFormat:@"#%02lx%02lx%02lx", (unsigned long)red, (unsigned long)green, (unsigned long)blue] uppercaseString];
 	}
 	
 	
 	NSRange selectedRange = [textViewToInsertColourInto selectedRange];
-	[textViewToInsertColourInto insertText:insertString];
+	[textViewToInsertColourInto insertText:insertString replacementRange:selectedRange];
 	[textViewToInsertColourInto setSelectedRange:NSMakeRange(selectedRange.location, [insertString length])]; // Select the inserted string so it will replace the last colour if more colours are inserted
 }
 
@@ -440,7 +440,7 @@ static id sharedInstance = nil;
 		if ([[NSFileManager defaultManager] fileExistsAtPath:resultPath]) {
 			result = [NSString stringWithContentsOfFile:resultPath encoding:[[document valueForKey:@"encoding"] integerValue] error:nil];
 			[[NSFileManager defaultManager] removeItemAtPath:resultPath error:nil];
-			[textView insertText:result];
+			[textView insertText:result replacementRange:[textView selectedRange]];
 		}
 		if ([[NSFileManager defaultManager] fileExistsAtPath:textPath]) {
 			[[NSFileManager defaultManager] removeItemAtPath:textPath error:nil];

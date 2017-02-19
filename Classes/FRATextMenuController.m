@@ -1,18 +1,18 @@
 /*
-Fraise version 3.7 - Based on Smultron by Peter Borg
-Written by Jean-François Moy - jeanfrancois.moy@gmail.com
-Find the latest version at http://github.com/jfmoy/Fraise
+ Fraise version 3.7 - Based on Smultron by Peter Borg
+ 
+ Current Maintainer (since 2016): 
+ Andreas Bentele: abentele.github@icloud.com (https://github.com/abentele/Fraise)
+ 
+ Maintainer before macOS Sierra (2010-2016): 
+ Jean-François Moy: jeanfrancois.moy@gmail.com (http://github.com/jfmoy/Fraise)
 
-Copyright 2010 Jean-François Moy
+ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ http://www.apache.org/licenses/LICENSE-2.0
  
-http://www.apache.org/licenses/LICENSE-2.0
- 
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 */
-
-#import "FRAStandardHeader.h"
 
 #import "FRATextMenuController.h"
 #import "FRABasicPerformer.h"
@@ -106,10 +106,10 @@ static id sharedInstance = nil;
 	
 	id document = FRACurrentDocument;
 	
-	[[[document valueForKey:@"syntaxColouring"] undoManager] registerUndoWithTarget:self selector:@selector(performUndoChangeEncoding:) object:[NSArray arrayWithObject:[document valueForKey:@"encoding"]]];
+	[[[document valueForKey:@"syntaxColouring"] undoManager] registerUndoWithTarget:self selector:@selector(performUndoChangeEncoding:) object:@[[document valueForKey:@"encoding"]]];
 	[[[document valueForKey:@"syntaxColouring"] undoManager] setActionName:NAME_FOR_UNDO_CHANGE_ENCODING];
 	
-	[document setValue:[NSNumber numberWithInteger:encoding] forKey:@"encoding"];
+	[document setValue: @(encoding) forKey:@"encoding"];
 	[document setValue:[NSString localizedNameOfStringEncoding:encoding] forKey:@"encodingName"];
 	
 	[FRAInterface updateStatusBar];
@@ -185,11 +185,11 @@ static id sharedInstance = nil;
 {
 	id document = FRACurrentDocument;
 	
-	[[[document valueForKey:@"syntaxColouring"] undoManager] registerUndoWithTarget:self selector:@selector(performUndoChangeEncoding:) object:[NSArray arrayWithObject:[document valueForKey:@"encoding"]]];
+	[[[document valueForKey:@"syntaxColouring"] undoManager] registerUndoWithTarget:self selector:@selector(performUndoChangeEncoding:) object:@[[document valueForKey:@"encoding"]]];
 	[[[document valueForKey:@"syntaxColouring"] undoManager] setActionName:NAME_FOR_UNDO_CHANGE_ENCODING];
 	
-	[document setValue:[sender objectAtIndex:0] forKey:@"encoding"];
-	[document setValue:[NSString localizedNameOfStringEncoding:[[sender objectAtIndex:0] unsignedIntegerValue]] forKey:@"encodingName"];
+	[document setValue:sender[0] forKey:@"encoding"];
+	[document setValue:[NSString localizedNameOfStringEncoding:[sender[0] unsignedIntegerValue]] forKey:@"encodingName"];
 	
 	[FRAInterface updateStatusBar];
 }
@@ -500,7 +500,7 @@ static id sharedInstance = nil;
 		NSString *originalString = [FRACurrentText substringWithRange:selectedRange];
 		NSString *newString = [NSString stringWithString:[originalString lowercaseString]];
 		[textView setSelectedRange:selectedRange];
-		[textView insertText:newString];
+		[textView insertText:newString replacementRange:[textView selectedRange]];
 	}
 }
 
@@ -514,7 +514,7 @@ static id sharedInstance = nil;
 		NSString *originalString = [FRACurrentText substringWithRange:selectedRange];
 		NSString *newString = [NSString stringWithString:[originalString uppercaseString]];
 		[textView setSelectedRange:selectedRange];
-		[textView insertText:newString];
+		[textView insertText:newString replacementRange:[textView selectedRange]];
 	}
 }
 
@@ -528,7 +528,7 @@ static id sharedInstance = nil;
 		NSString *originalString = [FRACurrentText substringWithRange:selectedRange];
 		NSString *newString = [NSString stringWithString:[originalString capitalizedString]];
 		[textView setSelectedRange:selectedRange];
-		[textView insertText:newString];
+		[textView insertText:newString replacementRange:[textView selectedRange]];
 	}
 }
 
@@ -902,7 +902,7 @@ static id sharedInstance = nil;
 - (void)reloadText:(id)sender
 {
 	id document = FRACurrentDocument;
-	[document setValue:[NSNumber numberWithUnsignedInteger:[sender tag]] forKey:@"encoding"];
+	[document setValue: @([sender tag]) forKey:@"encoding"];
 	[document setValue:[NSString localizedNameOfStringEncoding:[sender tag]] forKey:@"encodingName"];
 	[[FRAFileMenuController sharedInstance] performRevertOfDocument:document];
 }
@@ -949,10 +949,10 @@ static id sharedInstance = nil;
 {
 	id document = FRACurrentDocument;
 	
-	[[[document valueForKey:@"syntaxColouring"] undoManager] registerUndoWithTarget:self selector:@selector(performUndoChangeLineEndings:) object:[NSArray arrayWithObject:[document valueForKey:@"lineEndings"]]];
+	[[[document valueForKey:@"syntaxColouring"] undoManager] registerUndoWithTarget:self selector:@selector(performUndoChangeLineEndings:) object:@[[document valueForKey:@"lineEndings"]]];
 	[[[document valueForKey:@"syntaxColouring"] undoManager] setActionName:NAME_FOR_UNDO_CHANGE_LINE_ENDINGS];
 	
-	[document setValue:[NSNumber numberWithInteger:[sender tag] - 150] forKey:@"lineEndings"];
+	[document setValue:@([sender tag] - 150) forKey:@"lineEndings"];
 	
 	NSTextView *textView = FRACurrentTextView;
 	NSRange selectedRange = [textView selectedRange];
@@ -971,10 +971,10 @@ static id sharedInstance = nil;
 {
 	id document = FRACurrentDocument;
 	
-	[[[document valueForKey:@"syntaxColouring"] undoManager] registerUndoWithTarget:self selector:@selector(performUndoChangeLineEndings:) object:[NSArray arrayWithObject:[document valueForKey:@"lineEndings"]]];
+	[[[document valueForKey:@"syntaxColouring"] undoManager] registerUndoWithTarget:self selector:@selector(performUndoChangeLineEndings:) object:@[[document valueForKey:@"lineEndings"]]];
 	[[[document valueForKey:@"syntaxColouring"] undoManager] setActionName:NAME_FOR_UNDO_CHANGE_LINE_ENDINGS];
 	
-	[document setValue:[sender objectAtIndex:0] forKey:@"lineEndings"];
+	[document setValue:sender[0] forKey:@"lineEndings"];
 	
 	NSTextView *textView = FRACurrentTextView;
 	NSRange selectedRange = [textView selectedRange];
@@ -1027,7 +1027,7 @@ static id sharedInstance = nil;
 	
 	NSArray *selectedArray = [FRACurrentTextView selectedRanges];
 	
-	id selection = [selectedArray objectAtIndex:0];
+	id selection = selectedArray[0];
 
 	NSRange lineRange = [completeString lineRangeForRange:[selection rangeValue]];
 	NSString *lineString = [completeString substringWithRange:lineRange];
@@ -1082,7 +1082,7 @@ static id sharedInstance = nil;
 {
 	id document = FRACurrentDocument;
 	[document setValue:[sender title] forKey:@"syntaxDefinition"];
-	[document setValue:[NSNumber numberWithBool:YES] forKey:@"hasManuallyChangedSyntaxDefinition"];
+	[document setValue:@YES forKey:@"hasManuallyChangedSyntaxDefinition"];
 	[[document valueForKey:@"syntaxColouring"] setSyntaxDefinition];
 	
 	[[document valueForKey:@"syntaxColouring"] pageRecolour];

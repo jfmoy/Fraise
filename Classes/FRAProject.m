@@ -1,19 +1,19 @@
 /*
-Fraise version 3.7 - Based on Smultron by Peter Borg
-Written by Jean-François Moy - jeanfrancois.moy@gmail.com
-Find the latest version at http://github.com/jfmoy/Fraise
+ Fraise version 3.7 - Based on Smultron by Peter Borg
+ 
+ Current Maintainer (since 2016): 
+ Andreas Bentele: abentele.github@icloud.com (https://github.com/abentele/Fraise)
+ 
+ Maintainer before macOS Sierra (2010-2016): 
+ Jean-François Moy: jeanfrancois.moy@gmail.com (http://github.com/jfmoy/Fraise)
 
-Copyright 2010 Jean-François Moy
+ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ http://www.apache.org/licenses/LICENSE-2.0
  
-http://www.apache.org/licenses/LICENSE-2.0
- 
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 */
 
-
-#import "FRAStandardHeader.h"
 
 #import "NSImage+Fraise.h"
 #import "FRAProject.h"
@@ -32,8 +32,9 @@ Unless required by applicable law or agreed to in writing, software distributed 
 #import "FRAProject+DocumentViewsController.h"
 #import "FRAProject+ToolbarController.h"
 #import "FRALineNumbers.h"
-#import "FRAPrintViewController.h"
+#import "FRAPrintAccessoryController.h"
 #import "FRAPrintTextView.h"
+#import "PSMTabBarControl.h"
 
 @implementation FRAProject
 
@@ -65,9 +66,8 @@ Unless required by applicable law or agreed to in writing, software distributed 
 {
 	[super windowControllerDidLoadNib:aController];
 	
-	[[[self windowControllers] objectAtIndex:0] setWindowFrameAutosaveName:@"FraiseProjectWindow"];
+	[[self windowControllers][0] setWindowFrameAutosaveName:@"FraiseProjectWindow"];
 	[[self window] setFrameAutosaveName:@"FraiseProjectWindow"];
-	//[[[self windowControllers] objectAtIndex:0] setShouldCascadeWindows:NO];
 	
 	[self setDefaultAppearanceAtStartup];
 	
@@ -75,8 +75,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	
 	[documentsTableView setDelegate:self];
 	[mainSplitView setDelegate:self];
-	//[mainSplitView setAutosaveName:@"MainSplitView"];
-	[contentSplitView setDelegate:self];	
+	[contentSplitView setDelegate:self];
 	
 	[[FRAViewMenuController sharedInstance] performCollapse];
 	[self performSelector:@selector(performSetupAfterItIsCurrentProject) withObject:nil afterDelay:0.0];
@@ -84,36 +83,19 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	[[self window] setDelegate:self];
 	
 	[documentsTableView setDataSource:[FRADragAndDropController sharedInstance]];
-	[documentsTableView registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType, NSStringPboardType, @"FRAMovedDocumentType", nil]];
+	[documentsTableView registerForDraggedTypes:@[NSFilenamesPboardType, NSStringPboardType, @"FRAMovedDocumentType"]];
 	[documentsTableView setDraggingSourceOperationMask:(NSDragOperationCopy | NSDragOperationMove) forLocal:NO];
 	
 	
-//	splitWindowImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRASplitWindowIcon" ofType:@"pdf" inDirectory:@"Toolbar Icons"]];
-//	[[[splitWindowImage representations] objectAtIndex:0] setAlpha:YES];
-//	closeSplitImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRACloseSplitIcon" ofType:@"pdf" inDirectory:@"Toolbar Icons"]];
-//	[[[closeSplitImage representations] objectAtIndex:0] setAlpha:YES];
-//	lineWrapImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRALineWrapIcon" ofType:@"pdf" inDirectory:@"Toolbar Icons"]];
-//	[[[lineWrapImage representations] objectAtIndex:0] setAlpha:YES];
-//	dontLineWrapImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRADontLineWrapIcon" ofType:@"pdf" inDirectory:@"Toolbar Icons"]];
-//	[[[dontLineWrapImage representations] objectAtIndex:0] setAlpha:YES];
 	saveImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRASaveIcon" ofType:@"pdf" inDirectory:@"Toolbar Icons"]];
-	//[[[saveImage representations] objectAtIndex:0] setAlpha:YES];
 	openDocumentImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRAOpenIcon" ofType:@"pdf" inDirectory:@"Toolbar Icons"]];
-	//[[[openDocumentImage representations] objectAtIndex:0] setAlpha:YES];
 	newImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRANewIcon" ofType:@"pdf" inDirectory:@"Toolbar Icons"]];
-	//[[[newImage representations] objectAtIndex:0] setAlpha:YES];
 	closeImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRACloseIcon" ofType:@"pdf" inDirectory:@"Toolbar Icons"]];
-	//[[[closeImage representations] objectAtIndex:0] setAlpha:YES];
-	//preferencesImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRAPreferencesIcon" ofType:@"pdf" inDirectory:@"Toolbar Icons"]];
-	//[[[preferencesImage representations] objectAtIndex:0] setAlpha:YES];
 	advancedFindImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRAAdvancedFindIcon" ofType:@"pdf" inDirectory:@"Toolbar Icons"]];
-	[[[advancedFindImage representations] objectAtIndex:0] setAlpha:YES];
+	[[advancedFindImage representations][0] setAlpha:YES];
 	previewImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRAPreviewIcon" ofType:@"pdf" inDirectory:@"Toolbar Icons"]];
-	//[[[previewImage representations] objectAtIndex:0] setAlpha:YES];
 	functionImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRAFunctionIcon" ofType:@"pdf" inDirectory:@"Toolbar Icons"]];
-	//[[[functionImage representations] objectAtIndex:0] setAlpha:YES];
 	infoImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRAInfoIcon" ofType:@"pdf" inDirectory:@"Toolbar Icons"]];
-	//[[[infoImage representations] objectAtIndex:0] setAlpha:YES];
 	
 	NSToolbar *toolbar = [[NSToolbar alloc] initWithIdentifier:@"ToolbarIdentifier"];
     [toolbar setShowsBaselineSeparator:YES];
@@ -121,11 +103,10 @@ Unless required by applicable law or agreed to in writing, software distributed 
     [toolbar setAutosavesConfiguration:YES];
     [toolbar setDisplayMode:NSToolbarDisplayModeDefault];
     [toolbar setDelegate:self];
-	//[toolbar setSizeMode:NSToolbarSizeModeSmall];
     [[self window] setToolbar:toolbar];
 	
 	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"sortOrder" ascending:YES];
-	[documentsArrayController setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+	[documentsArrayController setSortDescriptors:@[sortDescriptor]];
 
 	if ([[FRAApplicationDelegate sharedInstance] shouldCreateEmptyDocument] == YES) {
 		id document = [self createNewDocumentWithContents:@""];
@@ -143,7 +124,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (BOOL)prepareSavePanel:(NSSavePanel *)savePanel
 {
-	[savePanel setDirectory:[FRAInterface whichDirectoryForSave]];
+    [savePanel setDirectoryURL: [NSURL fileURLWithPath: [FRAInterface whichDirectoryForSave]]];
 	
 	return YES;
 }
@@ -161,16 +142,22 @@ Unless required by applicable law or agreed to in writing, software distributed 
  */
 - (NSPrintOperation *)printOperationWithSettings:(NSDictionary *)printSettings error:(NSError **)outError
 {
-	NSPrintInfo *printInfo = [self printInfo]; 
-	FRAPrintTextView *printTextView = [[FRAPrintTextView alloc] initWithFrame:NSMakeRect([printInfo leftMargin], [printInfo bottomMargin], [printInfo paperSize].width - [printInfo leftMargin] - [printInfo rightMargin], [printInfo paperSize].height - [printInfo topMargin] - [printInfo bottomMargin])];
+	NSPrintInfo *printInfo = [self printInfo];
+    
+    NSRect printTextViewFrame = NSMakeRect([printInfo leftMargin],
+                                           [printInfo bottomMargin],
+                                           [printInfo paperSize].width - [printInfo leftMargin] - [printInfo rightMargin],
+                                           [printInfo paperSize].height - [printInfo topMargin] - [printInfo bottomMargin]);
+	FRAPrintTextView *printTextView = [[FRAPrintTextView alloc] initWithFrame:printTextViewFrame];
 	
 	NSPrintOperation *printOperation = [NSPrintOperation printOperationWithView:printTextView printInfo:printInfo];
     [printOperation setShowsPrintPanel:YES];
 	[printOperation setCanSpawnSeparateThread:YES]; // Allow the printing process to be executed in a new thread.
     
     NSPrintPanel *printPanel = [printOperation printPanel];
-	FRAPrintViewController *printViewController = [[FRAPrintViewController alloc] init];    
-	[printPanel addAccessoryController:printViewController];
+    [printPanel setOptions:NSPrintPanelShowsCopies | NSPrintPanelShowsPageRange | NSPrintPanelShowsPaperSize | NSPrintPanelShowsOrientation | NSPrintPanelShowsPrintSelection | NSPrintPanelShowsPageSetupAccessory | NSPrintPanelShowsPreview];
+	FRAPrintAccessoryController *printAccessoryController = [[FRAPrintAccessoryController alloc] init];
+	[printPanel addAccessoryController:printAccessoryController];
 	
     return printOperation;
 }
@@ -180,17 +167,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 {
     NSPrintInfo *printInfo = [super printInfo];
 	
-	CGFloat marginsMin = [[FRADefaults valueForKey:@"MarginsMin"] doubleValue];
-	if ([[FRADefaults valueForKey:@"PrintHeader"] boolValue] == YES) {
-		[printInfo setTopMargin:(marginsMin + 22)];
-	} else {
-		[printInfo setTopMargin:marginsMin];
-	}
-	[printInfo setLeftMargin:marginsMin];	
-	[printInfo setRightMargin:marginsMin];
-	[printInfo setBottomMargin:marginsMin];
-	
-	[printInfo setHorizontallyCentered:NO];    
+	[printInfo setHorizontallyCentered:NO];
 	[printInfo setVerticallyCentered:NO];
 	
 	[printInfo setHorizontalPagination:NSAutoPagination];
@@ -211,7 +188,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	[documentsTableView setDoubleAction:@selector(doubleClick:)];
 	
 	if ([[documentsArrayController arrangedObjects] count] > 0) {
-		[self updateWindowTitleBarForDocument:[[documentsArrayController selectedObjects] objectAtIndex:0]];
+		[self updateWindowTitleBarForDocument:[documentsArrayController selectedObjects][0]];
 	} else {
 		[self updateWindowTitleBarForDocument:nil];
 	}
@@ -251,7 +228,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (void)selectDocument:(id)document
 {
-	[documentsArrayController setSelectedObjects:[NSArray arrayWithObject:document]];
+	[documentsArrayController setSelectedObjects:@[document]];
 }
 
 
@@ -331,7 +308,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 {
 	id document = [self createNewDocumentWithPath:nil andContents:textString];
 	
-	[document setValue:[NSNumber numberWithBool:YES] forKey:@"isNewDocument"];
+	[document setValue:@YES forKey:@"isNewDocument"];
 	[FRAVarious setUnsavedAsLastSavedDateForDocument:document];
 	[FRAInterface updateStatusBar];
 	
@@ -354,10 +331,10 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	[document setValue:syntaxColouring forKey:@"syntaxColouring"];
 	
 	[[document valueForKey:@"lineNumbers"] updateLineNumbersForClipView:[[document valueForKey:@"firstTextScrollView"] contentView] checkWidth:NO recolour:YES];
-	[document setValue:[NSNumber numberWithInteger:[[documentsArrayController arrangedObjects] count]] forKey:@"sortOrder"];
+	[document setValue: @([[documentsArrayController arrangedObjects] count]) forKey:@"sortOrder"];
 	[self documentsListHasUpdated];
 	
-	[documentsArrayController setSelectedObjects:[NSArray arrayWithObject:document]];
+	[documentsArrayController setSelectedObjects:@[document]];
 	
 	[document setValue:[NSString localizedNameOfStringEncoding:[[document valueForKey:@"encoding"] integerValue]] forKey:@"encodingName"];
 	
@@ -475,51 +452,43 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	if ([[document valueForKey:@"isEdited"] boolValue] == YES) {
 		[self selectDocument:document];
 		NSString *title = [NSString stringWithFormat:NSLocalizedString(@"The document %@ has not been saved", @"Indicate in Close-sheet that the document %@ has not been saved."), [document valueForKey:@"name"]];
-		NSBeginAlertSheet(title,
-						  SAVE_STRING,
-						  NSLocalizedString(@"Don't Save", @"Don't Save-button in Close-sheet"),
-						  CANCEL_BUTTON,
-						  [self window],
-						  self,
-						  @selector(closeSheetDidEnd:returnCode:contextInfo:),
-						  nil,
-						  (void *)[NSArray arrayWithObjects:document, [NSNumber numberWithBool:keepOpen], nil],
-						  NSLocalizedString(@"Your changes will be lost if you close the document without saving.", @"Your changes will be lost if you close the document without saving in Close-sheet"));
-		[NSApp runModalForWindow:[[self window] attachedSheet]]; // Modal to make sure that nothing happens while the sheet is displaying
+        
+        NSAlert* alert = [[NSAlert alloc] init];
+        [alert addButtonWithTitle:SAVE_STRING];
+        [alert addButtonWithTitle:NSLocalizedString(@"Don't Save", @"Don't Save-button in Close-sheet")];
+        [alert addButtonWithTitle:CANCEL_BUTTON];
+        [alert setMessageText:title];
+        [alert setInformativeText:NSLocalizedString(@"Your changes will be lost if you close the document without saving.", @"Your changes will be lost if you close the document without saving in Close-sheet")];
+        [alert setAlertStyle:NSAlertStyleInformational];
+        
+        [alert beginSheetModalForWindow:[self window] completionHandler:^(NSInteger returnCode) {
+            [FRAVarious stopModalLoop];
+
+            if (returnCode == NSAlertFirstButtonReturn) {
+                [[FRAFileMenuController sharedInstance] saveAction:nil];
+                if ([[document valueForKey:@"isEdited"] boolValue] == NO) { // Save didn't fail
+                    if (keepOpen == NO) {
+                        [self performCloseDocument:document];
+                    }
+                } else {
+                    shouldWindowClose = NO;
+                }
+            } else if (returnCode == NSAlertSecondButtonReturn) {
+                if (keepOpen == NO) {
+                    [self performCloseDocument:document];
+                }
+            } else { // The user wants to review the document
+                shouldWindowClose = NO;
+            }
+        }];
+        
+        [NSApp runModalForWindow:[[self window] attachedSheet]]; // Modal to make sure that nothing happens while the sheet is displaying
 	} else {
 		if (keepOpen == NO) {
 			[self performCloseDocument:document];
 		}
 	}
 }
-
-
-- (void)closeSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
-{
-    [FRAVarious stopModalLoop];
-	
-	id document = [(NSArray *)contextInfo objectAtIndex:0];
-	BOOL keepOpen = [[(NSArray *)contextInfo objectAtIndex:1] boolValue];
-	
-	if (returnCode == NSAlertDefaultReturn) {
-		[sheet close];
-		[[FRAFileMenuController sharedInstance] saveAction:nil];
-		if ([[document valueForKey:@"isEdited"] boolValue] == NO) { // Save didn't fail
-			if (keepOpen == NO) {
-				[self performCloseDocument:document];
-			}
-		} else {
-			shouldWindowClose = NO;
-		}
-	} else if (returnCode == NSAlertAlternateReturn) {
-		if (keepOpen == NO) {
-			[self performCloseDocument:document];
-		}
-	} else { // The user wants to review the document
-		shouldWindowClose = NO;
-	}
-}
-
 
 - (void)performCloseDocument:(id)document
 {
@@ -555,8 +524,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	}
 	
 	[FRAVarious resetSortOrderNumbersForArrayController:documentsArrayController];
-	
-	[[NSGarbageCollector defaultCollector] collectExhaustively];
 }
 
 
@@ -623,10 +590,10 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	[returnDictionary setValue:documentsArray forKey:@"documentsArray"];
 	NSString *name;
 	
-	if ([self areThereAnyDocuments] == NO || [[[documentsArrayController selectedObjects] objectAtIndex:0] valueForKey:@"name"] == nil) {
+	if ([self areThereAnyDocuments] == NO || [[documentsArrayController selectedObjects][0] valueForKey:@"name"] == nil) {
 		name = @"";
 	} else {
-		name = [[[documentsArrayController selectedObjects] objectAtIndex:0] valueForKey:@"name"];
+		name = [[documentsArrayController selectedObjects][0] valueForKey:@"name"];
 	}
 	[returnDictionary setValue:name forKey:@"selectedDocumentName"];
 	[returnDictionary setValue:NSStringFromRect([[self window] frame]) forKey:@"windowFrame"];
@@ -634,7 +601,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	[returnDictionary setValue:[project valueForKey:@"viewSize"] forKey:@"viewSize"];
 	[self saveMainSplitViewFraction];
 	[returnDictionary setValue:[project valueForKey:@"dividerPosition"]  forKey:@"dividerPosition"];
-	[returnDictionary setValue:[NSNumber numberWithInteger:3] forKey:@"version"];
+	[returnDictionary setValue:@3 forKey:@"version"];
 	
 	return returnDictionary;
 }
@@ -654,8 +621,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		return nil;
 	}
 	
-	NSString *urlString = (NSString*)CFURLCreateStringByReplacingPercentEscapesUsingEncoding(NULL, (CFStringRef)[[self fileURL] absoluteString], CFSTR(""), kCFStringEncodingUTF8);
-	NSMakeCollectable(urlString);
+    NSString *urlString = [[[self fileURL] absoluteString] stringByRemovingPercentEncoding];
 	return [[urlString lastPathComponent] stringByDeletingPathExtension];
 }
 
@@ -756,14 +722,14 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (void)resizeMainSplitView
 {	
-	NSRect leftDocumentsViewFrame = [[[mainSplitView subviews] objectAtIndex:0] frame];
-    NSRect contentViewFrame = [[[mainSplitView subviews] objectAtIndex:1] frame];
+	NSRect leftDocumentsViewFrame = [[mainSplitView subviews][0] frame];
+    NSRect contentViewFrame = [[mainSplitView subviews][1] frame];
 	CGFloat totalWidth = leftDocumentsViewFrame.size.width + contentViewFrame.size.width + [mainSplitView dividerThickness];
     leftDocumentsViewFrame.size.width = [[project valueForKey:@"dividerPosition"] doubleValue] * totalWidth;
     contentViewFrame.size.width = totalWidth - leftDocumentsViewFrame.size.width - [mainSplitView dividerThickness];
 	
-    [[[mainSplitView subviews] objectAtIndex:0] setFrame:leftDocumentsViewFrame];
-    [[[mainSplitView subviews] objectAtIndex:1] setFrame:contentViewFrame];
+    [[mainSplitView subviews][0] setFrame:leftDocumentsViewFrame];
+    [[mainSplitView subviews][1] setFrame:contentViewFrame];
 	
     [mainSplitView adjustSubviews];
 }
@@ -771,7 +737,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (void)saveMainSplitViewFraction
 {
-	NSNumber *fraction = [NSNumber numberWithDouble:[self mainSplitViewFraction]];
+	NSNumber *fraction = @([self mainSplitViewFraction]);
 	[project setValue:fraction forKey:@"dividerPosition"];
 	[FRADefaults setValue:fraction forKey:@"DividerPosition"];
 }
@@ -780,10 +746,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 - (void)insertDefaultIconsInDocument:(id)document
 {
 	NSImage *defaultIcon = [FRAInterface defaultIcon];
-	[defaultIcon setScalesWhenResized:YES];
-		
 	NSImage *defaultUnsavedIcon = [FRAInterface defaultUnsavedIcon];
-	[defaultUnsavedIcon setScalesWhenResized:YES];
 	
 	[document setValue:defaultIcon forKey:@"icon"];	
 	[document setValue:defaultUnsavedIcon forKey:@"unsavedIcon"];
@@ -793,9 +756,10 @@ Unless required by applicable law or agreed to in writing, software distributed 
 #pragma mark -
 #pragma mark Accessors
 
-- (void)setLastTextViewInFocus:(FRATextView *)newLastTextViewInFocus
+- (void)setLastTextViewInFocus: (FRATextView *)newLastTextViewInFocus
 {
-	if (lastTextViewInFocus != newLastTextViewInFocus) {
+	if (lastTextViewInFocus != newLastTextViewInFocus)
+    {
 		lastTextViewInFocus = newLastTextViewInFocus;
 	}
 	
@@ -811,7 +775,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (NSWindow *)window
 {
-	return [[[self windowControllers] objectAtIndex:0] window];
+	return [[self windowControllers][0] window];
 }
 
 

@@ -1,18 +1,18 @@
 /*
-Fraise version 3.7 - Based on Smultron by Peter Borg
-Written by Jean-François Moy - jeanfrancois.moy@gmail.com
-Find the latest version at http://github.com/jfmoy/Fraise
+ Fraise version 3.7 - Based on Smultron by Peter Borg
+ 
+ Current Maintainer (since 2016): 
+ Andreas Bentele: abentele.github@icloud.com (https://github.com/abentele/Fraise)
+ 
+ Maintainer before macOS Sierra (2010-2016): 
+ Jean-François Moy: jeanfrancois.moy@gmail.com (http://github.com/jfmoy/Fraise)
 
-Copyright 2010 Jean-François Moy
+ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ http://www.apache.org/licenses/LICENSE-2.0
  
-http://www.apache.org/licenses/LICENSE-2.0
- 
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
-*/
-
-#import "FRAStandardHeader.h"
+ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ */
 
 #import "FRAInterfacePerformer.h"
 #import "FRAGutterTextView.h"
@@ -27,7 +27,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 #import "FRAMainController.h"
 #import "FRAProject.h"
 #import "FRASyntaxColouring.h"
-#import "FRAFullScreenWindow.h"
 
 #import "ICUPattern.h"
 #import "ICUMatcher.h"
@@ -36,7 +35,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 @implementation FRAInterfacePerformer
 
-@synthesize fullScreenWindow, fullScreenDocument, defaultIcon, defaultUnsavedIcon;
+@synthesize defaultIcon, defaultUnsavedIcon;
 
 static id sharedInstance = nil;
 
@@ -366,13 +365,14 @@ static id sharedInstance = nil;
  * document. It refreshes every views used to display the document afterwards.
  **/
 - (void) updateGutterViewForDocument:(id)document {
-	NSArray *viewNumbers = [NSArray arrayWithObjects:@"first",@"second", @"third", nil];
+	NSArray *viewNumbers = @[@"first",@"second", @"third"];
 	NSView *contentView = nil;
 	u_int16_t gutterWidth = [[FRADefaults valueForKey:@"GutterWidth"] integerValue];
 	NSRect frame;
 	
 	// Update document value first.
-	[document setValue:[NSNumber numberWithUnsignedInt:gutterWidth] forKey:@"gutterWidth"];
+	[document setValue: @(gutterWidth)
+                forKey:@"gutterWidth"];
 	
 	for (NSString* viewNumber in viewNumbers) {
 		NSScrollView *gutterScrollView = (NSScrollView *) [document valueForKey:[NSString stringWithFormat:@"%@GutterScrollView", viewNumber]];
@@ -435,7 +435,7 @@ static id sharedInstance = nil;
 			[statusBarString appendString:statusBarBetweenString];
 		}
 		
-		[statusBarString appendFormat:@"%@: %@", statusBarDocumentLengthString, [FRABasic thousandFormatedStringFromNumber:[NSNumber numberWithUnsignedInteger:[text length]]]];
+		[statusBarString appendFormat:@"%@: %@", statusBarDocumentLengthString, [FRABasic thousandFormatedStringFromNumber:@([text length])]];
 	}
 	
 	NSArray *array = [textView selectedRanges];
@@ -447,7 +447,7 @@ static id sharedInstance = nil;
 		if ([[FRADefaults valueForKey:@"StatusBarShowWhenLastSaved"] boolValue] == YES || [[FRADefaults valueForKey:@"StatusBarShowLength"] boolValue] == YES) {
 			[statusBarString appendString:statusBarBetweenString];
 		}
-		[statusBarString appendFormat:@"%@: %@", statusBarSelectionLengthString, [FRABasic thousandFormatedStringFromNumber:[NSNumber numberWithInteger:selection]]];
+		[statusBarString appendFormat:@"%@: %@", statusBarSelectionLengthString, [FRABasic thousandFormatedStringFromNumber:@(selection)]];
 	}
 	
 	if ([[FRADefaults valueForKey:@"StatusBarShowPosition"] boolValue] == YES) {
@@ -460,7 +460,7 @@ static id sharedInstance = nil;
 		} else {
 			selectionRange = [textView selectedRange];
 		}
-		[statusBarString appendFormat:@"%@: %@\\%@", statusBarPositionString, [FRABasic thousandFormatedStringFromNumber:[NSNumber numberWithInteger:(selectionRange.location - [text lineRangeForRange:selectionRange].location)]], [FRABasic thousandFormatedStringFromNumber:[NSNumber numberWithInteger:selectionRange.location]]];
+		[statusBarString appendFormat:@"%@: %@\\%@", statusBarPositionString, [FRABasic thousandFormatedStringFromNumber: @((selectionRange.location - [text lineRangeForRange:selectionRange].location))], [FRABasic thousandFormatedStringFromNumber: @(selectionRange.location)]];
 	}
 	
 	if ([[FRADefaults valueForKey:@"StatusBarShowEncoding"] boolValue] == YES) {
@@ -501,6 +501,11 @@ static id sharedInstance = nil;
 	} else {
 		directory = [FRADefaults valueForKey:@"OpenAlwaysUseTextField"];
 	}
+    
+    if (directory == nil) {
+        directory = [[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory
+                                                            inDomains:NSUserDomainMask] lastObject] path];
+    }
 	
 	return [directory stringByExpandingTildeInPath];
 }
@@ -527,78 +532,13 @@ static id sharedInstance = nil;
 
 - (void)removeAllSubviewsFromView:(NSView *)view
 {
-	[view setSubviews:[NSArray array]];
+	[view setSubviews:@[]];
 	//NSArray *array = [NSArray arrayWithArray:[view subviews]];
 //	id item;
 //	for (item in array) {
 //		[item removeFromSuperview];
 //		item = nil;
 //	}
-}
-
-
-- (void)enterFullScreenForDocument:(id)document
-{
-	savedMainMenu = [NSApp mainMenu];
-	
-	fullScreenRect = [[NSScreen mainScreen] frame];	
-	CGFloat width;
-	if ([FRAMain singleDocumentWindowWasOpenBeforeEnteringFullScreen] == YES) {
-		width = [[document valueForKey:@"thirdTextView"] bounds].size.width * [[NSScreen mainScreen] userSpaceScaleFactor];
-	} else {
-		width = [[document valueForKey:@"firstTextView"] bounds].size.width * [[NSScreen mainScreen] userSpaceScaleFactor];
-	}
-	fullScreenRect = NSMakeRect(fullScreenRect.origin.x - ((width - fullScreenRect.size.width + [[document valueForKey:@"gutterWidth"] doubleValue]) / 2), fullScreenRect.origin.y, width + [[document valueForKey:@"gutterWidth"] doubleValue], fullScreenRect.size.height);
-
-	fullScreenWindow = [[FRAFullScreenWindow alloc] initWithContentRect:[[NSScreen mainScreen] frame] styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO screen:[NSScreen mainScreen]];
-	
-	if ([FRAMain singleDocumentWindowWasOpenBeforeEnteringFullScreen] == NO) {
-		NSRange sell = [[document valueForKey:@"firstTextView"] selectedRange];
-		[[document valueForKey:@"thirdTextView"] scrollRangeToVisible:sell];
-		[[document valueForKey:@"thirdTextView"] setSelectedRange:sell];
-	}
-	
-	fullScreenDocument = document;
-	[fullScreenWindow orderFront:nil];
-	[fullScreenWindow enterFullScreen];
-}
-
-
-- (void)insertDocumentIntoFullScreenWindow
-{
-	CGDisplayCapture(kCGDirectMainDisplay);
-	[fullScreenWindow setLevel:CGShieldingWindowLevel()];
-	[fullScreenWindow setContentView:[[fullScreenDocument valueForKey:@"singleDocumentWindow"] contentView]];
-	[fullScreenWindow makeKeyAndOrderFront:nil];
-	[fullScreenWindow setFrame:fullScreenRect display:YES animate:YES];
-	
-	[[fullScreenDocument valueForKey:@"lineNumbers"] updateLineNumbersForClipView:[[fullScreenDocument valueForKey:@"thirdTextScrollView"] contentView] checkWidth:YES recolour:YES];
-	[[fullScreenDocument valueForKey:@"singleDocumentWindow"] orderOut:nil];
-	[fullScreenWindow makeFirstResponder:[fullScreenDocument valueForKey:@"thirdTextView"]];
-}
-
-
-- (void)returnFromFullScreen
-{	
-	SetSystemUIMode(kUIModeNormal, 0);
-	[NSApp setMainMenu:savedMainMenu];
-	
-	[[fullScreenDocument valueForKey:@"singleDocumentWindow"] setContentView:[fullScreenWindow contentView]];
-	
-	[fullScreenWindow orderOut:self];
-	fullScreenWindow = nil;
-	
-	CGDisplayRelease(kCGDirectMainDisplay);
-	
-	if ([FRAMain singleDocumentWindowWasOpenBeforeEnteringFullScreen] == NO) {
-		[[fullScreenDocument valueForKey:@"singleDocumentWindow"] performClose:nil];
-	} else {
-		[[fullScreenDocument valueForKey:@"singleDocumentWindow"] makeKeyAndOrderFront:nil];
-		[[fullScreenDocument valueForKey:@"lineNumbers"] updateLineNumbersForClipView:[[fullScreenDocument valueForKey:@"thirdTextScrollView"] contentView] checkWidth:YES recolour:YES];
-	}
-	
-	fullScreenDocument = nil;
-	[FRAMain setIsInFullScreenMode:NO];
 }
 
 
@@ -647,12 +587,12 @@ static id sharedInstance = nil;
 {
 	NSString *functionDefinition = [[FRACurrentDocument valueForKey:@"syntaxColouring"] functionDefinition];
 	if (functionDefinition == nil || [functionDefinition isEqualToString:@""]) {
-		return [NSArray array];
+		return @[];
 	}
 	NSString *removeFromFunction = [[FRACurrentDocument valueForKey:@"syntaxColouring"] removeFromFunction];
 	NSString *text = FRACurrentText;
 	if (text == nil || [text isEqualToString:@""]) {
-		return [NSArray array];
+		return @[];
 	}
 	
 	ICUPattern *pattern = [[ICUPattern alloc] initWithString:functionDefinition flags:(ICUCaseInsensitiveMatching | ICUMultiline)];
@@ -661,7 +601,7 @@ static id sharedInstance = nil;
 	NSInteger index = 0;
 	NSInteger lineNumber = 0;
 	NSMutableArray *returnArray = [NSMutableArray array];
-	NSArray *keys = [[NSArray alloc] initWithObjects:@"lineNumber", @"name", nil];
+	NSArray *keys = @[@"lineNumber", @"name"];
 	while ([matcher findNext]) {
 		NSRange matchRange = [matcher rangeOfMatch];
 		while (index <= matchRange.location + 1) {
@@ -684,7 +624,7 @@ static id sharedInstance = nil;
 		
 		[name replaceOccurrencesOfString:removeFromFunction withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [name length])];
 		
-		NSDictionary *dictionary = [[NSDictionary alloc] initWithObjects:[NSArray arrayWithObjects:[NSNumber numberWithInteger:lineNumber], name, nil] forKeys:keys];
+		NSDictionary *dictionary = [[NSDictionary alloc] initWithObjects:@[@(lineNumber), name] forKeys:keys];
 		
 		[returnArray addObject:dictionary];
 	}
@@ -746,13 +686,13 @@ static id sharedInstance = nil;
 
 - (void)changeViewWithAnimationForWindow:(NSWindow *)window oldView:(NSView *)oldView newView:(NSView *)newView newRect:(NSRect)newRect
 {	
-    NSDictionary *windowResize = [NSDictionary dictionaryWithObjectsAndKeys:window, NSViewAnimationTargetKey, [NSValue valueWithRect:newRect], NSViewAnimationEndFrameKey, nil];
+    NSDictionary *windowResize = @{NSViewAnimationTargetKey: window, NSViewAnimationEndFrameKey: [NSValue valueWithRect:newRect]};
 	
-    NSDictionary *oldFadeOut = [NSDictionary dictionaryWithObjectsAndKeys:oldView, NSViewAnimationTargetKey, NSViewAnimationFadeOutEffect,	NSViewAnimationEffectKey, nil];
+    NSDictionary *oldFadeOut = @{NSViewAnimationTargetKey: oldView, NSViewAnimationEffectKey: NSViewAnimationFadeOutEffect};
 	
-    NSDictionary *newFadeIn = [NSDictionary dictionaryWithObjectsAndKeys:newView, NSViewAnimationTargetKey, NSViewAnimationFadeInEffect, NSViewAnimationEffectKey, nil];
+    NSDictionary *newFadeIn = @{NSViewAnimationTargetKey: newView, NSViewAnimationEffectKey: NSViewAnimationFadeInEffect};
 	
-    NSArray *animations = [NSArray arrayWithObjects:windowResize, newFadeIn, oldFadeOut, nil];
+    NSArray *animations = @[windowResize, newFadeIn, oldFadeOut];
 	
     NSViewAnimation *animation = [[NSViewAnimation alloc] initWithViewAnimations:animations];
     [animation setAnimationBlockingMode:NSAnimationNonblocking];

@@ -1,18 +1,18 @@
 /*
-Fraise version 3.7 - Based on Smultron by Peter Borg
-Written by Jean-François Moy - jeanfrancois.moy@gmail.com
-Find the latest version at http://github.com/jfmoy/Fraise
+ Fraise version 3.7 - Based on Smultron by Peter Borg
+ 
+ Current Maintainer (since 2016): 
+ Andreas Bentele: abentele.github@icloud.com (https://github.com/abentele/Fraise)
+ 
+ Maintainer before macOS Sierra (2010-2016): 
+ Jean-François Moy: jeanfrancois.moy@gmail.com (http://github.com/jfmoy/Fraise)
 
-Copyright 2010 Jean-François Moy
+ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ http://www.apache.org/licenses/LICENSE-2.0
  
-http://www.apache.org/licenses/LICENSE-2.0
- 
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
-*/
-
-#import "FRAStandardHeader.h"
+ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ */
 
 #import "FRABasicPerformer.h"
 #import "FRAApplicationDelegate.h"
@@ -66,7 +66,7 @@ static id sharedInstance = nil;
 	request = [[NSFetchRequest alloc] init];
 	[request setEntity:entityDescription];
 	sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
-	[request setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+	[request setSortDescriptors:@[sortDescriptor]];
 	[fetchRequests setValue:request forKey:@"CommandCollectionSortKeyName"];
 	
 	entityDescription = [NSEntityDescription entityForName:@"Document" inManagedObjectContext:managedObjectContext];
@@ -78,7 +78,7 @@ static id sharedInstance = nil;
 	request = [[NSFetchRequest alloc] init];
 	[request setEntity:entityDescription];
 	sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
-	[request setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+	[request setSortDescriptors:@[sortDescriptor]];
 	[fetchRequests setValue:request forKey:@"DocumentSortKeyName"];	
 	
 	entityDescription = [NSEntityDescription entityForName:@"Encoding" inManagedObjectContext:managedObjectContext];
@@ -90,7 +90,7 @@ static id sharedInstance = nil;
 	request = [[NSFetchRequest alloc] init];
 	[request setEntity:entityDescription];
 	sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
-	[request setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+	[request setSortDescriptors:@[sortDescriptor]];
 	[fetchRequests setValue:request forKey:@"EncodingSortKeyName"];
 
 	entityDescription = [NSEntityDescription entityForName:@"Project" inManagedObjectContext:managedObjectContext];
@@ -112,7 +112,7 @@ static id sharedInstance = nil;
 	request = [[NSFetchRequest alloc] init];
 	[request setEntity:entityDescription];
 	sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
-	[request setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+	[request setSortDescriptors:@[sortDescriptor]];
 	[fetchRequests setValue:request forKey:@"SnippetCollectionSortKeyName"];
 	
 	entityDescription = [NSEntityDescription entityForName:@"SyntaxDefinition" inManagedObjectContext:managedObjectContext];
@@ -124,7 +124,7 @@ static id sharedInstance = nil;
 	request = [[NSFetchRequest alloc] init];
 	[request setEntity:entityDescription];
 	sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"sortOrder" ascending:YES];
-	[request setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+	[request setSortDescriptors:@[sortDescriptor]];
 	[fetchRequests setValue:request forKey:@"SyntaxDefinitionSortKeySortOrder"];
 }
 
@@ -192,10 +192,8 @@ static id sharedInstance = nil;
 {
     CFUUIDRef uuid = CFUUIDCreate(NULL);
     CFStringRef uuidString = CFUUIDCreateString(NULL, uuid);
-    NSMakeCollectable(uuid);
-	NSMakeCollectable(uuidString);
 
-    return (NSString *)uuidString;
+    return (__bridge NSString *)uuidString;
 }
 
 
@@ -204,7 +202,7 @@ static id sharedInstance = nil;
 	NSArray *array = [arrayController arrangedObjects];
 	NSInteger index = 0;
 	for (id item in array) {
-		[item setValue:[NSNumber numberWithInteger:index] forKey:@"sortOrder"];
+		[item setValue:@(index) forKey:@"sortOrder"];
 		index++;
 	}
 }
@@ -216,7 +214,7 @@ static id sharedInstance = nil;
 	NSString *temporaryPath;
 	do {
 		sequenceNumber++;
-		temporaryPath = [NSString stringWithFormat:@"%ld-%ld-%ld.%@", [[NSProcessInfo processInfo] processIdentifier], (NSInteger)[NSDate timeIntervalSinceReferenceDate], sequenceNumber, @"Fraise"];
+		temporaryPath = [NSString stringWithFormat:@"%d-%ld-%ld.%@", [[NSProcessInfo processInfo] processIdentifier], (NSInteger)[NSDate timeIntervalSinceReferenceDate], sequenceNumber, @"Fraise"];
 		temporaryPath = [NSTemporaryDirectory() stringByAppendingPathComponent:temporaryPath];
 	} while ([[NSFileManager defaultManager] fileExistsAtPath:temporaryPath]);
 	
@@ -232,30 +230,11 @@ static id sharedInstance = nil;
 
 - (NSString *)resolveAliasInPath:(NSString *)path
 {
-	NSString *resolvedPath = nil;
-	CFURLRef url = CFURLCreateWithFileSystemPath(NULL, (CFStringRef)path, kCFURLPOSIXPathStyle, NO);
-	NSMakeCollectable(url);
-	
-	if (url != NULL) {
-		FSRef fsRef;
-		if (CFURLGetFSRef(url, &fsRef)) {
-			Boolean targetIsFolder, wasAliased;
-			if (FSResolveAliasFile (&fsRef, true, &targetIsFolder, &wasAliased) == noErr && wasAliased) {
-				CFURLRef resolvedURL = CFURLCreateFromFSRef(NULL, &fsRef);
-				NSMakeCollectable(resolvedURL);
-				if (resolvedURL != NULL) {
-					resolvedPath = (NSString*)CFURLCopyFileSystemPath(resolvedURL, kCFURLPOSIXPathStyle);
-					NSMakeCollectable(resolvedPath);
-				}
-			}
-		}
-	}
-	
-	if (resolvedPath==nil) {
-		return path;
-	}
-	
-	return resolvedPath;
+    NSError *error;
+    NSURL *url = [NSURL URLByResolvingAliasFileAtURL:[NSURL fileURLWithPath:path] options:NSURLBookmarkResolutionWithoutUI error:&error];
+    
+    NSString *resolvedPath = [url path];
+    return resolvedPath;
 }
 
 @end

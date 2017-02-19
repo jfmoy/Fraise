@@ -9,8 +9,8 @@
 #import "PSMTabDragAssistant.h"
 #import "PSMTabBarCell.h"
 #import "PSMTabStyle.h"
-
-#import "FRAStandardHeader.h"
+#import "PSMRolloverButton.h"
+#import "PSMOverflowPopUpButton.h"
 #import "FRAProjectsController.h"
 #import "FRAProject.h"
 #import "FRAProject+DocumentViewsController.h"
@@ -140,7 +140,7 @@ static PSMTabDragAssistant *sharedDragAssistant = nil;
     for(i = 0; i < kPSMTabDragAnimationSteps; i++){
         NSInteger thisWidth;
         thisWidth = (NSInteger)(cellWidth - ((cellWidth/2.0) + ((sin((PI/2.0) + ((CGFloat)i/(CGFloat)kPSMTabDragAnimationSteps)*PI) * cellWidth) / 2.0)));
-        [_sineCurveWidths addObject:[NSNumber numberWithInteger:thisWidth]];
+        [_sineCurveWidths addObject:@(thisWidth)];
     }
     
     // hide UI buttons
@@ -159,8 +159,8 @@ static PSMTabDragAssistant *sharedDragAssistant = nil;
     }
     [cell setHighlighted:NO];
     NSSize offset = NSZeroSize;
-    [pboard declareTypes:[NSArray arrayWithObjects:@"PSMTabBarControlItemPBType", nil] owner: nil];
-    [pboard setString:[[NSNumber numberWithInteger:[[control cells] indexOfObject:cell]] stringValue] forType:@"PSMTabBarControlItemPBType"];
+    [pboard declareTypes:@[@"PSMTabBarControlItemPBType"] owner: nil];
+    [pboard setString:[ @([[control cells] indexOfObject:cell]) stringValue] forType:@"PSMTabBarControlItemPBType"];
     _animationTimer = [NSTimer scheduledTimerWithTimeInterval:(1.0/30.0) target:self selector:@selector(animateDrag:) userInfo:nil repeats:YES];
     [control dragImage:dragImage at:cellFrame.origin offset:offset event:event pasteboard:pboard source:control slideBack:YES];
 }
@@ -172,7 +172,7 @@ static PSMTabDragAssistant *sharedDragAssistant = nil;
     // hide UI buttons
     [[control overflowPopUpButton] setHidden:YES];
     [[control addTabButton] setHidden:YES];
-    if(![[[control cells] objectAtIndex:0] isPlaceholder])
+    if(![[control cells][0] isPlaceholder])
         [self distributePlaceholdersInTabBar:control];
     [_participatingTabBars addObject:control];
 }
@@ -194,7 +194,7 @@ static PSMTabDragAssistant *sharedDragAssistant = nil;
 - (void)performDragOperation
 {
     // move cell
-    [[[self destinationTabBar] cells] replaceObjectAtIndex:[[[self destinationTabBar] cells] indexOfObject:[self targetCell]] withObject:[self draggedCell]];
+    [[self destinationTabBar] cells][[[[self destinationTabBar] cells] indexOfObject:[self targetCell]]] = [self draggedCell];
     [[self draggedCell] setControlView:[self destinationTabBar]];
     // move actual NSTabViewItem
     if([self sourceTabBar] != [self destinationTabBar]){
@@ -210,13 +210,9 @@ static PSMTabDragAssistant *sharedDragAssistant = nil;
 		}
 		
 		if (destinationProject != nil) {
-			//NSArrayController *destinationArrayController = [destinationProject documentsArrayController];
-			
 			id document = [[[self draggedCell] representedObject] identifier];
 			[(NSMutableSet *)[destinationProject documents] addObject:document];
 			[destinationProject updateDocumentOrderFromCells:[[self destinationTabBar] cells]];
-			//[document setValue:[NSNumber numberWithInteger:row] forKey:@"sortOrder"];
-			//[destinationProject documentsListHasUpdated];
 			[destinationProject selectDocument:document];
 		}
 		
@@ -230,9 +226,7 @@ static PSMTabDragAssistant *sharedDragAssistant = nil;
 		}
 		
 		if (sourceProject != nil) {
-			//NSArrayController *destinationArrayController = [sourceProject documentsArrayController];
-			[sourceProject selectionDidChange];//updateDocumentOrderFromCells:[[self sourceTabBar] cells]];
-			//[sourceProject documentsListHasUpdated];
+			[sourceProject selectionDidChange];
 		}
 		
     } else {
@@ -280,7 +274,7 @@ static PSMTabDragAssistant *sharedDragAssistant = nil;
 	NSArray *array = [NSArray arrayWithArray:[_participatingTabBars allObjects]];
     for(tabBar in array){
         [self calculateDragAnimationForTabBar:tabBar];
-        [[NSRunLoop currentRunLoop] performSelector:@selector(display) target:tabBar argument:nil order:1 modes:[NSArray arrayWithObjects:@"NSEventTrackingRunLoopMode", @"NSDefaultRunLoopMode", nil]];
+        [[NSRunLoop currentRunLoop] performSelector:@selector(display) target:tabBar argument:nil order:1 modes:@[@"NSEventTrackingRunLoopMode", @"NSDefaultRunLoopMode"]];
     }
 }
 
@@ -296,7 +290,7 @@ static PSMTabDragAssistant *sharedDragAssistant = nil;
     if([self destinationTabBar] == control){
         removeFlag = NO;
         if(mouseLoc.x < [[control style] leftMarginForTabBarControl]){
-            [self setTargetCell:[cells objectAtIndex:0]];
+            [self setTargetCell:cells[0]];
             goto layout;
         }
         
@@ -312,11 +306,11 @@ static PSMTabDragAssistant *sharedDragAssistant = nil;
             // non-placeholders
             if(mouseLoc.x < (overCellRect.origin.x + (overCellRect.size.width / 2.0))){
                 // mouse on left side of cell
-                [self setTargetCell:[cells objectAtIndex:([cells indexOfObject:overCell] - 1)]];
+                [self setTargetCell:cells[([cells indexOfObject:overCell] - 1)]];
                 goto layout;
             } else {
                 // mouse on right side of cell
-                [self setTargetCell:[cells objectAtIndex:([cells indexOfObject:overCell] + 1)]];
+                [self setTargetCell:cells[([cells indexOfObject:overCell] + 1)]];
                 goto layout;
             }
         } else {
@@ -341,7 +335,7 @@ layout:
                         removeFlag = NO;
                     }
                 }
-                newRect.size.width = [[_sineCurveWidths objectAtIndex:[cell currentStep]] integerValue];
+                newRect.size.width = [_sineCurveWidths[[cell currentStep]] integerValue];
             }
         } else {
             break;
@@ -368,7 +362,7 @@ layout:
     // replace dragged cell with a placeholder, and clean up surrounding cells
     NSInteger cellIndex = [[control cells] indexOfObject:cell];
     PSMTabBarCell *pc = [[PSMTabBarCell alloc] initPlaceholderWithFrame:[[self draggedCell] frame] expanded:YES inControlView:control];
-    [[control cells] replaceObjectAtIndex:cellIndex withObject:pc];
+    [control cells][cellIndex] = pc;
     [[control cells] removeObjectAtIndex:(cellIndex + 1)];
     [[control cells] removeObjectAtIndex:(cellIndex - 1)];
     return;
@@ -395,13 +389,13 @@ layout:
 {
     NSInteger i, cellCount = [[control cells] count];
     for(i = (cellCount - 1); i >= 0; i--){
-        PSMTabBarCell *cell = [[control cells] objectAtIndex:i];
+        PSMTabBarCell *cell = [control cells][i];
         if([cell isPlaceholder])
             [[control cells] removeObject:cell];
     }
     // redraw
-    [[NSRunLoop currentRunLoop] performSelector:@selector(update) target:control argument:nil order:1 modes:[NSArray arrayWithObjects:@"NSEventTrackingRunLoopMode", @"NSDefaultRunLoopMode", nil]];
-    [[NSRunLoop currentRunLoop] performSelector:@selector(display) target:control argument:nil order:1 modes:[NSArray arrayWithObjects:@"NSEventTrackingRunLoopMode", @"NSDefaultRunLoopMode", nil]];
+    [[NSRunLoop currentRunLoop] performSelector:@selector(update) target:control argument:nil order:1 modes:@[@"NSEventTrackingRunLoopMode", @"NSDefaultRunLoopMode"]];
+    [[NSRunLoop currentRunLoop] performSelector:@selector(display) target:control argument:nil order:1 modes:@[@"NSEventTrackingRunLoopMode", @"NSDefaultRunLoopMode"]];
 }
 
 

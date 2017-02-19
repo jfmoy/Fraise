@@ -1,18 +1,19 @@
 /*
-Fraise version 3.7 - Based on Smultron by Peter Borg
-Written by Jean-François Moy - jeanfrancois.moy@gmail.com
-Find the latest version at http://github.com/jfmoy/Fraise
+ Fraise version 3.7 - Based on Smultron by Peter Borg
+ 
+ Current Maintainer (since 2016): 
+ Andreas Bentele: abentele.github@icloud.com (https://github.com/abentele/Fraise)
+ 
+ Maintainer before macOS Sierra (2010-2016): 
+ Jean-François Moy: jeanfrancois.moy@gmail.com (http://github.com/jfmoy/Fraise)
 
-Copyright 2010 Jean-François Moy
+ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ http://www.apache.org/licenses/LICENSE-2.0
  
-http://www.apache.org/licenses/LICENSE-2.0
- 
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
-*/
+ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ */
 
-#import "FRAStandardHeader.h"
 
 #import "FRAApplicationDelegate.h"
 #import "FRAOpenSavePerformer.h"
@@ -61,7 +62,7 @@ static id sharedInstance = nil;
 - (NSString *)applicationSupportFolder
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
-    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : NSTemporaryDirectory();
+    NSString *basePath = ([paths count] > 0) ? paths[0] : NSTemporaryDirectory();
     return [basePath stringByAppendingPathComponent:@"Fraise"];
 }
 
@@ -113,7 +114,7 @@ static id sharedInstance = nil;
 
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
     if (coordinator != nil) {
-        managedObjectContext = [[NSManagedObjectContext alloc] init];
+        managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
         [managedObjectContext setPersistentStoreCoordinator: coordinator];
     }
     
@@ -205,8 +206,13 @@ static id sharedInstance = nil;
                 if (errorResult == YES) {
                     reply = NSTerminateCancel;
                 } else {
-                    NSInteger alertReturn = NSRunAlertPanel(nil, @"Could not save changes while quitting. Quit anyway?" , @"Quit anyway", @"Cancel", nil);
-                    if (alertReturn == NSAlertAlternateReturn) {
+                    NSAlert* alert = [[NSAlert alloc] init];
+                    [alert addButtonWithTitle:@"Quit anyway"];
+                    [alert addButtonWithTitle:@"Cancel"];
+                    [alert setInformativeText:@"Could not save changes while quitting. Quit anyway?"];
+                    [alert setAlertStyle:NSAlertStyleWarning];
+                    
+                    if ([alert runModal] == NSAlertSecondButtonReturn) {
                         reply = NSTerminateCancel;	
                     }
                 }
@@ -256,7 +262,7 @@ static id sharedInstance = nil;
 		NSArray *openDocument = [FRABasic fetchAll:@"Document"];
 		if ([openDocument count] != 0) {
 			if (FRACurrentProject != nil) {
-				[FRACurrentProject performCloseDocument:[openDocument objectAtIndex:0]];
+				[FRACurrentProject performCloseDocument:openDocument[0]];
 			}
 		}
 		[FRAManagedObjectContext processPendingChanges];
@@ -271,7 +277,7 @@ static id sharedInstance = nil;
 			if ([openDocument count] != 0) {
 				if (FRACurrentProject != nil) {
 					filesToOpenArray = [[NSMutableArray alloc] init]; // A hack so that -[FRAProject performCloseDocument:] won't close the window
-					[FRACurrentProject performCloseDocument:[openDocument objectAtIndex:0]];
+					[FRACurrentProject performCloseDocument:openDocument[0]];
 					filesToOpenArray = nil;
 				}
 			}
@@ -302,17 +308,21 @@ static id sharedInstance = nil;
 
 - (void)changeFont:(id)sender // When you change the font in the print panel
 {
-	NSFontManager *fontManager = [NSFontManager sharedFontManager];
-	NSFont *panelFont = [fontManager convertFont:[fontManager selectedFont]];
+    NSFont *oldFont = [NSUnarchiver unarchiveObjectWithData:[FRADefaults valueForKey:@"PrintFont"]];
+    NSFont *panelFont = [sender convertFont:oldFont];
 	[FRADefaults setValue:[NSArchiver archivedDataWithRootObject:panelFont] forKey:@"PrintFont"];
 }
 
 
 - (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender
 {
-	if ([[FRADefaults valueForKey:@"OpenAllProjectsIHadOpen"] boolValue] == YES && [[FRADefaults valueForKey:@"OpenProjects"] count] > 0 || [[[FRAProjectsController sharedDocumentController] documents] count] > 0) {
+	if (([[FRADefaults valueForKey:@"OpenAllProjectsIHadOpen"] boolValue] == YES
+        && [[FRADefaults valueForKey:@"OpenProjects"] count] > 0)
+        || [[[FRAProjectsController sharedDocumentController] documents] count] > 0)
+    {
 		return NO;
-	} else {
+	} else
+    {
 		return [[FRADefaults valueForKey:@"NewDocumentAtStartup"] boolValue];
 	}
 }
@@ -374,7 +384,7 @@ static id sharedInstance = nil;
 
 - (void)importFromVersion2
 {
-	[FRADefaults setValue:[NSNumber numberWithBool:YES] forKey:@"HasImportedFromVersion2"];
+	[FRADefaults setValue:@YES forKey:@"HasImportedFromVersion2"];
 	
 	@try {
 		NSManagedObjectModel *managedObjectModelVersion2 = [[NSManagedObjectModel alloc] initWithContentsOfURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"FRADataModel2" ofType:@"mom"]]];
@@ -391,7 +401,7 @@ static id sharedInstance = nil;
 			return;
 		}  
 		
-		NSManagedObjectContext *managedObjectContextVersion2 = [[NSManagedObjectContext alloc] init];
+		NSManagedObjectContext *managedObjectContextVersion2 = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
 		[managedObjectContextVersion2 setPersistentStoreCoordinator:persistentStoreCoordinatorVersion2];
 		
 		NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Command" inManagedObjectContext:managedObjectContextVersion2];
@@ -413,7 +423,7 @@ static id sharedInstance = nil;
 				[newCommand setValue:[command valueForKey:@"shortcutMenuItemKeyString"] forKey:@"shortcutMenuItemKeyString"];
 				[newCommand setValue:[command valueForKey:@"shortcutModifier"] forKey:@"shortcutModifier"];
 				[newCommand setValue:[command valueForKey:@"sortOrder"] forKey:@"sortOrder"];
-				[newCommand setValue:[NSNumber numberWithInteger:3] forKey:@"version"];
+				[newCommand setValue:@3 forKey:@"version"];
 				[[newCollection mutableSetValueForKey:@"commands"] addObject:newCommand];
 			}
 		}

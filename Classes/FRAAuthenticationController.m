@@ -1,18 +1,19 @@
 /*
-Fraise version 3.7 - Based on Smultron by Peter Borg
-Written by Jean-François Moy - jeanfrancois.moy@gmail.com
-Find the latest version at http://github.com/jfmoy/Fraise
+ Fraise version 3.7 - Based on Smultron by Peter Borg
+ 
+ Current Maintainer (since 2016): 
+ Andreas Bentele: abentele.github@icloud.com (https://github.com/abentele/Fraise)
+ 
+ Maintainer before macOS Sierra (2010-2016): 
+ Jean-François Moy: jeanfrancois.moy@gmail.com (http://github.com/jfmoy/Fraise)
 
-Copyright 2010 Jean-François Moy
+ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ http://www.apache.org/licenses/LICENSE-2.0
  
-http://www.apache.org/licenses/LICENSE-2.0
- 
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
-*/
+ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ */
 
-#import "FRAStandardHeader.h"
 
 #import "FRAAuthenticationController.h"
 #import "FRAVariousPerformer.h"
@@ -44,26 +45,6 @@ static id sharedInstance = nil;
 }
 
 
-- (void)authenticateOpenSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
-{
-	[sheet close];
-	[FRAVarious stopModalLoop];
-	if (returnCode == NSAlertDefaultReturn) {
-		[self performAuthenticatedOpenOfPath:[(NSArray *)contextInfo objectAtIndex:0] withEncoding:[[(NSArray *)contextInfo objectAtIndex:1] unsignedIntegerValue]];
-	}
-}
-
-
-- (void)authenticateSaveSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
-{
-	[sheet close];
-	[FRAVarious stopModalLoop];
-	if (returnCode == NSAlertDefaultReturn) {
-		[self performAuthenticatedSaveOfDocument:[(NSArray *)contextInfo objectAtIndex:0] data:[(NSArray *)contextInfo objectAtIndex:1] path:[(NSArray *)contextInfo objectAtIndex:2] fromSaveAs:[[(NSArray *)contextInfo objectAtIndex:3] boolValue] aCopy:[[(NSArray *)contextInfo objectAtIndex:4] boolValue]];
-	}
-}
-
-
 - (void)performAuthenticatedOpenOfPath:(NSString *)path withEncoding:(NSStringEncoding)encoding
 {
 	NSTask *task = [[NSTask alloc] init];
@@ -71,7 +52,7 @@ static id sharedInstance = nil;
     NSFileHandle *fileHandle = [pipe fileHandleForReading];
 	
     [task setLaunchPath:@"/usr/libexec/authopen"];
-    [task setArguments:[NSArray arrayWithObjects:path, nil]];
+    [task setArguments:@[path]];
     [task setStandardOutput:pipe];
 	
     [task launch];
@@ -92,20 +73,20 @@ static id sharedInstance = nil;
 
 - (void)performAuthenticatedSaveOfDocument:(id)document data:(NSData *)data path:(NSString *)path fromSaveAs:(BOOL)fromSaveAs aCopy:(BOOL)aCopy
 {
-	NSString *convertedPath = [NSString stringWithUTF8String:[path UTF8String]];
+	NSString *convertedPath = @([path UTF8String]);
 	NSTask *task = [[NSTask alloc] init];
     NSPipe *pipe = [[NSPipe alloc] init];
     NSFileHandle *writeHandle = [pipe fileHandleForWriting];
 	
     [task setLaunchPath:@"/usr/libexec/authopen"];
-	[task setArguments:[NSArray arrayWithObjects:@"-c", @"-w", convertedPath, nil]];
+	[task setArguments:@[@"-c", @"-w", convertedPath]];
     [task setStandardInput:pipe];
 	
 	[task launch];
 	[writeHandle writeData:data];
 	
 	close([writeHandle fileDescriptor]); // Close it manually
-	[writeHandle setValue:[NSNumber numberWithUnsignedShort:1] forKey:@"_flags"];
+	[writeHandle setValue: @1 forKey:@"_flags"];
 	
 	[task waitUntilExit];
 	
@@ -134,7 +115,7 @@ static id sharedInstance = nil;
     NSFileHandle *writeHandle = [pipe fileHandleForWriting];
 	
     [task setLaunchPath:@"/usr/libexec/authopen"];
-    [task setArguments:[NSArray arrayWithObjects:@"-c", @"-m", @"0755", @"-w", @"/usr/bin/fraise", nil]];
+    [task setArguments:@[@"-c", @"-m", @"0755", @"-w", @"/usr/bin/fraise"]];
     [task setStandardInput:pipe];
 	
 	[task launch];
@@ -145,7 +126,7 @@ static id sharedInstance = nil;
 		[writeHandle writeData:fraiseData];
 		
 		close([writeHandle fileDescriptor]); // Close it manually
-		[writeHandle setValue:[NSNumber numberWithUnsignedShort:1] forKey:@"_flags"];
+		[writeHandle setValue: @1 forKey:@"_flags"];
 	}
 	@catch (NSException *exception) {
 		status = 1;
@@ -163,14 +144,14 @@ static id sharedInstance = nil;
 		writeHandle = [pipe fileHandleForWriting];
 		
 		[task setLaunchPath:@"/usr/libexec/authopen"];
-		[task setArguments:[NSArray arrayWithObjects:@"-c", @"-w", @"/usr/share/man/man1/fraise.1", nil]];
+		[task setArguments:@[@"-c", @"-w", @"/usr/share/man/man1/fraise.1"]];
 		[task setStandardInput:pipe];
 		
 		[task launch];
 		[writeHandle writeData:fraiseManPageData];
 		
 		close([writeHandle fileDescriptor]); // Close it manually
-		[writeHandle setValue:[NSNumber numberWithUnsignedShort:1] forKey:@"_flags"];
+		[writeHandle setValue: @1 forKey:@"_flags"];
 		
 		[task waitUntilExit];
 		

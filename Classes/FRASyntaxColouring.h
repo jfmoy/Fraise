@@ -1,15 +1,17 @@
 /*
-Fraise version 3.7 - Based on Smultron by Peter Borg
-Written by Jean-François Moy - jeanfrancois.moy@gmail.com
-Find the latest version at http://github.com/jfmoy/Fraise
+ Fraise version 3.7 - Based on Smultron by Peter Borg
+ 
+ Current Maintainer (since 2016): 
+ Andreas Bentele: abentele.github@icloud.com (https://github.com/abentele/Fraise)
+ 
+ Maintainer before macOS Sierra (2010-2016): 
+ Jean-François Moy: jeanfrancois.moy@gmail.com (http://github.com/jfmoy/Fraise)
 
-Copyright 2010 Jean-François Moy
+ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ http://www.apache.org/licenses/LICENSE-2.0
  
-http://www.apache.org/licenses/LICENSE-2.0
- 
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 */
 
 #import <Cocoa/Cocoa.h>
@@ -22,7 +24,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 @interface FRASyntaxColouring : NSObject <NSTextStorageDelegate> {
 	
 	NSUndoManager *undoManager;
-	FRALayoutManager *firstLayoutManager, *secondLayoutManager, *thirdLayoutManager, *fourthLayoutManager;
+	FRALayoutManager *firstLayoutManager, *__unsafe_unretained secondLayoutManager, *__unsafe_unretained thirdLayoutManager, *__unsafe_unretained fourthLayoutManager;
 	
 	NSTimer *autocompleteWordsTimer;
 	NSInteger currentYOfSelectedCharacter, lastYOfSelectedCharacter, currentYOfLastCharacterInLine, lastYOfLastCharacterInLine, currentYOfLastCharacter, lastYOfLastCharacter, lastCursorLocation;
@@ -100,31 +102,16 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	NSRange lastLineHighlightRange;
 }
 
-//@property ICUPattern *firstStringPattern;
-//@property ICUPattern *secondStringPattern;
-//
-//@property ICUMatcher *firstStringMatcher;
-//@property ICUMatcher *secondStringMatcher;
-
-//@property NSSet *keywords;
-//@property NSSet *autocompleteWords;
-//@property NSArray *keywordsAndAutocompleteWords;
-//
-//@property BOOL keywordsCaseSensitive;
-//@property BOOL recolourKeywordIfAlreadyColoured;
 @property BOOL reactToChanges;
-
-//@property NSEnumerator *wordEnumerator;
 
 @property (copy) NSString *functionDefinition;
 @property (copy) NSString *removeFromFunction;
 
-@property (assign) FRALayoutManager *secondLayoutManager;
-@property (assign) FRALayoutManager *thirdLayoutManager;
-@property (assign) FRALayoutManager *fourthLayoutManager;
+@property (unsafe_unretained) FRALayoutManager *secondLayoutManager;
+@property (unsafe_unretained) FRALayoutManager *thirdLayoutManager;
+@property (unsafe_unretained) FRALayoutManager *fourthLayoutManager;
 
 @property (readonly) NSUndoManager *undoManager;
-//@property (readonly) NSDictionary *highlightColour;
 
 
 

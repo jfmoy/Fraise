@@ -1,15 +1,17 @@
 /*
-Fraise version 3.7 - Based on Smultron by Peter Borg
-Written by Jean-François Moy - jeanfrancois.moy@gmail.com
-Find the latest version at http://github.com/jfmoy/Fraise
+ Fraise version 3.7 - Based on Smultron by Peter Borg
+ 
+ Current Maintainer (since 2016): 
+ Andreas Bentele: abentele.github@icloud.com (https://github.com/abentele/Fraise)
+ 
+ Maintainer before macOS Sierra (2010-2016): 
+ Jean-François Moy: jeanfrancois.moy@gmail.com (http://github.com/jfmoy/Fraise)
 
-Copyright 2010 Jean-François Moy
+ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ http://www.apache.org/licenses/LICENSE-2.0
  
-http://www.apache.org/licenses/LICENSE-2.0
- 
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 */
 
 
@@ -24,28 +26,28 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 @interface FRAProject : NSDocument <NSTableViewDelegate,NSSplitViewDelegate,NSWindowDelegate,NSToolbarDelegate,NSMenuDelegate>
 {
-	NSManagedObject *project;
+	NSManagedObject *__unsafe_unretained project;
 	
-	IBOutlet NSTextField *statusBarTextField;
+	IBOutlet NSTextField *__unsafe_unretained statusBarTextField;
 	
-	IBOutlet NSView *firstContentView;
-	IBOutlet NSView *secondContentView;
+	IBOutlet NSView *__unsafe_unretained firstContentView;
+	IBOutlet NSView *__unsafe_unretained secondContentView;
 
-	IBOutlet NSView *secondContentViewNavigationBar;
-	IBOutlet NSPopUpButton *secondContentViewPopUpButton;
+	IBOutlet NSView *__unsafe_unretained secondContentViewNavigationBar;
+	IBOutlet NSPopUpButton *__unsafe_unretained secondContentViewPopUpButton;
 	
-	IBOutlet NSSplitView *mainSplitView;
-	IBOutlet NSSplitView *contentSplitView;
+	IBOutlet NSSplitView *__unsafe_unretained mainSplitView;
+	IBOutlet NSSplitView *__unsafe_unretained contentSplitView;
 	
-	IBOutlet NSView *leftDocumentsView;
+	IBOutlet NSView *__unsafe_unretained leftDocumentsView;
 	
-	IBOutlet PSMTabBarControl *tabBarControl;
-	IBOutlet NSTabView *tabBarTabView;
+	IBOutlet PSMTabBarControl *__unsafe_unretained tabBarControl;
+	IBOutlet NSTabView *__unsafe_unretained tabBarTabView;
 	
-	FRATextView *lastTextViewInFocus;
+	FRATextView *__unsafe_unretained lastTextViewInFocus;
 	
-	FRADocumentManagedObject *firstDocument;
-	FRADocumentManagedObject *secondDocument;
+	FRADocumentManagedObject *__unsafe_unretained firstDocument;
+	FRADocumentManagedObject *__unsafe_unretained secondDocument;
 	
 	BOOL shouldWindowClose;
 	
@@ -67,42 +69,41 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	
 	NSMenuItem *menuFormRepresentation;
 	
-	//NSImage *splitWindowImage, *closeSplitImage, *lineWrapImage, *dontLineWrapImage, *saveImage, *openDocumentImage, *newImage, *closeImage, *preferencesImage, *advancedFindImage, *previewImage, *functionImage, *infoImage;
 	NSImage *saveImage, *openDocumentImage, *newImage, *closeImage, *advancedFindImage, *previewImage, *functionImage, *infoImage;
 	
 	// FRADocumentViewsControllerCategory
 	IBOutlet NSView *viewSelectionView;
 	IBOutlet NSSlider *viewSelectionSizeSlider;
 	
-	IBOutlet NSView *leftDocumentsTableView;
-	IBOutlet NSTableView *documentsTableView;
-	IBOutlet NSArrayController *documentsArrayController;
+	IBOutlet NSView *__unsafe_unretained leftDocumentsTableView;
+	IBOutlet NSTableView *__unsafe_unretained documentsTableView;
+	IBOutlet NSArrayController *__unsafe_unretained documentsArrayController;
 	
 }
 
-@property (assign) FRATextView *lastTextViewInFocus;
+@property (nonatomic, unsafe_unretained) FRATextView *lastTextViewInFocus;
 
-@property (assign) FRADocumentManagedObject *firstDocument;
-@property (assign) FRADocumentManagedObject *secondDocument;
+@property (unsafe_unretained) FRADocumentManagedObject *firstDocument;
+@property (unsafe_unretained) FRADocumentManagedObject *secondDocument;
 
-@property (readonly) IBOutlet NSManagedObject *project;
-@property (readonly) IBOutlet NSArrayController *documentsArrayController;
-@property (readonly) IBOutlet NSTableView *documentsTableView;
-@property (readonly) IBOutlet NSView *firstContentView;
-@property (readonly) IBOutlet NSView *secondContentView;
-@property (readonly) IBOutlet NSTextField *statusBarTextField;
+@property (unsafe_unretained, readonly) IBOutlet NSManagedObject *project;
+@property (unsafe_unretained, readonly) IBOutlet NSArrayController *documentsArrayController;
+@property (unsafe_unretained, readonly) IBOutlet NSTableView *documentsTableView;
+@property (unsafe_unretained, readonly) IBOutlet NSView *firstContentView;
+@property (unsafe_unretained, readonly) IBOutlet NSView *secondContentView;
+@property (unsafe_unretained, readonly) IBOutlet NSTextField *statusBarTextField;
 
-@property (readonly) IBOutlet NSSplitView *mainSplitView;
-@property (readonly) IBOutlet NSSplitView *contentSplitView;
+@property (unsafe_unretained, readonly) IBOutlet NSSplitView *mainSplitView;
+@property (unsafe_unretained, readonly) IBOutlet NSSplitView *contentSplitView;
 
-@property (readonly) IBOutlet NSView *secondContentViewNavigationBar;
-@property (readonly) IBOutlet NSPopUpButton *secondContentViewPopUpButton;
+@property (unsafe_unretained, readonly) IBOutlet NSView *secondContentViewNavigationBar;
+@property (unsafe_unretained, readonly) IBOutlet NSPopUpButton *secondContentViewPopUpButton;
 
-@property (readonly) IBOutlet NSView *leftDocumentsView;
-@property (readonly) IBOutlet NSView *leftDocumentsTableView;
+@property (unsafe_unretained, readonly) IBOutlet NSView *leftDocumentsView;
+@property (unsafe_unretained, readonly) IBOutlet NSView *leftDocumentsTableView;
 
-@property (readonly) IBOutlet PSMTabBarControl *tabBarControl;
-@property (readonly) IBOutlet NSTabView *tabBarTabView;
+@property (unsafe_unretained, readonly) IBOutlet PSMTabBarControl *tabBarControl;
+@property (unsafe_unretained, readonly) IBOutlet NSTabView *tabBarTabView;
 
 
 - (void)setDefaultAppearanceAtStartup;

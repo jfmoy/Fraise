@@ -1,18 +1,19 @@
 /*
-Fraise version 3.7 - Based on Smultron by Peter Borg
-Written by Jean-François Moy - jeanfrancois.moy@gmail.com
-Find the latest version at http://github.com/jfmoy/Fraise
+ Fraise version 3.7 - Based on Smultron by Peter Borg
+ 
+ Current Maintainer (since 2016): 
+ Andreas Bentele: abentele.github@icloud.com (https://github.com/abentele/Fraise)
+ 
+ Maintainer before macOS Sierra (2010-2016): 
+ Jean-François Moy: jeanfrancois.moy@gmail.com (http://github.com/jfmoy/Fraise)
 
-Copyright 2010 Jean-François Moy
+ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ http://www.apache.org/licenses/LICENSE-2.0
  
-http://www.apache.org/licenses/LICENSE-2.0
- 
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
-*/
+ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ */
 
-#import "FRAStandardHeader.h"
 
 #import "FRAApplication.H"
 #import "FRAProjectsController.h"
@@ -22,7 +23,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 #import "FRATextMenuController.h"
 #import "FRAInterfacePerformer.h"
 #import "FRAMainController.h"
-#import "FRAFullScreenWindow.h"
 #import "FRASnippetsController.h"
 #import "FRAShortcutsController.h"
 #import "FRACommandsController.h"
@@ -43,10 +43,10 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (void)sendEvent:(NSEvent *)event
 {
-	if ([event type] == NSKeyDown) {
+	if ([event type] == NSEventTypeKeyDown) {
 		eventWindow = [event window];
 		if (eventWindow == FRACurrentWindow) {
-			flags = [event modifierFlags] & NSDeviceIndependentModifierFlagsMask;
+			flags = [event modifierFlags] & NSEventModifierFlagDeviceIndependentFlagsMask;
 			
 			if (flags == 1703936) { // Command, Option, Shift
 				keyCode = [event keyCode];
@@ -101,34 +101,10 @@ Unless required by applicable law or agreed to in writing, software distributed 
 				}
 			}
 			
-			
-		} else if (eventWindow == [FRAInterface fullScreenWindow]) {
-			if ([FRAMain isInFullScreenMode]) {
-				flags = [event modifierFlags] & NSDeviceIndependentModifierFlagsMask;
-				keyCode = [event keyCode];
-				if (keyCode == 0x35 && flags == 0) { // 35 is Escape,
-					[(FRAFullScreenWindow *)[FRAInterface fullScreenWindow] returnFromFullScreen];
-					return;
-				} else if (keyCode == 0x07 && flags == 1048576) { // 07 is X, 1048576 is Command
-					[(NSTextView *)[[FRAInterface fullScreenWindow] firstResponder] cut:nil];
-					return;
-				} else if (keyCode == 0x08 && flags == 1048576) { // 08 is C
-					[(NSTextView *)[[FRAInterface fullScreenWindow] firstResponder] copy:nil];
-					return;
-				} else if (keyCode == 0x09 && flags == 1048576) { // 09 is V
-					[(NSTextView *)[[FRAInterface fullScreenWindow] firstResponder] paste:nil];
-					return;
-				} else if (keyCode == 0x06 && flags == 1048576) { // 06 is Z
-					[[(NSTextView *)[[FRAInterface fullScreenWindow] firstResponder] undoManager] undo];
-					return;
-				}
-			}
-			
-			
 		} else if (eventWindow == [[FRASnippetsController sharedInstance] snippetsWindow]) {
 			NSInteger editedColumn = [[[FRASnippetsController sharedInstance] snippetsTableView] editedColumn];
 			if (editedColumn != -1) {
-				NSTableColumn *tableColumn = [[[[FRASnippetsController sharedInstance] snippetsTableView] tableColumns] objectAtIndex:editedColumn];
+				NSTableColumn *tableColumn = [[[FRASnippetsController sharedInstance] snippetsTableView] tableColumns][editedColumn];
 				
 				if ([[tableColumn identifier] isEqualToString:@"shortcut"]) {
 					key = [[event charactersIgnoringModifiers] characterAtIndex:0];
@@ -156,7 +132,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		} else if (eventWindow == [[FRACommandsController sharedInstance] commandsWindow]) {
 			NSInteger editedColumn = [[[FRACommandsController sharedInstance] commandsTableView] editedColumn];
 			if (editedColumn != -1) {
-				NSTableColumn *tableColumn = [[[[FRACommandsController sharedInstance] commandsTableView] tableColumns] objectAtIndex:editedColumn];
+				NSTableColumn *tableColumn = [[[FRACommandsController sharedInstance] commandsTableView] tableColumns][editedColumn];
 				
 				if ([[tableColumn identifier] isEqualToString:@"shortcut"]) {
 					key = [[event charactersIgnoringModifiers] characterAtIndex:0];
@@ -184,17 +160,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		}
 	}
 	[super sendEvent:event];
-}
-
-
-// See -[FRATextView complete:]
-- (NSEvent *)nextEventMatchingMask:(NSUInteger)eventMask untilDate:(NSDate *)expirationDate inMode:(NSString *)runLoopMode dequeue:(BOOL)dequeue
-{
-	if ([runLoopMode isEqualToString:NSEventTrackingRunLoopMode]) {
-		if ([FRACurrentTextView inCompleteMethod]) eventMask &= ~NSAppKitDefinedMask;
-	}
-	
-	return [super nextEventMatchingMask:eventMask untilDate:expirationDate inMode:runLoopMode dequeue:dequeue];
 }
 
 
@@ -243,7 +208,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (void)setSmartInsertDelete:(BOOL)flag
 {
-	[FRADefaults setValue:[NSNumber numberWithBool:flag] forKey:@"SmartInsertDelete"];
+	[FRADefaults setValue:@(flag) forKey:@"SmartInsertDelete"];
 }
 
 @end

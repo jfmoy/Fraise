@@ -1,18 +1,18 @@
 /*
-Fraise version 3.7 - Based on Smultron by Peter Borg
-Written by Jean-François Moy - jeanfrancois.moy@gmail.com
-Find the latest version at http://github.com/jfmoy/Fraise
+ Fraise version 3.7 - Based on Smultron by Peter Borg
+ 
+ Current Maintainer (since 2016): 
+ Andreas Bentele: abentele.github@icloud.com (https://github.com/abentele/Fraise)
+ 
+ Maintainer before macOS Sierra (2010-2016): 
+ Jean-François Moy: jeanfrancois.moy@gmail.com (http://github.com/jfmoy/Fraise)
 
-Copyright 2010 Jean-François Moy
+ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ http://www.apache.org/licenses/LICENSE-2.0
  
-http://www.apache.org/licenses/LICENSE-2.0
- 
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
-*/
-
-#import "FRAStandardHeader.h"
+ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ */
 
 #import "FRADocumentsMenuController.h"
 #import "FRAProjectsController.h"
@@ -51,9 +51,9 @@ static id sharedInstance = nil;
 {
 	NSInteger currentDocument = [[FRACurrentProject documentsArrayController] selectionIndex];
 	if (currentDocument + 2 > [[FRACurrentProject documents] count]) {
-		[[FRACurrentProject documentsArrayController] setSelectedObjects:[NSArray arrayWithObject:[[[FRACurrentProject documentsArrayController] arrangedObjects] objectAtIndex:0]]];
+		[[FRACurrentProject documentsArrayController] setSelectedObjects:@[[[FRACurrentProject documentsArrayController] arrangedObjects][0]]];
 	} else {
-		[[FRACurrentProject documentsArrayController] setSelectedObjects:[NSArray arrayWithObject:[[[FRACurrentProject documentsArrayController] arrangedObjects] objectAtIndex:(currentDocument + 1)]]];
+		[[FRACurrentProject documentsArrayController] setSelectedObjects:@[[[FRACurrentProject documentsArrayController] arrangedObjects][(currentDocument + 1)]]];
 	}
 }
 
@@ -62,9 +62,9 @@ static id sharedInstance = nil;
 {
 	NSInteger currentDocument = [[FRACurrentProject documentsArrayController] selectionIndex];
 	if (currentDocument == 0) {
-		[[FRACurrentProject documentsArrayController] setSelectedObjects:[NSArray arrayWithObject:[[[FRACurrentProject documentsArrayController] arrangedObjects] objectAtIndex:[[FRACurrentProject documents] count] - 1]]];
+		[[FRACurrentProject documentsArrayController] setSelectedObjects:@[[[FRACurrentProject documentsArrayController] arrangedObjects][[[FRACurrentProject documents] count] - 1]]];
 	} else {
-		[[FRACurrentProject documentsArrayController] setSelectedObjects:[NSArray arrayWithObject:[[[FRACurrentProject documentsArrayController] arrangedObjects] objectAtIndex:(currentDocument - 1)]]];
+		[[FRACurrentProject documentsArrayController] setSelectedObjects:@[[[FRACurrentProject documentsArrayController] arrangedObjects][(currentDocument - 1)]]];
 	}
 }
 
@@ -84,7 +84,7 @@ static id sharedInstance = nil;
 	NSInteger index = 1;
 	for (id document in array) {
 		if (index < 10) {
-			menuItem = [[NSMenuItem alloc] initWithTitle:[document valueForKey:@"name"] action:@selector(changeSelectedDocument:) keyEquivalent:[[NSNumber numberWithUnsignedShort:index] stringValue]];
+			menuItem = [[NSMenuItem alloc] initWithTitle:[document valueForKey:@"name"] action:@selector(changeSelectedDocument:) keyEquivalent:[ @(index) stringValue]];
 		} else if (index == 10) {
 			menuItem = [[NSMenuItem alloc] initWithTitle:[document valueForKey:@"name"] action:@selector(changeSelectedDocument:) keyEquivalent:@"0"];
 		} else {

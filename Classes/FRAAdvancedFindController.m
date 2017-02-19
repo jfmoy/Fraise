@@ -1,18 +1,19 @@
 /*
-Fraise version 3.7 - Based on Smultron by Peter Borg
-Written by Jean-François Moy - jeanfrancois.moy@gmail.com
-Find the latest version at http://github.com/jfileManageroy/Fraise
+ Fraise version 3.7 - Based on Smultron by Peter Borg
+ 
+ Current Maintainer (since 2016): 
+ Andreas Bentele: abentele.github@icloud.com (https://github.com/abentele/Fraise)
+ 
+ Maintainer before macOS Sierra (2010-2016): 
+ Jean-François Moy: jeanfrancois.moy@gmail.com (http://github.com/jfmoy/Fraise)
 
-Copyright 2010 Jean-François Moy
+ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ http://www.apache.org/licenses/LICENSE-2.0
  
-http://www.apache.org/licenses/LICENSE-2.0
- 
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
-*/
+ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ */
 
-#import "FRAStandardHeader.h"
 
 #import "FRAAdvancedFindController.h"
 
@@ -31,7 +32,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 @implementation FRAAdvancedFindController
 
-@synthesize currentlyDisplayedDocumentInAdvancedFind, advancedFindWindow, findResultsOutlineView;
+@synthesize advancedFindWindow, findResultsOutlineView;
 
 static id sharedInstance = nil;
 
@@ -81,7 +82,7 @@ static id sharedInstance = nil;
 	[findSearchField setRecentSearches:recentSearches];
 	
 	NSInteger searchStringLength = [searchString length];
-	if (!searchStringLength > 0 || FRACurrentDocument == nil || FRACurrentProject == nil) {
+	if (!(searchStringLength > 0) || FRACurrentDocument == nil || FRACurrentProject == nil) {
 		NSBeep();
 		return;
 	}
@@ -104,12 +105,12 @@ static id sharedInstance = nil;
 	for (id document in enumerator) {
 		node = [NSMutableDictionary dictionary];
 		if ([[FRADefaults valueForKey:@"ShowFullPathInWindowTitle"] boolValue] == YES) {
-			[node setValue:[document valueForKey:@"nameWithPath"] forKey:@"displayString"];
+			node[@"displayString"] = [document valueForKey:@"nameWithPath"];
 		} else {
-			[node setValue:[document valueForKey:@"name"] forKey:@"displayString"];
+			node[@"displayString"] = [document valueForKey:@"name"];
 		}
-		[node setValue:[NSNumber numberWithBool:NO] forKey:@"isLeaf"];
-		[node setValue:[FRABasic uriFromObject:document] forKey:@"document"];
+		node[@"isLeaf"] = @NO;
+		node[@"document"] = [FRABasic uriFromObject:document];
 		folderIndexPath = [[NSIndexPath alloc] initWithIndex:documentIndex];
 		[findResultsTreeController insertObject:node atArrangedObjectIndexPath:folderIndexPath];
 		
@@ -159,10 +160,10 @@ static id sharedInstance = nil;
 						}
 					}
 					
-					NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-					NSRange rangeMatch = NSMakeRange([matcher rangeOfMatch].location + searchRange.location, [matcher rangeOfMatch].length);
-					[findResultsTreeController insertObject:[self preparedResultDictionaryFromString:completeString searchStringLength:searchStringLength range:rangeMatch lineNumber:lineNumber document:document] atArrangedObjectIndexPath:[folderIndexPath indexPathByAddingIndex:resultsInThisDocument]];
-					[pool drain];
+					@autoreleasepool {
+						NSRange rangeMatch = NSMakeRange([matcher rangeOfMatch].location + searchRange.location, [matcher rangeOfMatch].length);
+						[findResultsTreeController insertObject:[self preparedResultDictionaryFromString:completeString searchStringLength:searchStringLength range:rangeMatch lineNumber:lineNumber document:document] atArrangedObjectIndexPath:[folderIndexPath indexPathByAddingIndex:resultsInThisDocument]];
+					}
 					
 					resultsInThisDocument++;
 				}
@@ -183,9 +184,9 @@ static id sharedInstance = nil;
 					index = NSMaxRange([completeString lineRangeForRange:NSMakeRange(index, 0)]);	
 				}
 			
-				NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-				[findResultsTreeController insertObject:[self preparedResultDictionaryFromString:completeString searchStringLength:searchStringLength range:foundRange lineNumber:lineNumber document:document] atArrangedObjectIndexPath:[folderIndexPath indexPathByAddingIndex:resultsInThisDocument]];
-				[pool drain];
+				@autoreleasepool {
+					[findResultsTreeController insertObject:[self preparedResultDictionaryFromString:completeString searchStringLength:searchStringLength range:foundRange lineNumber:lineNumber document:document] atArrangedObjectIndexPath:[folderIndexPath indexPathByAddingIndex:resultsInThisDocument]];
+				}
 				
 				resultsInThisDocument++;
 				startLocation = NSMaxRange(foundRange);
@@ -234,8 +235,6 @@ static id sharedInstance = nil;
 	}
 	
 	[findResultsOutlineView setDelegate:self];
-	
-	[[NSGarbageCollector defaultCollector] collectIfNeeded];
 }
 
 
@@ -272,7 +271,7 @@ static id sharedInstance = nil;
 	[replaceSearchField setRecentSearches:recentReplaces];
 	
 	NSInteger searchStringLength = [searchString length];
-	if (!searchStringLength > 0 || FRACurrentDocument == nil || FRACurrentProject == nil) {
+	if (!(searchStringLength > 0) || FRACurrentDocument == nil || FRACurrentProject == nil) {
 		NSBeep();
 		return;
 	}
@@ -396,26 +395,19 @@ static id sharedInstance = nil;
 			}
 			defaultButton = DELETE_BUTTON;
 		}
-
-		NSBeginAlertSheet(title,
-						  defaultButton,
-						  nil,
-						  NSLocalizedString(@"Cancel", @"Cancel-button"),
-						  advancedFindWindow,
-						  self,
-						  @selector(replaceSheetDidEnd:returnCode:contextInfo:),
-						  nil,
-						  (void *)numberOfResults,
-						  NSLocalizedString(@"Remember that you can always Undo any changes", @"Remember that you can always Undo any changes in ask-if-sure-you-want-to-replace-in-advanced-find-sheet"));
-	}
-}
-
-
-- (void)replaceSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
-{
-	[sheet close];
-    if (returnCode == NSAlertDefaultReturn) { // Replace
-		[self performNumberOfReplaces:(NSInteger)contextInfo];
+        
+        NSAlert* alert = [[NSAlert alloc] init];
+        [alert setMessageText:title];
+        [alert setInformativeText:NSLocalizedString(@"Remember that you can always Undo any changes", @"Remember that you can always Undo any changes in ask-if-sure-you-want-to-replace-in-advanced-find-sheet")];
+        [alert addButtonWithTitle:defaultButton];
+        [alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel-button")];
+        [alert setAlertStyle:NSAlertStyleWarning];
+        
+        [alert beginSheetModalForWindow:advancedFindWindow completionHandler:^(NSInteger result) {
+            if (result == NSAlertFirstButtonReturn) {
+                [self performNumberOfReplaces:numberOfResults];
+            }
+        }];
 	}
 }
 
@@ -484,7 +476,7 @@ static id sharedInstance = nil;
 			if ([textView shouldChangeTextInRange:NSMakeRange(0, [[textView string] length]) replacementString:completeString]) { // Do it this way to mark it as an Undo
 				[textView replaceCharactersInRange:NSMakeRange(0, [[textView string] length]) withString:completeString];
 				[textView didChangeText];
-				[document setValue:[NSNumber numberWithBool:YES] forKey:@"isEdited"];
+				[document setValue:@YES forKey:@"isEdited"];
 			}
 		}		
 		
@@ -500,7 +492,7 @@ static id sharedInstance = nil;
 	}
 	
 	[findResultsTreeController setContent:nil];
-	[findResultsTreeController setContent:[NSArray array]];
+	[findResultsTreeController setContent:@[]];
 	[self removeCurrentlyDisplayedDocumentInAdvancedFind];
 	[advancedFindWindow makeKeyAndOrderFront:self];
 }
@@ -509,11 +501,11 @@ static id sharedInstance = nil;
 - (void)showAdvancedFindWindow
 {
 	if (advancedFindWindow == nil) {
-		[NSBundle loadNibNamed:@"FRAAdvancedFind.nib" owner:self];
+		[[NSBundle mainBundle] loadNibNamed:@"FRAAdvancedFind" owner:self topLevelObjects:nil];
 	
 		[[findResultTextField cell] setBackgroundStyle:NSBackgroundStyleRaised];
 				
-		[findResultsOutlineView setBackgroundColor:[[NSColor controlAlternatingRowBackgroundColors] objectAtIndex:1]];
+		[findResultsOutlineView setBackgroundColor:[NSColor controlAlternatingRowBackgroundColors][1]];
 		
 		[findResultsOutlineView setSelectionHighlightStyle:NSTableViewSelectionHighlightStyleSourceList];
 		
@@ -530,7 +522,7 @@ static id sharedInstance = nil;
 		}
 		
 		[findResultsTreeController setContent:nil];
-		[findResultsTreeController setContent:[NSArray array]];
+		[findResultsTreeController setContent:@[]];
 	}
 	
 	[advancedFindWindow makeKeyAndOrderFront:self];
@@ -543,7 +535,7 @@ static id sharedInstance = nil;
 		return;
 	}
 	
-	id object = [[findResultsTreeController selectedObjects] objectAtIndex:0];
+	id object = [findResultsTreeController selectedObjects][0];
 	if ([[object valueForKey:@"isLeaf"] boolValue] == NO) {
 		return;
 	}
@@ -552,20 +544,19 @@ static id sharedInstance = nil;
 	
 	if (document == nil) {
 		NSString *title = [NSString stringWithFormat:NSLocalizedString(@"The document %@ is no longer open", @"Indicate that the document %@ is no longer open in Document-is-no-longer-opened-after-selection-in-advanced-find-sheet"), [document valueForKey:@"name"]];
-		NSBeginAlertSheet(title,
-						  OK_BUTTON,
-						  nil,
-						  nil,
-						  advancedFindWindow,
-						  self,
-						  nil,
-						  NULL,
-						  nil,
-						  @"");
+        
+        
+        NSAlert* alert = [[NSAlert alloc] init];
+        [alert setMessageText:title];
+        [alert addButtonWithTitle:OK_BUTTON];
+        [alert setAlertStyle:NSAlertStyleInformational];
+        [alert beginSheetModalForWindow:advancedFindWindow completionHandler:^(NSInteger result) {
+        }];
+        
 		return;
 	}
 	
-	currentlyDisplayedDocumentInAdvancedFind = document;
+	_currentlyDisplayedDocumentInAdvancedFind = document;
 	
 	if ([document valueForKey:@"fourthTextView"] == nil) {
 		[FRAInterface insertDocumentIntoFourthContentView:document];
@@ -579,7 +570,7 @@ static id sharedInstance = nil;
 
 	[[document valueForKey:@"lineNumbers"] updateLineNumbersForClipView:[[document valueForKey:@"fourthTextScrollView"] contentView] checkWidth:YES recolour:YES]; // If the window has changed since the view was last visible
 		
-	NSRange selectRange = NSRangeFromString([[[findResultsTreeController selectedObjects] objectAtIndex:0] valueForKey:@"range"]);
+	NSRange selectRange = NSRangeFromString([[findResultsTreeController selectedObjects][0] valueForKey:@"range"]);
 	NSString *completeString = [[document valueForKey:@"fourthTextView"] string];
 	if (NSMaxRange(selectRange) > [completeString length]) {
 		NSBeep();
@@ -612,7 +603,7 @@ static id sharedInstance = nil;
 	} else if (searchScope == FRAParentDirectoryScope){
 		enumerator = [self documentsInFolderEnumerator];
 	} else {
-		enumerator = [[NSArray arrayWithObject:FRACurrentDocument] objectEnumerator];
+		enumerator = [@[FRACurrentDocument] objectEnumerator];
 	}
 	
 	return enumerator;
@@ -661,17 +652,11 @@ static id sharedInstance = nil;
     {
 		// Log the failure and return an enumerator for the current document.
         NSLog(@"%@ must be directory and must exist.\n", parentDirectory);
-		enumerator = [[NSArray arrayWithObject:FRACurrentDocument] objectEnumerator];;
+		enumerator = [@[FRACurrentDocument] objectEnumerator];;
     }
 	
 	return enumerator;
 }
-
-- (id)currentlyDisplayedDocumentInAdvancedFind
-{
-    return currentlyDisplayedDocumentInAdvancedFind; 
-}
-
 
 - (void)removeCurrentlyDisplayedDocumentInAdvancedFind
 {
@@ -704,13 +689,13 @@ static id sharedInstance = nil;
 - (NSMutableDictionary *)preparedResultDictionaryFromString:(NSString *)completeString searchStringLength:(NSInteger)searchStringLength range:(NSRange)foundRange lineNumber:(NSInteger)lineNumber document:(id)document
 {
 	NSMutableString *displayString = [[NSMutableString alloc] init];
-	NSString *lineNumberString = [NSString stringWithFormat:@"%d\t", (long)lineNumber];
+	NSString *lineNumberString = [NSString stringWithFormat:@"%ld\t", (long)lineNumber];
 	[displayString appendString:lineNumberString];
 	NSRange linesRange = [completeString lineRangeForRange:foundRange];
 	[displayString appendString:[FRAText replaceAllNewLineCharactersWithSymbolInString:[completeString substringWithRange:linesRange]]];
 	
 	NSMutableDictionary *node = [NSMutableDictionary dictionary];
-	[node setValue:[NSNumber numberWithBool:YES] forKey:@"isLeaf"];
+	[node setValue:@YES forKey:@"isLeaf"];
 	[node setValue:NSStringFromRange(foundRange) forKey:@"range"];
 	[node setValue:[FRABasic uriFromObject:document] forKey:@"document"];
 	NSInteger fontSize;
@@ -719,7 +704,7 @@ static id sharedInstance = nil;
 	} else {
 		fontSize = 13;
 	}
-	NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:displayString attributes:[NSDictionary dictionaryWithObject:[NSFont systemFontOfSize:fontSize] forKey:NSFontAttributeName]];
+	NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:displayString attributes:@{NSFontAttributeName: [NSFont systemFontOfSize:fontSize]}];
 	NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
 	[style setLineBreakMode:NSLineBreakByTruncatingMiddle];
 	[attributedString addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, [displayString length])];
@@ -733,25 +718,18 @@ static id sharedInstance = nil;
 - (void)alertThatThisIsNotAValidRegularExpression:(NSString *)string
 {
 	NSString *title = [NSString stringWithFormat:NSLocalizedStringFromTable(@"%@ is not a valid regular expression", @"Localizable3", @"%@ is not a valid regular expression"), string];
-	NSBeginAlertSheet(title,
-					  OK_BUTTON,
-					  nil,
-					  nil,
-					  advancedFindWindow,
-					  self,
-					  @selector(notAValidRegularExpressionSheetDidEnd:returnCode:contextInfo:),
-					  nil,
-					  nil,
-					  @"");
-}
+    
+    NSAlert* alert = [[NSAlert alloc] init];
+    [alert setMessageText:title];
+    [alert addButtonWithTitle:OK_BUTTON];
+    [alert setAlertStyle:NSAlertStyleInformational];
+    
+    [alert beginSheetModalForWindow:advancedFindWindow completionHandler:^(NSInteger result) {
+        [findResultsTreeController setContent:nil];
+        [findResultsTreeController setContent:@[]];
+        [advancedFindWindow makeKeyAndOrderFront:nil];
+    }];
 
-
-- (void)notAValidRegularExpressionSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
-{
-	[sheet close];
-	[findResultsTreeController setContent:nil];
-	[findResultsTreeController setContent:[NSArray array]];
-	[advancedFindWindow makeKeyAndOrderFront:nil];
 }
 
 

@@ -235,7 +235,7 @@
     [nf setLocalizesFormat:YES];
     [nf setFormat:@"0"];
     [nf setHasThousandSeparators:YES];
-    NSString *contents = [nf stringFromNumber:[NSNumber numberWithInteger:[cell count]]];
+    NSString *contents = [nf stringFromNumber:@([cell count])];
     attrStr = [[NSMutableAttributedString alloc] initWithString:contents];
     NSRange range = NSMakeRange(0, [contents length]);
     
@@ -303,8 +303,6 @@
 		NSGradient *gradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedWhite:0.99 alpha:1.0] endingColor:[NSColor colorWithCalibratedWhite:0.941 alpha:1.0]];
 		[gradient drawInBezierPath:bezier angle:90];
 		
-		//[bezier linearGradientFillWithStartColor:[NSColor colorWithCalibratedWhite:0.99 alpha:1.0] endColor:[NSColor colorWithCalibratedWhite:0.941 alpha:1.0]];
-		
 		[lineColor set];
         [bezier stroke];
     }
@@ -323,7 +321,7 @@
         if ([cell isHighlighted])
 		{
             [[NSColor colorWithCalibratedWhite:0.0 alpha:0.1] set];
-            NSRectFillUsingOperation(aRect, NSCompositeSourceAtop);
+            NSRectFillUsingOperation(aRect, NSCompositingOperationSourceAtop);
         }
         
         // frame
@@ -376,11 +374,8 @@
         if ([cell closeButtonPressed]) closeButton = unifiedCloseButtonDown;
         
         closeButtonSize = [closeButton size];
-        if ([controlView isFlipped]) {
-            closeButtonRect.origin.y += closeButtonRect.size.height;
-        }
         
-        [closeButton compositeToPoint:closeButtonRect.origin operation:NSCompositeSourceOver fraction:1.0];
+        [closeButton drawAtPoint:closeButtonRect.origin fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1.0];
         
         // scoot label over
         labelPosition += closeButtonSize.width + kPSMTabBarCellPadding;
@@ -389,11 +384,11 @@
     // icon
     if([cell hasIcon]){
         NSRect iconRect = [self iconRectForTabCell:cell];
-        NSImage *icon = [[[[cell representedObject] identifier] content] icon];
+        NSImage *icon = [[(id)[[cell representedObject] identifier] content] icon];
         if ([controlView isFlipped]) {
             iconRect.origin.y = cellFrame.size.height - iconRect.origin.y;
         }
-        [icon compositeToPoint:iconRect.origin operation:NSCompositeSourceOver fraction:1.0];
+        [icon drawAtPoint:iconRect.origin fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1.0];
         
         // scoot label over
         labelPosition += iconRect.size.width + kPSMTabBarCellPadding;
@@ -448,7 +443,6 @@
 	NSGradient *gradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedWhite:0.918 alpha:1.0] endingColor:[NSColor colorWithCalibratedWhite:0.843 alpha:1.0]];
 	[gradient drawInBezierPath:path angle:90];
 	
-	//[path linearGradientFillWithStartColor:[NSColor colorWithCalibratedWhite:0.918 alpha:1.0] endColor:[NSColor colorWithCalibratedWhite:0.843 alpha:1.0]];
 	[[NSColor colorWithCalibratedWhite:0.576 alpha:1.0] set];
 	[NSBezierPath strokeLineFromPoint:NSMakePoint(rect.origin.x,NSMaxY(rect) - 1.0)
 							  toPoint:NSMakePoint(NSMaxX(rect),NSMaxY(rect) - 1.0)];
@@ -468,7 +462,7 @@
         NSMutableParagraphStyle *centeredParagraphStyle = nil;
         if (!centeredParagraphStyle) {
             centeredParagraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-            [centeredParagraphStyle setAlignment:NSCenterTextAlignment];
+            [centeredParagraphStyle setAlignment:NSTextAlignmentCenter];
         }
         [attrStr addAttribute:NSParagraphStyleAttributeName value:centeredParagraphStyle range:range];
         [attrStr drawInRect:labelRect];

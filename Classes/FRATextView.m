@@ -1,18 +1,18 @@
 /*
-Fraise version 3.7 - Based on Smultron by Peter Borg
-Written by Jean-François Moy - jeanfrancois.moy@gmail.com
-Find the latest version at http://github.com/jfmoy/Fraise
+ Fraise version 3.7 - Based on Smultron by Peter Borg
+ 
+ Current Maintainer (since 2016): 
+ Andreas Bentele: abentele.github@icloud.com (https://github.com/abentele/Fraise)
+ 
+ Maintainer before macOS Sierra (2010-2016): 
+ Jean-François Moy: jeanfrancois.moy@gmail.com (http://github.com/jfmoy/Fraise)
 
-Copyright 2010 Jean-François Moy
+ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ http://www.apache.org/licenses/LICENSE-2.0
  
-http://www.apache.org/licenses/LICENSE-2.0
- 
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 */
-
-#import "FRAStandardHeader.h"
 
 #import "FRATextView.h"
 #import "FRALayoutManager.h"
@@ -26,7 +26,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 @implementation FRATextView
 
-@synthesize colouredIBeamCursor, inCompleteMethod;
+@synthesize colouredIBeamCursor;
 
 - (id)initWithFrame:(NSRect)frame
 {
@@ -42,8 +42,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (void)setDefaults
 {
-	inCompleteMethod = NO;
-	
 	[self setTabWidth];
 	
 	[self setVerticallyResizable:YES];
@@ -91,27 +89,41 @@ Unless required by applicable law or agreed to in writing, software distributed 
 }
 
 
+- (void) dealloc
+{
+    NSUserDefaultsController *defaultsController = [NSUserDefaultsController sharedUserDefaultsController];
+    [defaultsController removeObserver:self forKeyPath:@"values.TextFont"];
+    [defaultsController removeObserver:self forKeyPath:@"values.TextColourWell"];
+    [defaultsController removeObserver:self forKeyPath:@"values.BackgroundColourWell"];
+    [defaultsController removeObserver:self forKeyPath:@"values.SmartInsertDelete"];
+    [defaultsController removeObserver:self forKeyPath:@"values.TabWidth"];
+    [defaultsController removeObserver:self forKeyPath:@"values.ShowPageGuide"];
+    [defaultsController removeObserver:self forKeyPath:@"values.ShowPageGuideAtColumn"];
+    [defaultsController removeObserver:self forKeyPath:@"values.SmartInsertDelete"];
+}
+
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	if ([(NSString *)context isEqualToString:@"TextFontChanged"]) {
+	if ([(__bridge NSString *)context isEqualToString:@"TextFontChanged"]) {
 		[self setFont:[NSUnarchiver unarchiveObjectWithData:[FRADefaults valueForKey:@"TextFont"]]];
 		lineHeight = [[[self textContainer] layoutManager] defaultLineHeightForFont:[NSUnarchiver unarchiveObjectWithData:[FRADefaults valueForKey:@"TextFont"]]];
 		[[FRACurrentDocument valueForKey:@"lineNumbers"] updateLineNumbersForClipView:[[self enclosingScrollView] contentView] checkWidth:NO recolour:YES];
 		[self setPageGuideValues];
-	} else if ([(NSString *)context isEqualToString:@"TextColourChanged"]) {
+	} else if ([(__bridge NSString *)context isEqualToString:@"TextColourChanged"]) {
 		[self setTextColor:[NSUnarchiver unarchiveObjectWithData:[FRADefaults valueForKey:@"TextColourWell"]]];
 		[self setInsertionPointColor:[NSUnarchiver unarchiveObjectWithData:[FRADefaults valueForKey:@"TextColourWell"]]];
 		[self setPageGuideValues];
 		[self updateIBeamCursor];
-	} else if ([(NSString *)context isEqualToString:@"BackgroundColourChanged"]) {
+	} else if ([(__bridge NSString *)context isEqualToString:@"BackgroundColourChanged"]) {
 		[self setBackgroundColor:[NSUnarchiver unarchiveObjectWithData:[FRADefaults valueForKey:@"BackgroundColourWell"]]];
-	} else if ([(NSString *)context isEqualToString:@"SmartInsertDeleteChanged"]) {
+	} else if ([(__bridge NSString *)context isEqualToString:@"SmartInsertDeleteChanged"]) {
 		[self setSmartInsertDeleteEnabled:[[FRADefaults valueForKey:@"SmartInsertDelete"] boolValue]];
-	} else if ([(NSString *)context isEqualToString:@"TabWidthChanged"]) {
+	} else if ([(__bridge NSString *)context isEqualToString:@"TabWidthChanged"]) {
 		[self setTabWidth];
-	} else if ([(NSString *)context isEqualToString:@"PageGuideChanged"]) {
+	} else if ([(__bridge NSString *)context isEqualToString:@"PageGuideChanged"]) {
 		[self setPageGuideValues];
-	} else if ([(NSString *)context isEqualToString:@"SmartInsertDeleteChanged"]) {
+	} else if ([(__bridge NSString *)context isEqualToString:@"SmartInsertDeleteChanged"]) {
 		[self setSmartInsertDeleteEnabled:[[FRADefaults valueForKey:@"SmartInsertDelete"] boolValue]];
 	} else {
 		[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -130,7 +142,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		NSScanner *previousLineScanner = [[NSScanner alloc] initWithString:[[self string] substringWithRange:[[self string] lineRangeForRange:NSMakeRange([self selectedRange].location - 1, 0)]]];
 		[previousLineScanner setCharactersToBeSkipped:nil];		
 		if ([previousLineScanner scanCharactersFromSet:[NSCharacterSet whitespaceCharacterSet] intoString:&previousLineWhitespaceString]) {
-			[self insertText:previousLineWhitespaceString];
+            [self insertText:previousLineWhitespaceString replacementRange:[self selectedRange]];
 		}
 		
 		if ([[FRADefaults valueForKey:@"AutomaticallyIndentBraces"] boolValue] == YES) {
@@ -362,7 +374,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 			[spacesString appendString:@" "];
 		}
 		
-		[self insertText:spacesString];
+		[self insertText:spacesString replacementRange:[self selectedRange]];
 	} else if ([self selectedRange].length > 0) { // If there's only one word matching in auto-complete there's no list but just the rest of the word inserted and selected; and if you do a normal tab then the text is removed so this will put the cursor at the end of that word
 		[self setSelectedRange:NSMakeRange(NSMaxRange([self selectedRange]), 0)];
 	} else {
@@ -373,7 +385,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (void)mouseDown:(NSEvent *)theEvent
 {
-	if (([theEvent modifierFlags] & NSAlternateKeyMask) && ([theEvent modifierFlags] & NSCommandKeyMask)) { // If the option and command keys are pressed, change the cursor to grab-cursor
+	if (([theEvent modifierFlags] & NSEventModifierFlagOption) && ([theEvent modifierFlags] & NSEventModifierFlagCommand)) { // If the option and command keys are pressed, change the cursor to grab-cursor
 		startPoint = [theEvent locationInWindow];
 		startOrigin = [[[self enclosingScrollView] contentView] documentVisibleRect].origin;
 		[[self enclosingScrollView] setDocumentCursor:[NSCursor openHandCursor]];
@@ -413,7 +425,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	while (numberOfSpaces--) {
 		[sizeString appendString:@" "];
 	}
-	NSDictionary *sizeAttribute = [[NSDictionary alloc] initWithObjectsAndKeys:[NSUnarchiver unarchiveObjectWithData:[FRADefaults valueForKey:@"TextFont"]], NSFontAttributeName, nil];
+	NSDictionary *sizeAttribute = @{NSFontAttributeName: [NSUnarchiver unarchiveObjectWithData:[FRADefaults valueForKey:@"TextFont"]]};
 	CGFloat sizeOfTab = [sizeString sizeWithAttributes:sizeAttribute].width;
 	
 	NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
@@ -423,7 +435,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		[style removeTabStop:item];
 	}
 	[style setDefaultTabInterval:sizeOfTab];
-	NSDictionary *attributes = [[NSDictionary alloc] initWithObjectsAndKeys:style, NSParagraphStyleAttributeName, nil];
+	NSDictionary *attributes = @{NSParagraphStyleAttributeName: style};
 	[self setTypingAttributes:attributes];
 }
 
@@ -444,8 +456,8 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (void)setPageGuideValues
 {
-	NSDictionary *sizeAttribute = [[NSDictionary alloc] initWithObjectsAndKeys:[NSUnarchiver unarchiveObjectWithData:[FRADefaults valueForKey:@"TextFont"]], NSFontAttributeName, nil];
-	NSString *sizeString = [NSString stringWithString:@" "];
+	NSDictionary *sizeAttribute = @{NSFontAttributeName: [NSUnarchiver unarchiveObjectWithData:[FRADefaults valueForKey:@"TextFont"]]};
+	NSString *sizeString = @" ";
 	CGFloat sizeOfCharacter = [sizeString sizeWithAttributes:sizeAttribute].width;
 	pageGuideX = (sizeOfCharacter * ([[FRADefaults valueForKey:@"ShowPageGuideAtColumn"] integerValue] + 1)) - 1.5; // -1.5 to put it between the two characters and draw only on one pixel and not two (as the system draws it in a special way), and that's also why the width above is set to zero 
 	
@@ -458,7 +470,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 }
 
 
-- (void)insertText:(NSString *)aString
+- (void)insertText:(id)aString replacementRange:(NSRange)replacementRange
 {
 	if ([aString isEqualToString:@"}"] && [[FRADefaults valueForKey:@"IndentNewLinesAutomatically"] boolValue] == YES && [[FRADefaults valueForKey:@"AutomaticallyIndentBraces"] boolValue] == YES) {
 		unichar characterToCheck;
@@ -472,7 +484,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 			if ([whitespaceCharacterSet characterIsMember:[completeString characterAtIndex:lineLocation]]) {
 				continue;
 			}
-			[super insertText:aString];
+            [super insertText:aString replacementRange:replacementRange];
 			return;
 		}
 		
@@ -526,10 +538,10 @@ Unless required by applicable law or agreed to in writing, software distributed 
 			}
 		}
 		if (hasInsertedBrace == NO) {
-			[super insertText:aString];
+			[super insertText:aString replacementRange:replacementRange];
 		}
 	} else if ([aString isEqualToString:@"("] && [[FRADefaults valueForKey:@"AutoInsertAClosingParenthesis"] boolValue] == YES) {
-		[super insertText:aString];
+		[super insertText:aString replacementRange:replacementRange];
 		NSRange selectedRange = [self selectedRange];
 		if ([self shouldChangeTextInRange:selectedRange replacementString:@")"]) {
 			[self replaceCharactersInRange:selectedRange withString:@")"];
@@ -537,7 +549,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 			[self setSelectedRange:NSMakeRange(selectedRange.location - 0, 0)];
 		}
 	} else if ([aString isEqualToString:@"{"] && [[FRADefaults valueForKey:@"AutoInsertAClosingBrace"] boolValue] == YES) {
-		[super insertText:aString];
+		[super insertText:aString replacementRange:replacementRange];
 		NSRange selectedRange = [self selectedRange];
 		if ([self shouldChangeTextInRange:selectedRange replacementString:@"}"]) {
 			[self replaceCharactersInRange:selectedRange withString:@"}"];
@@ -545,7 +557,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 			[self setSelectedRange:NSMakeRange(selectedRange.location - 0, 0)];
 		}
 	} else {
-		[super insertText:aString];
+		[super insertText:aString replacementRange:replacementRange];
 	}
 }
 
@@ -584,7 +596,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 			} else {
 				keyString = @"";
 			}
-			NSMenuItem *subMenuItem = [[NSMenuItem alloc] initWithTitle:[snippet valueForKey:@"name"] action:@selector(snippetShortcutFired:) keyEquivalent:@""];
+            NSMenuItem *subMenuItem = [[NSMenuItem alloc] initWithTitle:[snippet valueForKey:@"name"] action:@selector(snippetShortcutFired:) keyEquivalent:@""];
 			[subMenuItem setTarget:[FRAToolsMenuController sharedInstance]];			
 			[subMenuItem setRepresentedObject:snippet];
 			[subMenu insertItem:subMenuItem atIndex:0];
@@ -614,8 +626,8 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	} else {
 		NSImage *cursorImage = [[NSCursor IBeamCursor] image];
 		[cursorImage lockFocus];
-		[[NSUnarchiver unarchiveObjectWithData:[FRADefaults valueForKey:@"TextColourWell"]] set];
-		NSRectFillUsingOperation(NSMakeRect(0, 0, [cursorImage size].width, [cursorImage size].height), NSCompositeSourceAtop);
+		[(NSColor *)[NSUnarchiver unarchiveObjectWithData:[FRADefaults valueForKey:@"TextColourWell"]] set];
+		NSRectFillUsingOperation(NSMakeRect(0, 0, [cursorImage size].width, [cursorImage size].height), NSCompositingOperationSourceAtop);
 		[cursorImage unlockFocus];
 		[self setColouredIBeamCursor:[[NSCursor alloc] initWithImage:cursorImage hotSpot:[[NSCursor IBeamCursor] hotSpot]]];
 	}
@@ -641,13 +653,4 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	[super performFindPanelAction:sender];
 }
 
-
-
-// A workaround for Radar ID 5663445 (the complete menu disappears too soon)
-//- (void)complete:(id)sender
-//{
-//	inCompleteMethod = YES;
-//	[super complete:sender];
-//	inCompleteMethod = NO;
-//}
 @end

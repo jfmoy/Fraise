@@ -1,18 +1,18 @@
 /*
-Fraise version 3.7 - Based on Smultron by Peter Borg
-Written by Jean-François Moy - jeanfrancois.moy@gmail.com
-Find the latest version at http://github.com/jfmoy/Fraise
+ Fraise version 3.7 - Based on Smultron by Peter Borg
+ 
+ Current Maintainer (since 2016): 
+ Andreas Bentele: abentele.github@icloud.com (https://github.com/abentele/Fraise)
+ 
+ Maintainer before macOS Sierra (2010-2016): 
+ Jean-François Moy: jeanfrancois.moy@gmail.com (http://github.com/jfmoy/Fraise)
 
-Copyright 2010 Jean-François Moy
+ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ http://www.apache.org/licenses/LICENSE-2.0
  
-http://www.apache.org/licenses/LICENSE-2.0
- 
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
-*/
-
-#import "FRAStandardHeader.h"
+ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ */
 
 #import "NSToolbarItem+Fraise.h"
 #import "FRACommandsController.h"
@@ -25,6 +25,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 #import "FRAProjectsController.h"
 #import "FRAVariousPerformer.h"
 #import "FRAOpenSavePerformer.h"
+#import "FRATextView.h"
 
 @implementation FRACommandsController
 
@@ -34,16 +35,16 @@ static id sharedInstance = nil;
 
 
 + (FRACommandsController *)sharedInstance
-{ 
-	if (sharedInstance == nil) { 
+{
+	if (sharedInstance == nil) {
 		sharedInstance = [[self alloc] init];
 	}
 	
 	return sharedInstance;
-} 
+}
 
 
-- (id)init 
+- (id)init
 {
     if (sharedInstance == nil) {
         sharedInstance = [super init];
@@ -57,20 +58,20 @@ static id sharedInstance = nil;
 - (void)openCommandsWindow
 {
 	if (commandsWindow == nil) {
-		[NSBundle loadNibNamed:@"FRACommands.nib" owner:self];
+		[[NSBundle mainBundle] loadNibNamed:@"FRACommands" owner:self topLevelObjects:nil];
 		
 		[commandCollectionsTableView setDataSource:[FRADragAndDropController sharedInstance]];
 		[commandsTableView setDataSource:[FRADragAndDropController sharedInstance]];
 		
-		[commandCollectionsTableView registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType, @"FRAMovedCommandType", nil]];
+		[commandCollectionsTableView registerForDraggedTypes:@[NSFilenamesPboardType, @"FRAMovedCommandType"]];
 		[commandCollectionsTableView setDraggingSourceOperationMask:(NSDragOperationCopy) forLocal:NO];
 		
-		[commandsTableView registerForDraggedTypes:[NSArray arrayWithObjects:NSStringPboardType, nil]];
+		[commandsTableView registerForDraggedTypes:@[NSStringPboardType]];
 		[commandsTableView setDraggingSourceOperationMask:(NSDragOperationCopy) forLocal:NO];
 		
 		NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
-		[commandCollectionsArrayController setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
-		[commandsArrayController setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+		[commandCollectionsArrayController setSortDescriptors:@[sortDescriptor]];
+		[commandsArrayController setSortDescriptors:@[sortDescriptor]];
 		
 		FRADocumentsListCell *cell = [[FRADocumentsListCell alloc] init];
 		[cell setWraps:NO];
@@ -86,9 +87,6 @@ static id sharedInstance = nil;
 		[toolbar setSizeMode:NSToolbarSizeModeSmall];
 		[toolbar setDelegate:self];
 		[commandsWindow setToolbar:toolbar];
-		
-		//[commandCollectionsTableView setBackgroundColor:[[NSColor controlAlternatingRowBackgroundColors] objectAtIndex:1]];
-	
 	}
 	
 	[commandsWindow makeKeyAndOrderFront:self];
@@ -103,7 +101,7 @@ static id sharedInstance = nil;
 	id collection = [FRABasic createNewObjectForEntity:@"CommandCollection"];
 	
 	[FRAManagedObjectContext processPendingChanges];
-	[commandCollectionsArrayController setSelectedObjects:[NSArray arrayWithObject:collection]];
+	[commandCollectionsArrayController setSelectedObjects:@[collection]];
 	
 	[commandsWindow makeFirstResponder:commandCollectionsTableView];
 	[commandCollectionsTableView editColumn:0 row:[commandCollectionsTableView selectedRow] withEvent:nil select:NO];
@@ -136,16 +134,16 @@ static id sharedInstance = nil;
 		[collection setValue:COLLECTION_STRING forKey:@"name"];
 	} else {
 		if (commandsWindow != nil && [[commandCollectionsArrayController selectedObjects] count] != 0) {
-			collection = [[commandCollectionsArrayController selectedObjects] objectAtIndex:0];
+			collection = [commandCollectionsArrayController selectedObjects][0];
 		} else { // If no collection is selected choose the last one in the array
 			collection = [commandCollections lastObject];
 		}
-	}	 
+	}
 	
 	id item = [FRABasic createNewObjectForEntity:@"Command"];
 	[[collection mutableSetValueForKey:@"commands"] addObject:item];
 	[FRAManagedObjectContext processPendingChanges];
-	[commandsArrayController setSelectedObjects:[NSArray arrayWithObject:item]];
+	[commandsArrayController setSelectedObjects:@[item]];
 	
 	return item;
 }
@@ -153,7 +151,7 @@ static id sharedInstance = nil;
 
 - (void)performDeleteCollection
 {
-	id collection = [[commandCollectionsArrayController selectedObjects] objectAtIndex:0];
+	id collection = [commandCollectionsArrayController selectedObjects][0];
 	
 	[FRAManagedObjectContext deleteObject:collection];
 	
@@ -165,23 +163,17 @@ static id sharedInstance = nil;
 {
 	[self openCommandsWindow];
 	NSOpenPanel *openPanel = [NSOpenPanel openPanel];
-	[openPanel setResolvesAliases:YES];		
-	[openPanel beginSheetForDirectory:[FRAInterface whichDirectoryForOpen] 
-							file:nil 
-						   types:[NSArray arrayWithObject:@"fraiseCommands"] 
-				  modalForWindow:commandsWindow
-				   modalDelegate:self
-				  didEndSelector:@selector(openPanelDidEnd:returnCode:contextInfo:)
-					 contextInfo:nil];
-}
-
-
-- (void)openPanelDidEnd:(NSOpenPanel *)panel returnCode:(NSInteger)returnCode  contextInfo:(void  *)contextInfo
-{
-	if (returnCode == NSOKButton) {
-		[self performCommandsImportWithPath:[panel filename]];
-	}
-	[commandsWindow makeKeyAndOrderFront:nil];
+	[openPanel setResolvesAliases:YES];
+    [openPanel setDirectoryURL: [NSURL fileURLWithPath: [FRAInterface whichDirectoryForOpen]]];
+    [openPanel setAllowedFileTypes: @[@"fraiseCommands"]];
+    [openPanel beginSheetModalForWindow: commandsWindow
+                      completionHandler: (^(NSInteger returnCode)
+                                          {
+                                              if (returnCode == NSModalResponseOK) {
+                                                  [self performCommandsImportWithPath: [[openPanel URL] path]];
+                                              }
+                                              [commandsWindow makeKeyAndOrderFront:nil];
+                                          })];
 }
 
 
@@ -194,13 +186,13 @@ static id sharedInstance = nil;
 	}
 	
 	id collection = [FRABasic createNewObjectForEntity:@"CommandCollection"];
-	[collection setValue:[[commands objectAtIndex:0] valueForKey:@"collectionName"] forKey:@"name"];
+	[collection setValue:[commands[0] valueForKey:@"collectionName"] forKey:@"name"];
 	
 	id item;
 	for (item in commands) {
 		id command = [FRABasic createNewObjectForEntity:@"Command"];
 		[command setValue:[item valueForKey:@"name"] forKey:@"name"];
-		[command setValue:[item valueForKey:@"text"] forKey:@"text"];			
+		[command setValue:[item valueForKey:@"text"] forKey:@"text"];
 		[command setValue:[item valueForKey:@"collectionName"] forKey:@"collectionName"];
 		[command setValue:[item valueForKey:@"shortcutDisplayString"] forKey:@"shortcutDisplayString"];
 		[command setValue:[item valueForKey:@"shortcutMenuItemKeyString"] forKey:@"shortcutMenuItemKeyString"];
@@ -217,53 +209,50 @@ static id sharedInstance = nil;
 	
 	[FRAManagedObjectContext processPendingChanges];
 	
-	[commandCollectionsArrayController setSelectedObjects:[NSArray arrayWithObject:collection]];
+	[commandCollectionsArrayController setSelectedObjects:@[collection]];
 }
 
 
 - (void)exportCommands
 {
 	NSSavePanel *savePanel = [NSSavePanel savePanel];
-	[savePanel setRequiredFileType:@"fraiseCommands"];
-	[savePanel beginSheetForDirectory:[FRAInterface whichDirectoryForSave]				
-								 file:[[[commandCollectionsArrayController selectedObjects] objectAtIndex:0] valueForKey:@"name"]
-					   modalForWindow:commandsWindow
-						modalDelegate:self
-					   didEndSelector:@selector(exportCommandsPanelDidEnd:returnCode:contextInfo:)
-						  contextInfo:nil];
-	
+    [savePanel setAllowedFileTypes: @[@"fraiseCommands"]];
+    [savePanel setDirectoryURL: [NSURL fileURLWithPath: [FRAInterface whichDirectoryForSave]]];
+    [savePanel setNameFieldStringValue: [[commandCollectionsArrayController selectedObjects][0] valueForKey:@"name"]];
+    [savePanel beginSheetModalForWindow: commandsWindow
+                      completionHandler: (^(NSInteger returnCode)
+                                          {
+                                              if (returnCode == NSModalResponseOK)
+                                              {
+                                                  id collection = [commandCollectionsArrayController selectedObjects][0];
+                                                  
+                                                  NSMutableArray *exportArray = [NSMutableArray array];
+                                                  NSEnumerator *enumerator = [[collection mutableSetValueForKey:@"commands"] objectEnumerator];
+                                                  for (NSDictionary *item in enumerator)
+                                                  {
+                                                      NSMutableDictionary *command = [[NSMutableDictionary alloc] init];
+                                                      command[@"name"] = [item valueForKey:@"name"];
+                                                      command[@"text"] = [item valueForKey:@"text"];
+                                                      command[@"collectionName"] = [collection valueForKey:@"name"];
+                                                      command[@"shortcutDisplayString"] = [item valueForKey:@"shortcutDisplayString"];
+                                                      command[@"shortcutMenuItemKeyString"] = [item valueForKey:@"shortcutMenuItemKeyString"];
+                                                      command[@"shortcutModifier"] = [item valueForKey:@"shortcutModifier"];
+                                                      command[@"sortOrder"] = [item valueForKey:@"sortOrder"];
+                                                      command[@"version"] = @3;
+                                                      command[@"inline"] = [item valueForKey:@"inline"];
+                                                      command[@"interpreter"] = [item valueForKey:@"interpreter"];
+                                                      [exportArray addObject: command];
+                                                  }
+                                                  
+                                                  NSData *data = [NSKeyedArchiver archivedDataWithRootObject:exportArray];
+                                                  [FRAOpenSave performDataSaveWith: data
+                                                                              path: [[savePanel URL] path]];
+                                              }
+                                              
+                                              [commandsWindow makeKeyAndOrderFront:nil];
+
+                                          })];
 }
-
-
-- (void)exportCommandsPanelDidEnd:(NSSavePanel *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)context
-{
-	if (returnCode == NSOKButton) {
-		id collection = [[commandCollectionsArrayController selectedObjects] objectAtIndex:0];
-		
-		NSMutableArray *exportArray = [NSMutableArray array];
-		NSEnumerator *enumerator = [[collection mutableSetValueForKey:@"commands"] objectEnumerator];
-		for (id item in enumerator) {
-			NSMutableDictionary *command = [[NSMutableDictionary alloc] init];
-			[command setValue:[item valueForKey:@"name"] forKey:@"name"];
-			[command setValue:[item valueForKey:@"text"] forKey:@"text"];
-			[command setValue:[collection valueForKey:@"name"] forKey:@"collectionName"];
-			[command setValue:[item valueForKey:@"shortcutDisplayString"] forKey:@"shortcutDisplayString"];
-			[command setValue:[item valueForKey:@"shortcutMenuItemKeyString"] forKey:@"shortcutMenuItemKeyString"];
-			[command setValue:[item valueForKey:@"shortcutModifier"] forKey:@"shortcutModifier"];
-			[command setValue:[item valueForKey:@"sortOrder"] forKey:@"sortOrder"];
-			[command setValue:[NSNumber numberWithInteger:3] forKey:@"version"];
-			[command setValue:[item valueForKey:@"inline"] forKey:@"inline"];
-			[command setValue:[item valueForKey:@"interpreter"] forKey:@"interpreter"];
-			[exportArray addObject:command];
-		}
-		
-		NSData *data = [NSKeyedArchiver archivedDataWithRootObject:exportArray];
-		[FRAOpenSave performDataSaveWith:data path:[sheet filename]];
-	}
-	
-	[commandsWindow makeKeyAndOrderFront:nil];
-}
-
 
 - (void)windowWillClose:(NSNotification *)aNotification
 {
@@ -280,7 +269,7 @@ static id sharedInstance = nil;
 
 - (IBAction)runAction:(id)sender
 {
-	[self runCommand:[[commandsArrayController selectedObjects] objectAtIndex:0]];
+	[self runCommand:[commandsArrayController selectedObjects][0]];
 }
 
 
@@ -292,7 +281,7 @@ static id sharedInstance = nil;
 		return;
 	}
 	
-	[commandsTextView insertText:[document valueForKey:@"path"]];
+	[commandsTextView insertText:[document valueForKey:@"path"] replacementRange:[commandsTextView selectedRange]];
 }
 
 
@@ -304,7 +293,7 @@ static id sharedInstance = nil;
 		return;
 	}
 	
-	[commandsTextView insertText:[[document valueForKey:@"path"] stringByDeletingLastPathComponent]];
+	[commandsTextView insertText:[[document valueForKey:@"path"] stringByDeletingLastPathComponent] replacementRange:[commandsTextView selectedRange]];
 }
 
 
@@ -318,7 +307,7 @@ static id sharedInstance = nil;
 	} else {
 		NSString *path = [NSString stringWithFormat:@"\"%@\"", [document valueForKey:@"path"]]; // If there's a space in the path
 		NSString *directory;
-		if ([[FRADefaults valueForKey:@"PutQuotesAroundDirectory"] boolValue] == YES) { 
+		if ([[FRADefaults valueForKey:@"PutQuotesAroundDirectory"] boolValue] == YES) {
 			directory = [NSString stringWithFormat:@"\"%@\"", [[document valueForKey:@"path"] stringByDeletingLastPathComponent]];
 		} else {
 			directory = [NSString stringWithFormat:@"%@", [[document valueForKey:@"path"] stringByDeletingLastPathComponent]];
@@ -329,10 +318,10 @@ static id sharedInstance = nil;
 	
 	if ([FRACurrentTextView selectedRange].length > 0) {
 		[returnString replaceOccurrencesOfString:@"%%s" withString:[FRACurrentText substringWithRange:[FRACurrentTextView selectedRange]] options:NSLiteralSearch range:NSMakeRange(0, [returnString length])];
-	}	
+	}
 	
 	[returnString replaceOccurrencesOfString:@" ~" withString:[NSString stringWithFormat:@" %@", NSHomeDirectory()] options:NSLiteralSearch range:NSMakeRange(0, [returnString length])];
-
+    
 	return returnString;
 }
 
@@ -448,58 +437,56 @@ static id sharedInstance = nil;
 
 - (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar
 {
-    return [NSArray arrayWithObjects:@"NewCommandCollectionToolbarItem",
-		@"NewCommandToolbarItem",
-		@"FilterCommandsToolbarItem",
-		@"RunCommandToolbarItem",
-		NSToolbarFlexibleSpaceItemIdentifier,
-		nil];
+    return @[@"NewCommandCollectionToolbarItem",
+             @"NewCommandToolbarItem",
+             @"FilterCommandsToolbarItem",
+             @"RunCommandToolbarItem",
+             NSToolbarFlexibleSpaceItemIdentifier];
 }
 
 
-- (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar  
-{      
-	return [NSArray arrayWithObjects:@"NewCommandCollectionToolbarItem",
-		NSToolbarFlexibleSpaceItemIdentifier,
-		@"RunCommandToolbarItem",
-		NSToolbarFlexibleSpaceItemIdentifier,
-		@"FilterCommandsToolbarItem",
-		@"NewCommandToolbarItem",
-		nil];  
-} 
+- (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar
+{
+	return @[@"NewCommandCollectionToolbarItem",
+             NSToolbarFlexibleSpaceItemIdentifier,
+             @"RunCommandToolbarItem",
+             NSToolbarFlexibleSpaceItemIdentifier,
+             @"FilterCommandsToolbarItem",
+             @"NewCommandToolbarItem"];
+}
 
 
 - (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)willBeInserted
 {
     if ([itemIdentifier isEqualToString:@"NewCommandCollectionToolbarItem"]) {
-
+        
 		NSImage *newCommandCollectionImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRANewCollectionIcon" ofType:@"pdf" inDirectory:@"Toolbar Icons"]];
-		[[[newCommandCollectionImage representations] objectAtIndex:0] setAlpha:YES];
+		[[newCommandCollectionImage representations][0] setAlpha:YES];
 		
 		return [NSToolbarItem createToolbarItemWithIdentifier:itemIdentifier name:NEW_COLLECTION_STRING image:newCommandCollectionImage action:@selector(newCollectionAction:) tag:0 target:self];
 		
 		
 	} else if ([itemIdentifier isEqualToString:@"NewCommandToolbarItem"]) {
-
+        
 		NSImage *newCommandImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRANewIcon" ofType:@"pdf" inDirectory:@"Toolbar Icons"]];
-		[[[newCommandImage representations] objectAtIndex:0] setAlpha:YES];
+		[[newCommandImage representations][0] setAlpha:YES];
 		
 		return [NSToolbarItem createToolbarItemWithIdentifier:itemIdentifier name:NSLocalizedStringFromTable(@"New Command", @"Localizable3", @"New Command") image:newCommandImage action:@selector(newCommandAction:) tag:0 target:self];
-
+        
 		
 	} else if ([itemIdentifier isEqualToString:@"RunCommandToolbarItem"]) {
-
+        
 		NSImage *runCommandImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FRARunIcon" ofType:@"pdf" inDirectory:@"Toolbar Icons"]];
-		[[[runCommandImage representations] objectAtIndex:0] setAlpha:YES];
+		[[runCommandImage representations][0] setAlpha:YES];
 		
 		return [NSToolbarItem createToolbarItemWithIdentifier:itemIdentifier name:NSLocalizedStringFromTable(@"Run", @"Localizable3", @"Run") image:runCommandImage action:@selector(runAction:) tag:0 target:self];
-
+        
 		
 		
 	} else if ([itemIdentifier isEqualToString:@"FilterCommandsToolbarItem"]) {
 		
 		return [NSToolbarItem createSeachFieldToolbarItemWithIdentifier:itemIdentifier name:FILTER_STRING view:commandsFilterView];		
-				
+        
 	}
 	
 	return nil;

@@ -1,18 +1,18 @@
 /*
-Fraise version 3.7 - Based on Smultron by Peter Borg
-Written by Jean-François Moy - jeanfrancois.moy@gmail.com
-Find the latest version at http://github.com/jfmoy/Fraise
+ Fraise version 3.7 - Based on Smultron by Peter Borg
+ 
+ Current Maintainer (since 2016): 
+ Andreas Bentele: abentele.github@icloud.com (https://github.com/abentele/Fraise)
+ 
+ Maintainer before macOS Sierra (2010-2016): 
+ Jean-François Moy: jeanfrancois.moy@gmail.com (http://github.com/jfmoy/Fraise)
 
-Copyright 2010 Jean-François Moy
+ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ http://www.apache.org/licenses/LICENSE-2.0
  
-http://www.apache.org/licenses/LICENSE-2.0
- 
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
-*/
-
-#import "FRAStandardHeader.h"
+ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ */
 
 #import "FRAExtraInterfaceController.h"
 #import "FRATextMenuController.h"
@@ -52,20 +52,22 @@ static id sharedInstance = nil;
 - (void)displayEntab
 {
 	if (entabWindow == nil) {
-		[NSBundle loadNibNamed:@"FRAEntab.nib" owner:self];
+		[[NSBundle mainBundle] loadNibNamed:@"FRAEntab" owner:self topLevelObjects:nil];
 	}
 	
-	[NSApp beginSheet:entabWindow modalForWindow:FRACurrentWindow modalDelegate:self didEndSelector:nil contextInfo:nil];
+    [FRACurrentWindow beginSheet:entabWindow completionHandler:^(NSModalResponse returnCode) {
+    }];
 }
 
 
 - (void)displayDetab
 {
 	if (detabWindow == nil) {
-		[NSBundle loadNibNamed:@"FRADetab.nib" owner:self];
+		[[NSBundle mainBundle] loadNibNamed:@"FRADetab" owner:self topLevelObjects:nil];
 	}
 	
-	[NSApp beginSheet:detabWindow modalForWindow:FRACurrentWindow modalDelegate:self didEndSelector:nil contextInfo:nil];
+    [FRACurrentWindow beginSheet:detabWindow completionHandler:^(NSModalResponse returnCode) {
+    }];
 }
 
 
@@ -97,10 +99,11 @@ static id sharedInstance = nil;
 - (void)displayGoToLine
 {
 	if (goToLineWindow == nil) {
-		[NSBundle loadNibNamed:@"FRAGoToLine.nib" owner:self];
+		[[NSBundle mainBundle] loadNibNamed:@"FRAGoToLine" owner:self topLevelObjects:nil];
 	}
 	
-	[NSApp beginSheet:goToLineWindow modalForWindow:FRACurrentWindow modalDelegate:self didEndSelector:nil contextInfo:nil];
+    [FRACurrentWindow beginSheet:goToLineWindow completionHandler:^(NSModalResponse returnCode) {
+    }];
 }
 
 
@@ -113,18 +116,10 @@ static id sharedInstance = nil;
 }
 
 
-//- (IBAction)setPrintFontAction:(id)sender
-//{
-//	NSFontManager *fontManager = [NSFontManager sharedFontManager];
-//	[fontManager setSelectedFont:[NSUnarchiver unarchiveObjectWithData:[FRADefaults valueForKey:@"PrintFont"]] isMultiple:NO];
-//	[fontManager orderFrontFontPanel:nil];
-//}
-
-
 - (NSPopUpButton *)openPanelEncodingsPopUp
 {
 	if (openPanelEncodingsPopUp == nil) {
-		[NSBundle loadNibNamed:@"FRAOpenPanelAccessoryView.nib" owner:self];
+		[[NSBundle mainBundle] loadNibNamed:@"FRAOpenPanelAccessoryView" owner:self topLevelObjects:nil];
 	}
 	
 	return openPanelEncodingsPopUp;
@@ -134,27 +129,17 @@ static id sharedInstance = nil;
 - (NSView *)openPanelAccessoryView
 {
 	if (openPanelAccessoryView == nil) {
-		[NSBundle loadNibNamed:@"FRAOpenPanelAccessoryView.nib" owner:self];
+		[[NSBundle mainBundle] loadNibNamed:@"FRAOpenPanelAccessoryView" owner:self topLevelObjects:nil];
 	}
 	
 	return openPanelAccessoryView;
 }
 
 
-//- (NSView *)printAccessoryView
-//{
-//	if (printAccessoryView == nil) {
-//		[NSBundle loadNibNamed:@"FRAPrintAccessoryView.nib" owner:self];
-//	}
-//	
-//	return printAccessoryView;
-//}
-
-
 - (NSWindow *)commandResultWindow
 {
     if (commandResultWindow == nil) {
-		[NSBundle loadNibNamed:@"FRACommandResult.nib" owner:self];
+		[[NSBundle mainBundle] loadNibNamed:@"FRACommandResult" owner:self topLevelObjects:nil];
 		[commandResultWindow setTitle:COMMAND_RESULT_WINDOW_TITLE];
 	}
 	
@@ -165,7 +150,7 @@ static id sharedInstance = nil;
 - (NSTextView *)commandResultTextView
 {
     if (commandResultTextView == nil) {
-		[NSBundle loadNibNamed:@"FRACommandResult.nib" owner:self];
+		[[NSBundle mainBundle] loadNibNamed:@"FRACommandResult" owner:self topLevelObjects:nil];
 		[commandResultWindow setTitle:COMMAND_RESULT_WINDOW_TITLE];		
 	}
 	
@@ -183,7 +168,7 @@ static id sharedInstance = nil;
 - (NSWindow *)newProjectWindow
 {
 	if (newProjectWindow == nil) {
-		[NSBundle loadNibNamed:@"FRANewProject.nib" owner:self];
+        [[NSBundle mainBundle] loadNibNamed:@"FRANewProject" owner:self topLevelObjects:nil];
 	}
 	
 	return newProjectWindow;
@@ -197,39 +182,40 @@ static id sharedInstance = nil;
 		[[FRAProjectsController sharedDocumentController] newDocument:nil];
 		[FRACurrentProject updateWindowTitleBarForDocument:nil];
 		[FRACurrentProject selectionDidChange];	
-	} else {
+	} else
+    {
 		NSSavePanel *savePanel = [NSSavePanel savePanel];
-		[savePanel setAllowedFileTypes:[NSArray arrayWithObject:@"fraiseProject"]];
-		[savePanel beginSheetForDirectory:[FRAInterface whichDirectoryForSave]
-									 file:nil
-						   modalForWindow:newProjectWindow
-							modalDelegate:self
-						   didEndSelector:@selector(savePanelDidEnd:returnCode:contextInfo:)
-							  contextInfo:nil];
-	}	
-}
-
-
-- (void)savePanelDidEnd:(NSSavePanel *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
-{
-	[sheet close];
-	
-	[newProjectWindow orderOut:nil];
-	
-	if (returnCode == NSOKButton) {
-		[[FRAProjectsController sharedDocumentController] newDocument:nil];
-		[FRACurrentProject setFileURL:[NSURL fileURLWithPath:[sheet filename]]];
-		[FRACurrentProject saveToURL:[NSURL fileURLWithPath:[sheet filename]] ofType:@"fraiseProject" forSaveOperation:NSSaveOperation error:nil];
-		[FRACurrentProject updateWindowTitleBarForDocument:nil];
-		[FRACurrentProject saveDocument:nil];
+		[savePanel setAllowedFileTypes:@[@"fraiseProject"]];
+        [savePanel setDirectoryURL: [NSURL fileURLWithPath: [FRAInterface whichDirectoryForSave]]];
+        
+        [savePanel beginSheetModalForWindow: newProjectWindow
+                          completionHandler: (^(NSInteger returnCode)
+                                              {
+                                                  [savePanel close];
+                                                  
+                                                  [newProjectWindow orderOut:nil];
+                                                  
+                                                  if (returnCode == NSModalResponseOK)
+                                                  {
+                                                      NSURL *URL = [savePanel URL];
+                                                      [[FRAProjectsController sharedDocumentController] newDocument:nil];
+                                                      [FRACurrentProject setFileURL: URL];
+                                                      [FRACurrentProject saveToURL: URL
+                                                                            ofType: @"fraiseProject"
+                                                                  forSaveOperation: NSSaveOperation
+                                                                 completionHandler: ^(NSError* error) {
+                                                                 }];
+                                                      [FRACurrentProject updateWindowTitleBarForDocument:nil];
+                                                      [FRACurrentProject saveDocument:nil];
+                                                  }
+                                              })];
 	}
 }
-
 
 - (void)showRegularExpressionsHelpPanel
 {
 	if (regularExpressionsHelpPanel == nil) {
-		[NSBundle loadNibNamed:@"FRARegularExpressionHelp.nib" owner:self];
+		[[NSBundle mainBundle] loadNibNamed:@"FRARegularExpressionHelp" owner:self topLevelObjects:nil];
 	}
 	
 	[regularExpressionsHelpPanel makeKeyAndOrderFront:nil];

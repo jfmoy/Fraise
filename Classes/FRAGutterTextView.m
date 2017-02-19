@@ -1,18 +1,18 @@
 /*
-Fraise version 3.7 - Based on Smultron by Peter Borg
-Written by Jean-François Moy - jeanfrancois.moy@gmail.com
-Find the latest version at http://github.com/jfmoy/Fraise
+ Fraise version 3.7 - Based on Smultron by Peter Borg
+ 
+ Current Maintainer (since 2016): 
+ Andreas Bentele: abentele.github@icloud.com (https://github.com/abentele/Fraise)
+ 
+ Maintainer before macOS Sierra (2010-2016): 
+ Jean-François Moy: jeanfrancois.moy@gmail.com (http://github.com/jfmoy/Fraise)
 
-Copyright 2010 Jean-François Moy
+ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ http://www.apache.org/licenses/LICENSE-2.0
  
-http://www.apache.org/licenses/LICENSE-2.0
- 
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
-*/
-
-#import "FRAStandardHeader.h"
+ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ */
 
 #import "FRAGutterTextView.h"
 
@@ -28,7 +28,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		[self setRichText:NO];
 		[self setUsesFindPanel:NO];
 		[self setUsesFontPanel:NO];
-		[self setAlignment:NSRightTextAlignment];
+		[self setAlignment:NSTextAlignmentRight];
 		[self setEditable:NO];
 		[self setSelectable:NO];
 		[[self textContainer] setContainerSize:NSMakeSize([[FRADefaults valueForKey:@"GutterWidth"] integerValue], NSIntegerMax)];
@@ -48,9 +48,16 @@ Unless required by applicable law or agreed to in writing, software distributed 
 }
 
 
+- (void) dealloc
+{
+    NSUserDefaultsController *defaultsController = [NSUserDefaultsController sharedUserDefaultsController];
+    [defaultsController removeObserver:self forKeyPath:@"values.TextFont"];
+}
+
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	if ([(NSString *)context isEqualToString:@"TextFontChanged"]) {
+	if ([(__bridge NSString *)context isEqualToString:@"TextFontChanged"]) {
 		[self setFont:[NSUnarchiver unarchiveObjectWithData:[FRADefaults valueForKey:@"TextFont"]]];
 	} else {
 		[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];

@@ -150,18 +150,17 @@
     if (self) {
         // Initialization
         [self initAddedProperties];
-        [self registerForDraggedTypes:[NSArray arrayWithObjects: @"PSMTabBarControlItemPBType", nil]];
+        [self registerForDraggedTypes:@[@"PSMTabBarControlItemPBType"]];
     }
     [self setTarget:self];
     return self;
 }
 
 
-- (void)finalize
+- (void)dealloc
 {	
     [self unregisterDraggedTypes];
 	
-	[super finalize];
 }
 
 
@@ -379,26 +378,16 @@
     [cell setRepresentedObject:item];
     // bind the indicator to the represented object's status (if it exists)
     [[cell indicator] setHidden:YES];
-    if([item identifier] != nil){
-        if([[item identifier] respondsToSelector:@selector(content)]){
-            if([[[[cell representedObject] identifier] content] respondsToSelector:@selector(isProcessing)]){
-                NSMutableDictionary *bindingOptions = [NSMutableDictionary dictionary];
-                [bindingOptions setObject:NSNegateBooleanTransformerName forKey:@"NSValueTransformerName"];
-                [[cell indicator] bind:@"animate" toObject:[item identifier] withKeyPath:@"selection.isProcessing" options:nil];
-                [[cell indicator] bind:@"hidden" toObject:[item identifier] withKeyPath:@"selection.isProcessing" options:bindingOptions];
-                [[item identifier] addObserver:self forKeyPath:@"selection.isProcessing" options:NSKeyValueObservingOptionNew context:nil];
-            } 
-        } 
-    } 
     
     // bind for the existence of an icon
     [cell setHasIcon:NO];
     if([item identifier] != nil){
         if([[item identifier] respondsToSelector:@selector(content)]){
-            if([[[[cell representedObject] identifier] content] respondsToSelector:@selector(icon)]){
+            if([[(id)[[cell representedObject] identifier] content] respondsToSelector:@selector(icon)]){
                 NSMutableDictionary *bindingOptions = [NSMutableDictionary dictionary];
-                [bindingOptions setObject:NSIsNotNilTransformerName forKey:@"NSValueTransformerName"];
+                bindingOptions[@"NSValueTransformerName"] = NSIsNotNilTransformerName;
                 [cell bind:@"hasIcon" toObject:[item identifier] withKeyPath:@"selection.icon" options:bindingOptions];
+                // TODO observer must be removed; but not used in Fraise, so ignore it...
                 [[item identifier] addObserver:self forKeyPath:@"selection.icon" options:NSKeyValueObservingOptionNew context:nil];
             } 
         } 
@@ -406,14 +395,6 @@
     
     // bind for the existence of a counter
     [cell setCount:0];
-    if([item identifier] != nil){
-        if([[item identifier] respondsToSelector:@selector(content)]){
-            if([[[[cell representedObject] identifier] content] respondsToSelector:@selector(objectCount)]){
-                [cell bind:@"count" toObject:[item identifier] withKeyPath:@"selection.objectCount" options:nil];
-                [[item identifier] addObserver:self forKeyPath:@"selection.objectCount" options:NSKeyValueObservingOptionNew context:nil];
-            } 
-        } 
-    }
     
     // bind my string value to the label on the represented tab
     [cell bind:@"title" toObject:item withKeyPath:@"label" options:nil];
@@ -545,7 +526,7 @@
         }
     }
 
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:myOriginalY], @"myOriginalY", [NSNumber numberWithDouble:partnerOriginalY], @"partnerOriginalY", [NSNumber numberWithDouble:myOriginalHeight], @"myOriginalHeight", [NSNumber numberWithDouble:partnerOriginalHeight], @"partnerOriginalHeight", [NSNumber numberWithDouble:myTargetY], @"myTargetY", [NSNumber numberWithDouble:partnerTargetY], @"partnerTargetY", [NSNumber numberWithDouble:myTargetHeight], @"myTargetHeight", [NSNumber numberWithDouble:partnerTargetHeight], @"partnerTargetHeight", nil];
+    NSDictionary *userInfo = @{@"myOriginalY": @(myOriginalY), @"partnerOriginalY": @(partnerOriginalY), @"myOriginalHeight": @(myOriginalHeight), @"partnerOriginalHeight": @(partnerOriginalHeight), @"myTargetY": @(myTargetY), @"partnerTargetY": @(partnerTargetY), @"myTargetHeight": @(myTargetHeight), @"partnerTargetHeight": @(partnerTargetHeight)};
     animationTimer = [NSTimer scheduledTimerWithTimeInterval:(1.0/20.0) target:self selector:@selector(animateShowHide:) userInfo:userInfo repeats:YES];
 }
 
@@ -553,10 +534,10 @@
 {
     // moves the frame of the tab bar and window (or partner view) linearly to hide or show the tab bar
     NSRect myFrame = [self frame];
-    CGFloat myCurrentY = ([[[timer userInfo] objectForKey:@"myOriginalY"] doubleValue] + (([[[timer userInfo] objectForKey:@"myTargetY"] doubleValue] - [[[timer userInfo] objectForKey:@"myOriginalY"] doubleValue]) * (_currentStep/kPSMHideAnimationSteps)));
-    CGFloat myCurrentHeight = ([[[timer userInfo] objectForKey:@"myOriginalHeight"] doubleValue] + (([[[timer userInfo] objectForKey:@"myTargetHeight"] doubleValue] - [[[timer userInfo] objectForKey:@"myOriginalHeight"] doubleValue]) * (_currentStep/kPSMHideAnimationSteps)));
-    CGFloat partnerCurrentY = ([[[timer userInfo] objectForKey:@"partnerOriginalY"] doubleValue] + (([[[timer userInfo] objectForKey:@"partnerTargetY"] doubleValue] - [[[timer userInfo] objectForKey:@"partnerOriginalY"] doubleValue]) * (_currentStep/kPSMHideAnimationSteps)));
-    CGFloat partnerCurrentHeight = ([[[timer userInfo] objectForKey:@"partnerOriginalHeight"] doubleValue] + (([[[timer userInfo] objectForKey:@"partnerTargetHeight"] doubleValue] - [[[timer userInfo] objectForKey:@"partnerOriginalHeight"] doubleValue]) * (_currentStep/kPSMHideAnimationSteps)));
+    CGFloat myCurrentY = ([[timer userInfo][@"myOriginalY"] doubleValue] + (([[timer userInfo][@"myTargetY"] doubleValue] - [[timer userInfo][@"myOriginalY"] doubleValue]) * (_currentStep/kPSMHideAnimationSteps)));
+    CGFloat myCurrentHeight = ([[timer userInfo][@"myOriginalHeight"] doubleValue] + (([[timer userInfo][@"myTargetHeight"] doubleValue] - [[timer userInfo][@"myOriginalHeight"] doubleValue]) * (_currentStep/kPSMHideAnimationSteps)));
+    CGFloat partnerCurrentY = ([[timer userInfo][@"partnerOriginalY"] doubleValue] + (([[timer userInfo][@"partnerTargetY"] doubleValue] - [[timer userInfo][@"partnerOriginalY"] doubleValue]) * (_currentStep/kPSMHideAnimationSteps)));
+    CGFloat partnerCurrentHeight = ([[timer userInfo][@"partnerOriginalHeight"] doubleValue] + (([[timer userInfo][@"partnerTargetHeight"] doubleValue] - [[timer userInfo][@"partnerOriginalHeight"] doubleValue]) * (_currentStep/kPSMHideAnimationSteps)));
     
     NSRect myNewFrame = NSMakeRect(myFrame.origin.x, myCurrentY, myFrame.size.width, myCurrentHeight);
     
@@ -626,7 +607,7 @@
     // nuke old tracking rects
     NSInteger i, cellCount = [_cells count];
     for(i = 0; i < cellCount; i++){
-        id cell = [_cells objectAtIndex:i];
+        id cell = _cells[i];
         [[NSNotificationCenter defaultCenter] removeObserver:cell];
         if([cell closeButtonTrackingTag] != 0){
             [self removeTrackingRect:[cell closeButtonTrackingTag]];
@@ -643,7 +624,7 @@
     CGFloat totalOccupiedWidth = 0.0;
     NSMenu *overflowMenu = nil;
     for(i = 0; i < cellCount; i++){
-        PSMTabBarCell *cell = [_cells objectAtIndex:i];
+        PSMTabBarCell *cell = _cells[i];
         CGFloat width;
         
         // supress close button? 
@@ -677,19 +658,19 @@
                     NSInteger q;
                     for(q = (i - 1); q >= 0; q--){
                         NSInteger desiredReduction = (NSInteger)neededWidth/(q+1);
-                        if(([[newWidths objectAtIndex:q] doubleValue] - desiredReduction) < _cellMinWidth){
-                            NSInteger actualReduction = (NSInteger)[[newWidths objectAtIndex:q] doubleValue] - _cellMinWidth;
-                            [newWidths replaceObjectAtIndex:q withObject:[NSNumber numberWithDouble:_cellMinWidth]];
+                        if(([newWidths[q] doubleValue] - desiredReduction) < _cellMinWidth){
+                            NSInteger actualReduction = (NSInteger)[newWidths[q] doubleValue] - _cellMinWidth;
+                            newWidths[q] =  @(_cellMinWidth);
                             neededWidth -= actualReduction;
                         } else {
-                            NSInteger newCellWidth = (NSInteger)[[newWidths objectAtIndex:q] doubleValue] - desiredReduction;
-                            [newWidths replaceObjectAtIndex:q withObject:[NSNumber numberWithDouble:newCellWidth]];
+                            NSInteger newCellWidth = (NSInteger)[newWidths[q] doubleValue] - desiredReduction;
+                            newWidths[q] =  @(newCellWidth);
                             neededWidth -= desiredReduction;
                         }
                     }
                     // one cell left!
                     NSInteger thisWidth = width - neededWidth;
-                    [newWidths addObject:[NSNumber numberWithDouble:thisWidth]];
+                    [newWidths addObject: @(thisWidth)];
                     numberOfVisibleCells++;
                 } else {
                     // stretch - distribute leftover room among cells
@@ -697,8 +678,8 @@
                     NSInteger q;
                     for(q = (i - 1); q >= 0; q--){
                         NSInteger desiredAddition = (NSInteger)leftoverWidth/(q+1);
-                        NSInteger newCellWidth = (NSInteger)[[newWidths objectAtIndex:q] doubleValue] + desiredAddition;
-                        [newWidths replaceObjectAtIndex:q withObject:[NSNumber numberWithDouble:newCellWidth]];
+                        NSInteger newCellWidth = (NSInteger)[newWidths[q] doubleValue] + desiredAddition;
+                        newWidths[q] =  @(newCellWidth);
                         leftoverWidth -= desiredAddition;
                     }
                 }
@@ -709,11 +690,11 @@
                     NSInteger q;
                     totalOccupiedWidth = 0;
                     for(q = 0; q < [newWidths count]; q++){
-                        [newWidths replaceObjectAtIndex:q withObject:[NSNumber numberWithDouble:revisedWidth]];
+                        newWidths[q] =  @(revisedWidth);
                         totalOccupiedWidth += revisedWidth;
                     }
                     // just squeezed this one in...
-                    [newWidths addObject:[NSNumber numberWithDouble:revisedWidth]];
+                    [newWidths addObject: @(revisedWidth)];
                     totalOccupiedWidth += revisedWidth;
                     numberOfVisibleCells++;
                 } else {
@@ -723,18 +704,18 @@
             }
         } else {
             numberOfVisibleCells = cellCount;
-            [newWidths addObject:[NSNumber numberWithDouble:width]];
+            [newWidths addObject:@(width)];
         }
     }
 
     // Set up cells with frames and rects
     NSRect cellRect = [self genericCellRect];
     for(i = 0; i < cellCount; i++){
-        PSMTabBarCell *cell = [_cells objectAtIndex:i];
+        PSMTabBarCell *cell = _cells[i];
         NSInteger tabState = 0;
         if (i < numberOfVisibleCells) {
             // set cell frame
-            cellRect.size.width = [[newWidths objectAtIndex:i] doubleValue];
+            cellRect.size.width = [newWidths[i] doubleValue];
             [cell setFrame:cellRect];
             NSTrackingRectTag tag;
             
@@ -755,14 +736,14 @@
                 tabState |= PSMTab_SelectedMask;
                 // previous cell
                 if(i > 0){
-                    [[_cells objectAtIndex:i-1] setTabState:([(PSMTabBarCell *)[_cells objectAtIndex:i-1] tabState] | PSMTab_RightIsSelectedMask)];
+                    [_cells[i-1] setTabState:([(PSMTabBarCell *)_cells[i-1] tabState] | PSMTab_RightIsSelectedMask)];
                 }
                 // next cell - see below
             } else {
                 [cell setState:NSOffState];
                 // see if prev cell was selected
                 if(i > 0){
-                    if([[_cells objectAtIndex:i-1] state] == NSOnState){
+                    if([_cells[i-1] state] == NSOnState){
                         tabState |= PSMTab_LeftIsSelectedMask;
                     }
                 }
@@ -788,7 +769,7 @@
             }
             
             // next...
-            cellRect.origin.x += [[newWidths objectAtIndex:i] doubleValue];
+            cellRect.origin.x += [newWidths[i] doubleValue];
             
         } else {
             // set up menu items
@@ -805,7 +786,7 @@
             if ([[cell representedObject] isEqualTo:[tabView selectedTabViewItem]])
                 [menuItem setState:NSOnState];
             if([cell hasIcon])
-                [menuItem setImage:[[[[cell representedObject] identifier] content] icon]];
+                [menuItem setImage:[[(id)[[cell representedObject] identifier] content] icon]];
             if([cell count] > 0)
                 [menuItem setTitle:[[menuItem title] stringByAppendingFormat:@" (%ld)",[cell count]]];
             [overflowMenu addItem:menuItem];
@@ -1259,17 +1240,17 @@
 {
     NSInteger i, cellCount = [_cells count];
     for(i = 0; i < cellCount; i++){
-        if([[_cells objectAtIndex:i] isInOverflowMenu])
-            return [_cells objectAtIndex:(i-1)];
+        if([_cells[i] isInOverflowMenu])
+            return _cells[(i-1)];
     }
-    return [_cells objectAtIndex:(cellCount - 1)];
+    return _cells[(cellCount - 1)];
 }
 
 - (NSInteger)numberOfVisibleTabs
 {
     NSInteger i, cellCount = [_cells count];
     for(i = 0; i < cellCount; i++){
-        if([[_cells objectAtIndex:i] isInOverflowMenu])
+        if([_cells[i] isInOverflowMenu])
             return i+1;
     }
     return cellCount;

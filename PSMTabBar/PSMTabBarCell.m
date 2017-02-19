@@ -131,7 +131,7 @@
 
 - (NSAttributedString *)attributedStringValue
 {
-    return [(id <PSMTabStyle>)[_controlView style] attributedStringValueForTabCell:self];
+    return [[(PSMTabBarControl *)_controlView style] attributedStringValueForTabCell:self];
 }
 
 - (NSInteger)tabState
@@ -252,22 +252,22 @@
 
 - (NSRect)indicatorRectForFrame:(NSRect)cellFrame
 {
-    return [(id <PSMTabStyle>)[_controlView style] indicatorRectForTabCell:self];
+    return [[(PSMTabBarControl *)_controlView style] indicatorRectForTabCell:self];
 }
 
 - (NSRect)closeButtonRectForFrame:(NSRect)cellFrame
 {
-    return [(id <PSMTabStyle>)[_controlView style] closeButtonRectForTabCell:self];
+    return [[(PSMTabBarControl *)_controlView style] closeButtonRectForTabCell:self];
 }
 
 - (CGFloat)minimumWidthOfCell
 {
-    return [(id <PSMTabStyle>)[_controlView style] minimumWidthOfTabCell:self];
+    return [[(PSMTabBarControl *)_controlView style] minimumWidthOfTabCell:self];
 }
 
 - (CGFloat)desiredWidthOfCell
 {
-    return [(id <PSMTabStyle>)[_controlView style] desiredWidthOfTabCell:self];
+    return [[(PSMTabBarControl *)_controlView style] desiredWidthOfTabCell:self];
 }  
 
 #pragma mark -
@@ -277,11 +277,11 @@
 {
     if(_isPlaceholder){
         [[NSColor colorWithCalibratedWhite:0.0 alpha:0.2] set];
-        NSRectFillUsingOperation(cellFrame, NSCompositeSourceAtop);
+        NSRectFillUsingOperation(cellFrame, NSCompositingOperationSourceAtop);
         return;
     }
     
-    [(id <PSMTabStyle>)[_controlView style] drawTabCell:self];	
+    [[(PSMTabBarControl *)_controlView style] drawTabCell:self];	
 }
 
 #pragma mark -
@@ -321,19 +321,27 @@
     [_controlView lockFocus];
     NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithFocusedViewRect:cellFrame];
     [_controlView unlockFocus];
-    NSImage *image = [[NSImage alloc] initWithSize:[rep size]];
+    NSSize size = [rep size];
+    
+    NSImage *image = [[NSImage alloc] initWithSize: size];
     [image addRepresentation:rep];
-    NSImage *returnImage = [[NSImage alloc] initWithSize:[rep size]];
+    NSImage *returnImage = [[NSImage alloc] initWithSize: size];
     [returnImage lockFocus];
-    [image compositeToPoint:NSMakePoint(0.0, 0.0) operation:NSCompositeSourceOver fraction:0.7];
+    [image drawAtPoint: NSMakePoint(0.0, 0.0)
+              fromRect: NSMakeRect(0, 0, size.width, size.height)
+             operation: NSCompositingOperationSourceOver
+              fraction: 0.7];
+
     [returnImage unlockFocus];
-    if(![[self indicator] isHidden]){
+    
+    if(![[self indicator] isHidden])
+    {
         NSImage *pi = [[NSImage alloc] initByReferencingFile:[[PSMTabBarControl bundle] pathForImageResource:@"pi"]];
         [returnImage lockFocus];
         NSPoint indicatorPoint = NSMakePoint([self frame].size.width - MARGIN_X - kPSMTabBarIndicatorWidth, MARGIN_Y);
         if(([self state] == NSOnState) && ([[_controlView styleName] isEqualToString:@"Metal"]))
             indicatorPoint.y += 1.0;
-        [pi compositeToPoint:indicatorPoint operation:NSCompositeSourceOver fraction:0.7];
+        [pi drawAtPoint:indicatorPoint fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:0.7];
         [returnImage unlockFocus];
     }
     return returnImage;

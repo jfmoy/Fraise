@@ -1,19 +1,19 @@
 /*
-Fraise version 3.7 - Based on Smultron by Peter Borg
-Written by Jean-François Moy - jeanfrancois.moy@gmail.com
-Find the latest version at http://github.com/jfmoy/Fraise
+ Fraise version 3.7 - Based on Smultron by Peter Borg
+ 
+ Current Maintainer (since 2016): 
+ Andreas Bentele: abentele.github@icloud.com (https://github.com/abentele/Fraise)
+ 
+ Maintainer before macOS Sierra (2010-2016): 
+ Jean-François Moy: jeanfrancois.moy@gmail.com (http://github.com/jfmoy/Fraise)
 
-Copyright 2010 Jean-François Moy
+ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ http://www.apache.org/licenses/LICENSE-2.0
  
-http://www.apache.org/licenses/LICENSE-2.0
- 
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 */
 
-
-#import "FRAStandardHeader.h"
 
 #import "FRAProject+ToolbarController.h"
 
@@ -36,7 +36,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 - (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar
 {
-    return [NSArray arrayWithObjects:@"SaveDocumentToolbarItem",
+    return @[@"SaveDocumentToolbarItem",
 		@"OpenDocumentToolbarItem",
 		@"NewDocumentToolbarItem",
 		@"CloseDocumentToolbarItem",
@@ -47,14 +47,13 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		@"InfoToolbarItem",
 		NSToolbarFlexibleSpaceItemIdentifier,
 		NSToolbarSpaceItemIdentifier,
-		NSToolbarSeparatorItemIdentifier,
-		nil];
+		NSToolbarSeparatorItemIdentifier];
 }
 
 
 - (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar  
 {      
-	return [NSArray arrayWithObjects:@"NewDocumentToolbarItem",
+	return @[@"NewDocumentToolbarItem",
 		@"OpenDocumentToolbarItem",
 		@"SaveDocumentToolbarItem",
 		@"CloseDocumentToolbarItem",
@@ -62,8 +61,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		@"QuicklyFindNextToolbarItem",
 		@"AdvancedFindToolbarItem",
 		NSToolbarFlexibleSpaceItemIdentifier,
-		@"InfoToolbarItem",
-		nil];  
+		@"InfoToolbarItem"];  
 } 
 
 
@@ -89,12 +87,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
         
 		closeToolbarItem = [NSToolbarItem createToolbarItemWithIdentifier:itemIdentifier name:NSLocalizedString(@"Close", @"Close") image:closeImage action:@selector(close:) tag:0 target:self];
 		return closeToolbarItem;
-		
-		
-//	} else if ([itemIdentifier isEqualToString:@"PreferencesToolbarItem"]) {
-//        
-//		return [NSToolbarItem createToolbarItemWithIdentifier:itemIdentifier name:NSLocalizedString(@"Preferences", @"Preferences") image:preferencesImage action:@selector(preferences:) tag:1 target:self];
-//		
 		
 	} else if ([itemIdentifier isEqualToString:@"QuicklyFindNextToolbarItem"]) {
 		
@@ -150,37 +142,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		
 		return functionToolbarItem;
 		
-		
-//	} else if ([itemIdentifier isEqualToString:@"SplitWindowToolbarItem"]) {
-//		NSToolbarItem *toolbarItem = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
-//		[toolbarItem setLabel:SPLIT_WINDOW_STRING];
-//		[toolbarItem setToolTip:SPLIT_WINDOW_STRING];
-//		[toolbarItem setImage:splitWindowImage];
-//		[toolbarItem setPaletteLabel:NSLocalizedString(@"Split Window / Close Split", @"Split Window / Close Split toolbar item Palette Label")];
-//		[toolbarItem setTarget:self];
-//		[toolbarItem setAction:@selector(splitWindow:)];
-//		
-//		return toolbarItem;
-//		
-//		
-//	} else if ([itemIdentifier isEqual:@"LineWrapToolbarItem"]) {
-//		NSToolbarItem *toolbarItem = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
-//		if ([[FRADefaults valueForKey:@"LineWrapNewDocuments"] boolValue] == NO) {
-//			[toolbarItem setLabel:LINE_WRAP_STRING];
-//			[toolbarItem setToolTip:LINE_WRAP_STRING];
-//			[toolbarItem setImage:lineWrapImage];
-//		} else {
-//			[toolbarItem setLabel:DONT_LINE_WRAP_STRING];
-//			[toolbarItem setToolTip:DONT_LINE_WRAP_STRING];
-//			[toolbarItem setImage:dontLineWrapImage];
-//		}
-//        [toolbarItem setPaletteLabel:NSLocalizedString(@"Line Wrap / Don't Line Wrap",@"Line Wrap / Don't Line Wrap toolbar item Palette Label")];
-//        [toolbarItem setTarget:self];
-//        [toolbarItem setAction:@selector(lineWrap:)];
-//		
-//		return toolbarItem;
-//		
-//		
 	}
 		
 	return nil;
@@ -196,33 +157,9 @@ Unless required by applicable law or agreed to in writing, software distributed 
 		liveFindToolbarItem = toolbarItem;
 	} else if ([[toolbarItem itemIdentifier] isEqualToString:@"FunctionToolbarItem"]) {
 		functionToolbarItem = toolbarItem;
-		[functionButton sendActionOn:NSLeftMouseDownMask];
-//	} else if ([[toolbarItem itemIdentifier] isEqualToString:@"SplitWindowToolbarItem"]) {
-//		splitWindowToolbarItem = toolbarItem;
-//	} else if ([[toolbarItem itemIdentifier] isEqual:@"LineWrapToolbarItem"]) {
-//		lineWrapToolbarItem = toolbarItem;
+		[functionButton sendActionOn:NSEventMaskLeftMouseDown];
 	}
 } 
-
-
-//- (BOOL)validateToolbarItem:(NSToolbarItem *)toolbarItem 
-//{
-//	// Function and Live Find are validated in -[FRAProject documentsListHasUpdated] so that they don't need to be updated all the time as they would have been here 
-//	
-//	BOOL enableItem = YES;
-//	Log(toolbarItem);
-//	if ([self areThereAnyDocuments] == NO) {
-//		if ([toolbarItem tag] != 1) { // All the items that should always be active have the tag 1
-//			//enableItem = NO;
-//			//[(NSButton *)[[[toolbarItem view] subviews] objectAtIndex:0] setEnabled:NO];
-//			//[(NSButtonCell *)[[[[toolbarItem view] subviews] objectAtIndex:0] cell] setEnabled:NO];
-//			[toolbarItem setEnabled:NO];
-//			Pos;
-//		}
-//	}
-//
-//    return enableItem;
-//}
 
 
 - (void)save:(id)sender
@@ -255,21 +192,15 @@ Unless required by applicable law or agreed to in writing, software distributed 
 }
 
 
-//- (void)preferences:(id)sender
-//{
-//	[[FRAPreferencesController sharedInstance] showPreferencesWindow];
-//}
-
-
 - (IBAction)liveFindToolbarItemAction:(id)sender;
 {
 	NSString *searchString = [liveFindSearchField objectValue];
-	id document = [[[self documentsArrayController] selectedObjects] objectAtIndex:0];
+	id document = [[self documentsArrayController] selectedObjects][0];
 	NSTextView *textView = [self lastTextViewInFocus];
 	if (textView == nil || (textView != [document valueForKey:@"firstTextView"] && textView != [document valueForKey:@"secondTextView"] && textView != [document valueForKey:@"thirdTextView"])) {
 		textView = [document valueForKey:@"firstTextView"];
 	}
-	if (![searchString length] > 0 || document == nil) {
+	if (!([searchString length] > 0) || document == nil) {
 		[self removeLiveFindSession];
 		NSBeep();
 		return;
@@ -423,105 +354,60 @@ Unless required by applicable law or agreed to in writing, software distributed 
     return functionButton; 
 }
 
-
-//- (void)splitWindow:(id)sender
-//{
-//	[[FRAViewMenuController sharedInstance] splitWindowAction:nil];
-//}
-
-
-//- (void)updateSplitWindowToolbarItem
-//{
-//	if (secondDocument == nil) {
-//		[splitWindowToolbarItem setLabel:SPLIT_WINDOW_STRING];
-//		[splitWindowToolbarItem setToolTip:SPLIT_WINDOW_STRING];
-//		[splitWindowToolbarItem setImage:splitWindowImage];
-//	} else {
-//		[splitWindowToolbarItem setLabel:CLOSE_SPLIT_STRING];
-//		[splitWindowToolbarItem setToolTip:CLOSE_SPLIT_STRING];
-//		[splitWindowToolbarItem setImage:closeSplitImage];
-//	}
-//}
-
-
-//- (void)lineWrap:(id)sender
-//{
-//	[[FRAViewMenuController sharedInstance] lineWrapTextAction:nil];
-//}
-//
-//
-//- (void)updateLineWrapToolbarItem
-//{
-//	if ([[FRAApplicationDelegate sharedInstance] hasFinishedLaunching] == YES) {
-//		if ([[FRACurrentDocument valueForKey:@"isLineWrapped"] boolValue] == NO) {
-//			[lineWrapToolbarItem setLabel:LINE_WRAP_STRING];
-//			[lineWrapToolbarItem setToolTip:LINE_WRAP_STRING];
-//			[lineWrapToolbarItem setImage:lineWrapImage];
-//		} else {
-//			[lineWrapToolbarItem setLabel:DONT_LINE_WRAP_STRING];
-//			[lineWrapToolbarItem setToolTip:DONT_LINE_WRAP_STRING];
-//			[lineWrapToolbarItem setImage:dontLineWrapImage];
-//		}
-//	}
-//}
-
-
 - (void)extraToolbarValidation
 {
 	if ([self areThereAnyDocuments] == YES) {
-		[(NSControl *)[[[functionToolbarItem view] subviews] objectAtIndex:0] setEnabled:YES];
-		[[(NSControl *)[[[functionToolbarItem view] subviews] objectAtIndex:0] cell] setEnabled:YES];
+		[(NSControl *)[[functionToolbarItem view] subviews][0] setEnabled:YES];
+		[[(NSControl *)[[functionToolbarItem view] subviews][0] cell] setEnabled:YES];
 		
 		if (liveFindToolbarItem != nil) {
 			[[liveFindSearchField cell] setEnabled:YES];
 		}
 		[self reinsertFunctionMenuFormRepresentation];
 		
-		[(NSControl *)[[[saveToolbarItem view] subviews] objectAtIndex:0] setEnabled:YES];
-		[[(NSControl *)[[[saveToolbarItem view] subviews] objectAtIndex:0] cell] setEnabled:YES];
+		[(NSControl *)[[saveToolbarItem view] subviews][0] setEnabled:YES];
+		[[(NSControl *)[[saveToolbarItem view] subviews][0] cell] setEnabled:YES];
 		
-		[(NSControl *)[[[advancedFindToolbarItem view] subviews] objectAtIndex:0] setEnabled:YES];
-		[[(NSControl *)[[[advancedFindToolbarItem view] subviews] objectAtIndex:0] cell] setEnabled:YES];
+		[(NSControl *)[[advancedFindToolbarItem view] subviews][0] setEnabled:YES];
+		[[(NSControl *)[[advancedFindToolbarItem view] subviews][0] cell] setEnabled:YES];
 		
-		[(NSControl *)[[[closeToolbarItem view] subviews] objectAtIndex:0] setEnabled:YES];
-		[[(NSControl *)[[[closeToolbarItem view] subviews] objectAtIndex:0] cell] setEnabled:YES];
+		[(NSControl *)[[closeToolbarItem view] subviews][0] setEnabled:YES];
+		[[(NSControl *)[[closeToolbarItem view] subviews][0] cell] setEnabled:YES];
 		
-		[(NSControl *)[[[infoToolbarItem view] subviews] objectAtIndex:0] setEnabled:YES];
-		[[(NSControl *)[[[infoToolbarItem view] subviews] objectAtIndex:0] cell] setEnabled:YES];
+		[(NSControl *)[[infoToolbarItem view] subviews][0] setEnabled:YES];
+		[[(NSControl *)[[infoToolbarItem view] subviews][0] cell] setEnabled:YES];
 		
-		[(NSControl *)[[[previewToolbarItem view] subviews] objectAtIndex:0] setEnabled:YES];
-		[[(NSControl *)[[[previewToolbarItem view] subviews] objectAtIndex:0] cell] setEnabled:YES];
+		[(NSControl *)[[previewToolbarItem view] subviews][0] setEnabled:YES];
+		[[(NSControl *)[[previewToolbarItem view] subviews][0] cell] setEnabled:YES];
 
 		
 	} else {
-		[(NSControl *)[[[functionToolbarItem view] subviews] objectAtIndex:0] setEnabled:NO];
-		[[(NSControl *)[[[functionToolbarItem view] subviews] objectAtIndex:0] cell] setEnabled:NO];
+		[(NSControl *)[[functionToolbarItem view] subviews][0] setEnabled:NO];
+		[[(NSControl *)[[functionToolbarItem view] subviews][0] cell] setEnabled:NO];
 		
 		if (liveFindToolbarItem != nil && [[FRAApplicationDelegate sharedInstance] hasFinishedLaunching] == YES) {
 			[[liveFindSearchField cell] setEnabled:NO];
 		}
 		[self removeFunctionMenuFormRepresentation];
 		
-		[(NSControl *)[[[saveToolbarItem view] subviews] objectAtIndex:0] setEnabled:NO];
-		[[(NSControl *)[[[saveToolbarItem view] subviews] objectAtIndex:0] cell] setEnabled:NO];
+		[(NSControl *)[[saveToolbarItem view] subviews][0] setEnabled:NO];
+		[[(NSControl *)[[saveToolbarItem view] subviews][0] cell] setEnabled:NO];
 		
-		[(NSControl *)[[[advancedFindToolbarItem view] subviews] objectAtIndex:0] setEnabled:NO];
-		[[(NSControl *)[[[advancedFindToolbarItem view] subviews] objectAtIndex:0] cell] setEnabled:NO];
+		[(NSControl *)[[advancedFindToolbarItem view] subviews][0] setEnabled:NO];
+		[[(NSControl *)[[advancedFindToolbarItem view] subviews][0] cell] setEnabled:NO];
 		
-		[(NSControl *)[[[closeToolbarItem view] subviews] objectAtIndex:0] setEnabled:NO];
-		[[(NSControl *)[[[closeToolbarItem view] subviews] objectAtIndex:0] cell] setEnabled:NO];
+		[(NSControl *)[[closeToolbarItem view] subviews][0] setEnabled:NO];
+		[[(NSControl *)[[closeToolbarItem view] subviews][0] cell] setEnabled:NO];
 		
-		[(NSControl *)[[[infoToolbarItem view] subviews] objectAtIndex:0] setEnabled:NO];
-		[[(NSControl *)[[[infoToolbarItem view] subviews] objectAtIndex:0] cell] setEnabled:NO];
+		[(NSControl *)[[infoToolbarItem view] subviews][0] setEnabled:NO];
+		[[(NSControl *)[[infoToolbarItem view] subviews][0] cell] setEnabled:NO];
 		
-		[(NSControl *)[[[previewToolbarItem view] subviews] objectAtIndex:0] setEnabled:NO];
-		[[(NSControl *)[[[previewToolbarItem view] subviews] objectAtIndex:0] cell] setEnabled:NO];
+		[(NSControl *)[[previewToolbarItem view] subviews][0] setEnabled:NO];
+		[[(NSControl *)[[previewToolbarItem view] subviews][0] cell] setEnabled:NO];
 	}
 	
 	
 	
 	[self updateLabelsInToolbar]; // Do this so the labels are properly greyed out
-	//[self updateSplitWindowToolbarItem];
-//	[self updateLineWrapToolbarItem];
 }
 @end

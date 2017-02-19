@@ -1,18 +1,18 @@
 /*
-Fraise version 3.7 - Based on Smultron by Peter Borg
-Written by Jean-François Moy - jeanfrancois.moy@gmail.com
-Find the latest version at http://github.com/jfmoy/Fraise
+ Fraise version 3.7 - Based on Smultron by Peter Borg
+ 
+ Current Maintainer (since 2016): 
+ Andreas Bentele: abentele.github@icloud.com (https://github.com/abentele/Fraise)
+ 
+ Maintainer before macOS Sierra (2010-2016): 
+ Jean-François Moy: jeanfrancois.moy@gmail.com (http://github.com/jfmoy/Fraise)
 
-Copyright 2010 Jean-François Moy
+ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ http://www.apache.org/licenses/LICENSE-2.0
  
-http://www.apache.org/licenses/LICENSE-2.0
- 
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
-*/
-
-#import "FRAStandardHeader.h"
+ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ */
 
 #import "NSString+Fraise.h"
 #import "FRAInfoController.h"
@@ -52,7 +52,7 @@ static id sharedInstance = nil;
 - (void)openInfoWindow
 {
 	if (infoWindow == nil) {
-		[NSBundle loadNibNamed:@"FRAInfo.nib" owner:self];
+		[[NSBundle mainBundle] loadNibNamed:@"FRAInfo" owner:self topLevelObjects:nil];
 		
 	}
 	
@@ -92,8 +92,8 @@ static id sharedInstance = nil;
 	if (fileAttributes != nil) {
 		[fileSizeTextField setStringValue:[NSString stringWithFormat:@"%@ %@", [FRABasic thousandFormatedStringFromNumber:[NSNumber numberWithLongLong:[fileAttributes fileSize]]], NSLocalizedString(@"bytes", @"The name for bytes in the info window")]];
 		[whereTextField setStringValue:[[document valueForKey:@"path"] stringByDeletingLastPathComponent]];
-		[createdTextField setStringValue:[NSString dateStringForDate:(NSCalendarDate *)[fileAttributes fileCreationDate] formatIndex:[[FRADefaults valueForKey:@"StatusBarLastSavedFormatPopUp"] integerValue]]];
-		[modifiedTextField setStringValue:[NSString dateStringForDate:(NSCalendarDate *)[fileAttributes fileModificationDate] formatIndex:[[FRADefaults valueForKey:@"StatusBarLastSavedFormatPopUp"] integerValue]]];
+		[createdTextField setStringValue:[NSString dateStringForDate:[fileAttributes fileCreationDate] formatIndex:[[FRADefaults valueForKey:@"StatusBarLastSavedFormatPopUp"] integerValue]]];
+		[modifiedTextField setStringValue:[NSString dateStringForDate:[fileAttributes fileModificationDate] formatIndex:[[FRADefaults valueForKey:@"StatusBarLastSavedFormatPopUp"] integerValue]]];
 		[creatorTextField setStringValue:NSFileTypeForHFSTypeCode([fileAttributes fileHFSCreatorCode])];
 		[typeTextField setStringValue:NSFileTypeForHFSTypeCode([fileAttributes fileHFSTypeCode])];
 		[ownerTextField setStringValue:[fileAttributes fileOwnerAccountName]];
@@ -108,7 +108,7 @@ static id sharedInstance = nil;
 	}
 	NSString *text = [textView string];;
 	
-	[lengthTextField setStringValue:[FRABasic thousandFormatedStringFromNumber:[NSNumber numberWithUnsignedInteger:[text length]]]];
+	[lengthTextField setStringValue:[FRABasic thousandFormatedStringFromNumber:@([text length])]];
 	
 	NSArray *array = [textView selectedRanges];
 	
@@ -119,7 +119,7 @@ static id sharedInstance = nil;
 	if (selection == 0) {
 		[selectionTextField setStringValue:@""];
 	} else {
-		[selectionTextField setStringValue:[FRABasic thousandFormatedStringFromNumber:[NSNumber numberWithInteger:selection]]];
+		[selectionTextField setStringValue:[FRABasic thousandFormatedStringFromNumber:@(selection)]];
 	}
 	
 	NSRange selectionRange;
@@ -128,7 +128,7 @@ static id sharedInstance = nil;
 	} else {
 		selectionRange = [textView selectedRange];
 	}
-	[positionTextField setStringValue:[NSString stringWithFormat:@"%@\\%@", [FRABasic thousandFormatedStringFromNumber:[NSNumber numberWithInteger:(selectionRange.location - [text lineRangeForRange:selectionRange].location)]], [FRABasic thousandFormatedStringFromNumber:[NSNumber numberWithInteger:selectionRange.location]]]];
+	[positionTextField setStringValue:[NSString stringWithFormat:@"%@\\%@", [FRABasic thousandFormatedStringFromNumber: @((selectionRange.location - [text lineRangeForRange:selectionRange].location))], [FRABasic thousandFormatedStringFromNumber: @(selectionRange.location)]]];
 	
 	NSInteger index;
 	NSInteger lineNumber;
@@ -155,14 +155,14 @@ static id sharedInstance = nil;
 		if (index == -1) {
 			[functionTextField setStringValue:@""];
 		} else {
-			[functionTextField setStringValue:[[functions objectAtIndex:index] valueForKey:@"name"]];
+			[functionTextField setStringValue:[functions[index] valueForKey:@"name"]];
 		}
 	}
 	
 	if (selection > 1) {
-		[wordsTextField setStringValue:[NSString stringWithFormat:@"%@ (%@)", [FRABasic thousandFormatedStringFromNumber:[NSNumber numberWithInteger:[[NSSpellChecker sharedSpellChecker] countWordsInString:[text substringWithRange:selectionRange] language:nil]]], [FRABasic thousandFormatedStringFromNumber:[NSNumber numberWithInteger:[[NSSpellChecker sharedSpellChecker] countWordsInString:text language:nil]]]]];
+		[wordsTextField setStringValue:[NSString stringWithFormat:@"%@ (%@)", [FRABasic thousandFormatedStringFromNumber:@([[NSSpellChecker sharedSpellChecker] countWordsInString:[text substringWithRange:selectionRange] language:nil])], [FRABasic thousandFormatedStringFromNumber:@([[NSSpellChecker sharedSpellChecker] countWordsInString:text language:nil])]]];
 	} else {
-		[wordsTextField setStringValue:[NSString stringWithFormat:@"%@", [FRABasic thousandFormatedStringFromNumber:[NSNumber numberWithInteger:[[NSSpellChecker sharedSpellChecker] countWordsInString:text language:nil]]]]];
+		[wordsTextField setStringValue:[NSString stringWithFormat:@"%@", [FRABasic thousandFormatedStringFromNumber:@([[NSSpellChecker sharedSpellChecker] countWordsInString:text language:nil])]]];
 	}
 
 	[encodingTextField setStringValue:[document valueForKey:@"encodingName"]];
@@ -178,7 +178,7 @@ static id sharedInstance = nil;
 
 - (NSString *)stringFromPermissions:(NSUInteger)permissions 
 {
-    char permissionsString[10];
+    char permissionsString[12];
 	
 #if __LP64__
     strmode((short)permissions, permissionsString);
@@ -186,6 +186,8 @@ static id sharedInstance = nil;
 	strmode(permissions, permissionsString);
 #endif
 	
+    permissionsString[11] = '\0';
+    
 	NSMutableString *returnString = [NSMutableString stringWithUTF8String:permissionsString];
 	[returnString deleteCharactersInRange:NSMakeRange(0, 1)];
 	[returnString insertString:@" " atIndex:3];

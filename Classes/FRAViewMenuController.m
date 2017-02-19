@@ -1,18 +1,18 @@
 /*
-Fraise version 3.7 - Based on Smultron by Peter Borg
-Written by Jean-François Moy - jeanfrancois.moy@gmail.com
-Find the latest version at http://github.com/jfmoy/Fraise
+ Fraise version 3.7 - Based on Smultron by Peter Borg
+ 
+ Current Maintainer (since 2016): 
+ Andreas Bentele: abentele.github@icloud.com (https://github.com/abentele/Fraise)
+ 
+ Maintainer before macOS Sierra (2010-2016): 
+ Jean-François Moy: jeanfrancois.moy@gmail.com (http://github.com/jfmoy/Fraise)
 
-Copyright 2010 Jean-François Moy
+ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ http://www.apache.org/licenses/LICENSE-2.0
  
-http://www.apache.org/licenses/LICENSE-2.0
- 
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 */
-
-#import "FRAStandardHeader.h"
 
 #import "FRAViewMenuController.h"
 #import "FRAProjectsController.h"
@@ -27,6 +27,8 @@ Unless required by applicable law or agreed to in writing, software distributed 
 #import "FRALayoutManager.h"
 
 #import "PSMTabBarControl.h"
+#import "FRADocumentManagedObject.h"
+#import "FRATextView.h"
 
 @implementation FRAViewMenuController
 
@@ -59,8 +61,8 @@ static id sharedInstance = nil;
 		CGFloat newFraction = 0.5;
 		
 		NSSplitView *splitView = [FRACurrentProject contentSplitView];		
-		NSRect firstViewFrame = [[[splitView subviews] objectAtIndex:0] frame];
-		NSRect secondViewFrame = [[[splitView subviews] objectAtIndex:1] frame];
+		NSRect firstViewFrame = [[splitView subviews][0] frame];
+		NSRect secondViewFrame = [[splitView subviews][1] frame];
 		
 		
 		BOOL optionKeyDown = ((GetCurrentKeyModifiers() & (optionKey | rightOptionKey)) != 0) ? YES : NO;
@@ -77,9 +79,9 @@ static id sharedInstance = nil;
 			secondViewFrame.size.width = splitView.frame.size.width - firstViewFrame.size.width - [splitView dividerThickness];
 		}
 		
-		[[[[splitView subviews] objectAtIndex:0] animator] setFrame:firstViewFrame];		
-		[[[[splitView subviews] objectAtIndex:1] animator] setFrame:secondViewFrame];
-		[[[splitView subviews] objectAtIndex:1] setHidden:NO];
+		[[[splitView subviews][0] animator] setFrame:firstViewFrame];		
+		[[[splitView subviews][1] animator] setFrame:secondViewFrame];
+		[[splitView subviews][1] setHidden:NO];
 		
 		[splitView adjustSubviews];
 		
@@ -87,8 +89,6 @@ static id sharedInstance = nil;
 		[FRACurrentProject buildSecondContentViewNavigationBarMenu];
 		[[[FRACurrentProject firstDocument] valueForKey:@"syntaxColouring"] pageRecolour];
 	}
-	
-	//[FRACurrentProject updateSplitWindowToolbarItem];
 }
 
 
@@ -97,17 +97,17 @@ static id sharedInstance = nil;
 	CGFloat newFraction = 1.0;
 	
 	NSSplitView *splitView = [FRACurrentProject contentSplitView];
-	NSRect firstViewFrame = [[[splitView subviews] objectAtIndex:0] frame];
-	NSRect secondViewFrame = [[[splitView subviews] objectAtIndex:1] frame];
+	NSRect firstViewFrame = [[splitView subviews][0] frame];
+	NSRect secondViewFrame = [[splitView subviews][1] frame];
 	[splitView setVertical:NO];
 
 	CGFloat total = firstViewFrame.size.height + secondViewFrame.size.height + [splitView dividerThickness];
 	firstViewFrame.size.height = newFraction * total;
 	secondViewFrame.size.height = 0.0;
 
-	[[[[splitView subviews] objectAtIndex:0] animator] setFrame:firstViewFrame];
-	[[[[splitView subviews] objectAtIndex:1] animator] setFrame:secondViewFrame];
-	[[[splitView subviews] objectAtIndex:1] setHidden:YES];
+	[[[splitView subviews][0] animator] setFrame:firstViewFrame];
+	[[[splitView subviews][1] animator] setFrame:secondViewFrame];
+	[[splitView subviews][1] setHidden:YES];
 	
 	[splitView adjustSubviews];
 	
@@ -170,9 +170,9 @@ static id sharedInstance = nil;
 	}
 	
 	if ([[document valueForKey:@"isLineWrapped"] boolValue] == YES) {
-		[document setValue:[NSNumber numberWithBool:NO] forKey:@"isLineWrapped"];
+		[document setValue:@NO forKey:@"isLineWrapped"];
 	} else {
-		[document setValue:[NSNumber numberWithBool:YES] forKey:@"isLineWrapped"];
+		[document setValue:@YES forKey:@"isLineWrapped"];
 	}
 	
 	[FRACurrentProject resizeViewsForDocument:document];
@@ -240,7 +240,7 @@ static id sharedInstance = nil;
 				[anItem setTitle:NSLocalizedString(@"Show Tab Bar", @"Show Tab Bar in View menu")];
 			}
 		} else if (tag == 14) { // Show Documents List
-			if ([[[[FRACurrentProject mainSplitView] subviews] objectAtIndex:0] frame].size.width != 0.0) {
+			if ([[[FRACurrentProject mainSplitView] subviews][0] frame].size.width != 0.0) {
 				[anItem setTitle:NSLocalizedString(@"Hide Documents List", @"Hide Documents List in View menu")];
 			} else {
 				[anItem setTitle:NSLocalizedString(@"Show Documents List", @"Show Documents List in View menu")];
@@ -261,9 +261,9 @@ static id sharedInstance = nil;
 	id document = FRACurrentDocument;
 	if ([[document valueForKey:@"isSyntaxColoured"] boolValue] == YES) {
 		[[document valueForKey:@"syntaxColouring"] removeAllColours];
-		[document setValue:[NSNumber numberWithBool:NO] forKey:@"isSyntaxColoured"];
+		[document setValue:@NO forKey:@"isSyntaxColoured"];
 	} else {
-		[document setValue:[NSNumber numberWithBool:YES] forKey:@"isSyntaxColoured"];
+		[document setValue:@YES forKey:@"isSyntaxColoured"];
 		[[document valueForKey:@"syntaxColouring"] pageRecolour];
 	}
 
@@ -275,9 +275,9 @@ static id sharedInstance = nil;
 {
 	id document = FRACurrentDocument;
 	if ([[document valueForKey:@"showLineNumberGutter"] boolValue] == YES) {
-		[document setValue:[NSNumber numberWithBool:NO] forKey:@"showLineNumberGutter"];
+		[document setValue:@NO forKey:@"showLineNumberGutter"];
 	} else {
-		[document setValue:[NSNumber numberWithBool:YES] forKey:@"showLineNumberGutter"];
+		[document setValue:@YES forKey:@"showLineNumberGutter"];
 	}
 	
 	[FRACurrentProject resizeViewsForDocument:document];	
@@ -287,11 +287,11 @@ static id sharedInstance = nil;
 - (IBAction)showStatusBarAction:(id)sender
 {
 	if ([[FRADefaults valueForKey:@"ShowStatusBar"] boolValue] == YES) {
-		[FRADefaults setValue:[NSNumber numberWithBool:NO] forKey:@"ShowStatusBar"];
+		[FRADefaults setValue:@NO forKey:@"ShowStatusBar"];
 		[self performHideStatusBar];
 		
 	} else {
-		[FRADefaults setValue:[NSNumber numberWithBool:YES] forKey:@"ShowStatusBar"];
+		[FRADefaults setValue:@YES forKey:@"ShowStatusBar"];
 		NSArray *array = [[FRAProjectsController sharedDocumentController] documents];
 		for (id item in array) {
 			CGFloat statusBarHeight = [[item statusBarTextField] bounds].size.height;
@@ -330,51 +330,30 @@ static id sharedInstance = nil;
 {
 	id document = FRACurrentDocument;
 	if ([[document valueForKey:@"showInvisibleCharacters"] boolValue] == YES) {
-		[document setValue:[NSNumber numberWithBool:NO] forKey:@"showInvisibleCharacters"];
+		[document setValue:@NO forKey:@"showInvisibleCharacters"];
 	} else {
-		[document setValue:[NSNumber numberWithBool:YES] forKey:@"showInvisibleCharacters"];
+		[document setValue:@YES forKey:@"showInvisibleCharacters"];
 	}
 	
 	// To update visible range in all three (possible) views
-	NSArray *array = [[[document valueForKey:@"firstTextView"] textStorage] layoutManagers];
-	for (id item in array) {
-		NSTextContainer *textContainer = [[item textContainers] objectAtIndex:0];
+	NSArray<FRALayoutManager*> *layoutManagers = (NSArray<FRALayoutManager*> *)[[[document valueForKey:@"firstTextView"] textStorage] layoutManagers];
+	for (FRALayoutManager* layoutManager in layoutManagers) {
+		NSTextContainer *textContainer = [layoutManager textContainers][0];
 		NSScrollView *scrollView = [[textContainer textView] enclosingScrollView];
 		NSRect visibleRect = [[scrollView contentView] documentVisibleRect];
-		NSRange visibleRange = [item glyphRangeForBoundingRect:visibleRect inTextContainer:textContainer];
-		[item invalidateDisplayForGlyphRange:visibleRange];
-		[item setShowInvisibleCharacters:[[document valueForKey:@"showInvisibleCharacters"] boolValue]];
+		NSRange visibleRange = [layoutManager glyphRangeForBoundingRect:visibleRect inTextContainer:textContainer];
+		[layoutManager invalidateDisplayForGlyphRange:visibleRange];
+		[layoutManager setShowsInvisibleChars:[[document valueForKey:@"showInvisibleCharacters"] boolValue]];
 	}
 }
 
 
 - (IBAction)viewDocumentInSeparateWindowAction:(id)sender
 {
-	id document = [[[FRACurrentProject documentsArrayController] selectedObjects] objectAtIndex:0];
+	id document = [[FRACurrentProject documentsArrayController] selectedObjects][0];
 	[FRAInterface insertDocumentIntoThirdContentView:document orderFront:YES];
 	[FRACurrentProject updateWindowTitleBarForDocument:document];
 	
-}
-
-
-- (IBAction)viewDocumentInFullScreenAction:(id)sender
-{
-	if ([FRAMain isInFullScreenMode] == NO) {
-		if ([[FRADefaults valueForKey:@"UserHasBeenShownAlertHowToReturnFromFullScreen"] boolValue] == NO) {
-			[FRAVarious alertWithMessage:NSLocalizedString(@"Press the Escape-button on the keyboard to return from the full screen mode", @"Press the Escape-button on the keyboard to return from the full screen mode in Show Document In Full Screen") informativeText:NSLocalizedString(@"This message will NOT appear again so try to remember it:-)", @"This message will NOT appear again so try to remember it:-) in Show Document In Full Screen") defaultButton:OK_BUTTON alternateButton:nil otherButton:nil];
-			[FRADefaults setValue:[NSNumber numberWithBool:YES] forKey:@"UserHasBeenShownAlertHowToReturnFromFullScreen"];
-		}
-		id currentDocument = [[[FRACurrentProject documentsArrayController] selectedObjects] objectAtIndex:0];
-		if ([currentDocument valueForKey:@"singleDocumentWindow"] == nil) {
-			[FRAInterface insertDocumentIntoThirdContentView:currentDocument orderFront:NO];
-			[FRAMain setSingleDocumentWindowWasOpenBeforeEnteringFullScreen:NO];
-		} else {
-			[FRAMain setSingleDocumentWindowWasOpenBeforeEnteringFullScreen:YES];
-		}
-		
-		[FRAInterface enterFullScreenForDocument:currentDocument];
-		[FRAMain setIsInFullScreenMode:YES];
-	}
 }
 
 
@@ -383,11 +362,11 @@ static id sharedInstance = nil;
 	NSArray *selectedObjects = [[FRACurrentProject documentsArrayController] selectedObjects];
 	id selectedDocument = nil;
 	if ([selectedObjects count] > 0) {
-		selectedDocument = [selectedObjects objectAtIndex:0];
+		selectedDocument = selectedObjects[0];
 	}
 	
 	if ([[FRADefaults valueForKey:@"ShowTabBar"] boolValue] == YES) {
-		[FRADefaults setValue:[NSNumber numberWithBool:NO] forKey:@"ShowTabBar"];
+		[FRADefaults setValue:@NO forKey:@"ShowTabBar"];
 		[self performHideTabBar];
 		
 	} else {
@@ -396,7 +375,7 @@ static id sharedInstance = nil;
 		for (id item in array) {
 			CGFloat tabBarHeight = [[item tabBarControl] bounds].size.height;
 			NSRect mainSplitViewRect = [[item mainSplitView] frame];
-			[FRADefaults setValue:[NSNumber numberWithBool:YES] forKey:@"ShowTabBar"];
+			[FRADefaults setValue:@YES forKey:@"ShowTabBar"];
 			[[item tabBarControl] setHidden:NO];
 			[[item tabBarControl] hideTabBar:NO animate:YES];
 			[[item tabBarTabView] setHidden:NO];
@@ -411,7 +390,7 @@ static id sharedInstance = nil;
 	}
 	
 	if (selectedDocument != nil) {
-		[[FRACurrentProject documentsArrayController] setSelectedObjects:[NSArray arrayWithObject:selectedDocument]]; // Otherwise the selected document gets unselected when showing or hiding the tab bar
+		[[FRACurrentProject documentsArrayController] setSelectedObjects:@[selectedDocument]]; // Otherwise the selected document gets unselected when showing or hiding the tab bar
 	}
 }
 
@@ -439,7 +418,7 @@ static id sharedInstance = nil;
 {
 	NSSplitView *splitView = [FRACurrentProject mainSplitView];
 	
-	if ([[[splitView subviews] objectAtIndex:0] frame].size.width != 0.0) {
+	if ([[splitView subviews][0] frame].size.width != 0.0) {
 		[self performCollapseDocumentsView];
 	} else {
 		CGFloat newFraction = [[[FRACurrentProject valueForKey:@"project"] valueForKey:@"dividerPosition"] doubleValue];
@@ -447,15 +426,15 @@ static id sharedInstance = nil;
 			newFraction = 0.2;
 		}
 		
-		NSRect firstViewFrame = [[[splitView subviews] objectAtIndex:0] frame];
-		NSRect secondViewFrame = [[[splitView subviews] objectAtIndex:1] frame];
+		NSRect firstViewFrame = [[splitView subviews][0] frame];
+		NSRect secondViewFrame = [[splitView subviews][1] frame];
 		
 		CGFloat total = firstViewFrame.size.width + secondViewFrame.size.width + [splitView dividerThickness];
 		firstViewFrame.size.width = newFraction * total;
 		secondViewFrame.size.width = total - firstViewFrame.size.width - [splitView dividerThickness];
 		
-		[[[[splitView subviews] objectAtIndex:0] animator] setFrame:firstViewFrame];		
-		[[[[splitView subviews] objectAtIndex:1] animator] setFrame:secondViewFrame];
+		[[[splitView subviews][0] animator] setFrame:firstViewFrame];		
+		[[[splitView subviews][1] animator] setFrame:secondViewFrame];
 		
 		[FRACurrentProject insertView:[[[FRACurrentProject valueForKey:@"project"] valueForKey:@"view"] integerValue]];
 		[FRACurrentProject resizeViewSizeSlider];
@@ -471,15 +450,15 @@ static id sharedInstance = nil;
 	CGFloat newFraction = 1.0;
 	
 	NSSplitView *splitView = [FRACurrentProject mainSplitView];
-	NSRect firstViewFrame = [[[splitView subviews] objectAtIndex:0] frame];
-	NSRect secondViewFrame = [[[splitView subviews] objectAtIndex:1] frame];
+	NSRect firstViewFrame = [[splitView subviews][0] frame];
+	NSRect secondViewFrame = [[splitView subviews][1] frame];
 	
 	CGFloat total = firstViewFrame.size.width + secondViewFrame.size.width + [splitView dividerThickness];
 	firstViewFrame.size.width = newFraction * total;
 	secondViewFrame.size.width = 0.0;
 	
-	[[[[splitView subviews] objectAtIndex:1] animator] setFrame:firstViewFrame];
-	[[[[splitView subviews] objectAtIndex:0] animator] setFrame:secondViewFrame];
+	[[[splitView subviews][1] animator] setFrame:firstViewFrame];
+	[[[splitView subviews][0] animator] setFrame:secondViewFrame];
 	
 	[splitView adjustSubviews];
 }
@@ -500,9 +479,9 @@ static id sharedInstance = nil;
 - (IBAction)showSizeSliderAction:(id)sender
 {
 	if ([[FRADefaults valueForKey:@"ShowSizeSlider"] boolValue] == YES) {
-		[FRADefaults setValue:[NSNumber numberWithBool:NO] forKey:@"ShowSizeSlider"];
+		[FRADefaults setValue:@NO forKey:@"ShowSizeSlider"];
 	} else {
-		[FRADefaults setValue:[NSNumber numberWithBool:YES] forKey:@"ShowSizeSlider"];
+		[FRADefaults setValue:@YES forKey:@"ShowSizeSlider"];
 	}
 	
 	NSArray *array = [[FRAProjectsController sharedDocumentController] documents];

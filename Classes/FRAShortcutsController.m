@@ -1,18 +1,18 @@
 /*
-Fraise version 3.7 - Based on Smultron by Peter Borg
-Written by Jean-François Moy - jeanfrancois.moy@gmail.com
-Find the latest version at http://github.com/jfmoy/Fraise
+ Fraise version 3.7 - Based on Smultron by Peter Borg
+ 
+ Current Maintainer (since 2016): 
+ Andreas Bentele: abentele.github@icloud.com (https://github.com/abentele/Fraise)
+ 
+ Maintainer before macOS Sierra (2010-2016): 
+ Jean-François Moy: jeanfrancois.moy@gmail.com (http://github.com/jfmoy/Fraise)
 
-Copyright 2010 Jean-François Moy
+ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ http://www.apache.org/licenses/LICENSE-2.0
  
-http://www.apache.org/licenses/LICENSE-2.0
- 
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 */
-
-#import "FRAStandardHeader.h"
 
 #import "FRAShortcutsController.h"
 #import "FRACommandsController.h"
@@ -44,8 +44,8 @@ static id sharedInstance = nil;
 
 - (void)registerSnippetShortcutWithEvent:(NSEvent *)event
 {
-	id snippet = [[[[FRASnippetsController sharedInstance] snippetsArrayController] selectedObjects] objectAtIndex:0];	
-	[snippet setValue:[NSNumber numberWithUnsignedInteger:[event modifierFlags]] forKey:@"shortcutModifier"];
+	id snippet = [[[FRASnippetsController sharedInstance] snippetsArrayController] selectedObjects][0];	
+	[snippet setValue:@([event modifierFlags]) forKey:@"shortcutModifier"];
 	[snippet setValue:[self menuItemKeyStringFromEvent:event] forKey:@"shortcutMenuItemKeyString"];
 	[snippet setValue:[[self plainModifierStringFromEvent:event] stringByAppendingString:[self plainKeyStringFromEvent:event]] forKey:@"shortcutDisplayString"];
 }
@@ -53,7 +53,7 @@ static id sharedInstance = nil;
 
 - (void)unregisterSelectedSnippetShortcut
 {
-	id snippet = [[[[FRASnippetsController sharedInstance] snippetsArrayController] selectedObjects] objectAtIndex:0];	
+	id snippet = [[[FRASnippetsController sharedInstance] snippetsArrayController] selectedObjects][0];	
 	
 	[snippet setValue:nil forKey:@"shortcutModifier"];
 	[snippet setValue:nil forKey:@"shortcutMenuItemKeyString"];
@@ -63,8 +63,8 @@ static id sharedInstance = nil;
 
 - (void)registerCommandShortcutWithEvent:(NSEvent *)event
 {
-	id command = [[[[FRACommandsController sharedInstance] commandsArrayController] selectedObjects] objectAtIndex:0];	
-	[command setValue:[NSNumber numberWithUnsignedInteger:[event modifierFlags]] forKey:@"shortcutModifier"];
+	id command = [[[FRACommandsController sharedInstance] commandsArrayController] selectedObjects][0];	
+	[command setValue:@([event modifierFlags]) forKey:@"shortcutModifier"];
 	[command setValue:[self menuItemKeyStringFromEvent:event] forKey:@"shortcutMenuItemKeyString"];
 	[command setValue:[[self plainModifierStringFromEvent:event] stringByAppendingString:[self plainKeyStringFromEvent:event]] forKey:@"shortcutDisplayString"];
 }
@@ -72,7 +72,7 @@ static id sharedInstance = nil;
 
 - (void)unregisterSelectedCommandShortcut
 {
-	id command = [[[[FRACommandsController sharedInstance] commandsArrayController] selectedObjects] objectAtIndex:0];	
+	id command = [[[FRACommandsController sharedInstance] commandsArrayController] selectedObjects][0];	
 	
 	[command setValue:nil forKey:@"shortcutModifier"];
 	[command setValue:nil forKey:@"shortcutMenuItemKeyString"];
@@ -161,10 +161,10 @@ static id sharedInstance = nil;
 	else if (keyCode == 0x77) returnString = [NSString stringWithFormat:@"%C", 0x2198]; // end
 	else if (keyCode == 0x74) returnString = [NSString stringWithFormat:@"%C", 0x21DE]; // page up
 	else if (keyCode == 0x79) returnString = [NSString stringWithFormat:@"%C", 0x21DF]; // page down
-	else if (keyCode == 0x72) returnString = [NSString stringWithString:@"?"]; // help
+	else if (keyCode == 0x72) returnString = @"?"; // help
 	
 	else {
-		if ([event modifierFlags] & NSShiftKeyMask) { // If Shift is pressed, get the character this way so the "correct" character will be displayed, e.g. 3 and not #
+		if ([event modifierFlags] & NSEventModifierFlagShift) { // If Shift is pressed, get the character this way so the "correct" character will be displayed, e.g. 3 and not #
 			OSStatus err;
 			
 			static UInt32 deadKeyState = 0;
@@ -176,7 +176,7 @@ static id sharedInstance = nil;
 			
 			CFDataRef uchrDataRef = (CFDataRef)TISGetInputSourceProperty(kbInputSourceRef, kTISPropertyUnicodeKeyLayoutData);
 				
-			err = UCKeyTranslate((const UCKeyboardLayout *)CFDataGetBytePtr(uchrDataRef), keyCode, kUCKeyActionDown, [self carbonModifierFromCocoaModifier:[event modifierFlags]], LMGetKbdType(), kUCKeyTranslateNoDeadKeysMask, &deadKeyState, maxStringLength, &actualStringLength, unicodeString);
+			err = UCKeyTranslate((const UCKeyboardLayout *)CFDataGetBytePtr(uchrDataRef), keyCode, kUCKeyActionDown, (UInt32) [self carbonModifierFromCocoaModifier:[event modifierFlags]], LMGetKbdType(), kUCKeyTranslateNoDeadKeysMask, &deadKeyState, maxStringLength, &actualStringLength, unicodeString);
 			returnString = [NSString stringWithCharacters:unicodeString length:1];
 	
 			if (err != noErr) {
@@ -198,25 +198,25 @@ static id sharedInstance = nil;
 	NSString *returnString;
 	NSInteger keyCode = [event keyCode];
 	
-	if (keyCode == 0x7A) returnString = [NSString stringWithString:@"F1"];
-	else if (keyCode == 0x78) returnString = [NSString stringWithString:@"F2"];
-	else if (keyCode == 0x63) returnString = [NSString stringWithString:@"F3"];
-	else if (keyCode == 0x76) returnString = [NSString stringWithString:@"F4"];
-	else if (keyCode == 0x60) returnString = [NSString stringWithString:@"F5"];
-	else if (keyCode == 0x61) returnString = [NSString stringWithString:@"F6"];
-	else if (keyCode == 0x62) returnString = [NSString stringWithString:@"F7"];
-	else if (keyCode == 0x64) returnString = [NSString stringWithString:@"F8"];
-	else if (keyCode == 0x65) returnString = [NSString stringWithString:@"F9"];
-	else if (keyCode == 0x6D) returnString = [NSString stringWithString:@"F10"];
-	else if (keyCode == 0x67) returnString = [NSString stringWithString:@"F11"];
-	else if (keyCode == 0x6F) returnString = [NSString stringWithString:@"F12"];
-	else if (keyCode == 0x69) returnString = [NSString stringWithString:@"F13"];
-	else if (keyCode == 0x6B) returnString = [NSString stringWithString:@"F14"];
-	else if (keyCode == 0x71) returnString = [NSString stringWithString:@"F15"];
-	else if (keyCode == 0x6A) returnString = [NSString stringWithString:@"F16"];
-	else if (keyCode == 0x40) returnString = [NSString stringWithString:@"F17"];
-	else if (keyCode == 0x4F) returnString = [NSString stringWithString:@"F18"];
-	else if (keyCode == 0x50) returnString = [NSString stringWithString:@"F19"];
+	if (keyCode == 0x7A) returnString = @"F1";
+	else if (keyCode == 0x78) returnString = @"F2";
+	else if (keyCode == 0x63) returnString = @"F3";
+	else if (keyCode == 0x76) returnString = @"F4";
+	else if (keyCode == 0x60) returnString = @"F5";
+	else if (keyCode == 0x61) returnString = @"F6";
+	else if (keyCode == 0x62) returnString = @"F7";
+	else if (keyCode == 0x64) returnString = @"F8";
+	else if (keyCode == 0x65) returnString = @"F9";
+	else if (keyCode == 0x6D) returnString = @"F10";
+	else if (keyCode == 0x67) returnString = @"F11";
+	else if (keyCode == 0x6F) returnString = @"F12";
+	else if (keyCode == 0x69) returnString = @"F13";
+	else if (keyCode == 0x6B) returnString = @"F14";
+	else if (keyCode == 0x71) returnString = @"F15";
+	else if (keyCode == 0x6A) returnString = @"F16";
+	else if (keyCode == 0x40) returnString = @"F17";
+	else if (keyCode == 0x4F) returnString = @"F18";
+	else if (keyCode == 0x50) returnString = @"F19";
 	else
 		returnString = [self menuItemKeyStringFromEvent:event];
 	
@@ -229,19 +229,19 @@ static id sharedInstance = nil;
 	NSMutableString *returnString = [NSMutableString stringWithString:@""];
 	NSInteger modifier = [event modifierFlags];
 	
-	if (modifier & NSCommandKeyMask) {
+	if (modifier & NSEventModifierFlagCommand) {
 		[returnString appendString:[NSString stringWithFormat:@"%C", 0x2318]];
 	}
 	
-	if (modifier & NSAlternateKeyMask) {
+	if (modifier & NSEventModifierFlagOption) {
 		[returnString appendString:[NSString stringWithFormat:@"%C", 0x2325]];
 	}
 	
-	if (modifier & NSControlKeyMask) {
+	if (modifier & NSEventModifierFlagControl) {
 		[returnString appendString:[NSString stringWithFormat:@"%C", 0x2303]];
 	}
 	
-	if (modifier & NSShiftKeyMask) {
+	if (modifier & NSEventModifierFlagShift) {
 		[returnString appendString:[NSString stringWithFormat:@"%C", 0x21E7]];
 	}	
 	
@@ -252,10 +252,10 @@ static id sharedInstance = nil;
 - (NSUInteger)carbonModifierFromCocoaModifier:(NSUInteger)cocoaModifier
 {
 	NSUInteger carbonModifier = 0;
-	if (cocoaModifier & NSShiftKeyMask) carbonModifier |= shiftKey;
-	if (cocoaModifier & NSControlKeyMask) carbonModifier |= controlKey;
-	if (cocoaModifier & NSCommandKeyMask) carbonModifier |= cmdKey;
-	if (cocoaModifier & NSAlternateKeyMask) carbonModifier |= optionKey;
+	if (cocoaModifier & NSEventModifierFlagShift) carbonModifier |= shiftKey;
+	if (cocoaModifier & NSEventModifierFlagControl) carbonModifier |= controlKey;
+	if (cocoaModifier & NSEventModifierFlagCommand) carbonModifier |= cmdKey;
+	if (cocoaModifier & NSEventModifierFlagOption) carbonModifier |= optionKey;
 	
 	return carbonModifier;
 }
