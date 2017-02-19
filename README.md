@@ -7,5 +7,5 @@ All open issues were copied to the new repository.
 
 # Releases
 
-Please look on the new page: https://github.com/abentele/Erbele/releases.
-The last releases of Fraise are on [Releases](https://github.com/abentele/Fraise/releases).
+Please uninstall Fraise and move to Erbele: 
+https://github.com/abentele/Erbele/releases.
